@@ -1,0 +1,15 @@
+{
+  "name": "libreriaV1",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev:front": "pnpm --filter frontend start",
+    "dev:back": "pnpm --filter backend dev",
+    "dev": "pnpm --parallel --filter frontend --filter backend run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0"
+}
