@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class LoginComponent {
     const { identificador, password } = this.form.value;
     this.auth.login(identificador!, password!).subscribe({
       next: () => this.router.navigate(['/admin/dashboard']),
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'Credenciales incorrectas');
         this.loading.set(false);
       }

@@ -1,0 +1,8 @@
+.admin-layout {
+  min-height: 100vh;
+  background: var(--color-crema);
+}
+
+.admin-layout__content {
+  padding: 24px;
+}
