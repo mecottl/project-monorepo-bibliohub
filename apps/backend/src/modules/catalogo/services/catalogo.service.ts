@@ -203,7 +203,6 @@ export class CatalogoService {
       throw new NotFoundException(`Libro con id ${id} no encontrado`);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const ventasAsociadas = await this.dataSource
       .createQueryBuilder()
       .select('1')

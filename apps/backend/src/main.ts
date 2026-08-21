@@ -31,4 +31,4 @@ async function bootstrap() {
   console.log(`Servidor corriendo en http://localhost:${port}/api`);
   console.log(`Swagger en http://localhost:${port}/api/docs`);
 }
-bootstrap();
+void bootstrap();

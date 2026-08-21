@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
-import { Sesion } from '../../database/entities/sesion.entity';
+import { Sesion } from '../../../database/entities/sesion.entity';
 import type {
   JwtPayload,
   AuthenticatedUser,
