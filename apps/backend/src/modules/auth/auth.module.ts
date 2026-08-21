@@ -6,10 +6,10 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { Cliente } from '../database/entities/cliente.entity';
-import { Empleado } from '../database/entities/empleado.entity';
-import { LogAcceso } from '../database/entities/log-acceso.entity';
-import { Sesion } from '../database/entities/sesion.entity';
+import { Cliente } from '../../database/entities/cliente.entity';
+import { Empleado } from '../../database/entities/empleado.entity';
+import { LogAcceso } from '../../database/entities/log-acceso.entity';
+import { Sesion } from '../../database/entities/sesion.entity';
 
 @Module({
   imports: [

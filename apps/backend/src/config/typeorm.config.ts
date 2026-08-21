@@ -9,6 +9,7 @@ import { Categoria } from '../database/entities/categoria.entity';
 import { Autor } from '../database/entities/autor.entity';
 import { Libro } from '../database/entities/libro.entity';
 import { LibroAutor } from '../database/entities/libro-autor.entity';
+import { MovimientoInventario } from '../database/entities/movimiento-inventario.entity';
 
 export default registerAs(
   'database',
@@ -29,6 +30,7 @@ export default registerAs(
       Autor,
       Libro,
       LibroAutor,
+      MovimientoInventario,
     ],
     synchronize: false,
     logging: process.env.NODE_ENV === 'development',

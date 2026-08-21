@@ -3,12 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import typeormConfig from './config/typeorm.config';
-import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { RolesGuard } from './auth/guards/roles.guard';
+import { AuthModule } from './modules/auth/auth.module';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatalogoModule } from './modules/catalogo/catalogo.module';
+import { InventarioModule } from './modules/inventory/inventario.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CatalogoModule } from './modules/catalogo/catalogo.module';
     }),
     AuthModule,
     CatalogoModule,
+    InventarioModule,
   ],
   controllers: [AppController],
   providers: [
