@@ -32,8 +32,8 @@
                 "src/styles/variables.css",
                 "src/styles/reset.css",
                 "src/styles/typography.css",
-                "src/styles.css",
-                "src/styles/buttons.css"
+                "src/styles/buttons.css",
+                "src/styles.css"
               ]
           },
           "configurations": {

@@ -1,6 +1,6 @@
 :root {
-  /* // ─── Colores base ─────────────────────────────────────────────── */
-  
+  /* ─── Colores base ─────────────────────────────────────────────── */
+
   --color-crema:        #F5F1E8;   /* fondo general */
   --color-beige:        #E8DFD1;   /* cards, secciones */
   --color-cafe-claro:   #C8A97E;   /* botones secundarios / hover */
@@ -15,18 +15,18 @@
   --color-warning:      #FFC107;   /* advertencia / stock bajo */
   --color-success:      #4CAF50;   /* éxito / disponible */
 
-  /* // ─── Tipografía ───────────────────────────────────────────────── */
+  /* ─── Tipografía ───────────────────────────────────────────────── */
   --font-display: 'Playfair Display', Georgia, serif;
   --font-ui:      'Inter', system-ui, sans-serif;
 
-  /* // ─── Layout ─────────────────────────────────────────────────── */
+  /* ─── Layout ─────────────────────────────────────────────────── */
   --sidebar-width:     240px;
   --topbar-height:     60px;
   --border-radius-sm:  6px;
   --border-radius-md:  10px;
   --border-radius-lg:  14px;
 
-  /* // ─── Sombras ──────────────────────────────────────────────── */
+  /* ─── Sombras ──────────────────────────────────────────────── */
   --shadow-card:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-modal: 0 4px 20px rgba(0,0,0,0.15);
 }
