@@ -13,21 +13,16 @@ export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    // eslint-disable-next-line prettier/prettier
-    const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
-        // eslint-disable-next-line prettier/prettier
-      context.getHandler(),
-        context.getClass(),
-      ],
+    const requiredRoles = this.reflector.getAllAndOverride<string[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()],
     );
 
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const request = context.switchToHttp().getRequest();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const user: AuthenticatedUser = request.user;
 
     if (!user || !requiredRoles.includes(user.rol)) {
