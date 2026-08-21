@@ -8,6 +8,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CatalogoModule } from './modules/catalogo/catalogo.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AppService } from './app.service';
         config.get<TypeOrmModuleOptions>('database')!,
     }),
     AuthModule,
+    CatalogoModule,
   ],
   controllers: [AppController],
   providers: [

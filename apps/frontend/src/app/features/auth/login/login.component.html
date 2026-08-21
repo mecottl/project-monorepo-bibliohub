@@ -1,0 +1,42 @@
+<div class="login-page">
+
+  <div class="login-page__brand">
+    <h1 class="login-page__brand-title font-display">Librería</h1>
+    <blockquote class="login-page__quote">
+      "Un lector vive mil vidas antes de morir."
+      — George R.R. Martin
+    </blockquote>
+  </div>
+
+  <div class="login-page__form-wrapper">
+    <div class="login-page__card">
+
+      <h2>Iniciar sesión</h2>
+      <p class="login-page__subtitle">Ingresa con tu usuario o teléfono</p>
+
+      @if (error()) {
+      <p class="login-page__error">{{ error() }}</p>
+      }
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="field">
+          <label for="identificador">Usuario o teléfono</label>
+          <input id="identificador" type="text" formControlName="identificador" placeholder="admin1 o 9991234567"
+            autocomplete="username" />
+        </div>
+
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" formControlName="password" placeholder="••••••••"
+            autocomplete="current-password" />
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="form.invalid || loading()">
+          {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+</div>

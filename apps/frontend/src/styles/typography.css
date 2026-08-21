@@ -1,0 +1,23 @@
+.font-display {
+    font-family: var(--font-display);
+}
+
+.font-ui {
+    font-family: var(--font-ui);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    color: var(--color-negro-suave);
+}
+
+body,
+p,
+span,
+td,
+label,
+button {
+    font-family: var(--font-ui);
+}

@@ -1,0 +1,54 @@
+import { Injectable, inject, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { AuthUser, LoginResponse } from './auth.model';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private readonly API = 'http://localhost:2077/api';
+
+  currentUser = signal<AuthUser | null>(null);
+  isAuthenticated = computed(() => this.currentUser() !== null);
+  isAdmin = computed(() => this.currentUser()?.rol === 'admin');
+  isCajero = computed(() => this.currentUser()?.rol === 'cajero');
+
+  constructor() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      this.currentUser.set(JSON.parse(user));
+    }
+  }
+
+  login(identificador: string, password: string) {
+    return this.http
+      .post<LoginResponse>(`${this.API}/auth/login`, { identificador, password })
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('token', res.accessToken);
+          localStorage.setItem('user', JSON.stringify(res.perfil));
+          this.currentUser.set(res.perfil);
+        })
+      );
+  }
+
+  logout() {
+    return this.http.post(`${this.API}/auth/logout`, {}).pipe(
+      tap(() => this.clearSession())
+    );
+  }
+
+  private clearSession() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUser.set(null);
+    this.router.navigate(['/login']);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+}

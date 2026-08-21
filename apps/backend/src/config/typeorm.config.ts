@@ -4,6 +4,11 @@ import { Cliente } from '../database/entities/cliente.entity';
 import { Empleado } from '../database/entities/empleado.entity';
 import { Sesion } from '../database/entities/sesion.entity';
 import { LogAcceso } from '../database/entities/log-acceso.entity';
+import { Editorial } from '../database/entities/editorial.entity';
+import { Categoria } from '../database/entities/categoria.entity';
+import { Autor } from '../database/entities/autor.entity';
+import { Libro } from '../database/entities/libro.entity';
+import { LibroAutor } from '../database/entities/libro-autor.entity';
 
 export default registerAs(
   'database',
@@ -13,8 +18,18 @@ export default registerAs(
     port: parseInt(process.env.DB_PORT || '5432', 10),
     username: process.env.DB_USERNAME || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
-    database: process.env.DB_NAME || 'LibreriaV1',
-    entities: [Cliente, Empleado, Sesion, LogAcceso],
+    database: process.env.DB_NAME || 'bibliohubv1',
+    entities: [
+      Cliente,
+      Empleado,
+      Sesion,
+      LogAcceso,
+      Editorial,
+      Categoria,
+      Autor,
+      Libro,
+      LibroAutor,
+    ],
     synchronize: false,
     logging: process.env.NODE_ENV === 'development',
   }),

@@ -1,4 +1,4 @@
-# LibreriaV1 - Arquitectura del Proyecto
+# bibliohub - Arquitectura del Proyecto
 
 ## Stack Tecnológico
 
@@ -17,7 +17,7 @@
 # Estructura General
 
 ```
-libreriaV1/
+bibliohub/
 
 apps/
     backend/

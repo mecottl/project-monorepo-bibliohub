@@ -8,7 +8,11 @@
   "projects": {
     "frontend": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,8 +29,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
-            ]
+                "src/styles/variables.css",
+                "src/styles/reset.css",
+                "src/styles/typography.css",
+                "src/styles.css",
+                "src/styles/buttons.css"
+              ]
           },
           "configurations": {
             "production": {
