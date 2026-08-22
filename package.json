@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev:front": "pnpm --filter frontend start",
-    "dev:back": "pnpm --filter backend dev",
-    "dev": "pnpm --parallel --filter frontend --filter backend run dev"
+    "dev:back": "pnpm --filter backend start:dev",
+    "dev": "pnpm -w run \"/^dev:.+/\""
   },
   "keywords": [],
   "author": "",
