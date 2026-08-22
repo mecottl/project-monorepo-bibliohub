@@ -1,0 +1,23 @@
+@if (open()) {
+  <div class="confirm-modal-backdrop" (click)="onCancel()">
+    <div
+      class="confirm-modal"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirm-modal-title"
+      aria-describedby="confirm-modal-message"
+      (click)="$event.stopPropagation()"
+    >
+      <h2 id="confirm-modal-title" class="font-display">{{ title() }}</h2>
+      <p id="confirm-modal-message">{{ message() }}</p>
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn-outline" (click)="onCancel()">
+          {{ cancelLabel() }}
+        </button>
+        <button type="button" class="btn-danger" (click)="onConfirm()">
+          {{ confirmLabel() }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,21 @@
+<nav class="pagination" aria-label="Paginación">
+  <button
+    type="button"
+    [disabled]="!canGoPrev()"
+    aria-label="Página anterior"
+    (click)="goPrev()"
+  >
+    ‹ Anterior
+  </button>
+  <span class="pagination-status" aria-live="polite">
+    Página {{ page() }} de {{ totalPages() }}
+  </span>
+  <button
+    type="button"
+    [disabled]="!canGoNext()"
+    aria-label="Página siguiente"
+    (click)="goNext()"
+  >
+    Siguiente ›
+  </button>
+</nav>

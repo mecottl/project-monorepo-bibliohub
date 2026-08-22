@@ -1,0 +1,19 @@
+<div class="search-input">
+  <input
+    type="search"
+    [attr.aria-label]="ariaLabel()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    (input)="onInput($event)"
+  />
+  @if (value().length > 0) {
+    <button
+      type="button"
+      class="search-input-clear"
+      aria-label="Limpiar búsqueda"
+      (click)="clear()"
+    >
+      ×
+    </button>
+  }
+</div>

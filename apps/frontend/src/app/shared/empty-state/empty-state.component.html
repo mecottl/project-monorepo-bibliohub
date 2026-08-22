@@ -1,0 +1,7 @@
+<div class="empty-state" role="status">
+  <p class="empty-state-title">{{ title() }}</p>
+  @if (description()) {
+    <p class="empty-state-description">{{ description() }}</p>
+  }
+  <ng-content></ng-content>
+</div>

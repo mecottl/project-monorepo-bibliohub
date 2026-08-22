@@ -1,0 +1,7 @@
+<div class="stat-card" role="group" [attr.aria-label]="label()">
+  <span class="stat-card-value font-display">{{ value() }}</span>
+  <span class="stat-card-label">{{ label() }}</span>
+  @if (hint()) {
+    <span class="stat-card-hint">{{ hint() }}</span>
+  }
+</div>

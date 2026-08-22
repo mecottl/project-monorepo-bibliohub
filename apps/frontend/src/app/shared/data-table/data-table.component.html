@@ -1,0 +1,44 @@
+<div class="data-table-wrapper">
+  @if (loading()) {
+    <div class="data-table-loading" role="status" aria-live="polite">Cargando…</div>
+  } @else if (!hasData()) {
+    <ng-content select="[emptyState]"></ng-content>
+  } @else {
+    <table class="data-table" role="table">
+      <thead>
+        <tr role="row">
+          @for (column of columns(); track column.key) {
+            <th
+              role="columnheader"
+              scope="col"
+              [class.align-center]="column.align === 'center'"
+              [class.align-right]="column.align === 'right'"
+            >
+              {{ column.label }}
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of data(); track trackRow($index, row)) {
+          <tr
+            role="row"
+            tabindex="0"
+            (click)="onRowClick(row)"
+            (keyup.enter)="onRowClick(row)"
+          >
+            @for (column of columns(); track column.key) {
+              <td
+                role="cell"
+                [class.align-center]="column.align === 'center'"
+                [class.align-right]="column.align === 'right'"
+              >
+                {{ cellValue(row, column) }}
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
