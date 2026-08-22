@@ -1,0 +1,51 @@
+<section class="libros-listado">
+  <header class="libros-listado__header">
+    <h1 class="font-display">Inventario — Libros</h1>
+    <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
+  </header>
+
+  <app-search-input
+    ariaLabel="Buscar libro por título"
+    placeholder="Buscar por título…"
+    (search)="onSearch($event)"
+  />
+
+  <app-data-table
+    [columns]="columns"
+    [data]="libros()"
+    [loading]="loading()"
+    trackByKey="id"
+    [rowActionsTemplate]="acciones"
+    (rowClick)="irAEditar($event)"
+  >
+    <app-empty-state
+      emptyState
+      title="No hay libros que coincidan"
+      description="Prueba con otro término de búsqueda o crea un libro nuevo."
+    />
+  </app-data-table>
+
+  <ng-template #acciones let-libro>
+    <button type="button" class="libros-listado__accion" (click)="irAMovimiento(libro)">
+      Movimiento
+    </button>
+    <button type="button" class="libros-listado__accion" (click)="pedirEliminar(libro)">
+      Eliminar
+    </button>
+  </ng-template>
+
+  <app-pagination
+    [page]="page()"
+    [totalPages]="totalPages()"
+    (pageChange)="onPageChange($event)"
+  />
+
+  <app-confirm-modal
+    [open]="libroAEliminar() !== null"
+    title="Eliminar libro"
+    [message]="eliminarMensaje()"
+    confirmLabel="Eliminar"
+    (confirmed)="confirmarEliminar()"
+    (cancelled)="cancelarEliminar()"
+  />
+</section>

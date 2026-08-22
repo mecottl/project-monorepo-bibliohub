@@ -48,6 +48,13 @@
   text-align: right;
 }
 
+.data-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  cursor: default;
+}
+
 .data-table-loading {
   padding: 2rem;
   text-align: center;

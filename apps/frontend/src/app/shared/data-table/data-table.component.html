@@ -17,6 +17,11 @@
               {{ column.label }}
             </th>
           }
+          @if (rowActionsTemplate()) {
+            <th role="columnheader" scope="col" class="align-right">
+              <span class="sr-only">Acciones</span>
+            </th>
+          }
         </tr>
       </thead>
       <tbody>
@@ -34,6 +39,14 @@
                 [class.align-right]="column.align === 'right'"
               >
                 {{ cellValue(row, column) }}
+              </td>
+            }
+            @if (rowActionsTemplate()) {
+              <td role="cell" class="align-right data-table-actions" (click)="$event.stopPropagation()">
+                <ng-container
+                  [ngTemplateOutlet]="rowActionsTemplate()"
+                  [ngTemplateOutletContext]="{ $implicit: row }"
+                ></ng-container>
               </td>
             }
           </tr>

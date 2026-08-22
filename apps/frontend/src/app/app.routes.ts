@@ -20,11 +20,10 @@ export const routes: Routes = [
       {
         path: 'inventario',
         canActivate: [authGuard],
-        loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Inventario' }
+        loadChildren: () =>
+          import('./features/inventario/inventario.routes').then(
+            m => m.INVENTARIO_ROUTES
+          )
       },
       {
         path: 'ventas',

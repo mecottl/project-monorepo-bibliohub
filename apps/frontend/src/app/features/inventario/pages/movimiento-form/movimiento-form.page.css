@@ -1,0 +1,72 @@
+.movimiento-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.movimiento-form h1 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.movimiento-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-gris-oscuro);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-family: var(--font-ui);
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--color-cafe-medio);
+}
+
+.movimiento-form__hint {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-gris-claro);
+  margin-top: 6px;
+}
+
+.movimiento-form__error {
+  color: var(--color-error);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.movimiento-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.movimiento-form__actions .btn-outline,
+.movimiento-form__actions .btn-primary {
+  width: auto;
+}

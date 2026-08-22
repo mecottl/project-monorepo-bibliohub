@@ -1,0 +1,47 @@
+<section class="movimiento-form">
+  <h1 class="font-display">Registrar movimiento de stock</h1>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="field">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" formControlName="tipo">
+        <option value="entrada">Entrada</option>
+        <option value="salida">Salida</option>
+        <option value="ajuste">Ajuste</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="cantidad">Cantidad</label>
+      <input
+        id="cantidad"
+        type="number"
+        [attr.min]="esAjuste() ? null : 1"
+        formControlName="cantidad"
+      />
+      <p class="movimiento-form__hint">
+        @if (esAjuste()) {
+          Puedes usar un número negativo para reducir el stock.
+        } @else {
+          Ingresa solo la cantidad; el signo se aplica automáticamente según el tipo.
+        }
+      </p>
+    </div>
+
+    <div class="field">
+      <label for="motivo">Motivo (opcional)</label>
+      <input id="motivo" type="text" formControlName="motivo" />
+    </div>
+
+    @if (errorMensaje()) {
+      <p class="movimiento-form__error" role="alert">{{ errorMensaje() }}</p>
+    }
+
+    <div class="movimiento-form__actions">
+      <button type="button" class="btn-outline" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando…' : 'Registrar' }}
+      </button>
+    </div>
+  </form>
+</section>

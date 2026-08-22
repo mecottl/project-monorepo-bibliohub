@@ -1,18 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, output } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { DataTableColumn } from './data-table.model';
 
 @Component({
   selector: 'app-data-table',
-  imports: [],
+  imports: [NgTemplateOutlet],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataTableComponent<T extends Record<string, unknown>> {
+export class DataTableComponent<T extends object> {
   columns = input.required<DataTableColumn<T>[]>();
   data = input<T[]>([]);
   loading = input(false);
   trackByKey = input<keyof T | null>(null);
+  rowActionsTemplate = input<TemplateRef<{ $implicit: T }> | null>(null);
 
   rowClick = output<T>();
 

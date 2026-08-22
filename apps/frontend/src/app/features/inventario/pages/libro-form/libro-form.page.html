@@ -1,0 +1,74 @@
+<section class="libro-form">
+  <h1 class="font-display">{{ esEdicion ? 'Editar libro' : 'Nuevo libro' }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="field">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" formControlName="titulo" />
+    </div>
+
+    <div class="field">
+      <label for="isbn">ISBN</label>
+      <input id="isbn" type="text" formControlName="isbn" />
+    </div>
+
+    <div class="field">
+      <label for="precioVenta">Precio de venta</label>
+      <input id="precioVenta" type="number" step="0.01" formControlName="precioVenta" />
+    </div>
+
+    <div class="field">
+      <label for="precioCosto">Precio de costo</label>
+      <input id="precioCosto" type="number" step="0.01" formControlName="precioCosto" />
+    </div>
+
+    @if (!esEdicion) {
+      <div class="field">
+        <label for="stockActual">Stock inicial</label>
+        <input id="stockActual" type="number" formControlName="stockActual" />
+      </div>
+    }
+
+    <div class="field">
+      <label for="stockMinimo">Stock mínimo</label>
+      <input id="stockMinimo" type="number" formControlName="stockMinimo" />
+    </div>
+
+    <div class="field">
+      <label for="editorialId">Editorial</label>
+      <select id="editorialId" formControlName="editorialId">
+        <option value="" disabled>Selecciona una editorial</option>
+        @for (editorial of editoriales(); track editorial.id) {
+          <option [value]="editorial.id">{{ editorial.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="categoriaId">Categoría</label>
+      <select id="categoriaId" formControlName="categoriaId">
+        <option value="" disabled>Selecciona una categoría</option>
+        @for (categoria of categorias(); track categoria.id) {
+          <option [value]="categoria.id">{{ categoria.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    @if (esEdicion) {
+      <p class="libro-form__hint">
+        El stock se ajusta desde "Movimiento" en el listado, no desde este formulario.
+      </p>
+    }
+
+    @if (errorMensaje()) {
+      <p class="libro-form__error" role="alert">{{ errorMensaje() }}</p>
+    }
+
+    <div class="libro-form__actions">
+      <button type="button" class="btn-outline" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-primary" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando…' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</section>
