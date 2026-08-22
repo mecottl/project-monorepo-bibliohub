@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth/auth.service';
       <h1 class="font-display">Dashboard</h1>
       @if (auth.currentUser(); as user) {
         <p>Bienvenido, {{ user.nombre }}</p>
-        <p>Rol: {{ user.rol ?? user.tipo }}</p>
+        <p>Rol: {{ user.rol }}</p>
       }
     </div>
   `

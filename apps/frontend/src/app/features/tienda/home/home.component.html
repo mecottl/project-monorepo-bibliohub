@@ -1,0 +1,57 @@
+<section class="tienda-home">
+  <label class="tienda-home__search">
+    <svg class="tienda-home__search-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    <span class="sr-only">Buscar</span>
+    <input
+      #searchInput
+      type="search"
+      class="tienda-home__search-input"
+      placeholder="Buscar"
+      [value]="searchTerm()"
+      (input)="onSearchInput(searchInput.value)"
+    />
+  </label>
+
+  <h2 class="tienda-home__heading font-display">Destacados</h2>
+
+  @if (loadingLibros()) {
+    <p class="tienda-home__status">Cargando libros...</p>
+  } @else if (libros().length === 0) {
+    <p class="tienda-home__status">No se encontraron libros.</p>
+  } @else {
+    <div class="tienda-home__grid">
+      @for (libro of libros(); track libro.id) {
+        <article class="book-card">
+          <div class="book-card__cover" aria-hidden="true">
+            <span class="book-card__cover-title">{{ libro.titulo }}</span>
+          </div>
+          <div class="book-card__body">
+            <h3 class="book-card__title">{{ libro.titulo }}</h3>
+            <p class="book-card__price">{{ libro.precioVenta | currency }}</p>
+            <button type="button" class="btn-primary book-card__btn">
+              Agregar al carrito
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  <h2 class="tienda-home__heading font-display">Categorías</h2>
+
+  @if (categorias().length === 0) {
+    <p class="tienda-home__status">No hay categorías disponibles.</p>
+  } @else {
+    <div class="tienda-home__categorias">
+      @for (categoria of categorias(); track categoria.id) {
+        <div class="categoria-card">
+          <div class="categoria-card__cover" aria-hidden="true"></div>
+          <span class="categoria-card__label">{{ categoria.nombre }}</span>
+        </div>
+      }
+    </div>
+  }
+</section>

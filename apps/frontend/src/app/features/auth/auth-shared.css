@@ -58,6 +58,18 @@
   margin-bottom: 4px;
 }
 
+.login-page__back {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-gris-oscuro);
+  margin-bottom: 20px;
+}
+
+.login-page__back:hover {
+  color: var(--color-cafe-medio);
+}
+
 .login-page__subtitle {
   color: var(--color-gris-oscuro);
   font-size: 14px;
@@ -68,6 +80,25 @@
   color: var(--color-error);
   font-size: 13px;
   margin-bottom: 12px;
+}
+
+.login-page__footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+  text-align: center;
+}
+
+.login-page__footer a,
+.login-page__link {
+  color: var(--color-morado);
+  font-weight: 500;
+}
+
+.login-page__extra {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
 }
 
 .field {
@@ -95,4 +126,3 @@
 .field input:focus {
   border-color: var(--color-cafe-medio);
 }
-

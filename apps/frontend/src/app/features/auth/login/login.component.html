@@ -1,7 +1,9 @@
 <div class="login-page">
 
   <div class="login-page__brand">
-    <h1 class="login-page__brand-title font-display">Librería</h1>
+    <div class="login-page__brand-title">
+      <app-logo />
+    </div>
     <blockquote class="login-page__quote">
       "Un lector vive mil vidas antes de morir."
       — George R.R. Martin
@@ -10,6 +12,8 @@
 
   <div class="login-page__form-wrapper">
     <div class="login-page__card">
+
+      <a routerLink="/" class="login-page__back">← Volver al inicio</a>
 
       <h2>Iniciar sesión</h2>
       <p class="login-page__subtitle">Ingresa con tu usuario o teléfono</p>
@@ -31,11 +35,20 @@
             autocomplete="current-password" />
         </div>
 
+        <div class="login-page__extra">
+          <a routerLink="/login/recuperar-password" class="login-page__link">¿Olvidaste tu contraseña?</a>
+        </div>
+
         <button type="submit" class="btn-primary" [disabled]="form.invalid || loading()">
           {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
         </button>
 
       </form>
+
+      <p class="login-page__footer">
+        ¿No tienes una cuenta?
+        <a routerLink="/login/registro">¡Regístrate ahora!</a>
+      </p>
     </div>
   </div>
 

@@ -1,8 +1,7 @@
 export interface AuthUser {
-  id: number;
-  tipo: 'empleado' | 'cliente';
-  rol?: 'admin' | 'cajero';
+  id: string;
   nombre: string;
+  rol: 'admin' | 'cajero' | 'cliente';
   telefono?: string;
   puntosSaldo?: number;
 }
@@ -16,4 +15,11 @@ export interface LoginResponse {
 export interface LoginPayload {
   identificador: string;
   password: string;
+}
+
+export interface RegistroClientePayload {
+  telefono: string;
+  password: string;
+  nombre: string;
+  email?: string;
 }
