@@ -1,0 +1,126 @@
+.main-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-layout__sidebar {
+  width: var(--sidebar-width);
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: white;
+  border-right: 1px solid var(--color-beige);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-layout__logo {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+  color: var(--color-negro-suave);
+}
+
+.main-layout__nav {
+  flex: 1;
+  min-height: 0;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main-layout__nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-negro-suave);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.main-layout__nav-item.is-active {
+  background: var(--color-cafe-claro);
+}
+
+.main-layout__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-crema);
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.main-layout__topbar {
+  height: var(--topbar-height);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 0 32px;
+}
+
+.main-layout__topbar-link {
+  background: none;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-cafe-medio);
+  cursor: pointer;
+}
+
+.main-layout__topbar-link--placeholder {
+  cursor: default;
+}
+
+.main-layout__icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-cafe-medio);
+  display: flex;
+  align-items: center;
+}
+
+.main-layout__icon-btn svg {
+  width: 26px;
+  height: 26px;
+}
+
+.main-layout__user-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--color-cafe-medio);
+}
+
+.main-layout__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--color-cafe-medio);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-layout__avatar svg {
+  width: 32px;
+  height: 32px;
+}
+
+.main-layout__content {
+  flex: 1;
+  padding: 8px 32px 32px;
+}

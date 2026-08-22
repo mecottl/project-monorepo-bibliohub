@@ -6,13 +6,13 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { LogoComponent } from '../../../shared/logo/logo.component';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-registro',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink, LogoComponent],
-  templateUrl: './login.component.html',
+  templateUrl: './registro.component.html',
   styleUrl: '../auth-shared.css'
 })
-export class LoginComponent {
+export class RegistroComponent {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -21,20 +21,21 @@ export class LoginComponent {
   error = signal<string | null>(null);
 
   form = this.fb.group({
-    identificador: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+    password: ['', [Validators.required, Validators.minLength(4)]]
   });
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) return;
     this.loading.set(true);
     this.error.set(null);
 
-    const { identificador, password } = this.form.value;
-    this.auth.login(identificador!, password!).subscribe({
+    const { nombre, telefono, password } = this.form.value;
+    this.auth.registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! }).subscribe({
       next: () => this.router.navigate(['/']),
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error?.message ?? 'Credenciales incorrectas');
+        this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
         this.loading.set(false);
       }
     });

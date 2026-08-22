@@ -1,0 +1,113 @@
+<div class="main-layout">
+  <aside class="main-layout__sidebar">
+    <div class="main-layout__logo">
+      <app-logo />
+    </div>
+
+    <nav class="main-layout__nav" aria-label="Navegación principal">
+      @if (auth.isAdmin()) {
+        <a
+          routerLink="/"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="main-layout__nav-item"
+        >
+          Dashboard
+        </a>
+        <a routerLink="/inventario" routerLinkActive="is-active" class="main-layout__nav-item">
+          Inventario
+        </a>
+        <a routerLink="/ventas" routerLinkActive="is-active" class="main-layout__nav-item">
+          Ventas
+        </a>
+        <a routerLink="/clientes" routerLinkActive="is-active" class="main-layout__nav-item">
+          Clientes
+        </a>
+        <a routerLink="/proveedores" routerLinkActive="is-active" class="main-layout__nav-item">
+          Proveedores
+        </a>
+        <a routerLink="/reportes" routerLinkActive="is-active" class="main-layout__nav-item">
+          Reportes
+        </a>
+        <a routerLink="/configuracion" routerLinkActive="is-active" class="main-layout__nav-item">
+          Configuración
+        </a>
+      } @else {
+        <a
+          routerLink="/"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="main-layout__nav-item"
+        >
+          Inicio
+        </a>
+        <a routerLink="/categorias" routerLinkActive="is-active" class="main-layout__nav-item">
+          Categorías
+        </a>
+        <a routerLink="/lista-deseos" routerLinkActive="is-active" class="main-layout__nav-item">
+          Lista de deseos
+        </a>
+        <a routerLink="/mis-pedidos" routerLinkActive="is-active" class="main-layout__nav-item">
+          Mis pedidos
+        </a>
+        @if (auth.isAuthenticated()) {
+          <button type="button" class="main-layout__nav-item" (click)="onLogout()">
+            Cerrar sesión
+          </button>
+        }
+      }
+    </nav>
+  </aside>
+
+  <div class="main-layout__main">
+    <header class="main-layout__topbar">
+      @if (auth.isAdmin()) {
+        <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
+          Notificaciones
+        </span>
+        <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
+          Perfil
+        </span>
+        <button type="button" class="main-layout__topbar-link" (click)="onLogout()">
+          Cerrar sesión
+        </button>
+      } @else {
+        <button type="button" class="main-layout__icon-btn" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M3 4h2l2.4 12.2A2 2 0 0 0 9.36 18H18a2 2 0 0 0 1.96-1.6L21.5 8H6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle cx="10" cy="21" r="1.4" fill="currentColor" />
+            <circle cx="18" cy="21" r="1.4" fill="currentColor" />
+          </svg>
+        </button>
+
+        @if (auth.currentUser(); as user) {
+          <span class="main-layout__user-name">{{ user.nombre }}</span>
+          <span class="main-layout__avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" fill="currentColor" />
+              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
+            </svg>
+          </span>
+        } @else {
+          <a routerLink="/login" class="main-layout__icon-btn" aria-label="Iniciar sesión">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4" fill="currentColor" />
+              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
+            </svg>
+          </a>
+        }
+      }
+    </header>
+
+    <main class="main-layout__content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

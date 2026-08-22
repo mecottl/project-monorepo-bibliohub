@@ -1,0 +1,10 @@
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.placeholder-page__text {
+  color: var(--color-gris-oscuro);
+  font-size: 14px;
+}
