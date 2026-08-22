@@ -17,6 +17,16 @@ import { Autor } from '../../../database/entities/autor.entity';
 
 @Injectable()
 export class CatalogoService {
+  // Tablas con FK ON DELETE RESTRICT hacia libro(id): un DELETE físico
+  // fallaría con un error de base de datos si alguna tiene filas asociadas.
+  private readonly TABLAS_CON_REFERENCIA_LIBRO = [
+    'detalle_venta',
+    'movimiento_inventario',
+    'detalle_pedido_compra',
+    'detalle_pedido_linea',
+    'item_carrito',
+  ];
+
   constructor(
     @InjectRepository(Libro)
     private readonly libroRepository: Repository<Libro>,
@@ -203,25 +213,36 @@ export class CatalogoService {
       throw new NotFoundException(`Libro con id ${id} no encontrado`);
     }
 
-    const ventasAsociadas = await this.dataSource
-      .createQueryBuilder()
-      .select('1')
-      .from('detalle_venta', 'dv')
-      .where('dv.libro_id = :id', { id })
-      .limit(1)
-      .getRawOne();
+    const tieneReferencias = await this.tieneRegistrosAsociados(id);
 
-    if (ventasAsociadas) {
+    if (tieneReferencias) {
       libro.activo = false;
       libro.updatedAt = new Date();
       await this.libroRepository.save(libro);
       return {
         message:
-          'Libro tiene ventas asociadas: se marcó como inactivo (baja lógica), no se eliminó físicamente.',
+          'Libro tiene registros asociados (ventas, movimientos de inventario, pedidos o carritos): se marcó como inactivo (baja lógica), no se eliminó físicamente.',
       };
     }
 
     await this.libroRepository.remove(libro);
-    return { message: 'Libro eliminado físicamente (sin ventas asociadas).' };
+    return { message: 'Libro eliminado físicamente (sin registros asociados).' };
+  }
+
+  private async tieneRegistrosAsociados(libroId: string): Promise<boolean> {
+    for (const tabla of this.TABLAS_CON_REFERENCIA_LIBRO) {
+      const encontrado = await this.dataSource
+        .createQueryBuilder()
+        .select('1')
+        .from(tabla, 't')
+        .where('t.libro_id = :libroId', { libroId })
+        .limit(1)
+        .getRawOne();
+
+      if (encontrado) {
+        return true;
+      }
+    }
+    return false;
   }
 }
