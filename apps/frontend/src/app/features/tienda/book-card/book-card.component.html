@@ -7,7 +7,10 @@
     }
   </div>
   <div class="book-card__body">
-    <h3 class="book-card__title">{{ libro().titulo }}</h3>
+    <h3 class="book-card__title" [title]="libro().titulo">{{ libro().titulo }}</h3>
+    @if (autores()) {
+      <p class="book-card__autor" [title]="autores()">{{ autores() }}</p>
+    }
     <p class="book-card__price">{{ libro().precioVenta | currency }}</p>
     <button type="button" class="btn-primary book-card__btn">
       Agregar al carrito

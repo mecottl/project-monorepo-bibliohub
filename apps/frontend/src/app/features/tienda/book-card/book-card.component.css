@@ -40,6 +40,20 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--color-negro-suave);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  min-height: calc(1.3em * 2);
+}
+
+.book-card__autor {
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .book-card__price {
@@ -48,5 +62,5 @@
 }
 
 .book-card__btn {
-  margin-top: 8px;
+  margin-top: auto;
 }

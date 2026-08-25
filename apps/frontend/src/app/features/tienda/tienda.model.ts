@@ -4,12 +4,24 @@ export interface Categoria {
   descripcion?: string;
 }
 
+export interface Autor {
+  id: string;
+  nombre: string;
+}
+
+export interface LibroAutor {
+  autorId: string;
+  rol: string;
+  autor?: Autor;
+}
+
 export interface Libro {
   id: string;
   titulo: string;
   precioVenta: number;
   stockActual: number;
   categoria?: Categoria;
+  libroAutores?: LibroAutor[];
   imagenUrl: string | null;
 }
 
