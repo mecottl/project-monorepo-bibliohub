@@ -5,7 +5,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class QueryLibroDto {
   @ApiPropertyOptional({
-    description: 'Búsqueda por título',
+    description: 'Búsqueda general: coincide por título, ISBN o autor',
   })
   @IsOptional()
   @IsString()

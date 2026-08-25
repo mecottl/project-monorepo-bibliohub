@@ -64,7 +64,11 @@ export class CatalogoService {
       .where('libro.activo = :activo', { activo: true });
 
     if (titulo) {
-      qb.andWhere('libro.titulo ILIKE :titulo', { titulo: `%${titulo}%` });
+      // Búsqueda general: coincide por título, ISBN o nombre de autor.
+      qb.andWhere(
+        '(libro.titulo ILIKE :busqueda OR libro.isbn ILIKE :busqueda OR autorRelacion.nombre ILIKE :busqueda)',
+        { busqueda: `%${titulo}%` },
+      );
     }
 
     if (isbn) {
