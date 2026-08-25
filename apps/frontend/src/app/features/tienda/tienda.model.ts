@@ -10,6 +10,7 @@ export interface Libro {
   precioVenta: number;
   stockActual: number;
   categoria?: Categoria;
+  imagenUrl: string | null;
 }
 
 export interface PaginatedLibros {

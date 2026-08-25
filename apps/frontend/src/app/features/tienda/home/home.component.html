@@ -25,8 +25,12 @@
     <div class="tienda-home__grid">
       @for (libro of libros(); track libro.id) {
         <article class="book-card">
-          <div class="book-card__cover" aria-hidden="true">
-            <span class="book-card__cover-title">{{ libro.titulo }}</span>
+          <div class="book-card__cover">
+            @if (libro.imagenUrl) {
+              <img class="book-card__cover-img" [src]="libro.imagenUrl" [alt]="'Portada de ' + libro.titulo" />
+            } @else {
+              <span class="book-card__cover-title" aria-hidden="true">{{ libro.titulo }}</span>
+            }
           </div>
           <div class="book-card__body">
             <h3 class="book-card__title">{{ libro.titulo }}</h3>
