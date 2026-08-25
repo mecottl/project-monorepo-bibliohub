@@ -1,5 +1,6 @@
 import {
   Injectable,
+  Inject,
   NotFoundException,
   ConflictException,
 } from '@nestjs/common';
@@ -7,13 +8,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
 import { Libro } from '../../../database/entities/libro.entity';
 import { QueryLibroDto } from '../dto/query-libro.dto';
-import { PaginatedLibros } from '../interfaces/catalogo.interface';
+import { LibroConImagen, PaginatedLibros } from '../interfaces/catalogo.interface';
 import { CreateLibroDto } from '../dto/create-libro.dto';
 import { LibroAutor } from '../../../database/entities/libro-autor.entity';
 import { UpdateLibroDto } from '../dto/update-libro.dto';
 import { Categoria } from '../../../database/entities/categoria.entity';
 import { Editorial } from '../../../database/entities/editorial.entity';
 import { Autor } from '../../../database/entities/autor.entity';
+import { STORAGE_SERVICE } from '../storage/storage.interface';
+import type { StorageService } from '../storage/storage.interface';
 
 @Injectable()
 export class CatalogoService {
@@ -37,9 +40,11 @@ export class CatalogoService {
     @InjectRepository(Categoria)
     private readonly categoriaRepository: Repository<Categoria>,
     private readonly dataSource: DataSource,
+    @Inject(STORAGE_SERVICE)
+    private readonly storageService: StorageService,
   ) {}
 
-  async findAll(query: QueryLibroDto): Promise<PaginatedLibros> {
+  async findAll(query: QueryLibroDto, baseUrl: string): Promise<PaginatedLibros> {
     const {
       titulo,
       autor,
@@ -83,7 +88,7 @@ export class CatalogoService {
     const [data, total] = await qb.getManyAndCount();
 
     return {
-      data,
+      data: data.map((libro) => this.mapLibro(libro, baseUrl)),
       total,
       page,
       limit,
@@ -112,28 +117,16 @@ export class CatalogoService {
     });
   }
 
-  async findStockBajo(): Promise<any[]> {
+  async findStockBajo(): Promise<unknown[]> {
     return this.dataSource.query('SELECT * FROM alerta_stock_bajo');
   }
 
-  async findOne(id: string): Promise<Libro> {
-    const libro = await this.libroRepository
-      .createQueryBuilder('libro')
-      .leftJoinAndSelect('libro.editorial', 'editorial')
-      .leftJoinAndSelect('libro.categoria', 'categoria')
-      .leftJoinAndSelect('libro.libroAutores', 'libroAutores')
-      .leftJoinAndSelect('libroAutores.autor', 'autorRelacion')
-      .where('libro.id = :id', { id })
-      .getOne();
-
-    if (!libro) {
-      throw new NotFoundException(`Libro con id ${id} no encontrado`);
-    }
-
-    return libro;
+  async findOne(id: string, baseUrl: string): Promise<LibroConImagen> {
+    const libro = await this.buscarLibroConRelaciones(id);
+    return this.mapLibro(libro, baseUrl);
   }
 
-  async create(dto: CreateLibroDto): Promise<Libro> {
+  async create(dto: CreateLibroDto, baseUrl: string): Promise<LibroConImagen> {
     return this.dataSource.transaction(async (manager) => {
       const existente = await manager.findOne(Libro, {
         where: { isbn: dto.isbn },
@@ -187,31 +180,27 @@ export class CatalogoService {
         );
       }
 
-      return libroCompleto;
+      return this.mapLibro(libroCompleto, baseUrl);
     });
   }
 
-  async update(id: string, dto: UpdateLibroDto): Promise<Libro> {
-    const libro = await this.libroRepository.findOne({ where: { id } });
-
-    if (!libro) {
-      throw new NotFoundException(`Libro con id ${id} no encontrado`);
-    }
+  async update(
+    id: string,
+    dto: UpdateLibroDto,
+    baseUrl: string,
+  ): Promise<LibroConImagen> {
+    await this.buscarLibroSimple(id);
 
     await this.libroRepository.update(id, {
       ...dto,
       updatedAt: new Date(),
     });
 
-    return this.findOne(id);
+    return this.findOne(id, baseUrl);
   }
 
   async remove(id: string): Promise<{ message: string }> {
-    const libro = await this.libroRepository.findOne({ where: { id } });
-
-    if (!libro) {
-      throw new NotFoundException(`Libro con id ${id} no encontrado`);
-    }
+    const libro = await this.buscarLibroSimple(id);
 
     const tieneReferencias = await this.tieneRegistrosAsociados(id);
 
@@ -227,6 +216,73 @@ export class CatalogoService {
 
     await this.libroRepository.remove(libro);
     return { message: 'Libro eliminado físicamente (sin registros asociados).' };
+  }
+
+  async actualizarPortada(
+    id: string,
+    archivo: Express.Multer.File,
+    baseUrl: string,
+  ): Promise<LibroConImagen> {
+    const libro = await this.buscarLibroConRelaciones(id);
+
+    if (libro.imagenKey) {
+      await this.storageService.eliminar(libro.imagenKey);
+    }
+
+    libro.imagenKey = await this.storageService.guardar(archivo);
+    libro.updatedAt = new Date();
+    await this.libroRepository.save(libro);
+
+    return this.mapLibro(libro, baseUrl);
+  }
+
+  async eliminarPortada(id: string, baseUrl: string): Promise<LibroConImagen> {
+    const libro = await this.buscarLibroConRelaciones(id);
+
+    if (libro.imagenKey) {
+      await this.storageService.eliminar(libro.imagenKey);
+    }
+
+    libro.imagenKey = null;
+    libro.updatedAt = new Date();
+    await this.libroRepository.save(libro);
+
+    return this.mapLibro(libro, baseUrl);
+  }
+
+  private async buscarLibroSimple(id: string): Promise<Libro> {
+    const libro = await this.libroRepository.findOne({ where: { id } });
+
+    if (!libro) {
+      throw new NotFoundException(`Libro con id ${id} no encontrado`);
+    }
+
+    return libro;
+  }
+
+  private async buscarLibroConRelaciones(id: string): Promise<Libro> {
+    const libro = await this.libroRepository
+      .createQueryBuilder('libro')
+      .leftJoinAndSelect('libro.editorial', 'editorial')
+      .leftJoinAndSelect('libro.categoria', 'categoria')
+      .leftJoinAndSelect('libro.libroAutores', 'libroAutores')
+      .leftJoinAndSelect('libroAutores.autor', 'autorRelacion')
+      .where('libro.id = :id', { id })
+      .getOne();
+
+    if (!libro) {
+      throw new NotFoundException(`Libro con id ${id} no encontrado`);
+    }
+
+    return libro;
+  }
+
+  private mapLibro(libro: Libro, baseUrl: string): LibroConImagen {
+    const { imagenKey, ...resto } = libro;
+    return {
+      ...resto,
+      imagenUrl: imagenKey ? `${baseUrl}/uploads/portadas/${imagenKey}` : null,
+    };
   }
 
   private async tieneRegistrosAsociados(libroId: string): Promise<boolean> {

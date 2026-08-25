@@ -50,6 +50,9 @@ export class Libro {
   @Column({ type: 'boolean', default: true })
   activo!: boolean;
 
+  @Column({ type: 'varchar', length: 500, name: 'imagen_key', nullable: true })
+  imagenKey!: string | null;
+
   @Column({ type: 'timestamp', name: 'created_at' })
   createdAt!: Date;
 

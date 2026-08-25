@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -15,6 +17,11 @@ async function bootstrap() {
   );
 
   app.enableCors();
+
+  // Assets públicos (portadas, etc.) fuera del prefijo /api y sin pasar por
+  // el pipeline de guards de Nest (Express los sirve antes de llegar ahí).
+  app.useStaticAssets(join(process.cwd(), 'uploads'), { prefix: '/uploads' });
+
   app.setGlobalPrefix('api');
 
   const swaggerConfig = new DocumentBuilder()
