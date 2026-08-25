@@ -1,4 +1,9 @@
-.logo-text {
-  font-weight: 600;
-  color: inherit;
+:host {
+  display: inline-flex;
+}
+
+.logo-img {
+  display: block;
+  height: 2em;
+  width: auto;
 }
