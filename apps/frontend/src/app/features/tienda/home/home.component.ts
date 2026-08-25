@@ -1,14 +1,16 @@
-import { Component, inject, signal } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
+import { BookCardComponent } from '../book-card/book-card.component';
 import { Categoria, Libro } from '../tienda.model';
 
 const DESTACADOS_LIMIT = 4;
+const RESULTADOS_BUSQUEDA_LIMIT = 12;
 
 @Component({
   selector: 'app-tienda-home',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [BookCardComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -20,6 +22,10 @@ export class HomeComponent {
   categorias = signal<Categoria[]>([]);
   searchTerm = signal('');
   loadingLibros = signal(true);
+
+  encabezado = computed(() =>
+    this.searchTerm() ? `Búsquedas relacionadas a "${this.searchTerm()}"` : 'Destacados'
+  );
 
   constructor() {
     this.cargarLibros();
@@ -37,7 +43,8 @@ export class HomeComponent {
 
   private cargarLibros(titulo?: string): void {
     this.loadingLibros.set(true);
-    this.catalogo.getLibros({ titulo, limit: DESTACADOS_LIMIT }).subscribe({
+    const limit = titulo ? RESULTADOS_BUSQUEDA_LIMIT : DESTACADOS_LIMIT;
+    this.catalogo.getLibros({ titulo, limit }).subscribe({
       next: (respuesta) => {
         this.libros.set(respuesta.data);
         this.loadingLibros.set(false);

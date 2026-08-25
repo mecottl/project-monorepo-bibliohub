@@ -9,10 +9,21 @@ export class CatalogoService {
   private http = inject(HttpClient);
   private readonly API = API_BASE_URL;
 
-  getLibros(filtros?: { titulo?: string; limit?: number }): Observable<PaginatedLibros> {
+  getLibros(filtros?: {
+    titulo?: string;
+    categoriaId?: string;
+    page?: number;
+    limit?: number;
+  }): Observable<PaginatedLibros> {
     let params = new HttpParams();
     if (filtros?.titulo) {
       params = params.set('titulo', filtros.titulo);
+    }
+    if (filtros?.categoriaId) {
+      params = params.set('categoriaId', filtros.categoriaId);
+    }
+    if (filtros?.page) {
+      params = params.set('page', filtros.page);
     }
     if (filtros?.limit) {
       params = params.set('limit', filtros.limit);

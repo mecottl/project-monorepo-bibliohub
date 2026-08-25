@@ -1,0 +1,32 @@
+<section class="libros-page">
+  <app-search-input
+    ariaLabel="Buscar libro por título, autor o ISBN"
+    placeholder="Buscar por título, autor o ISBN…"
+    (search)="onSearch($event)"
+  />
+
+  <div class="libros-page__header">
+    <h1 class="font-display">{{ encabezado() }}</h1>
+    @if (categoriaActual()) {
+      <a routerLink="/categorias" class="libros-page__clear">Ver todos los libros</a>
+    }
+  </div>
+
+  @if (loading()) {
+    <p class="libros-page__status">Cargando libros...</p>
+  } @else if (libros().length === 0) {
+    <p class="libros-page__status">No se encontraron libros.</p>
+  } @else {
+    <div class="libros-page__grid">
+      @for (libro of libros(); track libro.id) {
+        <app-book-card [libro]="libro" />
+      }
+    </div>
+
+    <app-pagination
+      [page]="page()"
+      [totalPages]="totalPages()"
+      (pageChange)="onPageChange($event)"
+    />
+  }
+</section>

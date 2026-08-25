@@ -9,13 +9,18 @@
       #searchInput
       type="search"
       class="tienda-home__search-input"
-      placeholder="Buscar"
+      placeholder="Buscar por título, autor o ISBN"
       [value]="searchTerm()"
       (input)="onSearchInput(searchInput.value)"
     />
   </label>
 
-  <h2 class="tienda-home__heading font-display">Destacados</h2>
+  <div class="tienda-home__header">
+    <h2 class="tienda-home__heading font-display">{{ encabezado() }}</h2>
+    @if (!searchTerm()) {
+      <a routerLink="/categorias" class="tienda-home__ver-todos">Ver todos los libros</a>
+    }
+  </div>
 
   @if (loadingLibros()) {
     <p class="tienda-home__status">Cargando libros...</p>
@@ -24,22 +29,7 @@
   } @else {
     <div class="tienda-home__grid">
       @for (libro of libros(); track libro.id) {
-        <article class="book-card">
-          <div class="book-card__cover">
-            @if (libro.imagenUrl) {
-              <img class="book-card__cover-img" [src]="libro.imagenUrl" [alt]="'Portada de ' + libro.titulo" />
-            } @else {
-              <span class="book-card__cover-title" aria-hidden="true">{{ libro.titulo }}</span>
-            }
-          </div>
-          <div class="book-card__body">
-            <h3 class="book-card__title">{{ libro.titulo }}</h3>
-            <p class="book-card__price">{{ libro.precioVenta | currency }}</p>
-            <button type="button" class="btn-primary book-card__btn">
-              Agregar al carrito
-            </button>
-          </div>
-        </article>
+        <app-book-card [libro]="libro" />
       }
     </div>
   }
@@ -51,10 +41,14 @@
   } @else {
     <div class="tienda-home__categorias">
       @for (categoria of categorias(); track categoria.id) {
-        <div class="categoria-card">
+        <a
+          routerLink="/categorias"
+          [queryParams]="{ categoriaId: categoria.id }"
+          class="categoria-card"
+        >
           <div class="categoria-card__cover" aria-hidden="true"></div>
           <span class="categoria-card__label">{{ categoria.nombre }}</span>
-        </div>
+        </a>
       }
     </div>
   }

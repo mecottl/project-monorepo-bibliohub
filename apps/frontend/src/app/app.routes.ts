@@ -73,10 +73,9 @@ export const routes: Routes = [
       {
         path: 'categorias',
         loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Categorías' }
+          import('./features/tienda/libros/libros.page').then(
+            m => m.LibrosPage
+          )
       },
       {
         path: 'lista-deseos',

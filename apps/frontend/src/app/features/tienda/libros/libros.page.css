@@ -1,0 +1,35 @@
+.libros-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.libros-page__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.libros-page__header h1 {
+  font-size: 22px;
+}
+
+.libros-page__clear {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-morado);
+}
+
+.libros-page__status {
+  color: var(--color-gris-oscuro);
+  font-size: 14px;
+}
+
+.libros-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+}

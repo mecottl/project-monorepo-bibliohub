@@ -1,0 +1,16 @@
+<article class="book-card">
+  <div class="book-card__cover">
+    @if (libro().imagenUrl) {
+      <img class="book-card__cover-img" [src]="libro().imagenUrl" [alt]="'Portada de ' + libro().titulo" />
+    } @else {
+      <span class="book-card__cover-title" aria-hidden="true">{{ libro().titulo }}</span>
+    }
+  </div>
+  <div class="book-card__body">
+    <h3 class="book-card__title">{{ libro().titulo }}</h3>
+    <p class="book-card__price">{{ libro().precioVenta | currency }}</p>
+    <button type="button" class="btn-primary book-card__btn">
+      Agregar al carrito
+    </button>
+  </div>
+</article>
