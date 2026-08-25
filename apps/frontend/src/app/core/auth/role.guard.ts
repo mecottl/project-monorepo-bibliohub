@@ -9,7 +9,7 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
 
   const user = auth.currentUser();
   if (!user || !roles.includes(user.rol ?? '')) {
-    router.navigate(['/admin/dashboard']);
+    router.navigate(['/inicio']);
     return false;
   }
   return true;

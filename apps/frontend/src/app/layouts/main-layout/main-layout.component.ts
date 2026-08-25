@@ -4,7 +4,8 @@ import { filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { LogoComponent } from '../../shared/logo/logo.component';
 
-const RUTAS_SOLO_ADMIN = [
+const RUTAS_ADMIN = [
+  '/dashboard',
   '/inventario',
   '/ventas',
   '/clientes',
@@ -24,29 +25,27 @@ export class MainLayoutComponent {
   auth = inject(AuthService);
   private router = inject(Router);
 
-  /** Un admin puede "entrar" a la tienda pública sin dejar de ser admin. */
-  vistaCliente = signal(false);
+  private urlActual = signal(this.router.url);
 
-  mostrarAdminChrome = computed(() => this.auth.isAdmin() && !this.vistaCliente());
+  /** El chrome (sidebar/topbar) se deriva de la ruta actual, no de un toggle manual. */
+  private enRutaAdmin = computed(() => RUTAS_ADMIN.some((ruta) => this.urlActual().startsWith(ruta)));
+
+  mostrarAdminChrome = computed(() => this.auth.isAdmin() && this.enRutaAdmin());
+  vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
 
   constructor() {
     this.router.events
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
-      .subscribe((evento) => {
-        if (RUTAS_SOLO_ADMIN.some((ruta) => evento.urlAfterRedirects.startsWith(ruta))) {
-          this.vistaCliente.set(false);
-        }
-      });
+      .subscribe((evento) => this.urlActual.set(evento.urlAfterRedirects));
   }
 
   onLogoClick(): void {
     if (!this.auth.isAdmin()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/inicio']);
       return;
     }
 
-    this.vistaCliente.update((valor) => !valor);
-    this.router.navigate([this.vistaCliente() ? '/tienda' : '/']);
+    this.router.navigate([this.mostrarAdminChrome() ? '/inicio' : '/dashboard']);
   }
 
   onLogout(): void {

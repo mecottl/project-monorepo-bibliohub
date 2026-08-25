@@ -33,7 +33,7 @@ export class RegistroComponent {
 
     const { nombre, telefono, password } = this.form.value;
     this.auth.registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! }).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate(['/inicio']),
       error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
         this.loading.set(false);

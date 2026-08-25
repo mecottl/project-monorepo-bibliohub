@@ -18,9 +18,8 @@
       <div class="main-layout__nav-links">
         @if (mostrarAdminChrome()) {
           <a
-            routerLink="/"
+            routerLink="/dashboard"
             routerLinkActive="is-active"
-            [routerLinkActiveOptions]="{ exact: true }"
             class="main-layout__nav-item"
           >
             <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -83,9 +82,8 @@
           </a>
         } @else {
           <a
-            routerLink="/"
+            routerLink="/inicio"
             routerLinkActive="is-active"
-            [routerLinkActiveOptions]="{ exact: true }"
             class="main-layout__nav-item"
           >
             <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">

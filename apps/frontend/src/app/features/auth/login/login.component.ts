@@ -32,7 +32,7 @@ export class LoginComponent {
 
     const { identificador, password } = this.form.value;
     this.auth.login(identificador!, password!).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => this.router.navigate([this.auth.isAdmin() ? '/dashboard' : '/inicio']),
       error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'Credenciales incorrectas');
         this.loading.set(false);
