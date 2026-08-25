@@ -6,6 +6,7 @@ import { Categoria, Libro } from '../tienda.model';
 
 const DESTACADOS_LIMIT = 4;
 const RESULTADOS_BUSQUEDA_LIMIT = 12;
+const EXTENSIONES_COVER = ['jpg', 'png'];
 
 function slugificar(texto: string): string {
   return texto
@@ -32,6 +33,7 @@ export class HomeComponent {
   searchTerm = signal('');
   loadingLibros = signal(true);
   private coversFallidas = signal<Set<string>>(new Set());
+  private coversIntento = signal<Map<string, number>>(new Map());
 
   encabezado = computed(() =>
     this.searchTerm() ? `Búsquedas relacionadas a "${this.searchTerm()}"` : 'Destacados'
@@ -52,7 +54,9 @@ export class HomeComponent {
   }
 
   coverSrc(categoria: Categoria): string {
-    return `/covers/categorias/${slugificar(categoria.nombre)}.jpg`;
+    const intento = this.coversIntento().get(categoria.id) ?? 0;
+    const extension = EXTENSIONES_COVER[intento];
+    return `/covers/categorias/${slugificar(categoria.nombre)}.${extension}`;
   }
 
   coverFallida(categoria: Categoria): boolean {
@@ -60,6 +64,14 @@ export class HomeComponent {
   }
 
   onCoverError(categoria: Categoria): void {
+    const intentoActual = this.coversIntento().get(categoria.id) ?? 0;
+    const siguienteIntento = intentoActual + 1;
+
+    if (siguienteIntento < EXTENSIONES_COVER.length) {
+      this.coversIntento.update((actuales) => new Map(actuales).set(categoria.id, siguienteIntento));
+      return;
+    }
+
     this.coversFallidas.update((actuales) => new Set(actuales).add(categoria.id));
   }
 

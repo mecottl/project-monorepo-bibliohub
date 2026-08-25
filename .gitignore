@@ -5,3 +5,5 @@ dist/
 .angular/cache/
 .claude/
 .vscode/
+desktop.ini
+Thumbs.db
