@@ -78,6 +78,13 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'tienda',
+        loadComponent: () =>
+          import('./features/tienda/home/home.component').then(
+            m => m.HomeComponent
+          )
+      },
+      {
         path: 'lista-deseos',
         canActivate: [authGuard],
         loadComponent: () =>

@@ -1,11 +1,20 @@
 <div class="main-layout">
   <aside class="main-layout__sidebar">
-    <div class="main-layout__logo">
+    <button
+      type="button"
+      class="main-layout__logo"
+      [attr.aria-label]="
+        auth.isAdmin()
+          ? (vistaCliente() ? 'Volver al panel de administración' : 'Ver la tienda como cliente')
+          : 'Ir al inicio'
+      "
+      (click)="onLogoClick()"
+    >
       <app-logo />
-    </div>
+    </button>
 
     <nav class="main-layout__nav" aria-label="Navegación principal">
-      @if (auth.isAdmin()) {
+      @if (mostrarAdminChrome()) {
         <a
           routerLink="/"
           routerLinkActive="is-active"
@@ -50,7 +59,11 @@
         <a routerLink="/mis-pedidos" routerLinkActive="is-active" class="main-layout__nav-item">
           Mis pedidos
         </a>
-        @if (auth.isAuthenticated()) {
+        @if (auth.isAdmin()) {
+          <button type="button" class="main-layout__nav-item" (click)="onLogoClick()">
+            Volver al panel admin
+          </button>
+        } @else if (auth.isAuthenticated()) {
           <button type="button" class="main-layout__nav-item" (click)="onLogout()">
             Cerrar sesión
           </button>
@@ -60,8 +73,15 @@
   </aside>
 
   <div class="main-layout__main">
+    @if (auth.isAdmin() && vistaCliente()) {
+      <div class="main-layout__preview-banner">
+        Estás viendo la tienda como la ve un cliente.
+        <button type="button" (click)="onLogoClick()">Volver al panel de administración</button>
+      </div>
+    }
+
     <header class="main-layout__topbar">
-      @if (auth.isAdmin()) {
+      @if (mostrarAdminChrome()) {
         <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
           Notificaciones
         </span>
