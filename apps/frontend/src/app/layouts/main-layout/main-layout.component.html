@@ -2,7 +2,7 @@
   <aside class="main-layout__sidebar">
     <button
       type="button"
-      class="main-layout__logo"
+      class="main-layout__brand"
       [attr.aria-label]="
         auth.isAdmin()
           ? (vistaCliente() ? 'Volver al panel de administración' : 'Ver la tienda como cliente')
@@ -11,63 +11,138 @@
       (click)="onLogoClick()"
     >
       <app-logo />
+      <span class="main-layout__brand-name font-display">BiblioHub</span>
     </button>
 
     <nav class="main-layout__nav" aria-label="Navegación principal">
-      @if (mostrarAdminChrome()) {
-        <a
-          routerLink="/"
-          routerLinkActive="is-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="main-layout__nav-item"
-        >
-          Dashboard
-        </a>
-        <a routerLink="/inventario" routerLinkActive="is-active" class="main-layout__nav-item">
-          Inventario
-        </a>
-        <a routerLink="/ventas" routerLinkActive="is-active" class="main-layout__nav-item">
-          Ventas
-        </a>
-        <a routerLink="/clientes" routerLinkActive="is-active" class="main-layout__nav-item">
-          Clientes
-        </a>
-        <a routerLink="/proveedores" routerLinkActive="is-active" class="main-layout__nav-item">
-          Proveedores
-        </a>
-        <a routerLink="/reportes" routerLinkActive="is-active" class="main-layout__nav-item">
-          Reportes
-        </a>
-        <a routerLink="/configuracion" routerLinkActive="is-active" class="main-layout__nav-item">
-          Configuración
-        </a>
-      } @else {
-        <a
-          routerLink="/"
-          routerLinkActive="is-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="main-layout__nav-item"
-        >
-          Inicio
-        </a>
-        <a routerLink="/categorias" routerLinkActive="is-active" class="main-layout__nav-item">
-          Categorías
-        </a>
-        <a routerLink="/lista-deseos" routerLinkActive="is-active" class="main-layout__nav-item">
-          Lista de deseos
-        </a>
-        <a routerLink="/mis-pedidos" routerLinkActive="is-active" class="main-layout__nav-item">
-          Mis pedidos
-        </a>
-        @if (auth.isAdmin()) {
+      <div class="main-layout__nav-links">
+        @if (mostrarAdminChrome()) {
+          <a
+            routerLink="/"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="main-layout__nav-item"
+          >
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+            </svg>
+            Dashboard
+          </a>
+          <a routerLink="/inventario" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z" />
+              <path d="M4 7l8 4 8-4" />
+              <path d="M12 11v10" />
+            </svg>
+            Inventario
+          </a>
+          <a routerLink="/ventas" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="12" rx="2" />
+              <circle cx="12" cy="12" r="3" />
+              <path d="M6 9h.01M18 15h.01" stroke-linecap="round" />
+            </svg>
+            Ventas
+          </a>
+          <a routerLink="/clientes" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="9" cy="8" r="3" />
+              <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+              <circle cx="17" cy="9" r="2.3" />
+              <path d="M15.3 14.2A5 5 0 0 1 21 19" />
+            </svg>
+            Clientes
+          </a>
+          <a routerLink="/proveedores" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="1.5" y="7" width="13" height="10" rx="1.5" />
+              <path d="M14.5 10h4l3 3v4h-7z" />
+              <circle cx="6.5" cy="19" r="1.8" />
+              <circle cx="17.5" cy="19" r="1.8" />
+            </svg>
+            Proveedores
+          </a>
+          <a routerLink="/reportes" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20V10M10 20V4M16 20v-7" stroke-linecap="round" />
+              <path d="M2 20h20" stroke-linecap="round" />
+            </svg>
+            Reportes
+          </a>
+          <a routerLink="/configuracion" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 13a7.97 7.97 0 0 0 0-2l2-1.5-2-3.4-2.4 1a8 8 0 0 0-1.7-1L15 3h-4l-.3 2.6a8 8 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a8 8 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a8 8 0 0 0 1.7 1L11 21h4l.3-2.6a8 8 0 0 0 1.7-1l2.4 1 2-3.4-2-1.5Z"
+              />
+            </svg>
+            Configuración
+          </a>
+        } @else {
+          <a
+            routerLink="/"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="main-layout__nav-item"
+          >
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 11 12 3l9 8" />
+              <path d="M5 10v10h14V10" />
+              <path d="M9 20v-6h6v6" />
+            </svg>
+            Inicio
+          </a>
+          <a routerLink="/categorias" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="8" height="8" rx="1.5" />
+              <rect x="13" y="3" width="8" height="8" rx="1.5" />
+              <rect x="3" y="13" width="8" height="8" rx="1.5" />
+              <rect x="13" y="13" width="8" height="8" rx="1.5" />
+            </svg>
+            Categorías
+          </a>
+          <a routerLink="/lista-deseos" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 20s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 5c-2.5 4.6-9.5 9-9.5 9Z"
+              />
+            </svg>
+            Lista de deseos
+          </a>
+          <a routerLink="/mis-pedidos" routerLinkActive="is-active" class="main-layout__nav-item">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h12v20l-3-2-3 2-3-2-3 2Z" />
+              <path d="M9 8h6M9 12h6" stroke-linecap="round" />
+            </svg>
+            Mis pedidos
+          </a>
+        }
+      </div>
+
+      @if (!mostrarAdminChrome() && auth.isAdmin()) {
+        <div class="main-layout__nav-bottom">
           <button type="button" class="main-layout__nav-item" (click)="onLogoClick()">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 4 3 9l5 5" />
+              <path d="M3 9h11a5 5 0 0 1 5 5v1" />
+            </svg>
             Volver al panel admin
           </button>
-        } @else if (auth.isAuthenticated()) {
+        </div>
+      } @else if (!mostrarAdminChrome() && auth.isAuthenticated()) {
+        <div class="main-layout__nav-bottom">
           <button type="button" class="main-layout__nav-item" (click)="onLogout()">
+            <svg class="main-layout__nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <path d="M16 17l5-5-5-5" />
+              <path d="M21 12H9" />
+            </svg>
             Cerrar sesión
           </button>
-        }
+        </div>
       }
     </nav>
   </aside>
@@ -81,48 +156,59 @@
     }
 
     <header class="main-layout__topbar">
-      @if (mostrarAdminChrome()) {
-        <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
-          Notificaciones
-        </span>
-        <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
-          Perfil
-        </span>
-        <button type="button" class="main-layout__topbar-link" (click)="onLogout()">
-          Cerrar sesión
-        </button>
-      } @else {
-        <button type="button" class="main-layout__icon-btn" aria-label="Carrito">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M3 4h2l2.4 12.2A2 2 0 0 0 9.36 18H18a2 2 0 0 0 1.96-1.6L21.5 8H6"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <circle cx="10" cy="21" r="1.4" fill="currentColor" />
-            <circle cx="18" cy="21" r="1.4" fill="currentColor" />
-          </svg>
-        </button>
+      <div class="main-layout__topbar-spacer"></div>
 
-        @if (auth.currentUser(); as user) {
-          <span class="main-layout__user-name">{{ user.nombre }}</span>
-          <span class="main-layout__avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="4" fill="currentColor" />
-              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
-            </svg>
+      @if (mostrarAdminChrome()) {
+        <div class="main-layout__topbar-actions">
+          <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
+            Notificaciones
           </span>
-        } @else {
-          <a routerLink="/login" class="main-layout__icon-btn" aria-label="Iniciar sesión">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="4" fill="currentColor" />
-              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
+          <span class="main-layout__topbar-link main-layout__topbar-link--placeholder">
+            Perfil
+          </span>
+          <span class="main-layout__topbar-divider"></span>
+          <button type="button" class="main-layout__topbar-link" (click)="onLogout()">
+            Cerrar sesión
+          </button>
+        </div>
+      } @else {
+        <div class="main-layout__topbar-actions">
+          <button type="button" class="main-layout__icon-btn" aria-label="Carrito">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M3 4h2l2.4 12.2A2 2 0 0 0 9.36 18H18a2 2 0 0 0 1.96-1.6L21.5 8H6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="10" cy="21" r="1.4" fill="currentColor" />
+              <circle cx="18" cy="21" r="1.4" fill="currentColor" />
             </svg>
-          </a>
-        }
+          </button>
+
+          <span class="main-layout__topbar-divider"></span>
+
+          @if (auth.currentUser(); as user) {
+            <span class="main-layout__user-chip">
+              <span class="main-layout__avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="4" fill="currentColor" />
+                  <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
+                </svg>
+              </span>
+              <span class="main-layout__user-name">{{ user.nombre }}</span>
+            </span>
+          } @else {
+            <a routerLink="/login" class="main-layout__icon-btn" aria-label="Iniciar sesión">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4" fill="currentColor" />
+                <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
+              </svg>
+            </a>
+          }
+        </div>
       }
     </header>
 

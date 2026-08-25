@@ -4,6 +4,6 @@
 
 .logo-img {
   display: block;
-  height: 2em;
+  height: var(--logo-size, 2em);
   width: auto;
 }
