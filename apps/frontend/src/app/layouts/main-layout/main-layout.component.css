@@ -151,6 +151,9 @@
 }
 
 .main-layout__topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   height: var(--topbar-height);
   flex-shrink: 0;
   display: flex;
