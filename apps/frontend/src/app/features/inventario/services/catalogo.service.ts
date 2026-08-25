@@ -60,4 +60,14 @@ export class CatalogoService {
   listarStockBajo(): Observable<Libro[]> {
     return this.http.get<Libro[]>(`${this.baseUrl}/stock-bajo`);
   }
+
+  subirPortada(id: string, archivo: File): Observable<Libro> {
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    return this.http.post<Libro>(`${this.baseUrl}/libros/${id}/portada`, formData);
+  }
+
+  eliminarPortada(id: string): Observable<Libro> {
+    return this.http.delete<Libro>(`${this.baseUrl}/libros/${id}/portada`);
+  }
 }

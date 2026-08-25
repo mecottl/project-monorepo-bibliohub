@@ -7,7 +7,7 @@ import { PaginationComponent } from '../../../../shared/pagination/pagination.co
 import { EmptyStateComponent } from '../../../../shared/empty-state/empty-state.component';
 import { ConfirmModalComponent } from '../../../../shared/confirm-modal/confirm-modal.component';
 import { CatalogoService } from '../../services/catalogo.service';
-import { Libro } from '../../models/libro.model';
+import { Libro, LibroAutor } from '../../models/libro.model';
 
 @Component({
   selector: 'app-libros-listado',
@@ -38,11 +38,21 @@ export class LibrosListadoPage {
     { key: 'titulo', label: 'Título' },
     { key: 'isbn', label: 'ISBN' },
     {
+      key: 'libroAutores',
+      label: 'Autor',
+      formatter: (value) => {
+        const autores = (value as LibroAutor[] | undefined) ?? [];
+        const nombres = autores
+          .map((la) => la.autor?.nombre)
+          .filter((nombre): nombre is string => !!nombre);
+        return nombres.length ? nombres.join(', ') : '—';
+      }
+    },
+    {
       key: 'stockActual',
       label: 'Stock',
       align: 'right',
-      formatter: (value, row) =>
-        `${value} ${Number(value) <= row.stockMinimo ? '⚠️' : ''}`.trim()
+      cellClass: (value, row) => (Number(value) <= row.stockMinimo ? 'cell-danger' : '')
     },
     {
       key: 'precioVenta',

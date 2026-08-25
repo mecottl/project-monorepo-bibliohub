@@ -5,6 +5,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CatalogoService } from '../../services/catalogo.service';
 import { Categoria, Editorial } from '../../models/libro.model';
 
+const TIPOS_VALIDOS = ['image/jpeg', 'image/png', 'image/webp'];
+const TAMANO_MAXIMO = 2 * 1024 * 1024;
+
 @Component({
   selector: 'app-libro-form',
   imports: [ReactiveFormsModule],
@@ -23,6 +26,9 @@ export class LibroFormPage {
   categorias = signal<Categoria[]>([]);
   guardando = signal(false);
   errorMensaje = signal<string | null>(null);
+
+  portadaFile = signal<File | null>(null);
+  portadaPreviewUrl = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
     titulo: ['', [Validators.required, Validators.minLength(2)]],
@@ -59,8 +65,36 @@ export class LibroFormPage {
         });
         this.form.controls.isbn.disable();
         this.form.controls.stockActual.disable();
+        this.portadaPreviewUrl.set(libro.imagenUrl);
       });
     }
+  }
+
+  onPortadaSeleccionada(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const archivo = input.files?.[0];
+    if (!archivo) return;
+
+    if (!TIPOS_VALIDOS.includes(archivo.type)) {
+      this.errorMensaje.set('La portada debe ser una imagen JPG, PNG o WEBP.');
+      input.value = '';
+      return;
+    }
+
+    if (archivo.size > TAMANO_MAXIMO) {
+      this.errorMensaje.set('La portada no debe superar 2MB.');
+      input.value = '';
+      return;
+    }
+
+    if (this.portadaFile()) {
+      const anterior = this.portadaPreviewUrl();
+      if (anterior) URL.revokeObjectURL(anterior);
+    }
+
+    this.errorMensaje.set(null);
+    this.portadaFile.set(archivo);
+    this.portadaPreviewUrl.set(URL.createObjectURL(archivo));
   }
 
   guardar(): void {
@@ -78,7 +112,7 @@ export class LibroFormPage {
       : this.catalogoService.crearLibro(valores);
 
     peticion.subscribe({
-      next: () => this.router.navigate(['/inventario']),
+      next: (libro) => this.subirPortadaSiHay(libro.id),
       error: (err: HttpErrorResponse) => {
         this.guardando.set(false);
         this.errorMensaje.set(
@@ -90,5 +124,23 @@ export class LibroFormPage {
 
   cancelar(): void {
     this.router.navigate(['/inventario']);
+  }
+
+  private subirPortadaSiHay(id: string): void {
+    const archivo = this.portadaFile();
+    if (!archivo) {
+      this.router.navigate(['/inventario']);
+      return;
+    }
+
+    this.catalogoService.subirPortada(id, archivo).subscribe({
+      next: () => this.router.navigate(['/inventario']),
+      error: () => {
+        this.guardando.set(false);
+        this.errorMensaje.set(
+          'El libro se guardó, pero no se pudo subir la portada. Puedes intentarlo de nuevo desde "Editar".'
+        );
+      }
+    });
   }
 }

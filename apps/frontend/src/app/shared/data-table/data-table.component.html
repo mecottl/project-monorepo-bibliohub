@@ -37,6 +37,7 @@
                 role="cell"
                 [class.align-center]="column.align === 'center'"
                 [class.align-right]="column.align === 'right'"
+                [class]="cellClass(row, column)"
               >
                 {{ cellValue(row, column) }}
               </td>

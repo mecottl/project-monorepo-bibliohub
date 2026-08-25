@@ -3,6 +3,25 @@
 
   <form [formGroup]="form" (ngSubmit)="guardar()">
     <div class="field">
+      <label for="portada">Portada</label>
+      <div class="libro-form__portada">
+        <div class="libro-form__portada-preview">
+          @if (portadaPreviewUrl()) {
+            <img [src]="portadaPreviewUrl()" alt="Vista previa de la portada" />
+          } @else {
+            <span class="libro-form__portada-vacio">Sin portada</span>
+          }
+        </div>
+        <input
+          id="portada"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          (change)="onPortadaSeleccionada($event)"
+        />
+      </div>
+    </div>
+
+    <div class="field">
       <label for="titulo">Título</label>
       <input id="titulo" type="text" formControlName="titulo" />
     </div>

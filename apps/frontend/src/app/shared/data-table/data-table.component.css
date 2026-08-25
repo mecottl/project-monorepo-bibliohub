@@ -55,6 +55,39 @@
   cursor: default;
 }
 
+.cell-danger,
+.cell-warning {
+  font-weight: 600;
+}
+
+.cell-danger {
+  color: var(--color-error);
+}
+
+.cell-danger::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-error);
+  margin-right: 6px;
+}
+
+.cell-warning {
+  color: color-mix(in srgb, var(--color-warning) 60%, black);
+}
+
+.cell-warning::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-warning);
+  margin-right: 6px;
+}
+
 .data-table-loading {
   padding: 2rem;
   text-align: center;

@@ -28,6 +28,10 @@ export class DataTableComponent<T extends object> {
     return raw === null || raw === undefined ? '—' : String(raw);
   }
 
+  cellClass(row: T, column: DataTableColumn<T>): string {
+    return column.cellClass ? column.cellClass(row[column.key], row) : '';
+  }
+
   trackRow = (_index: number, row: T): unknown => {
     const key = this.trackByKey();
     return key ? row[key] : row;

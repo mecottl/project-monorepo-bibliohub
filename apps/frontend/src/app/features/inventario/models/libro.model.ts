@@ -33,6 +33,7 @@ export interface Libro {
   stockMinimo: number;
   activo: boolean;
   libroAutores?: LibroAutor[];
+  imagenUrl: string | null;
 }
 
 export interface PaginatedLibros {
