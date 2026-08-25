@@ -46,7 +46,15 @@
           [queryParams]="{ categoriaId: categoria.id }"
           class="categoria-card"
         >
-          <div class="categoria-card__cover" aria-hidden="true"></div>
+          <div class="categoria-card__cover" aria-hidden="true">
+            @if (!coverFallida(categoria)) {
+              <img
+                [src]="coverSrc(categoria)"
+                alt=""
+                (error)="onCoverError(categoria)"
+              />
+            }
+          </div>
           <span class="categoria-card__label">{{ categoria.nombre }}</span>
         </a>
       }

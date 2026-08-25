@@ -7,6 +7,15 @@ import { Categoria, Libro } from '../tienda.model';
 const DESTACADOS_LIMIT = 4;
 const RESULTADOS_BUSQUEDA_LIMIT = 12;
 
+function slugificar(texto: string): string {
+  return texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 @Component({
   selector: 'app-tienda-home',
   standalone: true,
@@ -22,6 +31,7 @@ export class HomeComponent {
   categorias = signal<Categoria[]>([]);
   searchTerm = signal('');
   loadingLibros = signal(true);
+  private coversFallidas = signal<Set<string>>(new Set());
 
   encabezado = computed(() =>
     this.searchTerm() ? `Búsquedas relacionadas a "${this.searchTerm()}"` : 'Destacados'
@@ -39,6 +49,18 @@ export class HomeComponent {
       () => this.cargarLibros(value || undefined),
       300
     );
+  }
+
+  coverSrc(categoria: Categoria): string {
+    return `/covers/categorias/${slugificar(categoria.nombre)}.jpg`;
+  }
+
+  coverFallida(categoria: Categoria): boolean {
+    return this.coversFallidas().has(categoria.id);
+  }
+
+  onCoverError(categoria: Categoria): void {
+    this.coversFallidas.update((actuales) => new Set(actuales).add(categoria.id));
   }
 
   private cargarLibros(titulo?: string): void {
