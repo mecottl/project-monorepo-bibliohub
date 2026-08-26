@@ -1,8 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { LogoComponent } from '../../shared/logo/logo.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 const RUTAS_ADMIN = [
   '/dashboard',
@@ -17,7 +18,7 @@ const RUTAS_ADMIN = [
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LogoComponent],
+  imports: [RouterOutlet, SidebarComponent, TopbarComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })

@@ -1,0 +1,114 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--topbar-height);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 32px;
+  background: white;
+  border-bottom: 1px solid var(--color-beige);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.topbar__spacer {
+  flex: 1;
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar__link {
+  background: none;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-cafe-medio);
+  cursor: pointer;
+  padding: 6px 4px;
+  transition: color 0.15s ease;
+}
+
+.topbar__link:hover {
+  color: var(--color-cafe-oscuro);
+}
+
+.topbar__link--placeholder {
+  cursor: default;
+  color: var(--color-gris-oscuro);
+}
+
+.topbar__link--placeholder:hover {
+  color: var(--color-gris-oscuro);
+}
+
+.topbar__divider {
+  width: 1px;
+  height: 22px;
+  background: var(--color-beige);
+}
+
+.topbar__icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-cafe-medio);
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.topbar__icon-btn:hover {
+  background: var(--color-crema);
+  color: var(--color-cafe-oscuro);
+}
+
+.topbar__icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.topbar__user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 14px 5px 5px;
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+
+.topbar__user-chip:hover {
+  background: var(--color-crema);
+}
+
+.topbar__user-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--color-negro-suave);
+}
+
+.topbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--color-cafe-medio);
+  background: var(--color-crema);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar__avatar svg {
+  width: 32px;
+  height: 32px;
+}

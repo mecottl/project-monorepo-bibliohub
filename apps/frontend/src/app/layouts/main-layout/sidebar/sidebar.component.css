@@ -1,0 +1,107 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: white;
+  border-right: 1px solid var(--color-beige);
+  padding: 32px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  width: 100%;
+  padding: 4px 6px 4px 4px;
+  color: var(--color-negro-suave);
+  background: none;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sidebar__brand:hover {
+  background: var(--color-crema);
+}
+
+.sidebar__brand app-logo {
+  --logo-size: 48px;
+}
+
+.sidebar__brand-name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-negro-suave);
+  white-space: nowrap;
+}
+
+.sidebar__nav {
+  flex: 1;
+  min-height: 0;
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sidebar__nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__nav-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-beige);
+}
+
+.sidebar__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-gris-oscuro);
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar__nav-icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sidebar__nav-item:hover {
+  background: var(--color-crema);
+  color: var(--color-negro-suave);
+}
+
+.sidebar__nav-item.is-active {
+  background: color-mix(in srgb, var(--color-cafe-claro) 45%, white);
+  color: var(--color-cafe-oscuro);
+  border-left-color: var(--color-cafe-oscuro);
+}
