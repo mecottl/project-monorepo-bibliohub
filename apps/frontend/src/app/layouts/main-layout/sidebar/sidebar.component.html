@@ -1,4 +1,8 @@
-<aside class="sidebar">
+<aside
+  class="sidebar"
+  [class.is-open]="abierto()"
+  [style.transform]="abierto() ? 'translateX(0)' : null"
+>
   <button
     type="button"
     class="sidebar__brand"

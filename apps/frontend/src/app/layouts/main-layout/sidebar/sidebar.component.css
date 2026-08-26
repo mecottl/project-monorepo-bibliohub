@@ -10,6 +10,24 @@
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: min(var(--sidebar-width), 82vw);
+    height: 100vh;
+    box-shadow: var(--shadow-modal);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+}
+
 .sidebar__brand {
   display: flex;
   align-items: center;

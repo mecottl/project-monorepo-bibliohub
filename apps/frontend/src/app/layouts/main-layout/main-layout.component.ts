@@ -28,16 +28,28 @@ export class MainLayoutComponent {
 
   private urlActual = signal(this.router.url);
 
-  /** El chrome (sidebar/topbar) se deriva de la ruta actual, no de un toggle manual. */
   private enRutaAdmin = computed(() => RUTAS_ADMIN.some((ruta) => this.urlActual().startsWith(ruta)));
 
   mostrarAdminChrome = computed(() => this.auth.isAdmin() && this.enRutaAdmin());
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
 
+  menuAbierto = signal(false);
+
   constructor() {
     this.router.events
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
-      .subscribe((evento) => this.urlActual.set(evento.urlAfterRedirects));
+      .subscribe((evento) => {
+        this.urlActual.set(evento.urlAfterRedirects);
+        this.menuAbierto.set(false);
+      });
+  }
+
+  onMenuToggle(): void {
+    this.menuAbierto.update((valor) => !valor);
+  }
+
+  cerrarMenu(): void {
+    this.menuAbierto.set(false);
   }
 
   onLogoClick(): void {

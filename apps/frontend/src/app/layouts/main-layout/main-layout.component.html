@@ -1,6 +1,11 @@
 <div class="main-layout">
+  @if (menuAbierto()) {
+    <div class="main-layout__backdrop" (click)="cerrarMenu()"></div>
+  }
+
   <app-sidebar
     [mostrarAdminChrome]="mostrarAdminChrome()"
+    [abierto]="menuAbierto()"
     (brandClick)="onLogoClick()"
     (logout)="onLogout()"
   />
@@ -13,7 +18,12 @@
       </div>
     }
 
-    <app-topbar [mostrarAdminChrome]="mostrarAdminChrome()" (logout)="onLogout()" />
+    <app-topbar
+      [mostrarAdminChrome]="mostrarAdminChrome()"
+      [menuAbierto]="menuAbierto()"
+      (menuToggle)="onMenuToggle()"
+      (logout)="onLogout()"
+    />
 
     <main class="main-layout__content">
       <router-outlet></router-outlet>

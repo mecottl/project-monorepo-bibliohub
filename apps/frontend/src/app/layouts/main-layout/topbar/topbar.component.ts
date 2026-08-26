@@ -14,6 +14,8 @@ export class TopbarComponent {
   auth = inject(AuthService);
 
   mostrarAdminChrome = input.required<boolean>();
+  menuAbierto = input(false);
 
+  menuToggle = output<void>();
   logout = output<void>();
 }

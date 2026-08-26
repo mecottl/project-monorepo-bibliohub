@@ -15,6 +15,7 @@ export class SidebarComponent {
   auth = inject(AuthService);
 
   mostrarAdminChrome = input.required<boolean>();
+  abierto = input(false);
 
   brandClick = output<void>();
   logout = output<void>();
