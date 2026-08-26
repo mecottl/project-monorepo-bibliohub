@@ -4,7 +4,8 @@ import { CatalogoService } from '../catalogo.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { Categoria, Libro } from '../tienda.model';
 
-const DESTACADOS_LIMIT = 4;
+// Simulado: toma los primeros N libros hasta que existan registros de ventas reales para ordenar por más vendidos.
+const DESTACADOS_LIMIT = 12;
 const RESULTADOS_BUSQUEDA_LIMIT = 12;
 const EXTENSIONES_COVER = ['jpg', 'jpeg', 'png'];
 
