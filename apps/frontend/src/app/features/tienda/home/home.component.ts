@@ -6,7 +6,7 @@ import { Categoria, Libro } from '../tienda.model';
 
 const DESTACADOS_LIMIT = 4;
 const RESULTADOS_BUSQUEDA_LIMIT = 12;
-const EXTENSIONES_COVER = ['jpg', 'png'];
+const EXTENSIONES_COVER = ['jpg', 'jpeg', 'png'];
 
 function slugificar(texto: string): string {
   return texto

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
 import { LogoComponent } from '../../../shared/logo/logo.component';
 
 const CARPETA = '/login';
-const EXTENSIONES = ['jpg', 'png'];
+const EXTENSIONES = ['jpg', 'jpeg', 'png'];
 const MAX_SLIDES = 12;
 const DURACION_MS = 7000;
 
