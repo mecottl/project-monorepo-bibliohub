@@ -1,10 +1,5 @@
 <section class="tienda-home">
-  <div class="tienda-home__header">
-    <h2 class="tienda-home__heading font-display">{{ encabezado() }}</h2>
-    @if (!busqueda.termino()) {
-      <a routerLink="/categorias" class="tienda-home__ver-todos">Ver todos los libros</a>
-    }
-  </div>
+  <h2 class="tienda-home__heading font-display">{{ encabezado() }}</h2>
 
   @if (loadingLibros()) {
     <p class="tienda-home__status">Cargando libros...</p>
@@ -18,30 +13,25 @@
     </div>
   }
 
-  <h2 class="tienda-home__heading font-display">Categorías</h2>
+  @if (!busqueda.termino()) {
+    <h2 class="tienda-home__heading font-display">Todos los libros</h2>
 
-  @if (categorias().length === 0) {
-    <p class="tienda-home__status">No hay categorías disponibles.</p>
-  } @else {
-    <div class="tienda-home__categorias">
-      @for (categoria of categorias(); track categoria.id) {
-        <a
-          routerLink="/categorias"
-          [queryParams]="{ categoriaId: categoria.id }"
-          class="categoria-card"
-        >
-          <div class="categoria-card__cover" aria-hidden="true">
-            @if (!coverFallida(categoria)) {
-              <img
-                [src]="coverSrc(categoria)"
-                alt=""
-                (error)="onCoverError(categoria)"
-              />
-            }
-          </div>
-          <span class="categoria-card__label">{{ categoria.nombre }}</span>
-        </a>
-      }
-    </div>
+    @if (todosLoading()) {
+      <p class="tienda-home__status">Cargando libros...</p>
+    } @else if (todosLibros().length === 0) {
+      <p class="tienda-home__status">No se encontraron libros.</p>
+    } @else {
+      <div class="tienda-home__grid">
+        @for (libro of todosLibros(); track libro.id) {
+          <app-book-card [libro]="libro" />
+        }
+      </div>
+
+      <app-pagination
+        [page]="todosPage()"
+        [totalPages]="todosTotalPages()"
+        (pageChange)="onTodosPageChange($event)"
+      />
+    }
   }
 </section>

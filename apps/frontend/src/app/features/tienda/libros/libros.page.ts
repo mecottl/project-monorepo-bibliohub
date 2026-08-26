@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
 import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
@@ -7,6 +7,16 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { Categoria, Libro } from '../tienda.model';
 
 const LIMIT = 12;
+const EXTENSIONES_COVER = ['jpg', 'jpeg', 'png'];
+
+function slugificar(texto: string): string {
+  return texto
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 @Component({
   selector: 'app-libros',
@@ -27,12 +37,17 @@ export class LibrosPage {
   categorias = signal<Categoria[]>([]);
   loading = signal(true);
 
+  private coversFallidas = signal<Set<string>>(new Set());
+  private coversIntento = signal<Map<string, number>>(new Map());
+
   totalPages = computed(() => Math.max(1, Math.ceil(this.total() / LIMIT)));
 
   categoriaActual = computed(() => {
     const id = this.categoriaId();
     return id ? (this.categorias().find((c) => c.id === id) ?? null) : null;
   });
+
+  mostrarCategorias = computed(() => !this.categoriaId() && !this.busqueda.termino());
 
   encabezado = computed(() => {
     if (this.busqueda.termino()) return `Búsquedas relacionadas a "${this.busqueda.termino()}"`;
@@ -61,7 +76,34 @@ export class LibrosPage {
     this.cargar();
   }
 
+  coverSrc(categoria: Categoria): string {
+    const intento = this.coversIntento().get(categoria.id) ?? 0;
+    const extension = EXTENSIONES_COVER[intento];
+    return `/covers/categorias/${slugificar(categoria.nombre)}.${extension}`;
+  }
+
+  coverFallida(categoria: Categoria): boolean {
+    return this.coversFallidas().has(categoria.id);
+  }
+
+  onCoverError(categoria: Categoria): void {
+    const intentoActual = this.coversIntento().get(categoria.id) ?? 0;
+    const siguienteIntento = intentoActual + 1;
+
+    if (siguienteIntento < EXTENSIONES_COVER.length) {
+      this.coversIntento.update((actuales) => new Map(actuales).set(categoria.id, siguienteIntento));
+      return;
+    }
+
+    this.coversFallidas.update((actuales) => new Set(actuales).add(categoria.id));
+  }
+
   private cargar(): void {
+    if (this.mostrarCategorias()) {
+      this.loading.set(false);
+      return;
+    }
+
     this.loading.set(true);
     this.catalogo
       .getLibros({

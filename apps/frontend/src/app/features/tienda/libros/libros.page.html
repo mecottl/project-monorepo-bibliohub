@@ -1,26 +1,55 @@
 <section class="libros-page">
-  <div class="libros-page__header">
-    <h1 class="font-display">{{ encabezado() }}</h1>
-    @if (categoriaActual()) {
-      <a routerLink="/categorias" class="libros-page__clear">Ver todos los libros</a>
-    }
-  </div>
+  @if (mostrarCategorias()) {
+    <h1 class="font-display">Categorías</h1>
 
-  @if (loading()) {
-    <p class="libros-page__status">Cargando libros...</p>
-  } @else if (libros().length === 0) {
-    <p class="libros-page__status">No se encontraron libros.</p>
+    @if (categorias().length === 0) {
+      <p class="libros-page__status">No hay categorías disponibles.</p>
+    } @else {
+      <div class="libros-page__categorias">
+        @for (categoria of categorias(); track categoria.id) {
+          <a
+            routerLink="/categorias"
+            [queryParams]="{ categoriaId: categoria.id }"
+            class="categoria-card"
+          >
+            <div class="categoria-card__cover" aria-hidden="true">
+              @if (!coverFallida(categoria)) {
+                <img
+                  [src]="coverSrc(categoria)"
+                  alt=""
+                  (error)="onCoverError(categoria)"
+                />
+              }
+            </div>
+            <span class="categoria-card__label">{{ categoria.nombre }}</span>
+          </a>
+        }
+      </div>
+    }
   } @else {
-    <div class="libros-page__grid">
-      @for (libro of libros(); track libro.id) {
-        <app-book-card [libro]="libro" />
+    <div class="libros-page__header">
+      <h1 class="font-display">{{ encabezado() }}</h1>
+      @if (categoriaId()) {
+        <a routerLink="/categorias" class="libros-page__clear">← Volver a categorías</a>
       }
     </div>
 
-    <app-pagination
-      [page]="page()"
-      [totalPages]="totalPages()"
-      (pageChange)="onPageChange($event)"
-    />
+    @if (loading()) {
+      <p class="libros-page__status">Cargando libros...</p>
+    } @else if (libros().length === 0) {
+      <p class="libros-page__status">No se encontraron libros.</p>
+    } @else {
+      <div class="libros-page__grid">
+        @for (libro of libros(); track libro.id) {
+          <app-book-card [libro]="libro" />
+        }
+      </div>
+
+      <app-pagination
+        [page]="page()"
+        [totalPages]="totalPages()"
+        (pageChange)="onPageChange($event)"
+      />
+    }
   }
 </section>
