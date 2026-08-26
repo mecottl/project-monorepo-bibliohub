@@ -3,12 +3,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../core/auth/auth.service';
-import { LogoComponent } from '../../../shared/logo/logo.component';
+import { AuthSlideshowComponent } from '../auth-slideshow/auth-slideshow.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LogoComponent],
+  imports: [ReactiveFormsModule, RouterLink, AuthSlideshowComponent],
   templateUrl: './login.component.html',
   styleUrl: '../auth-shared.css'
 })

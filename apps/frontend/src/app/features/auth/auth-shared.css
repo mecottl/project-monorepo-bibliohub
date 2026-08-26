@@ -5,35 +5,9 @@
 }
 
 .login-page__brand {
+  position: relative;
   background: var(--color-negro-suave);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px;
-  gap: 40px;
-}
-
-.login-page__brand-title {
-  color: white;
-  font-size: 32px;
-}
-
-.login-page__quote {
-  font-family: var(--font-display);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 22px;
-  font-style: italic;
-  line-height: 1.6;
-  border-left: 3px solid var(--color-cafe-medio);
-  padding-left: 20px;
-}
-
-.login-page__quote cite {
-  display: block;
-  font-size: 14px;
-  margin-top: 12px;
-  color: var(--color-cafe-claro);
-  font-style: normal;
+  overflow: hidden;
 }
 
 .login-page__form-wrapper {

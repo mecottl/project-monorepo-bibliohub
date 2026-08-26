@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LogoComponent } from '../../../shared/logo/logo.component';
+import { AuthSlideshowComponent } from '../auth-slideshow/auth-slideshow.component';
 
 @Component({
   selector: 'app-recuperar-password',
   standalone: true,
-  imports: [RouterLink, LogoComponent],
+  imports: [RouterLink, AuthSlideshowComponent],
   templateUrl: './recuperar-password.component.html',
   styleUrl: '../auth-shared.css'
 })

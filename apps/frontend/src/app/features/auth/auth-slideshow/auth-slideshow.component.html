@@ -1,0 +1,45 @@
+<div class="slideshow">
+  @for (slide of slides(); track slide; let i = $index) {
+    <img
+      class="slideshow__img"
+      [class.is-active]="i === activeIndex()"
+      [src]="slide"
+      alt=""
+      aria-hidden="true"
+    />
+  }
+
+  <div class="slideshow__scrim-top"></div>
+  <div class="slideshow__scrim-bottom"></div>
+
+  <div class="slideshow__brand">
+    <app-logo />
+  </div>
+
+  @if (slides().length === 0) {
+    <blockquote class="slideshow__quote">
+      "Un lector vive mil vidas antes de morir."
+      — George R.R. Martin
+    </blockquote>
+  }
+
+  @if (slides().length > 1) {
+    <div class="slideshow__dots" role="tablist" aria-label="Imágenes destacadas">
+      @for (slide of slides(); track slide; let i = $index) {
+        <button
+          type="button"
+          class="slideshow__dot"
+          [class.is-active]="i === activeIndex()"
+          role="tab"
+          [attr.aria-selected]="i === activeIndex()"
+          [attr.aria-label]="'Ir a la imagen ' + (i + 1)"
+          (click)="irA(i)"
+        >
+          @if (i === activeIndex()) {
+            <span class="slideshow__dot-fill" [style.animation-duration.ms]="duracionMs"></span>
+          }
+        </button>
+      }
+    </div>
+  }
+</div>
