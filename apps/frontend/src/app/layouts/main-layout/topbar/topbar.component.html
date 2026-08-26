@@ -6,9 +6,7 @@
     aria-label="Abrir menú de navegación"
     (click)="menuToggle.emit()"
   >
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-    </svg>
+    <svg-menu />
   </button>
 
   <div class="topbar__spacer"></div>
@@ -23,18 +21,7 @@
   } @else {
     <div class="topbar__actions">
       <button type="button" class="topbar__icon-btn" aria-label="Carrito">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M3 4h2l2.4 12.2A2 2 0 0 0 9.36 18H18a2 2 0 0 0 1.96-1.6L21.5 8H6"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <circle cx="10" cy="21" r="1.4" fill="currentColor" />
-          <circle cx="18" cy="21" r="1.4" fill="currentColor" />
-        </svg>
+        <svg-carrito />
       </button>
 
       <span class="topbar__divider"></span>
@@ -42,20 +29,14 @@
       @if (auth.currentUser(); as user) {
         <span class="topbar__user-chip">
           <span class="topbar__avatar" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="4" fill="currentColor" />
-              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
-            </svg>
+            <svg-usuario />
           </span>
           <span class="topbar__user-name">{{ user.nombre }}</span>
         </span>
       } @else {
         <a routerLink="/login" class="topbar__icon-btn" aria-label="Iniciar sesión">
           <p>Iniciar sesión</p>
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4" fill="currentColor" />
-            <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" />
-          </svg>
+          <svg-usuario />
         </a>
       }
     </div>

@@ -103,14 +103,8 @@
 }
 
 .sidebar__nav-icon {
-  width: 19px;
-  height: 19px;
+  --icon-size: 19px;
   flex-shrink: 0;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .sidebar__nav-item:hover {

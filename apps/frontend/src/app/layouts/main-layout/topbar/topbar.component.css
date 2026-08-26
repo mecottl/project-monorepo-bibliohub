@@ -15,6 +15,7 @@
 }
 
 .topbar__menu-btn {
+  --icon-size: 24px;
   display: none;
   background: none;
   border: none;
@@ -28,11 +29,6 @@
 
 .topbar__menu-btn:hover {
   background: var(--color-crema);
-}
-
-.topbar__menu-btn svg {
-  width: 24px;
-  height: 24px;
 }
 
 .topbar__spacer {
@@ -77,6 +73,7 @@
 }
 
 .topbar__icon-btn {
+  --icon-size: 22px;
   background: none;
   border: none;
   cursor: pointer;
@@ -91,11 +88,6 @@
 .topbar__icon-btn:hover {
   background: var(--color-crema);
   color: var(--color-cafe-oscuro);
-}
-
-.topbar__icon-btn svg {
-  width: 22px;
-  height: 22px;
 }
 
 .topbar__user-chip {
@@ -118,6 +110,7 @@
 }
 
 .topbar__avatar {
+  --icon-size: 32px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -127,11 +120,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.topbar__avatar svg {
-  width: 32px;
-  height: 32px;
 }
 
 @media (max-width: 768px) {
