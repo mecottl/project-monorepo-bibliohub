@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
 import { LogoComponent } from '../../../shared/logo/logo.component';
 
 const CARPETA = '/login';
 const EXTENSIONES = ['png'];
 const MAX_SLIDES = 12;
 const DURACION_MS = 4000;
+const RATIO_POR_DEFECTO = 4 / 3;
 
 @Component({
   selector: 'app-auth-slideshow',
@@ -18,6 +19,9 @@ export class AuthSlideshowComponent implements OnInit, OnDestroy {
   slides = signal<string[]>([]);
   activeIndex = signal(0);
   protected readonly duracionMs = DURACION_MS;
+
+  private ratios = signal<number[]>([]);
+  activeRatio = computed(() => this.ratios()[this.activeIndex()] ?? RATIO_POR_DEFECTO);
 
   private timerId?: ReturnType<typeof setInterval>;
 
@@ -33,6 +37,16 @@ export class AuthSlideshowComponent implements OnInit, OnDestroy {
   irA(index: number): void {
     this.activeIndex.set(index);
     this.reiniciarAutoplay();
+  }
+
+  onImgLoad(index: number, event: Event): void {
+    const img = event.target as HTMLImageElement;
+    const ratio = img.naturalWidth / img.naturalHeight;
+    this.ratios.update((actuales) => {
+      const copia = [...actuales];
+      copia[index] = ratio;
+      return copia;
+    });
   }
 
   private async detectarSlides(): Promise<string[]> {

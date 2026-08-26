@@ -1,10 +1,16 @@
 <div class="slideshow">
-  @for (slide of slides(); track slide; let i = $index) {
-    <div class="slideshow__frame" [class.is-active]="i === activeIndex()">
-      <img class="slideshow__bg" [src]="slide" alt="" aria-hidden="true" />
-      <img class="slideshow__fg" [src]="slide" alt="" aria-hidden="true" />
-    </div>
-  }
+  <div class="slideshow__viewport" [style.aspect-ratio]="activeRatio()">
+    @for (slide of slides(); track slide; let i = $index) {
+      <img
+        class="slideshow__img"
+        [class.is-active]="i === activeIndex()"
+        [src]="slide"
+        alt=""
+        aria-hidden="true"
+        (load)="onImgLoad(i, $event)"
+      />
+    }
+  </div>
 
   <div class="slideshow__scrim-top"></div>
   <div class="slideshow__scrim-bottom"></div>
