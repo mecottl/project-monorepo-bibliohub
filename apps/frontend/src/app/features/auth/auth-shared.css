@@ -1,21 +1,31 @@
 .login-page {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   min-height: 100vh;
 }
 
 .login-page__brand {
   position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  height: 100vh;
   background: var(--color-negro-suave);
   overflow: hidden;
 }
 
 .login-page__form-wrapper {
+  flex: 1;
+  min-width: 0;
   background: var(--color-crema);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px;
+}
+
+@media (max-width: 768px) {
+  .login-page__brand {
+    display: none;
+  }
 }
 
 .login-page__card {

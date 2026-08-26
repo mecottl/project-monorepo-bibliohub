@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
-import { LogoComponent } from '../../../shared/logo/logo.component';
 
 const CARPETA = '/login';
 const EXTENSIONES = ['png'];
@@ -10,7 +9,6 @@ const RATIO_POR_DEFECTO = 4 / 3;
 @Component({
   selector: 'app-auth-slideshow',
   standalone: true,
-  imports: [LogoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth-slideshow.component.html',
   styleUrl: './auth-slideshow.component.css'
