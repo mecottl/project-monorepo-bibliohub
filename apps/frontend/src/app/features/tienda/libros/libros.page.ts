@@ -1,8 +1,8 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
+import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
-import { SearchInputComponent } from '../../../shared/search-input/search-input.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { Categoria, Libro } from '../tienda.model';
 
@@ -11,18 +11,18 @@ const LIMIT = 12;
 @Component({
   selector: 'app-libros',
   standalone: true,
-  imports: [BookCardComponent, SearchInputComponent, PaginationComponent, RouterLink],
+  imports: [BookCardComponent, PaginationComponent, RouterLink],
   templateUrl: './libros.page.html',
   styleUrl: './libros.page.css'
 })
 export class LibrosPage {
   private readonly catalogo = inject(CatalogoService);
   private readonly route = inject(ActivatedRoute);
+  busqueda = inject(CatalogoBusquedaService);
 
   libros = signal<Libro[]>([]);
   total = signal(0);
   page = signal(1);
-  searchTerm = signal('');
   categoriaId = signal<string | null>(null);
   categorias = signal<Categoria[]>([]);
   loading = signal(true);
@@ -35,7 +35,7 @@ export class LibrosPage {
   });
 
   encabezado = computed(() => {
-    if (this.searchTerm()) return `Búsquedas relacionadas a "${this.searchTerm()}"`;
+    if (this.busqueda.termino()) return `Búsquedas relacionadas a "${this.busqueda.termino()}"`;
     return this.categoriaActual()?.nombre ?? 'Todos los libros';
   });
 
@@ -44,15 +44,16 @@ export class LibrosPage {
 
     this.route.queryParamMap.subscribe((params) => {
       this.categoriaId.set(params.get('categoriaId'));
-      this.page.set(1);
-      this.cargar();
     });
-  }
 
-  onSearch(valor: string): void {
-    this.searchTerm.set(valor);
-    this.page.set(1);
-    this.cargar();
+    effect(() => {
+      this.categoriaId();
+      this.busqueda.termino();
+      untracked(() => {
+        this.page.set(1);
+        this.cargar();
+      });
+    });
   }
 
   onPageChange(nuevaPagina: number): void {
@@ -64,7 +65,7 @@ export class LibrosPage {
     this.loading.set(true);
     this.catalogo
       .getLibros({
-        titulo: this.searchTerm() || undefined,
+        titulo: this.busqueda.termino() || undefined,
         categoriaId: this.categoriaId() ?? undefined,
         page: this.page(),
         limit: LIMIT

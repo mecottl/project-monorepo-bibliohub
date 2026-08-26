@@ -6,6 +6,8 @@ import { CatalogoBusquedaService } from '../../features/tienda/catalogo-busqueda
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
+const RUTAS_BUSQUEDA = ['/inicio', '/categorias'];
+
 const RUTAS_ADMIN = [
   '/dashboard',
   '/inventario',
@@ -34,7 +36,7 @@ export class MainLayoutComponent {
 
   mostrarAdminChrome = computed(() => this.auth.isAdmin() && this.enRutaAdmin());
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
-  mostrarBusqueda = computed(() => this.urlActual().startsWith('/inicio'));
+  mostrarBusqueda = computed(() => RUTAS_BUSQUEDA.some((ruta) => this.urlActual().startsWith(ruta)));
 
   menuAbierto = signal(false);
 
@@ -42,7 +44,7 @@ export class MainLayoutComponent {
     this.router.events
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
       .subscribe((evento) => {
-        if (!evento.urlAfterRedirects.startsWith('/inicio')) {
+        if (!RUTAS_BUSQUEDA.some((ruta) => evento.urlAfterRedirects.startsWith(ruta))) {
           this.busqueda.limpiar();
         }
         this.urlActual.set(evento.urlAfterRedirects);

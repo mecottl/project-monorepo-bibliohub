@@ -1,10 +1,4 @@
 <section class="libros-page">
-  <app-search-input
-    ariaLabel="Buscar libro por título, autor o ISBN"
-    placeholder="Buscar por título, autor o ISBN…"
-    (search)="onSearch($event)"
-  />
-
   <div class="libros-page__header">
     <h1 class="font-display">{{ encabezado() }}</h1>
     @if (categoriaActual()) {
