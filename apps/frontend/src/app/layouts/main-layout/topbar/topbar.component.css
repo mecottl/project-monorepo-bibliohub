@@ -35,6 +35,17 @@
   flex: 1;
 }
 
+.topbar__search {
+  --search-input-bg: var(--color-crema);
+  --search-input-shadow: none;
+  --search-input-max-width: 420px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+}
+
 .topbar__actions {
   display: flex;
   align-items: center;
@@ -129,6 +140,11 @@
 
   .topbar__menu-btn {
     display: flex;
+  }
+
+  .topbar__search {
+    --search-input-max-width: none;
+    padding: 0 8px;
   }
 
   .topbar__link--placeholder,

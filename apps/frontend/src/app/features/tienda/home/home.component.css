@@ -4,37 +4,6 @@
   gap: 32px;
 }
 
-.tienda-home__search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: white;
-  border-radius: 999px;
-  padding: 12px 20px;
-  box-shadow: var(--shadow-card);
-  max-width: 480px;
-}
-
-.tienda-home__search-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--color-gris-claro);
-  flex-shrink: 0;
-}
-
-.tienda-home__search-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 15px;
-  font-family: var(--font-ui);
-  color: var(--color-negro-suave);
-}
-
-.tienda-home__search-input::placeholder {
-  color: var(--color-gris-claro);
-}
-
 .tienda-home__header {
   display: flex;
   align-items: baseline;

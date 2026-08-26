@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
+import { CatalogoBusquedaService } from '../../features/tienda/catalogo-busqueda.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
@@ -25,6 +26,7 @@ const RUTAS_ADMIN = [
 export class MainLayoutComponent {
   auth = inject(AuthService);
   private router = inject(Router);
+  private busqueda = inject(CatalogoBusquedaService);
 
   private urlActual = signal(this.router.url);
 
@@ -32,6 +34,7 @@ export class MainLayoutComponent {
 
   mostrarAdminChrome = computed(() => this.auth.isAdmin() && this.enRutaAdmin());
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
+  mostrarBusqueda = computed(() => this.urlActual().startsWith('/inicio'));
 
   menuAbierto = signal(false);
 
@@ -39,6 +42,9 @@ export class MainLayoutComponent {
     this.router.events
       .pipe(filter((evento): evento is NavigationEnd => evento instanceof NavigationEnd))
       .subscribe((evento) => {
+        if (!evento.urlAfterRedirects.startsWith('/inicio')) {
+          this.busqueda.limpiar();
+        }
         this.urlActual.set(evento.urlAfterRedirects);
         this.menuAbierto.set(false);
       });

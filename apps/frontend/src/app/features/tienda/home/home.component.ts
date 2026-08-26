@@ -1,6 +1,7 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
+import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { Categoria, Libro } from '../tienda.model';
 
@@ -27,31 +28,21 @@ function slugificar(texto: string): string {
 })
 export class HomeComponent {
   private catalogo = inject(CatalogoService);
-  private searchTimeout?: ReturnType<typeof setTimeout>;
+  busqueda = inject(CatalogoBusquedaService);
 
   libros = signal<Libro[]>([]);
   categorias = signal<Categoria[]>([]);
-  searchTerm = signal('');
   loadingLibros = signal(true);
   private coversFallidas = signal<Set<string>>(new Set());
   private coversIntento = signal<Map<string, number>>(new Map());
 
   encabezado = computed(() =>
-    this.searchTerm() ? `Búsquedas relacionadas a "${this.searchTerm()}"` : 'Destacados'
+    this.busqueda.termino() ? `Búsquedas relacionadas a "${this.busqueda.termino()}"` : 'Destacados'
   );
 
   constructor() {
-    this.cargarLibros();
     this.cargarCategorias();
-  }
-
-  onSearchInput(value: string): void {
-    this.searchTerm.set(value);
-    clearTimeout(this.searchTimeout);
-    this.searchTimeout = setTimeout(
-      () => this.cargarLibros(value || undefined),
-      300
-    );
+    effect(() => this.cargarLibros(this.busqueda.termino() || undefined));
   }
 
   coverSrc(categoria: Categoria): string {

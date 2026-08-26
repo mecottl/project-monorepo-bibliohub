@@ -9,7 +9,17 @@
     <svg-menu />
   </button>
 
-  <div class="topbar__spacer"></div>
+  @if (mostrarBusqueda() && !mostrarAdminChrome()) {
+    <div class="topbar__search">
+      <app-search-input
+        ariaLabel="Buscar libro por título, autor o ISBN"
+        placeholder="Buscar por título, autor o ISBN"
+        (search)="busqueda.actualizar($event)"
+      />
+    </div>
+  } @else {
+    <div class="topbar__spacer"></div>
+  }
 
   @if (mostrarAdminChrome()) {
     <div class="topbar__actions">

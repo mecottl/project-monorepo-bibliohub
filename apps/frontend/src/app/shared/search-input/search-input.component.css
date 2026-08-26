@@ -3,10 +3,10 @@
   display: inline-flex;
   align-items: center;
   width: 100%;
-  max-width: 320px;
-  background: white;
+  max-width: var(--search-input-max-width, 320px);
+  background: var(--search-input-bg, white);
   border-radius: 999px;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--search-input-shadow, var(--shadow-card));
 }
 
 .search-input input {
