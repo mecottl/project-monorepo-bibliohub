@@ -1,12 +1,9 @@
 <div class="slideshow">
   @for (slide of slides(); track slide; let i = $index) {
-    <img
-      class="slideshow__img"
-      [class.is-active]="i === activeIndex()"
-      [src]="slide"
-      alt=""
-      aria-hidden="true"
-    />
+    <div class="slideshow__frame" [class.is-active]="i === activeIndex()">
+      <img class="slideshow__bg" [src]="slide" alt="" aria-hidden="true" />
+      <img class="slideshow__fg" [src]="slide" alt="" aria-hidden="true" />
+    </div>
   }
 
   <div class="slideshow__scrim-top"></div>

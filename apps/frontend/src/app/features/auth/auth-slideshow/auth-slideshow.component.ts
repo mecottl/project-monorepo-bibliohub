@@ -4,7 +4,7 @@ import { LogoComponent } from '../../../shared/logo/logo.component';
 const CARPETA = '/login';
 const EXTENSIONES = ['png'];
 const MAX_SLIDES = 12;
-const DURACION_MS = 7000;
+const DURACION_MS = 4000;
 
 @Component({
   selector: 'app-auth-slideshow',
