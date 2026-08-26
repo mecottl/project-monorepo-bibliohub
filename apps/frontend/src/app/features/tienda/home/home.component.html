@@ -16,7 +16,7 @@
   @if (!busqueda.termino()) {
     <h2 class="tienda-home__heading font-display">Todos los libros</h2>
 
-    @if (todosLoading()) {
+    @if (todosLibros().length === 0 && todosLoading()) {
       <p class="tienda-home__status">Cargando libros...</p>
     } @else if (todosLibros().length === 0) {
       <p class="tienda-home__status">No se encontraron libros.</p>
@@ -26,12 +26,14 @@
           <app-book-card [libro]="libro" />
         }
       </div>
+    }
 
-      <app-pagination
-        [page]="todosPage()"
-        [totalPages]="todosTotalPages()"
-        (pageChange)="onTodosPageChange($event)"
-      />
+    @if (todosHayMas()) {
+      <div #sentinel class="tienda-home__sentinel">
+        @if (todosLoading()) {
+          <p class="tienda-home__status">Cargando más libros...</p>
+        }
+      </div>
     }
   }
 </section>

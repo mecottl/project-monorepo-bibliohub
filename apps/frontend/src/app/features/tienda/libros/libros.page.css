@@ -30,8 +30,15 @@
 
 .libros-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
   gap: 24px;
+}
+
+@media (max-width: 480px) {
+  .libros-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 170px));
+    gap: 16px;
+  }
 }
 
 .libros-page__categorias {
