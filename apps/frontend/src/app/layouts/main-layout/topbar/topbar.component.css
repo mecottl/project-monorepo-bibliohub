@@ -42,8 +42,13 @@
   flex: 1;
   min-width: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0 16px;
+}
+
+.topbar__search app-search-input {
+  display: flex;
+  width: 100%;
 }
 
 .topbar__actions {
