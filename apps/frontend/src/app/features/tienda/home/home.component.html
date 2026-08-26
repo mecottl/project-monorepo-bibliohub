@@ -1,5 +1,8 @@
 <section class="tienda-home">
-  <h2 class="tienda-home__heading font-display">{{ encabezado() }}</h2>
+  <div class="tienda-home__section-head">
+    <span class="tienda-home__kicker">{{ busqueda.termino() ? 'Resultados' : 'Selección de la semana' }}</span>
+    <h2 class="tienda-home__heading font-display">{{ encabezado() }}</h2>
+  </div>
 
   @if (loadingLibros()) {
     <p class="tienda-home__status">Cargando libros...</p>
@@ -14,7 +17,10 @@
   }
 
   @if (!busqueda.termino()) {
-    <h2 class="tienda-home__heading font-display">Todos los libros</h2>
+    <div class="tienda-home__section-head tienda-home__section-head--divider">
+      <span class="tienda-home__kicker">Catálogo completo</span>
+      <h2 class="tienda-home__heading font-display">Todos los libros</h2>
+    </div>
 
     @if (todosLibros().length === 0 && todosLoading()) {
       <p class="tienda-home__status">Cargando libros...</p>
