@@ -39,7 +39,15 @@
                 [class.align-right]="column.align === 'right'"
                 [class]="cellClass(row, column)"
               >
-                {{ cellValue(row, column) }}
+                @if (column.image) {
+                  @if (!imagenFallida(row) && imagenSrc(row, column); as src) {
+                    <img class="data-table-thumb" [src]="src" alt="" (error)="onImagenError(row)" />
+                  } @else {
+                    <span class="data-table-thumb data-table-thumb--empty" aria-hidden="true"></span>
+                  }
+                } @else {
+                  {{ cellValue(row, column) }}
+                }
               </td>
             }
             @if (rowActionsTemplate()) {

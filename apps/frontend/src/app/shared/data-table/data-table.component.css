@@ -88,6 +88,19 @@
   margin-right: 6px;
 }
 
+.data-table-thumb {
+  display: block;
+  width: 34px;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  object-fit: cover;
+  background: linear-gradient(160deg, var(--color-beige), var(--color-cafe-claro));
+}
+
+.data-table-thumb--empty {
+  border: 1px solid var(--color-beige);
+}
+
 .data-table-loading {
   padding: 2rem;
   text-align: center;

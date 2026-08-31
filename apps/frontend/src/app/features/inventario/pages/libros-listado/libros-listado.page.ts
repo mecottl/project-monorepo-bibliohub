@@ -35,6 +35,7 @@ export class LibrosListadoPage {
   libroAEliminar = signal<Libro | null>(null);
 
   columns: DataTableColumn<Libro>[] = [
+    { key: 'imagenUrl', label: 'Portada', image: true },
     { key: 'titulo', label: 'Título' },
     { key: 'isbn', label: 'ISBN' },
     {

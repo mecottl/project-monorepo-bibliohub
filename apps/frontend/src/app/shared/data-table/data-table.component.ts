@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, output, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { DataTableColumn } from './data-table.model';
 
@@ -20,6 +20,8 @@ export class DataTableComponent<T extends object> {
 
   hasData = computed(() => this.data().length > 0);
 
+  private imagenesFallidas = signal<Set<unknown>>(new Set());
+
   cellValue(row: T, column: DataTableColumn<T>): string {
     const raw = row[column.key];
     if (column.formatter) {
@@ -30,6 +32,19 @@ export class DataTableComponent<T extends object> {
 
   cellClass(row: T, column: DataTableColumn<T>): string {
     return column.cellClass ? column.cellClass(row[column.key], row) : '';
+  }
+
+  imagenSrc(row: T, column: DataTableColumn<T>): string | null {
+    const raw = row[column.key];
+    return typeof raw === 'string' && raw ? raw : null;
+  }
+
+  imagenFallida(row: T): boolean {
+    return this.imagenesFallidas().has(this.trackRow(0, row));
+  }
+
+  onImagenError(row: T): void {
+    this.imagenesFallidas.update((actuales) => new Set(actuales).add(this.trackRow(0, row)));
   }
 
   trackRow = (_index: number, row: T): unknown => {
