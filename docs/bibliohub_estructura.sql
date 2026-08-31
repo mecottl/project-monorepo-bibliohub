@@ -2,9 +2,9 @@
 
 --
 -- PostgreSQL database dump
---.
+--
 
-\restrict Rd5k1pjAf9SvzaoKZrXlY6XWguaFUO5ZGNQCHMZlhicKFSxSX4URqQbaX2VizLr
+\restrict Ue4lMleVJEXhtjbttpfb0euTvvRgQObUl2HUCQgcEEcNw6cAHv72PdlbQH6rDM5
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -58,7 +58,8 @@ CREATE FUNCTION public.cancelar_venta(p_venta_id uuid) RETURNS void
     AS $$
 DECLARE
     v_venta       venta%ROWTYPE;
-    v_detalle     detalle_venta%ROWTYPE;
+    v_libro_id    UUID;
+    v_cantidad    INT;
 BEGIN
     SELECT * INTO v_venta FROM venta WHERE id = p_venta_id FOR UPDATE;
 
@@ -69,19 +70,17 @@ BEGIN
         RAISE EXCEPTION 'La venta % ya está cancelada', p_venta_id;
     END IF;
 
-    -- Revertir stock por cada línea
-    FOR v_detalle IN SELECT * FROM detalle_venta WHERE venta_id = p_venta_id LOOP
+    -- Bucle corregido: solo las columnas necesarias
+    FOR v_libro_id, v_cantidad IN
+        SELECT libro_id, cantidad FROM detalle_venta WHERE venta_id = p_venta_id
+    LOOP
         UPDATE libro
-        SET stock_actual = stock_actual + v_detalle.cantidad
-        WHERE id = v_detalle.libro_id;
+        SET stock_actual = stock_actual + v_cantidad
+        WHERE id = v_libro_id;
     END LOOP;
 
-    -- Revertir puntos si había cliente
     IF v_venta.cliente_id IS NOT NULL THEN
-        -- Eliminar transacciones de puntos asociadas
         DELETE FROM transaccion_puntos WHERE venta_id = p_venta_id;
-
-        -- Recalcular saldo desde el historial
         UPDATE cliente
         SET puntos_saldo = (
             SELECT COALESCE(
@@ -93,7 +92,6 @@ BEGIN
         WHERE id = v_venta.cliente_id;
     END IF;
 
-    -- Marcar venta como cancelada
     UPDATE venta SET estado = 'cancelada' WHERE id = p_venta_id;
 END;
 $$;
@@ -224,16 +222,19 @@ DECLARE
     v_linea           NUMERIC(10,2);
     v_stock           INT;
 BEGIN
-    -- Leer tasa de acumulación desde configuracion
-    SELECT valor::INT INTO v_tasa_acum FROM configuracion WHERE clave = 'tasa_puntos_acumulacion';
+    SELECT valor::INT INTO v_tasa_acum
+    FROM configuracion WHERE clave = 'tasa_puntos_acumulacion';
 
-    -- 1. Validar stock y calcular subtotal
-    FOR v_item IN SELECT * FROM jsonb_array_elements(p_items) LOOP
+    -- Paso 1: validar stock y acumular subtotal
+    FOR v_item IN SELECT value FROM jsonb_array_elements(p_items)
+    LOOP
         v_libro_id := (v_item->>'libro_id')::UUID;
         v_cantidad := (v_item->>'cantidad')::INT;
         v_precio   := (v_item->>'precio_unitario')::NUMERIC;
 
-        SELECT stock_actual INTO v_stock FROM libro WHERE id = v_libro_id FOR UPDATE;
+        SELECT stock_actual INTO v_stock
+        FROM libro WHERE id = v_libro_id FOR UPDATE;
+
         IF v_stock < v_cantidad THEN
             RAISE EXCEPTION 'Stock insuficiente para libro %', v_libro_id;
         END IF;
@@ -241,7 +242,7 @@ BEGIN
         v_subtotal := v_subtotal + (v_cantidad * v_precio);
     END LOOP;
 
-    -- 2. Descuento por puntos
+    -- Paso 2: descuento y totales
     IF p_puntos_usados > 0 AND p_cliente_id IS NOT NULL THEN
         v_descuento := p_puntos_usados * 1.0;
     END IF;
@@ -249,39 +250,48 @@ BEGIN
     v_total          := GREATEST(v_subtotal - v_descuento, 0);
     v_puntos_ganados := FLOOR(v_total / v_tasa_acum);
 
-    -- 3. INSERT venta
-    INSERT INTO venta (cliente_id, empleado_id, subtotal, descuento_puntos, total,
-                       medio_pago, puntos_usados, puntos_ganados)
-    VALUES (p_cliente_id, p_empleado_id, v_subtotal, v_descuento, v_total,
-            p_medio_pago, p_puntos_usados, v_puntos_ganados)
+    -- Paso 3: INSERT venta
+    INSERT INTO venta (
+        cliente_id, empleado_id, subtotal, descuento_puntos,
+        total, medio_pago, puntos_usados, puntos_ganados
+    )
+    VALUES (
+        p_cliente_id, p_empleado_id, v_subtotal, v_descuento,
+        v_total, p_medio_pago, p_puntos_usados, v_puntos_ganados
+    )
     RETURNING id INTO v_venta_id;
 
-    -- 4. INSERT detalles + UPDATE stock
-    FOR v_item IN SELECT * FROM jsonb_array_elements(p_items) LOOP
+    -- Paso 4: detalles + stock
+    FOR v_item IN SELECT value FROM jsonb_array_elements(p_items)
+    LOOP
         v_libro_id := (v_item->>'libro_id')::UUID;
         v_cantidad := (v_item->>'cantidad')::INT;
         v_precio   := (v_item->>'precio_unitario')::NUMERIC;
         v_linea    := v_cantidad * v_precio;
 
-        INSERT INTO detalle_venta (venta_id, libro_id, cantidad, precio_unitario, subtotal_linea)
+        INSERT INTO detalle_venta
+            (venta_id, libro_id, cantidad, precio_unitario, subtotal_linea)
         VALUES (v_venta_id, v_libro_id, v_cantidad, v_precio, v_linea);
 
-        UPDATE libro SET stock_actual = stock_actual - v_cantidad WHERE id = v_libro_id;
+        UPDATE libro
+        SET stock_actual = stock_actual - v_cantidad
+        WHERE id = v_libro_id;
     END LOOP;
 
-    -- 5. Puntos (solo con cliente)
+    -- Paso 5: puntos
     IF p_cliente_id IS NOT NULL THEN
         IF p_puntos_usados > 0 THEN
-            INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, venta_id, concepto)
-            VALUES (p_cliente_id, 'canjeado', p_puntos_usados, 'pos', v_venta_id, 'Canje en venta POS');
+            INSERT INTO transaccion_puntos
+                (cliente_id, tipo, puntos, canal, venta_id, concepto)
+            VALUES (p_cliente_id, 'canjeado', p_puntos_usados, 'pos',
+                    v_venta_id, 'Canje en venta POS');
         END IF;
         IF v_puntos_ganados > 0 THEN
-            INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, venta_id, concepto)
-            VALUES (p_cliente_id, 'ganado', v_puntos_ganados, 'pos', v_venta_id, 'Compra en tienda física');
+            INSERT INTO transaccion_puntos
+                (cliente_id, tipo, puntos, canal, venta_id, concepto)
+            VALUES (p_cliente_id, 'ganado', v_puntos_ganados, 'pos',
+                    v_venta_id, 'Compra en tienda física');
         END IF;
-        UPDATE cliente
-        SET puntos_saldo = puntos_saldo - p_puntos_usados + v_puntos_ganados
-        WHERE id = p_cliente_id;
     END IF;
 
     RETURN v_venta_id;
@@ -306,6 +316,37 @@ $$;
 
 
 ALTER FUNCTION public.set_updated_at() OWNER TO postgres;
+
+--
+-- Name: sync_puntos_saldo(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.sync_puntos_saldo() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_cliente_id UUID;
+BEGIN
+    -- Determina el cliente afectado según la operación
+    v_cliente_id := COALESCE(NEW.cliente_id, OLD.cliente_id);
+
+    UPDATE cliente
+    SET puntos_saldo = (
+        SELECT COALESCE(
+            SUM(CASE WHEN tipo = 'ganado' THEN puntos ELSE -puntos END),
+            0
+        )
+        FROM transaccion_puntos
+        WHERE cliente_id = v_cliente_id
+    )
+    WHERE id = v_cliente_id;
+
+    RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+
+ALTER FUNCTION public.sync_puntos_saldo() OWNER TO postgres;
 
 --
 -- Name: trg_fn_carrito_touch(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -369,6 +410,13 @@ CREATE TABLE public.editorial (
 ALTER TABLE public.editorial OWNER TO postgres;
 
 --
+-- Name: TABLE editorial; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.editorial IS 'Catálogo de editoriales de los libros';
+
+
+--
 -- Name: libro; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -385,6 +433,7 @@ CREATE TABLE public.libro (
     activo boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    imagen_key character varying(500),
     CONSTRAINT libro_precio_costo_check CHECK ((precio_costo >= (0)::numeric)),
     CONSTRAINT libro_precio_venta_check CHECK ((precio_venta >= (0)::numeric)),
     CONSTRAINT libro_stock_actual_check CHECK ((stock_actual >= 0))
@@ -392,6 +441,34 @@ CREATE TABLE public.libro (
 
 
 ALTER TABLE public.libro OWNER TO postgres;
+
+--
+-- Name: TABLE libro; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.libro IS 'Catálogo central de productos — referenciado por todos los módulos';
+
+
+--
+-- Name: COLUMN libro.stock_minimo; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.libro.stock_minimo IS 'Umbral de alerta. Aparece en la vista alerta_stock_bajo cuando stock_actual lo alcanza';
+
+
+--
+-- Name: COLUMN libro.updated_at; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.libro.updated_at IS 'Actualizado automáticamente por trg_libro_updated_at';
+
+
+--
+-- Name: COLUMN libro.imagen_key; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.libro.imagen_key IS 'Ruta relativa del archivo de portada (ej. portadas/uuid.jpg). NULL si el libro no tiene portada.';
+
 
 --
 -- Name: alerta_stock_bajo; Type: VIEW; Schema: public; Owner: postgres
@@ -429,6 +506,13 @@ CREATE TABLE public.autor (
 ALTER TABLE public.autor OWNER TO postgres;
 
 --
+-- Name: TABLE autor; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.autor IS 'Catálogo de autores';
+
+
+--
 -- Name: carrito; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -440,6 +524,13 @@ CREATE TABLE public.carrito (
 
 
 ALTER TABLE public.carrito OWNER TO postgres;
+
+--
+-- Name: TABLE carrito; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.carrito IS 'Estado temporal del carrito antes de confirmar. Un cliente, un carrito activo';
+
 
 --
 -- Name: categoria; Type: TABLE; Schema: public; Owner: postgres
@@ -456,13 +547,20 @@ CREATE TABLE public.categoria (
 ALTER TABLE public.categoria OWNER TO postgres;
 
 --
+-- Name: TABLE categoria; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.categoria IS 'Clasificación por género o tema de los libros';
+
+
+--
 -- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.cliente (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    telefono character varying(15) NOT NULL,
-    nombre character varying(120) NOT NULL,
+    telefono character varying(20) NOT NULL,
+    nombre character varying(120),
     email character varying(150),
     password_hash character varying(255),
     cuenta_activa boolean DEFAULT false NOT NULL,
@@ -476,6 +574,41 @@ CREATE TABLE public.cliente (
 ALTER TABLE public.cliente OWNER TO postgres;
 
 --
+-- Name: TABLE cliente; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.cliente IS 'Clientes del sistema. Teléfono es el identificador universal en tienda y online';
+
+
+--
+-- Name: COLUMN cliente.telefono; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.cliente.telefono IS 'Identificador universal único. Se usa en tienda física y como login online';
+
+
+--
+-- Name: COLUMN cliente.password_hash; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.cliente.password_hash IS 'NULL si el cliente solo compra en tienda. Se llena al activar cuenta online';
+
+
+--
+-- Name: COLUMN cliente.cuenta_activa; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.cliente.cuenta_activa IS 'TRUE cuando el cliente activó acceso a la plataforma online';
+
+
+--
+-- Name: COLUMN cliente.puntos_saldo; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.cliente.puntos_saldo IS 'Saldo rápido de puntos. Sincronizado automáticamente por trg_transaccion_puntos_sync';
+
+
+--
 -- Name: configuracion; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -483,11 +616,27 @@ CREATE TABLE public.configuracion (
     clave character varying(80) NOT NULL,
     valor text NOT NULL,
     descripcion character varying(255),
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    tipo_dato character varying(20) DEFAULT 'text'::character varying NOT NULL,
+    CONSTRAINT configuracion_tipo_dato_check CHECK (((tipo_dato)::text = ANY ((ARRAY['integer'::character varying, 'numeric'::character varying, 'text'::character varying, 'boolean'::character varying])::text[])))
 );
 
 
 ALTER TABLE public.configuracion OWNER TO postgres;
+
+--
+-- Name: TABLE configuracion; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.configuracion IS 'Parámetros del sistema editables sin tocar código. Las funciones POS y pedidos los leen en tiempo de ejecución';
+
+
+--
+-- Name: COLUMN configuracion.tipo_dato; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.configuracion.tipo_dato IS 'Tipo esperado del valor: integer, numeric, text, boolean';
+
 
 --
 -- Name: detalle_pedido_compra; Type: TABLE; Schema: public; Owner: postgres
@@ -511,6 +660,20 @@ CREATE TABLE public.detalle_pedido_compra (
 ALTER TABLE public.detalle_pedido_compra OWNER TO postgres;
 
 --
+-- Name: TABLE detalle_pedido_compra; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.detalle_pedido_compra IS 'Líneas de cada orden. cantidad_recibida actualiza stock vía trg_recepcion_compra';
+
+
+--
+-- Name: COLUMN detalle_pedido_compra.cantidad_recibida; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.detalle_pedido_compra.cantidad_recibida IS 'Soporta entregas parciales. Cada incremento dispara trg_recepcion_compra y suma al stock';
+
+
+--
 -- Name: detalle_pedido_linea; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -530,6 +693,13 @@ CREATE TABLE public.detalle_pedido_linea (
 ALTER TABLE public.detalle_pedido_linea OWNER TO postgres;
 
 --
+-- Name: TABLE detalle_pedido_linea; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.detalle_pedido_linea IS 'Líneas de cada pedido online. Inmutable por auditoría — ON DELETE RESTRICT';
+
+
+--
 -- Name: detalle_venta; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -547,6 +717,20 @@ CREATE TABLE public.detalle_venta (
 
 
 ALTER TABLE public.detalle_venta OWNER TO postgres;
+
+--
+-- Name: TABLE detalle_venta; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.detalle_venta IS 'Líneas de cada venta. Inmutable por auditoría — ON DELETE RESTRICT';
+
+
+--
+-- Name: COLUMN detalle_venta.precio_unitario; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.detalle_venta.precio_unitario IS 'Snapshot del precio al momento de la venta. No cambia si el libro se actualiza después';
+
 
 --
 -- Name: direccion_entrega; Type: TABLE; Schema: public; Owner: postgres
@@ -571,6 +755,13 @@ CREATE TABLE public.direccion_entrega (
 ALTER TABLE public.direccion_entrega OWNER TO postgres;
 
 --
+-- Name: TABLE direccion_entrega; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.direccion_entrega IS 'Direcciones guardadas por clientes para envíos de pedidos online';
+
+
+--
 -- Name: empleado; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -590,6 +781,13 @@ CREATE TABLE public.empleado (
 ALTER TABLE public.empleado OWNER TO postgres;
 
 --
+-- Name: TABLE empleado; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.empleado IS 'Usuarios internos del sistema: cajeros y administradores';
+
+
+--
 -- Name: item_carrito; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -605,6 +803,13 @@ CREATE TABLE public.item_carrito (
 ALTER TABLE public.item_carrito OWNER TO postgres;
 
 --
+-- Name: TABLE item_carrito; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.item_carrito IS 'Libros en el carrito. UNIQUE(carrito_id, libro_id) — se actualiza la cantidad si se repite';
+
+
+--
 -- Name: libro_autor; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -617,6 +822,13 @@ CREATE TABLE public.libro_autor (
 
 
 ALTER TABLE public.libro_autor OWNER TO postgres;
+
+--
+-- Name: TABLE libro_autor; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.libro_autor IS 'Relación muchos-a-muchos entre libros y autores con rol';
+
 
 --
 -- Name: venta; Type: TABLE; Schema: public; Owner: postgres
@@ -645,6 +857,27 @@ CREATE TABLE public.venta (
 
 
 ALTER TABLE public.venta OWNER TO postgres;
+
+--
+-- Name: TABLE venta; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.venta IS 'Transacciones realizadas en el punto de venta físico';
+
+
+--
+-- Name: COLUMN venta.cliente_id; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.venta.cliente_id IS 'NULL si la venta es anónima — cliente no identificado';
+
+
+--
+-- Name: COLUMN venta.descuento_puntos; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.venta.descuento_puntos IS 'Monto en MXN descontado por canje de puntos de lealtad';
+
 
 --
 -- Name: libros_mas_vendidos; Type: VIEW; Schema: public; Owner: postgres
@@ -676,13 +909,77 @@ CREATE TABLE public.log_acceso (
     empleado_id uuid,
     evento character varying(40) NOT NULL,
     ip character varying(45),
-    user_agent character varying(300),
+    user_agent text,
     fecha timestamp without time zone DEFAULT now() NOT NULL,
     CONSTRAINT log_acceso_evento_check CHECK (((evento)::text = ANY ((ARRAY['login_ok'::character varying, 'login_fallido'::character varying, 'logout'::character varying, 'cambio_password'::character varying])::text[])))
 );
 
 
 ALTER TABLE public.log_acceso OWNER TO postgres;
+
+--
+-- Name: TABLE log_acceso; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.log_acceso IS 'Auditoría de todos los accesos: login_ok, login_fallido, logout, cambio_password';
+
+
+--
+-- Name: movimiento_inventario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movimiento_inventario (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    libro_id uuid NOT NULL,
+    empleado_id uuid NOT NULL,
+    tipo character varying(20) NOT NULL,
+    cantidad integer NOT NULL,
+    stock_anterior integer NOT NULL,
+    stock_nuevo integer NOT NULL,
+    motivo character varying(255),
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    CONSTRAINT movimiento_inventario_cantidad_check CHECK ((cantidad <> 0)),
+    CONSTRAINT movimiento_inventario_stock_check CHECK ((stock_nuevo = (stock_anterior + cantidad))),
+    CONSTRAINT movimiento_inventario_tipo_check CHECK (((tipo)::text = ANY ((ARRAY['entrada'::character varying, 'salida'::character varying, 'ajuste'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.movimiento_inventario OWNER TO postgres;
+
+--
+-- Name: TABLE movimiento_inventario; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.movimiento_inventario IS 'Historial de ajustes manuales de stock (entradas, salidas, correcciones) realizados por un empleado';
+
+
+--
+-- Name: COLUMN movimiento_inventario.tipo; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.movimiento_inventario.tipo IS 'entrada: suma stock | salida: resta stock | ajuste: correccion manual tras conteo fisico';
+
+
+--
+-- Name: COLUMN movimiento_inventario.cantidad; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.movimiento_inventario.cantidad IS 'Delta con signo aplicado a libro.stock_actual: positivo en entrada/ajuste hacia arriba, negativo en salida/ajuste hacia abajo';
+
+
+--
+-- Name: COLUMN movimiento_inventario.stock_anterior; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.movimiento_inventario.stock_anterior IS 'Snapshot de libro.stock_actual antes del movimiento';
+
+
+--
+-- Name: COLUMN movimiento_inventario.stock_nuevo; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.movimiento_inventario.stock_nuevo IS 'Snapshot de libro.stock_actual despues del movimiento';
+
 
 --
 -- Name: pedido_compra; Type: TABLE; Schema: public; Owner: postgres
@@ -703,6 +1000,13 @@ CREATE TABLE public.pedido_compra (
 
 
 ALTER TABLE public.pedido_compra OWNER TO postgres;
+
+--
+-- Name: TABLE pedido_compra; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.pedido_compra IS 'Órdenes de compra enviadas a proveedores';
+
 
 --
 -- Name: pedido_linea; Type: TABLE; Schema: public; Owner: postgres
@@ -737,6 +1041,27 @@ CREATE TABLE public.pedido_linea (
 ALTER TABLE public.pedido_linea OWNER TO postgres;
 
 --
+-- Name: TABLE pedido_linea; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.pedido_linea IS 'Pedidos confirmados desde la plataforma online. Equivalente de venta para ese canal';
+
+
+--
+-- Name: COLUMN pedido_linea.estado; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.pedido_linea.estado IS 'Flujo: recibido → en_preparacion → listo → enviado → entregado / cancelado';
+
+
+--
+-- Name: COLUMN pedido_linea.costo_envio; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.pedido_linea.costo_envio IS '0 si es recoger_en_tienda o si el subtotal supera envio_gratis_desde en configuracion';
+
+
+--
 -- Name: proveedor; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -753,6 +1078,13 @@ CREATE TABLE public.proveedor (
 
 
 ALTER TABLE public.proveedor OWNER TO postgres;
+
+--
+-- Name: TABLE proveedor; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.proveedor IS 'Catálogo de proveedores de libros';
+
 
 --
 -- Name: rendimiento_empleados; Type: VIEW; Schema: public; Owner: postgres
@@ -792,6 +1124,20 @@ CREATE TABLE public.sesion (
 ALTER TABLE public.sesion OWNER TO postgres;
 
 --
+-- Name: TABLE sesion; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.sesion IS 'Tokens activos. Al hacer logout se borra la fila — invalidación real del JWT';
+
+
+--
+-- Name: COLUMN sesion.token_hash; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.sesion.token_hash IS 'SHA-256 del JWT. Nunca se guarda el token completo en BD';
+
+
+--
 -- Name: transaccion_puntos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -812,6 +1158,20 @@ CREATE TABLE public.transaccion_puntos (
 
 
 ALTER TABLE public.transaccion_puntos OWNER TO postgres;
+
+--
+-- Name: TABLE transaccion_puntos; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public.transaccion_puntos IS 'Historial inmutable de puntos. Fuente de verdad — ON DELETE RESTRICT. Sincroniza puntos_saldo vía trg_transaccion_puntos_sync';
+
+
+--
+-- Name: COLUMN transaccion_puntos.canal; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public.transaccion_puntos.canal IS 'pos = venta en tienda física, online = pedido desde la plataforma web';
+
 
 --
 -- Name: ventas_por_dia; Type: VIEW; Schema: public; Owner: postgres
@@ -1030,6 +1390,14 @@ ALTER TABLE ONLY public.log_acceso
 
 
 --
+-- Name: movimiento_inventario movimiento_inventario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento_inventario
+    ADD CONSTRAINT movimiento_inventario_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pedido_compra pedido_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1090,13 +1458,6 @@ ALTER TABLE ONLY public.venta
 --
 
 CREATE INDEX idx_autor_nombre ON public.autor USING btree (nombre);
-
-
---
--- Name: idx_cliente_email; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX idx_cliente_email ON public.cliente USING btree (email) WHERE (email IS NOT NULL);
 
 
 --
@@ -1163,6 +1524,13 @@ CREATE INDEX idx_item_carrito_carrito ON public.item_carrito USING btree (carrit
 
 
 --
+-- Name: idx_item_carrito_libro; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_item_carrito_libro ON public.item_carrito USING btree (libro_id);
+
+
+--
 -- Name: idx_libro_categoria; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1212,6 +1580,27 @@ CREATE INDEX idx_log_acceso_fecha ON public.log_acceso USING btree (fecha);
 
 
 --
+-- Name: idx_movimiento_inventario_fecha; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_movimiento_inventario_fecha ON public.movimiento_inventario USING btree (created_at);
+
+
+--
+-- Name: idx_movimiento_inventario_libro; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_movimiento_inventario_libro ON public.movimiento_inventario USING btree (libro_id);
+
+
+--
+-- Name: idx_pedido_compra_empleado; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_pedido_compra_empleado ON public.pedido_compra USING btree (empleado_id);
+
+
+--
 -- Name: idx_pedido_compra_estado; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1230,6 +1619,13 @@ CREATE INDEX idx_pedido_compra_proveedor ON public.pedido_compra USING btree (pr
 --
 
 CREATE INDEX idx_pedido_linea_cliente ON public.pedido_linea USING btree (cliente_id);
+
+
+--
+-- Name: idx_pedido_linea_direccion; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_pedido_linea_direccion ON public.pedido_linea USING btree (direccion_id) WHERE (direccion_id IS NOT NULL);
 
 
 --
@@ -1286,6 +1682,20 @@ CREATE INDEX idx_txn_puntos_cliente ON public.transaccion_puntos USING btree (cl
 --
 
 CREATE INDEX idx_txn_puntos_fecha ON public.transaccion_puntos USING btree (fecha);
+
+
+--
+-- Name: idx_txn_puntos_pedido; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_txn_puntos_pedido ON public.transaccion_puntos USING btree (pedido_linea_id) WHERE (pedido_linea_id IS NOT NULL);
+
+
+--
+-- Name: idx_txn_puntos_venta; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_txn_puntos_venta ON public.transaccion_puntos USING btree (venta_id) WHERE (venta_id IS NOT NULL);
 
 
 --
@@ -1373,6 +1783,13 @@ CREATE TRIGGER trg_recepcion_compra AFTER UPDATE OF cantidad_recibida ON public.
 
 
 --
+-- Name: transaccion_puntos trg_transaccion_puntos_sync; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_transaccion_puntos_sync AFTER INSERT OR DELETE ON public.transaccion_puntos FOR EACH ROW EXECUTE FUNCTION public.sync_puntos_saldo();
+
+
+--
 -- Name: carrito carrito_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1385,7 +1802,7 @@ ALTER TABLE ONLY public.carrito
 --
 
 ALTER TABLE ONLY public.detalle_pedido_compra
-    ADD CONSTRAINT detalle_pedido_compra_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id);
+    ADD CONSTRAINT detalle_pedido_compra_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE RESTRICT;
 
 
 --
@@ -1401,7 +1818,7 @@ ALTER TABLE ONLY public.detalle_pedido_compra
 --
 
 ALTER TABLE ONLY public.detalle_pedido_linea
-    ADD CONSTRAINT detalle_pedido_linea_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id);
+    ADD CONSTRAINT detalle_pedido_linea_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE RESTRICT;
 
 
 --
@@ -1417,7 +1834,7 @@ ALTER TABLE ONLY public.detalle_pedido_linea
 --
 
 ALTER TABLE ONLY public.detalle_venta
-    ADD CONSTRAINT detalle_venta_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id);
+    ADD CONSTRAINT detalle_venta_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE RESTRICT;
 
 
 --
@@ -1425,7 +1842,7 @@ ALTER TABLE ONLY public.detalle_venta
 --
 
 ALTER TABLE ONLY public.detalle_venta
-    ADD CONSTRAINT detalle_venta_venta_id_fkey FOREIGN KEY (venta_id) REFERENCES public.venta(id) ON DELETE CASCADE;
+    ADD CONSTRAINT detalle_venta_venta_id_fkey FOREIGN KEY (venta_id) REFERENCES public.venta(id) ON DELETE RESTRICT;
 
 
 --
@@ -1449,7 +1866,7 @@ ALTER TABLE ONLY public.item_carrito
 --
 
 ALTER TABLE ONLY public.item_carrito
-    ADD CONSTRAINT item_carrito_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id);
+    ADD CONSTRAINT item_carrito_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE RESTRICT;
 
 
 --
@@ -1501,11 +1918,27 @@ ALTER TABLE ONLY public.log_acceso
 
 
 --
+-- Name: movimiento_inventario movimiento_inventario_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento_inventario
+    ADD CONSTRAINT movimiento_inventario_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id) ON DELETE RESTRICT;
+
+
+--
+-- Name: movimiento_inventario movimiento_inventario_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movimiento_inventario
+    ADD CONSTRAINT movimiento_inventario_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE RESTRICT;
+
+
+--
 -- Name: pedido_compra pedido_compra_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pedido_compra
-    ADD CONSTRAINT pedido_compra_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id);
+    ADD CONSTRAINT pedido_compra_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id) ON DELETE RESTRICT;
 
 
 --
@@ -1513,7 +1946,7 @@ ALTER TABLE ONLY public.pedido_compra
 --
 
 ALTER TABLE ONLY public.pedido_compra
-    ADD CONSTRAINT pedido_compra_proveedor_id_fkey FOREIGN KEY (proveedor_id) REFERENCES public.proveedor(id);
+    ADD CONSTRAINT pedido_compra_proveedor_id_fkey FOREIGN KEY (proveedor_id) REFERENCES public.proveedor(id) ON DELETE RESTRICT;
 
 
 --
@@ -1521,7 +1954,7 @@ ALTER TABLE ONLY public.pedido_compra
 --
 
 ALTER TABLE ONLY public.pedido_linea
-    ADD CONSTRAINT pedido_linea_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id);
+    ADD CONSTRAINT pedido_linea_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id) ON DELETE RESTRICT;
 
 
 --
@@ -1553,7 +1986,7 @@ ALTER TABLE ONLY public.sesion
 --
 
 ALTER TABLE ONLY public.transaccion_puntos
-    ADD CONSTRAINT transaccion_puntos_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id) ON DELETE CASCADE;
+    ADD CONSTRAINT transaccion_puntos_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id) ON DELETE RESTRICT;
 
 
 --
@@ -1585,12 +2018,12 @@ ALTER TABLE ONLY public.venta
 --
 
 ALTER TABLE ONLY public.venta
-    ADD CONSTRAINT venta_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id);
+    ADD CONSTRAINT venta_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id) ON DELETE RESTRICT;
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Rd5k1pjAf9SvzaoKZrXlY6XWguaFUO5ZGNQCHMZlhicKFSxSX4URqQbaX2VizLr
+\unrestrict Ue4lMleVJEXhtjbttpfb0euTvvRgQObUl2HUCQgcEEcNw6cAHv72PdlbQH6rDM5
 
