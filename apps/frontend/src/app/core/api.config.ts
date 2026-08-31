@@ -1,3 +1,1 @@
-import { environment } from '../../environments/environment';
-
-export const API_BASE_URL = environment.apiBaseUrl;
+export const API_BASE_URL = import.meta.env.NG_APP_API_BASE_URL;
