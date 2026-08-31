@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
 import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
@@ -20,8 +20,8 @@ function slugificar(texto: string): string {
 
 @Component({
   selector: 'app-libros',
-  standalone: true,
   imports: [BookCardComponent, PaginationComponent, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './libros.page.html',
   styleUrl: './libros.page.css'
 })

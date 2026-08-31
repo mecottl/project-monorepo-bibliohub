@@ -1,4 +1,4 @@
-import { Component, ElementRef, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { CatalogoService } from '../catalogo.service';
 import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
@@ -11,8 +11,8 @@ const TODOS_LIBROS_LIMIT = 12;
 
 @Component({
   selector: 'app-tienda-home',
-  standalone: true,
   imports: [BookCardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

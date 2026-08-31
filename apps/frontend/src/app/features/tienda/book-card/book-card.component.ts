@@ -1,11 +1,11 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { Libro } from '../tienda.model';
 
 @Component({
   selector: 'app-book-card',
-  standalone: true,
   imports: [CurrencyPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.css'
 })

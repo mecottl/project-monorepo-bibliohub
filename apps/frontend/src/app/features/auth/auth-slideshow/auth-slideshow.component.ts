@@ -8,7 +8,6 @@ const RATIO_POR_DEFECTO = 4 / 3;
 
 @Component({
   selector: 'app-auth-slideshow',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth-slideshow.component.html',
   styleUrl: './auth-slideshow.component.css'

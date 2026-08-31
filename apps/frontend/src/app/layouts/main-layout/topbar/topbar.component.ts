@@ -9,7 +9,6 @@ import { UsuarioIconComponent } from '../../../shared/icons/usuario-icon.compone
 
 @Component({
   selector: 'app-topbar',
-  standalone: true,
   imports: [RouterLink, SearchInputComponent, MenuIconComponent, CarritoIconComponent, UsuarioIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './topbar.component.html',

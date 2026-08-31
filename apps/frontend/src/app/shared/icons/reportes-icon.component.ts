@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'svg-reportes',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './icon.css',
   template: `

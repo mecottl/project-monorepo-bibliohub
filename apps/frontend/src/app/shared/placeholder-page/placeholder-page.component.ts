@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-placeholder-page',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './placeholder-page.component.html',
   styleUrl: './placeholder-page.component.css'
 })

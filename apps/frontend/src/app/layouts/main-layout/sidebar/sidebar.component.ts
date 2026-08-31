@@ -18,7 +18,6 @@ import { LogoutIconComponent } from '../../../shared/icons/logout-icon.component
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
   imports: [
     RouterLink,
     RouterLinkActive,

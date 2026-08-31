@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
@@ -20,8 +20,8 @@ const RUTAS_ADMIN = [
 
 @Component({
   selector: 'app-main-layout',
-  standalone: true,
   imports: [RouterOutlet, SidebarComponent, TopbarComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
