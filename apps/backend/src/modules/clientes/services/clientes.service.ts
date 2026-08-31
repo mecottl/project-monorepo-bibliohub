@@ -80,6 +80,30 @@ export class ClientesService {
     return this.mapCliente(guardado);
   }
 
+  // Preparación para el futuro módulo de ventas (POS): busca un cliente por
+  // teléfono y, si no existe, lo crea como "solo teléfono" (sin nombre, sin
+  // password, cuenta inactiva) para que la venta pueda acumularle puntos de
+  // inmediato. No expuesto en un endpoint todavía.
+  async buscarOCrearPorTelefono(telefono: string): Promise<ClienteSinPassword> {
+    const existente = await this.clienteRepository.findOne({ where: { telefono } });
+
+    if (existente) {
+      return this.mapCliente(existente);
+    }
+
+    const cliente = this.clienteRepository.create({
+      telefono,
+      nombre: null,
+      email: null,
+      passwordHash: null,
+      cuentaActiva: false,
+      puntosSaldo: 0,
+    });
+
+    const guardado = await this.clienteRepository.save(cliente);
+    return this.mapCliente(guardado);
+  }
+
   async findOne(id: string): Promise<ClienteSinPassword> {
     const cliente = await this.buscarClienteSimple(id);
     return this.mapCliente(cliente);

@@ -2,11 +2,17 @@ import { IsOptional, IsString, IsEmail, IsBoolean, MaxLength } from 'class-valid
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateClienteDto {
-  @ApiPropertyOptional({ example: 'María López' })
+  @ApiPropertyOptional({
+    example: 'María López',
+    nullable: true,
+    description:
+      'Envía null para borrar el nombre (p. ej. si se cargó mal a mano); ' +
+      'omite el campo para dejarlo como está.',
+  })
   @IsOptional()
   @IsString()
   @MaxLength(120)
-  nombre?: string;
+  nombre?: string | null;
 
   @ApiPropertyOptional({ example: 'maria@example.com' })
   @IsOptional()
