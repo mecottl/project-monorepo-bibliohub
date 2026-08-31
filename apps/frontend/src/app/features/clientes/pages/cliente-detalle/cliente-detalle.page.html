@@ -22,7 +22,12 @@
         <form [formGroup]="form" (ngSubmit)="guardar()">
           <div class="field">
             <label for="nombre">Nombre</label>
-            <input id="nombre" type="text" formControlName="nombre" />
+            <input
+              id="nombre"
+              type="text"
+              formControlName="nombre"
+              placeholder="Aún sin nombre (cliente solo teléfono)"
+            />
           </div>
 
           <div class="field">

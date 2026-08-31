@@ -29,7 +29,10 @@ export class ClienteDetallePage {
   ajusteError = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
-    nombre: ['', [Validators.required, Validators.minLength(2)]],
+    // Sin required: un cliente puede existir "solo teléfono" (creado desde
+    // una venta) todavía sin nombre. minLength no valida valores vacíos, así
+    // que solo aplica si sí se escribe algo.
+    nombre: ['', [Validators.minLength(2)]],
     email: ['', [Validators.email]],
     cuentaActiva: [true]
   });
@@ -77,7 +80,7 @@ export class ClienteDetallePage {
 
     this.clientesService
       .actualizarCliente(this.clienteId, {
-        nombre,
+        nombre: nombre || null,
         email: email || undefined,
         cuentaActiva
       })

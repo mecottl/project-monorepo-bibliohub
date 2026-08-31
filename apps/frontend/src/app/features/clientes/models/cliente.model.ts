@@ -27,7 +27,7 @@ export interface ClientesQuery {
 }
 
 export interface UpdateClientePayload {
-  nombre?: string;
+  nombre?: string | null;
   email?: string;
   cuentaActiva?: boolean;
 }
