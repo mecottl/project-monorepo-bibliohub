@@ -1,9 +1,10 @@
-import { Controller, Get, Patch, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Patch, Post, Param, Body, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { ClientesService } from '../services/clientes.service';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
+import { AjustePuntosClienteDto } from '../dto/ajuste-puntos-cliente.dto';
 
 @ApiTags('clientes')
 @Controller('clientes')
@@ -26,5 +27,11 @@ export class ClientesController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: UpdateClienteDto) {
     return this.clientesService.update(id, dto);
+  }
+
+  @Roles('admin')
+  @Post(':id/ajuste-puntos')
+  ajustarPuntos(@Param('id') id: string, @Body() dto: AjustePuntosClienteDto) {
+    return this.clientesService.ajustarPuntos(id, dto);
   }
 }

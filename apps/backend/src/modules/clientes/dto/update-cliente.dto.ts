@@ -1,12 +1,4 @@
-import {
-  IsOptional,
-  IsString,
-  IsEmail,
-  IsBoolean,
-  IsInt,
-  Min,
-  MaxLength,
-} from 'class-validator';
+import { IsOptional, IsString, IsEmail, IsBoolean, MaxLength } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateClienteDto {
@@ -29,9 +21,7 @@ export class UpdateClienteDto {
   @IsBoolean()
   cuentaActiva?: boolean;
 
-  @ApiPropertyOptional({ example: 100 })
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  puntosSaldo?: number;
+  // puntosSaldo NO se edita aquí: es un campo derivado que solo debe
+  // cambiar a través de POST /clientes/:id/ajuste-puntos, que además deja
+  // un registro auditable en transaccion_puntos.
 }

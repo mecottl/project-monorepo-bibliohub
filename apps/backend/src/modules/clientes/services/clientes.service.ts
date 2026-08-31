@@ -1,9 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository, SelectQueryBuilder, DataSource } from 'typeorm';
 import { Cliente } from '../../../database/entities/cliente.entity';
+import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
+import { AjustePuntosClienteDto } from '../dto/ajuste-puntos-cliente.dto';
 import {
   ClienteSinPassword,
   PaginatedClientes,
@@ -14,6 +16,7 @@ export class ClientesService {
   constructor(
     @InjectRepository(Cliente)
     private readonly clienteRepository: Repository<Cliente>,
+    private readonly dataSource: DataSource,
   ) {}
 
   async findAll(query: QueryClienteDto): Promise<PaginatedClientes> {
@@ -61,6 +64,45 @@ export class ClientesService {
     });
 
     return this.findOne(id);
+  }
+
+  async ajustarPuntos(
+    id: string,
+    dto: AjustePuntosClienteDto,
+  ): Promise<ClienteSinPassword> {
+    return this.dataSource.transaction(async (manager) => {
+      const cliente = await manager.findOne(Cliente, { where: { id } });
+
+      if (!cliente) {
+        throw new NotFoundException(`Cliente con id ${id} no encontrado`);
+      }
+
+      const delta = dto.tipo === 'ganado' ? dto.puntos : -dto.puntos;
+      const saldoNuevo = cliente.puntosSaldo + delta;
+
+      if (saldoNuevo < 0) {
+        throw new BadRequestException(
+          `El ajuste dejaría el saldo en ${saldoNuevo}. Saldo actual: ${cliente.puntosSaldo}, ajuste solicitado: ${delta}.`,
+        );
+      }
+
+      await manager.update(Cliente, id, {
+        puntosSaldo: saldoNuevo,
+        updatedAt: new Date(),
+      });
+
+      const transaccion = manager.create(TransaccionPuntos, {
+        clienteId: id,
+        tipo: dto.tipo,
+        puntos: dto.puntos,
+        // Ajuste hecho a mano desde el panel de administración (web).
+        canal: 'online',
+        concepto: dto.concepto ?? 'Ajuste manual (admin)',
+      });
+      await manager.save(TransaccionPuntos, transaccion);
+
+      return this.mapCliente({ ...cliente, puntosSaldo: saldoNuevo });
+    });
   }
 
   private async buscarClienteSimple(id: string): Promise<Cliente> {
