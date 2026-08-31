@@ -1,6 +1,12 @@
 // Script de mantenimiento: rellena portadas de libros sin imagen usando la
 // API pública y gratuita de Open Library Covers, buscando por ISBN.
-// Uso: ADMIN_USUARIO=... ADMIN_PASSWORD=... node apps/backend/scripts/rellenar-portadas.mjs
+//
+// Lee ADMIN_USUARIO y ADMIN_PASSWORD del entorno. Para tomarlas del .env del
+// backend (sin instalar dotenv, Node 20.6+ lo soporta nativo):
+//   cd apps/backend && node --env-file=.env scripts/rellenar-portadas.mjs
+// o con pnpm: pnpm --filter backend rellenar-portadas
+// También puedes exportarlas manualmente:
+//   ADMIN_USUARIO=... ADMIN_PASSWORD=... node apps/backend/scripts/rellenar-portadas.mjs
 
 const API_BASE_URL = process.env.API_BASE_URL ?? 'http://localhost:2077/api';
 const ADMIN_USUARIO = process.env.ADMIN_USUARIO;
