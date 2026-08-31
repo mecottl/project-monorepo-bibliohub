@@ -90,7 +90,7 @@ export class AuthService {
       sub: cliente.id,
       tipo: 'cliente',
       rol: 'cliente',
-      nombre: cliente.nombre,
+      nombre: cliente.nombre ?? cliente.telefono,
     };
 
     const accessToken = this.jwtService.sign(payload);
@@ -101,7 +101,7 @@ export class AuthService {
       tipo: 'cliente',
       perfil: {
         id: cliente.id,
-        nombre: cliente.nombre,
+        nombre: cliente.nombre ?? cliente.telefono,
         rol: 'cliente',
         telefono: cliente.telefono,
         puntosSaldo: cliente.puntosSaldo,
@@ -187,7 +187,7 @@ export class AuthService {
       sub: cliente.id,
       tipo: 'cliente',
       rol: 'cliente',
-      nombre: cliente.nombre,
+      nombre: cliente.nombre ?? cliente.telefono,
     };
 
     return {
@@ -195,7 +195,7 @@ export class AuthService {
       tipo: 'cliente',
       perfil: {
         id: cliente.id,
-        nombre: cliente.nombre,
+        nombre: cliente.nombre ?? cliente.telefono,
         rol: 'cliente',
         telefono: cliente.telefono,
         puntosSaldo: cliente.puntosSaldo,

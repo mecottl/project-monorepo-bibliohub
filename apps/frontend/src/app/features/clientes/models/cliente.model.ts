@@ -1,7 +1,9 @@
 export interface Cliente {
   id: string;
   telefono: string;
-  nombre: string;
+  // Nulo mientras el cliente exista "solo por teléfono" (creado desde una
+  // venta) y aún no se haya registrado.
+  nombre: string | null;
   email: string | null;
   cuentaActiva: boolean;
   puntosSaldo: number;

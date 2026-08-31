@@ -4,6 +4,7 @@ import { Roles } from '../../auth/decorators/roles.decorator';
 import { ClientesService } from '../services/clientes.service';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
+import { CreateClienteDto } from '../dto/create-cliente.dto';
 import { AjustePuntosClienteDto } from '../dto/ajuste-puntos-cliente.dto';
 
 @ApiTags('clientes')
@@ -15,6 +16,12 @@ export class ClientesController {
   @Get()
   findAll(@Query() query: QueryClienteDto) {
     return this.clientesService.findAll(query);
+  }
+
+  @Roles('admin', 'cajero')
+  @Post()
+  crear(@Body() dto: CreateClienteDto) {
+    return this.clientesService.crear(dto);
   }
 
   @Roles('admin', 'cajero')

@@ -14,8 +14,10 @@ export class Cliente {
   @Column({ type: 'varchar', length: 15, unique: true })
   telefono!: string;
 
-  @Column({ type: 'varchar', length: 120 })
-  nombre!: string;
+  // Nulo mientras el cliente exista "solo por teléfono" (creado desde una
+  // venta/POS antes de registrarse). Se completa al registrarse.
+  @Column({ type: 'varchar', length: 120, nullable: true })
+  nombre!: string | null;
 
   @Column({ type: 'varchar', length: 150, unique: true, nullable: true })
   email!: string | null;

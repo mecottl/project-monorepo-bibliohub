@@ -55,7 +55,7 @@ export class ClienteDetallePage {
       next: (cliente) => {
         this.cliente.set(cliente);
         this.form.patchValue({
-          nombre: cliente.nombre,
+          nombre: cliente.nombre ?? '',
           email: cliente.email ?? '',
           cuentaActiva: cliente.cuentaActiva
         });

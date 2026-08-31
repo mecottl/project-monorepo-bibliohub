@@ -1,10 +1,16 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder, DataSource } from 'typeorm';
 import { Cliente } from '../../../database/entities/cliente.entity';
 import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
+import { CreateClienteDto } from '../dto/create-cliente.dto';
 import { AjustePuntosClienteDto } from '../dto/ajuste-puntos-cliente.dto';
 import {
   ClienteSinPassword,
@@ -48,6 +54,30 @@ export class ClientesService {
       limit,
       totalPages: Math.ceil(total / limit),
     };
+  }
+
+  async crear(dto: CreateClienteDto): Promise<ClienteSinPassword> {
+    const existente = await this.clienteRepository.findOne({
+      where: { telefono: dto.telefono },
+    });
+
+    if (existente) {
+      throw new ConflictException(
+        `Ya existe un cliente con el teléfono ${dto.telefono}`,
+      );
+    }
+
+    const cliente = this.clienteRepository.create({
+      telefono: dto.telefono,
+      nombre: null,
+      email: null,
+      passwordHash: null,
+      cuentaActiva: false,
+      puntosSaldo: 0,
+    });
+
+    const guardado = await this.clienteRepository.save(cliente);
+    return this.mapCliente(guardado);
   }
 
   async findOne(id: string): Promise<ClienteSinPassword> {
