@@ -1,0 +1,134 @@
+.cliente-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cliente-detalle__status {
+  color: var(--color-gris-oscuro);
+  font-size: 14px;
+}
+
+.cliente-detalle__volver {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-morado);
+  align-self: flex-start;
+}
+
+.cliente-detalle__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.cliente-detalle__card {
+  padding: 24px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.cliente-detalle__card h1,
+.cliente-detalle__card h2 {
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+
+.cliente-detalle__card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cliente-detalle__resumen {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-beige);
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.cliente-detalle__resumen dt {
+  color: var(--color-gris-oscuro);
+}
+
+.cliente-detalle__resumen dd {
+  color: var(--color-negro-suave);
+  font-weight: 500;
+}
+
+.cliente-detalle__puntos {
+  font-weight: 700;
+  color: var(--color-morado);
+}
+
+.cliente-detalle__hint {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+  margin-bottom: 16px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-gris-oscuro);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-family: var(--font-ui);
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--color-cafe-medio);
+}
+
+.field--checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.field--checkbox input {
+  width: auto;
+}
+
+.cliente-detalle__error {
+  color: var(--color-error);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.cliente-detalle__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cliente-detalle__actions .btn-outline,
+.cliente-detalle__actions .btn-primary {
+  width: auto;
+}

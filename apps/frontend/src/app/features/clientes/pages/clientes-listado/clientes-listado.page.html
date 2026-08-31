@@ -1,0 +1,31 @@
+<section class="clientes-listado">
+  <header class="clientes-listado__header">
+    <h1 class="font-display">Clientes</h1>
+  </header>
+
+  <app-search-input
+    ariaLabel="Buscar cliente por nombre, teléfono o email"
+    placeholder="Buscar por nombre, teléfono o email…"
+    (search)="onSearch($event)"
+  />
+
+  <app-data-table
+    [columns]="columns"
+    [data]="clientes()"
+    [loading]="loading()"
+    trackByKey="id"
+    (rowClick)="irAFicha($event)"
+  >
+    <app-empty-state
+      emptyState
+      title="No hay clientes que coincidan"
+      description="Prueba con otro término de búsqueda."
+    />
+  </app-data-table>
+
+  <app-pagination
+    [page]="page()"
+    [totalPages]="totalPages()"
+    (pageChange)="onPageChange($event)"
+  />
+</section>

@@ -1,0 +1,11 @@
+.clientes-listado {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.clientes-listado__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
