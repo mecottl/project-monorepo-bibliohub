@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatalogoModule } from './modules/catalogo/catalogo.module';
 import { InventarioModule } from './modules/inventory/inventario.module';
+import { ClientesModule } from './modules/clientes/clientes.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { InventarioModule } from './modules/inventory/inventario.module';
     AuthModule,
     CatalogoModule,
     InventarioModule,
+    ClientesModule,
   ],
   controllers: [AppController],
   providers: [
