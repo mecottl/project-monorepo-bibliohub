@@ -27,7 +27,8 @@ export const routes: Routes = [
       },
       {
         path: 'inventario',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['admin'] },
         loadChildren: () =>
           import('./features/inventario/inventario.routes').then(
             m => m.INVENTARIO_ROUTES
@@ -35,48 +36,48 @@ export const routes: Routes = [
       },
       {
         path: 'ventas',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
         loadComponent: () =>
           import('./shared/placeholder-page/placeholder-page.component').then(
             m => m.PlaceholderPageComponent
           ),
-        data: { titulo: 'Ventas' }
+        data: { titulo: 'Ventas', roles: ['admin'] }
       },
       {
         path: 'clientes',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
         loadComponent: () =>
           import('./shared/placeholder-page/placeholder-page.component').then(
             m => m.PlaceholderPageComponent
           ),
-        data: { titulo: 'Clientes' }
+        data: { titulo: 'Clientes', roles: ['admin'] }
       },
       {
         path: 'proveedores',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
         loadComponent: () =>
           import('./shared/placeholder-page/placeholder-page.component').then(
             m => m.PlaceholderPageComponent
           ),
-        data: { titulo: 'Proveedores' }
+        data: { titulo: 'Proveedores', roles: ['admin'] }
       },
       {
         path: 'reportes',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
         loadComponent: () =>
           import('./shared/placeholder-page/placeholder-page.component').then(
             m => m.PlaceholderPageComponent
           ),
-        data: { titulo: 'Reportes' }
+        data: { titulo: 'Reportes', roles: ['admin'] }
       },
       {
         path: 'configuracion',
-        canActivate: [authGuard],
+        canActivate: [authGuard, roleGuard],
         loadComponent: () =>
           import('./shared/placeholder-page/placeholder-page.component').then(
             m => m.PlaceholderPageComponent
           ),
-        data: { titulo: 'Configuración' }
+        data: { titulo: 'Configuración', roles: ['admin'] }
       },
       {
         path: 'categorias',
