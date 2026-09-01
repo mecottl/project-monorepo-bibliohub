@@ -24,6 +24,12 @@
   color: var(--color-gris-claro);
 }
 
+/* type="search" ya trae su propia "×" nativa del navegador (Chrome/Edge/Safari) —
+   se ocultaba tras el botón .search-input-clear de aquí abajo, duplicando el ícono. */
+.search-input input::-webkit-search-cancel-button {
+  display: none;
+}
+
 .search-input input:focus-visible {
   outline: 2px solid var(--color-morado);
   outline-offset: 1px;
