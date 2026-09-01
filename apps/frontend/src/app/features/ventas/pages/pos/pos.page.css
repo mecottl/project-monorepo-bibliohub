@@ -41,10 +41,23 @@
   color: var(--color-negro-suave);
 }
 
+.pos__resultado-autor {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+}
+
+.pos__resultado-isbn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-gris-claro);
+}
+
 .pos__resultado-precio {
   font-family: var(--font-ui);
   font-weight: 600;
   font-size: 15px;
+  margin-top: 4px;
 }
 
 .pos__resultado-existencias {
@@ -97,6 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-beige);
   font-family: var(--font-ui);
@@ -104,19 +118,74 @@
 }
 
 .pos__carrito-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.pos__carrito-item-titulo {
+  color: var(--color-negro-suave);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pos__carrito-item-detalle {
+  font-size: 12px;
+  color: var(--color-gris-oscuro);
+}
+
+.pos__carrito-item-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pos__stepper-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--color-beige);
+  background: var(--color-crema);
+  color: var(--color-negro-suave);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pos__stepper-btn:hover:not(:disabled) {
+  background: var(--color-beige);
+}
+
+.pos__stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pos__stepper-cantidad {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 600;
   color: var(--color-negro-suave);
 }
 
-.pos__carrito-item-cantidad {
+.pos__carrito-item-quitar {
   background: none;
   border: none;
-  font-family: var(--font-ui);
-  font-weight: 500;
-  color: var(--color-gris-oscuro);
+  color: var(--color-gris-claro);
+  font-size: 18px;
+  line-height: 1;
   cursor: pointer;
+  padding: 0 0 0 4px;
 }
 
-.pos__carrito-item-cantidad:hover {
+.pos__carrito-item-quitar:hover {
   color: var(--color-error);
 }
 
@@ -166,12 +235,133 @@
 }
 
 .pos__confirmacion {
-  text-align: center;
-  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 20px;
 }
 
-.pos__confirmacion-total {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 16px 0;
+.pos__confirmacion-acciones {
+  display: flex;
+  gap: 12px;
+}
+
+.ticket {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+  font-family: var(--font-ui);
+}
+
+.ticket__header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.ticket__subtitulo {
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+}
+
+.ticket__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  font-size: 12px;
+  color: var(--color-gris-oscuro);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed var(--color-beige);
+}
+
+.ticket__meta dd {
+  color: var(--color-negro-suave);
+  text-align: right;
+  word-break: break-all;
+}
+
+.ticket__items {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.ticket__items th {
+  text-align: left;
+  font-size: 11px;
+  color: var(--color-gris-oscuro);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-beige);
+}
+
+.ticket__items td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-beige);
+  color: var(--color-negro-suave);
+  vertical-align: top;
+}
+
+.ticket__col-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ticket__item-isbn {
+  display: block;
+  font-size: 11px;
+  color: var(--color-gris-claro);
+}
+
+.ticket__totales {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  font-size: 13px;
+}
+
+.ticket__totales dd {
+  text-align: right;
+  color: var(--color-negro-suave);
+}
+
+.ticket__total-label {
+  font-weight: 700;
+  color: var(--color-negro-suave);
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.ticket__total-valor {
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.ticket__puntos {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-beige);
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+  text-align: center;
+}
+
+/* El resto del "quitar sidebar/topbar al imprimir" vive en styles.css (global) —
+   aquí solo lo que es propio de esta página: ocultar los botones de acción y que
+   el ticket no dependa de la sombra/tarjeta blanca al salir en papel. */
+@media print {
+  .pos__confirmacion-acciones {
+    display: none;
+  }
+
+  .ticket {
+    box-shadow: none;
+    max-width: none;
+    padding: 0;
+  }
 }

@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Imprimir ticket de venta (POS): oculta el chrome de la app (sidebar/topbar) y
+   deja que solo el contenido de la página salga en el PDF/papel. Vive aquí (no en
+   un CSS de componente) porque app-sidebar/app-topbar son hermanos de
+   <router-outlet>, fuera del alcance de los estilos encapsulados de cualquier
+   página — ver PosPage.imprimirTicket(). */
+@media print {
+  app-sidebar,
+  app-topbar,
+  .main-layout__backdrop,
+  .main-layout__preview-banner {
+    display: none !important;
+  }
+
+  .main-layout__content {
+    padding: 0 !important;
+  }
+}

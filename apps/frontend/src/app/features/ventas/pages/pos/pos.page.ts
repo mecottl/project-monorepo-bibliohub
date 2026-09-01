@@ -38,6 +38,11 @@ export class PosPage {
   errorMensaje = signal<string | null>(null);
   ventaConfirmada = signal<Venta | null>(null);
 
+  // Snapshot del carrito y del teléfono en el momento de cobrar, para el ticket final
+  // — carrito()/clienteTelefono() ya se limpian al confirmar la venta.
+  ultimosItems = signal<ItemCarrito[]>([]);
+  clienteTelefonoVenta = signal<string | null>(null);
+
   total = computed(() =>
     this.carrito().reduce(
       (acc, item) => acc + Number(item.libro.precioVenta) * item.cantidad,
@@ -80,21 +85,50 @@ export class PosPage {
     }
   }
 
-  // Interacción mínima para bajar cantidad/quitar sin agregar un botón nuevo al
-  // diseño: click en el "X n" del renglón del carrito resta uno. Ver "Decisiones de
-  // diseño" en la guía — el maquetado no resuelve esto explícitamente.
-  quitarUno(libroId: string): void {
+  incrementar(libroId: string): void {
+    const item = this.carrito().find((i) => i.libro.id === libroId);
+    if (!item) return;
+    if (item.cantidad >= item.libro.stockActual) return;
+    this.cambiarCantidad(libroId, 1);
+  }
+
+  decrementar(libroId: string): void {
+    this.cambiarCantidad(libroId, -1);
+  }
+
+  private cambiarCantidad(libroId: string, delta: number): void {
     const actual = this.carrito();
     const item = actual.find((i) => i.libro.id === libroId);
     if (!item) return;
 
-    if (item.cantidad <= 1) {
+    const nuevaCantidad = item.cantidad + delta;
+
+    if (nuevaCantidad <= 0) {
       this.carrito.set(actual.filter((i) => i.libro.id !== libroId));
     } else {
       this.carrito.set(
-        actual.map((i) => (i.libro.id === libroId ? { ...i, cantidad: i.cantidad - 1 } : i))
+        actual.map((i) => (i.libro.id === libroId ? { ...i, cantidad: nuevaCantidad } : i))
       );
     }
+  }
+
+  quitarDelCarrito(libroId: string): void {
+    this.carrito.set(this.carrito().filter((i) => i.libro.id !== libroId));
+  }
+
+  subtotalLinea(item: ItemCarrito): number {
+    return Number(item.libro.precioVenta) * item.cantidad;
+  }
+
+  tieneDescuentoPorPuntos(venta: Venta): boolean {
+    return Number(venta.descuentoPuntos) > 0;
+  }
+
+  autoresTexto(libro: Libro): string {
+    const nombres = (libro.libroAutores ?? [])
+      .map((relacion) => relacion.autor?.nombre)
+      .filter((nombre): nombre is string => !!nombre);
+    return nombres.length ? nombres.join(', ') : 'Autor desconocido';
   }
 
   cobrar(): void {
@@ -116,6 +150,8 @@ export class PosPage {
         next: (venta) => {
           this.cobrando.set(false);
           this.ventaConfirmada.set(venta);
+          this.ultimosItems.set(this.carrito());
+          this.clienteTelefonoVenta.set(this.clienteTelefono() || null);
           this.carrito.set([]);
           this.clienteTelefono.set('');
           this.resultados.set([]);
@@ -133,5 +169,14 @@ export class PosPage {
 
   nuevaVenta(): void {
     this.ventaConfirmada.set(null);
+    this.ultimosItems.set([]);
+    this.clienteTelefonoVenta.set(null);
+  }
+
+  // Sin librería de PDF: el diálogo de impresión del navegador ya permite
+  // "Guardar como PDF" — apps/frontend/src/styles.css tiene la regla @media print
+  // que oculta el sidebar/topbar y deja solo el ticket.
+  imprimirTicket(): void {
+    window.print();
   }
 }

@@ -1,13 +1,72 @@
 @if (ventaConfirmada(); as venta) {
   <section class="pos__confirmacion">
-    <h1 class="font-display">Venta registrada</h1>
-    <p class="pos__confirmacion-total">Total: ${{ venta.total }}</p>
-    @if (venta.puntosGanados > 0) {
-      <p>Puntos ganados por el cliente: {{ venta.puntosGanados }}</p>
-    }
-    <button type="button" class="btn-primary pos__btn-pill" (click)="nuevaVenta()">
-      Nueva venta
-    </button>
+    <div class="ticket">
+      <header class="ticket__header">
+        <h1 class="font-display">BiblioHub</h1>
+        <p class="ticket__subtitulo">Comprobante de venta</p>
+      </header>
+
+      <dl class="ticket__meta">
+        <dt>Folio</dt>
+        <dd>{{ venta.id }}</dd>
+        <dt>Fecha</dt>
+        <dd>{{ venta.fecha }}</dd>
+        <dt>Medio de pago</dt>
+        <dd>{{ venta.medioPago === 'efectivo' ? 'Efectivo' : 'Tarjeta' }}</dd>
+        @if (clienteTelefonoVenta()) {
+          <dt>Cliente</dt>
+          <dd>{{ clienteTelefonoVenta() }}</dd>
+        }
+      </dl>
+
+      <table class="ticket__items">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th class="ticket__col-num">Cant.</th>
+            <th class="ticket__col-num">Precio</th>
+            <th class="ticket__col-num">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of ultimosItems(); track item.libro.id) {
+            <tr>
+              <td>
+                {{ item.libro.titulo }}
+                <span class="ticket__item-isbn">ISBN {{ item.libro.isbn }}</span>
+              </td>
+              <td class="ticket__col-num">{{ item.cantidad }}</td>
+              <td class="ticket__col-num">${{ item.libro.precioVenta }}</td>
+              <td class="ticket__col-num">${{ subtotalLinea(item).toFixed(2) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <dl class="ticket__totales">
+        <dt>Subtotal</dt>
+        <dd>${{ venta.subtotal }}</dd>
+        @if (tieneDescuentoPorPuntos(venta)) {
+          <dt>Descuento por puntos</dt>
+          <dd>-${{ venta.descuentoPuntos }}</dd>
+        }
+        <dt class="ticket__total-label">Total</dt>
+        <dd class="ticket__total-valor">${{ venta.total }}</dd>
+      </dl>
+
+      @if (venta.puntosGanados > 0 && clienteTelefonoVenta()) {
+        <p class="ticket__puntos">Puntos ganados por el cliente: {{ venta.puntosGanados }}</p>
+      }
+    </div>
+
+    <div class="pos__confirmacion-acciones">
+      <button type="button" class="btn-outline pos__btn-pill" (click)="imprimirTicket()">
+        Imprimir ticket (PDF)
+      </button>
+      <button type="button" class="btn-primary pos__btn-pill" (click)="nuevaVenta()">
+        Nueva venta
+      </button>
+    </div>
   </section>
 } @else {
   <section class="pos">
@@ -28,6 +87,8 @@
             @for (libro of resultados(); track libro.id) {
               <div class="pos__resultado-card">
                 <span class="pos__resultado-titulo">{{ libro.titulo }}</span>
+                <span class="pos__resultado-autor">{{ autoresTexto(libro) }}</span>
+                <span class="pos__resultado-isbn">ISBN {{ libro.isbn }}</span>
                 <span class="pos__resultado-precio">${{ libro.precioVenta }}</span>
                 <span class="pos__resultado-existencias">
                   Existencias: {{ libro.stockActual }}
@@ -70,18 +131,42 @@
           <ul class="pos__carrito-lista">
             @for (item of carrito(); track item.libro.id) {
               <li class="pos__carrito-item">
-                <span class="pos__carrito-item-info">
-                  {{ item.libro.titulo }} &nbsp;${{ item.libro.precioVenta }}
-                </span>
-                <button
-                  type="button"
-                  class="pos__carrito-item-cantidad"
-                  (click)="quitarUno(item.libro.id)"
-                  [attr.aria-label]="'Quitar uno de ' + item.libro.titulo"
-                  title="Click para quitar uno"
-                >
-                  X {{ item.cantidad }}
-                </button>
+                <div class="pos__carrito-item-info">
+                  <span class="pos__carrito-item-titulo">{{ item.libro.titulo }}</span>
+                  <span class="pos__carrito-item-detalle">
+                    ${{ item.libro.precioVenta }} c/u &nbsp;·&nbsp; Subtotal: ${{ subtotalLinea(item).toFixed(2) }}
+                  </span>
+                </div>
+
+                <div class="pos__carrito-item-stepper">
+                  <button
+                    type="button"
+                    class="pos__stepper-btn"
+                    (click)="decrementar(item.libro.id)"
+                    [attr.aria-label]="'Quitar uno de ' + item.libro.titulo"
+                  >
+                    −
+                  </button>
+                  <span class="pos__stepper-cantidad">{{ item.cantidad }}</span>
+                  <button
+                    type="button"
+                    class="pos__stepper-btn"
+                    (click)="incrementar(item.libro.id)"
+                    [disabled]="item.cantidad >= item.libro.stockActual"
+                    [attr.aria-label]="'Agregar uno de ' + item.libro.titulo"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    class="pos__carrito-item-quitar"
+                    (click)="quitarDelCarrito(item.libro.id)"
+                    [attr.aria-label]="'Quitar ' + item.libro.titulo + ' del carrito'"
+                    title="Quitar del carrito"
+                  >
+                    ×
+                  </button>
+                </div>
               </li>
             }
           </ul>
