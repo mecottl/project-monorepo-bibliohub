@@ -4,8 +4,10 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
+import { In, Repository, DataSource, SelectQueryBuilder } from 'typeorm';
 import { Venta } from '../../../database/entities/venta.entity';
+import { Libro } from '../../../database/entities/libro.entity';
+import { ClientesService } from '../../clientes/services/clientes.service';
 import { CreateVentaDto } from '../dto/create-venta.dto';
 import { QueryVentaDto } from '../dto/query-venta.dto';
 import { PaginatedVentas, VentaSegura } from '../interfaces/ventas.interface';
@@ -15,7 +17,10 @@ export class VentasService {
   constructor(
     @InjectRepository(Venta)
     private readonly ventaRepository: Repository<Venta>,
+    @InjectRepository(Libro)
+    private readonly libroRepository: Repository<Libro>,
     private readonly dataSource: DataSource,
+    private readonly clientesService: ClientesService,
   ) {}
 
   // La lógica transaccional (validar stock, calcular subtotal/descuento/total,
@@ -23,28 +28,56 @@ export class VentasService {
   // (ver db/bibliohub_estructura.sql) — se llama vía SQL crudo en vez de
   // reimplementarla en TypeORM, para no duplicar reglas de negocio ya probadas.
   async crear(dto: CreateVentaDto, empleadoId: string): Promise<VentaSegura> {
-    if ((dto.puntosUsados ?? 0) > 0 && !dto.clienteId) {
+    if ((dto.puntosUsados ?? 0) > 0 && !dto.clienteTelefono) {
       throw new BadRequestException(
         'No se pueden usar puntos sin especificar un cliente.',
       );
     }
 
-    const items = dto.items.map((item) => ({
-      libro_id: item.libroId,
-      cantidad: item.cantidad,
-      precio_unitario: item.precioUnitario,
-    }));
+    // Cliente "solo teléfono": si el teléfono no existe todavía, se crea aquí mismo.
+    // Reutiliza el helper que ClientesService ya tenía preparado para este módulo —
+    // no duplicar la lógica de "buscar o crear por teléfono".
+    let clienteId: string | null = null;
+    if (dto.clienteTelefono) {
+      const cliente = await this.clientesService.buscarOCrearPorTelefono(
+        dto.clienteTelefono,
+      );
+      clienteId = cliente.id;
+    }
+
+    // El precio de cada línea SIEMPRE sale del catálogo real (libro.precioVenta),
+    // nunca de lo que mande el cliente HTTP — evita vender a un precio manipulado.
+    const libroIds = dto.items.map((item) => item.libroId);
+    const libros = await this.libroRepository.find({ where: { id: In(libroIds) } });
+    const librosPorId = new Map(libros.map((libro) => [libro.id, libro]));
+
+    const itemsSql = dto.items.map((item) => {
+      const libro = librosPorId.get(item.libroId);
+      if (!libro) {
+        throw new NotFoundException(`Libro con id ${item.libroId} no encontrado`);
+      }
+      if (!libro.activo) {
+        throw new BadRequestException(
+          `El libro "${libro.titulo}" no está activo para venta`,
+        );
+      }
+      return {
+        libro_id: item.libroId,
+        cantidad: item.cantidad,
+        precio_unitario: libro.precioVenta,
+      };
+    });
 
     let ventaId: string;
     try {
       const resultado = await this.dataSource.query(
         'SELECT confirmar_venta_pos($1, $2, $3, $4, $5::jsonb) AS id',
         [
-          dto.clienteId ?? null,
+          clienteId,
           empleadoId,
           dto.medioPago,
           dto.puntosUsados ?? 0,
-          JSON.stringify(items),
+          JSON.stringify(itemsSql),
         ],
       );
       ventaId = resultado[0].id;

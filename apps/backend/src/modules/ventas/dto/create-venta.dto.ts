@@ -2,8 +2,9 @@ import {
   IsUUID,
   IsIn,
   IsInt,
-  IsNumber,
   IsOptional,
+  IsString,
+  Matches,
   Min,
   ValidateNested,
   ArrayMinSize,
@@ -21,20 +22,25 @@ export class ItemVentaDto {
   @Min(1)
   cantidad!: number;
 
-  @ApiProperty({ example: 349.0 })
-  @IsNumber({ maxDecimalPlaces: 2 })
-  @Min(0)
-  precioUnitario!: number;
+  // Sin precioUnitario a propósito: el precio SIEMPRE se toma del catálogo real
+  // (libro.precioVenta) en VentasService.crear(), nunca de lo que envíe el cliente
+  // HTTP. Aceptarlo aquí permitiría vender a cualquier precio arbitrario — ver
+  // correccion-backend-ventas.md para el detalle de por qué se quitó.
 }
 
 export class CreateVentaDto {
   @ApiPropertyOptional({
-    example: 'uuid-del-cliente',
-    description: 'Omite si la venta es a un cliente anónimo (no acumula puntos)',
+    example: '9991234567',
+    description:
+      'Teléfono del cliente (opcional — una venta puede ser sin cliente). Si el ' +
+      'teléfono no existe todavía, se crea un cliente "solo teléfono" automáticamente ' +
+      '(sin nombre, sin contraseña, cuenta inactiva) — no se requiere un clienteId ' +
+      'previo ni un paso aparte.',
   })
   @IsOptional()
-  @IsUUID()
-  clienteId?: string;
+  @IsString()
+  @Matches(/^[0-9]{10}$/, { message: 'El teléfono debe contener solo dígitos (10)' })
+  clienteTelefono?: string;
 
   @ApiProperty({ example: 'efectivo', enum: ['efectivo', 'tarjeta'] })
   @IsIn(['efectivo', 'tarjeta'])
@@ -43,7 +49,7 @@ export class CreateVentaDto {
   @ApiPropertyOptional({
     example: 0,
     default: 0,
-    description: 'Puntos que el cliente canjea en esta venta (requiere clienteId)',
+    description: 'Puntos que el cliente canjea en esta venta (requiere clienteTelefono)',
   })
   @IsOptional()
   @IsInt()
@@ -53,6 +59,6 @@ export class CreateVentaDto {
   @ApiProperty({ type: [ItemVentaDto] })
   @ValidateNested({ each: true })
   @Type(() => ItemVentaDto)
-  @ArrayMinSize(1)
+  @ArrayMinSize(1, { message: 'La venta debe tener al menos un item' })
   items!: ItemVentaDto[];
 }
