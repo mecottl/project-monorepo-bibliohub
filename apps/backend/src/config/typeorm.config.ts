@@ -11,6 +11,8 @@ import { Libro } from '../database/entities/libro.entity';
 import { LibroAutor } from '../database/entities/libro-autor.entity';
 import { MovimientoInventario } from '../database/entities/movimiento-inventario.entity';
 import { TransaccionPuntos } from '../database/entities/transaccion-puntos.entity';
+import { Venta } from '../database/entities/venta.entity';
+import { DetalleVenta } from '../database/entities/detalle-venta.entity';
 
 export default registerAs(
   'database',
@@ -33,6 +35,8 @@ export default registerAs(
       LibroAutor,
       MovimientoInventario,
       TransaccionPuntos,
+      Venta,
+      DetalleVenta,
     ],
     synchronize: false,
     logging: process.env.NODE_ENV === 'development',

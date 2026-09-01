@@ -9,7 +9,7 @@ Monorepo con `apps/frontend` (Angular 21.2) y `apps/backend` (NestJS), PostgreSQ
 
 ## Fuente de verdad del esquema de base de datos
 
-El esquema real vive en `docs/bibliohub_estructura.sql` — incluye tablas, funciones,
+El esquema real vive en `db/bibliohub_estructura.sql` — incluye tablas, funciones,
 triggers y vistas. Es más confiable que cualquier documento descriptivo aparte, porque no se
 desincroniza del código. Antes de asumir una regla de negocio, revisa las funciones y
 triggers ahí (especialmente `confirmar_venta_pos`, `cancelar_venta`,

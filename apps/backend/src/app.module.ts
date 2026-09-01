@@ -11,6 +11,7 @@ import { AppService } from './app.service';
 import { CatalogoModule } from './modules/catalogo/catalogo.module';
 import { InventarioModule } from './modules/inventory/inventario.module';
 import { ClientesModule } from './modules/clientes/clientes.module';
+import { VentasModule } from './modules/ventas/ventas.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ClientesModule } from './modules/clientes/clientes.module';
     CatalogoModule,
     InventarioModule,
     ClientesModule,
+    VentasModule,
   ],
   controllers: [AppController],
   providers: [
