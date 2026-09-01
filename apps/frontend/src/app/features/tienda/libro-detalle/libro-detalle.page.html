@@ -1,0 +1,57 @@
+<section class="libro-detalle">
+  @if (cargando()) {
+    <p class="libro-detalle__estado">Cargando…</p>
+  } @else if (noEncontrado()) {
+    <div class="libro-detalle__vacio">
+      <p>No encontramos este libro.</p>
+      <button type="button" class="btn-outline" (click)="volver()">Volver al inicio</button>
+    </div>
+  } @else if (libro(); as libro) {
+    <div class="libro-detalle__principal">
+      <div class="libro-detalle__portada">
+        @if (libro.imagenUrl) {
+          <img [src]="libro.imagenUrl" [alt]="'Portada de ' + libro.titulo" />
+        } @else {
+          <span class="libro-detalle__portada-vacio" aria-hidden="true">{{ libro.titulo }}</span>
+        }
+      </div>
+      <div class="libro-detalle__info">
+        <h1 class="font-display">{{ libro.titulo }}</h1>
+        @if (autores()) {
+          <p class="libro-detalle__autor">{{ autores() }}</p>
+        }
+        <app-status-badge
+          [label]="disponible() ? 'Disponible' : 'Agotado'"
+          [variant]="disponible() ? 'success' : 'danger'"
+        />
+        <p class="libro-detalle__precio">{{ libro.precioVenta | currency }}</p>
+        <dl class="libro-detalle__meta">
+          @if (libro.editorial?.nombre) {
+            <div><dt>Editorial</dt><dd>{{ libro.editorial?.nombre }}</dd></div>
+          }
+          @if (libro.categoria?.nombre) {
+            <div><dt>Categoría</dt><dd>{{ libro.categoria?.nombre }}</dd></div>
+          }
+          <div><dt>ISBN</dt><dd>{{ libro.isbn }}</dd></div>
+        </dl>
+        @if (libro.sinopsis) {
+          <div class="libro-detalle__sinopsis">
+            <h2>Sinopsis</h2>
+            <p>{{ libro.sinopsis }}</p>
+          </div>
+        }
+        <button type="button" class="btn-primary">Agregar al carrito</button>
+      </div>
+    </div>
+    @if (sugeridos().length) {
+      <section class="libro-detalle__sugeridos">
+        <h2 class="font-display">También te puede interesar</h2>
+        <div class="libro-detalle__sugeridos-grid">
+          @for (sugerido of sugeridos(); track sugerido.id) {
+            <app-book-card [libro]="sugerido" />
+          }
+        </div>
+      </section>
+    }
+  }
+</section>

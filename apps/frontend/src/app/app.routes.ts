@@ -94,6 +94,13 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'libro/:id',
+        loadComponent: () =>
+          import('./features/tienda/libro-detalle/libro-detalle.page').then(
+            m => m.LibroDetallePage
+          )
+      },
+      {
         path: 'lista-deseos',
         canActivate: [authGuard],
         loadComponent: () =>

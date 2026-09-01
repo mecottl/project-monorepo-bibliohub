@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../../core/api.config';
-import { Categoria, PaginatedLibros } from './tienda.model';
+import { Categoria, Libro, PaginatedLibros } from './tienda.model';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogoService {
@@ -32,6 +32,10 @@ export class CatalogoService {
     return this.http.get<PaginatedLibros>(`${this.API}/catalogo/libros`, {
       params
     });
+  }
+
+  getLibro(id: string): Observable<Libro> {
+    return this.http.get<Libro>(`${this.API}/catalogo/libros/${id}`);
   }
 
   getCategorias(): Observable<Categoria[]> {

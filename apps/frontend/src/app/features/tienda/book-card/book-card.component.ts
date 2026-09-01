@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Libro } from '../tienda.model';
 
 @Component({
   selector: 'app-book-card',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.css'
