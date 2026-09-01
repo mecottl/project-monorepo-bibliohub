@@ -31,7 +31,8 @@
 }
 
 .field input,
-.field select {
+.field select,
+.field textarea {
   width: 100%;
   padding: 10px 14px;
   border: 1.5px solid var(--color-beige);
@@ -41,8 +42,13 @@
   outline: none;
 }
 
+.field textarea {
+  resize: vertical;
+}
+
 .field input:focus,
-.field select:focus {
+.field select:focus,
+.field textarea:focus {
   border-color: var(--color-cafe-medio);
 }
 

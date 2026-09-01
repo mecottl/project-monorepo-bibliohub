@@ -73,6 +73,11 @@
       </select>
     </div>
 
+    <div class="field">
+      <label for="sinopsis">Sinopsis</label>
+      <textarea id="sinopsis" formControlName="sinopsis" rows="4" maxlength="2000"></textarea>
+    </div>
+
     @if (esEdicion) {
       <p class="libro-form__hint">
         El stock se ajusta desde "Movimiento" en el listado, no desde este formulario.

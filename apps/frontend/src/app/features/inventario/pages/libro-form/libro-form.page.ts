@@ -33,6 +33,7 @@ export class LibroFormPage {
   form = this.fb.nonNullable.group({
     titulo: ['', [Validators.required, Validators.minLength(2)]],
     isbn: ['', [Validators.required, Validators.minLength(10)]],
+    sinopsis: ['', [Validators.maxLength(2000)]],
     precioVenta: [0, [Validators.required, Validators.min(0)]],
     precioCosto: [0, [Validators.required, Validators.min(0)]],
     stockActual: [0, [Validators.required, Validators.min(0)]],
@@ -56,6 +57,7 @@ export class LibroFormPage {
         this.form.patchValue({
           titulo: libro.titulo,
           isbn: libro.isbn,
+          sinopsis: libro.sinopsis ?? '',
           precioVenta: libro.precioVenta,
           precioCosto: libro.precioCosto,
           stockActual: libro.stockActual,

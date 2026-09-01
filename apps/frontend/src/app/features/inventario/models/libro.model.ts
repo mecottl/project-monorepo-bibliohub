@@ -23,6 +23,7 @@ export interface Libro {
   id: string;
   isbn: string;
   titulo: string;
+  sinopsis: string | null;
   editorialId: string;
   editorial?: Editorial;
   categoriaId: string;
@@ -62,6 +63,7 @@ export interface AutorRolPayload {
 export interface CreateLibroPayload {
   isbn: string;
   titulo: string;
+  sinopsis?: string;
   editorialId: string;
   categoriaId: string;
   precioVenta: number;
