@@ -23,8 +23,17 @@
 
   @if (mostrarAdminChrome()) {
     <div class="topbar__actions">
-      <span class="topbar__link topbar__link--placeholder">Notificaciones</span>
-      <span class="topbar__link topbar__link--placeholder">Perfil</span>
+      @if (auth.currentUser(); as user) {
+        <span class="topbar__user-chip">
+          <span class="topbar__avatar" aria-hidden="true">
+            <svg-usuario />
+          </span>
+          <span class="topbar__user-info">
+            <span class="topbar__user-name">{{ user.nombre }}</span>
+            <span class="topbar__user-rol">{{ user.rol === 'admin' ? 'Admin' : 'Cajero' }}</span>
+          </span>
+        </span>
+      }
       <span class="topbar__divider"></span>
       <button type="button" class="topbar__link" (click)="logout.emit()">Cerrar sesión</button>
     </div>
