@@ -49,7 +49,7 @@ actualizar un saldo Y registrar el movimiento que lo explica), usa
 `this.dataSource.transaction(async (manager) => { ... })` — ver
 `ClientesService.ajustarPuntos()` como referencia de patrón.
 
-Para lógica ya escrita como función de PostgreSQL (ver `docs/bibliohub_estructura.sql`),
+Para lógica ya escrita como función de PostgreSQL (ver `db/bibliohub_estructura.sql`),
 prefiere llamarla vía SQL crudo (`dataSource.query('SELECT nombre_funcion(...)', [params])`)
 en vez de reimplementarla en TypeORM — ya está escrita, probada, y evita duplicar lógica de
 negocio en dos lugares.
@@ -71,7 +71,7 @@ negocio en dos lugares.
 
 ## Antes de dar por buena una regla de negocio
 
-Revisa `docs/bibliohub_estructura.sql` (funciones, triggers, constraints) y el resumen de
+Revisa `db/bibliohub_estructura.sql` (funciones, triggers, constraints) y el resumen de
 reglas de negocio en el `AGENTS.md` raíz. Si necesitas el detalle completo de una regla que
 solo está resumida ahí, pregúntalo explícitamente — la versión extendida vive en un
 documento fuera de este repo (Google Drive del proyecto), a la que Claude Code no tiene
