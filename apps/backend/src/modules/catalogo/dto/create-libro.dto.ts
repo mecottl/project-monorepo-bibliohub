@@ -70,6 +70,15 @@ export class CreateLibroDto {
   @Min(0)
   stockMinimo?: number;
 
+  @ApiPropertyOptional({
+    example: 'La historia de la familia Buendía a lo largo de siete generaciones...',
+    maxLength: 2000
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
+  sinopsis?: string;
+
   @ApiPropertyOptional({ type: [AutorRolDto] })
   @IsOptional()
   @ValidateNested({ each: true })

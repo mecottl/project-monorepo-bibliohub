@@ -4,7 +4,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Ue4lMleVJEXhtjbttpfb0euTvvRgQObUl2HUCQgcEEcNw6cAHv72PdlbQH6rDM5
+\restrict VHZgUhhhOP1qW039XbX5egrT2TL85eO62Mu56kfszb0rXlnEMwJAJgQDHb0b3Az
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -29,7 +29,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
@@ -43,14 +43,14 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
 --
--- Name: cancelar_venta(uuid); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: cancelar_venta(uuid); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.cancelar_venta(p_venta_id uuid) RETURNS void
@@ -97,10 +97,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.cancelar_venta(p_venta_id uuid) OWNER TO postgres;
-
 --
--- Name: confirmar_pedido_linea(uuid, uuid, character varying, integer); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: confirmar_pedido_linea(uuid, uuid, character varying, integer); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.confirmar_pedido_linea(p_cliente_id uuid, p_direccion_id uuid, p_tipo_entrega character varying, p_puntos_usados integer) RETURNS uuid
@@ -199,10 +197,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.confirmar_pedido_linea(p_cliente_id uuid, p_direccion_id uuid, p_tipo_entrega character varying, p_puntos_usados integer) OWNER TO postgres;
-
 --
--- Name: confirmar_venta_pos(uuid, uuid, character varying, integer, jsonb); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: confirmar_venta_pos(uuid, uuid, character varying, integer, jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.confirmar_venta_pos(p_cliente_id uuid, p_empleado_id uuid, p_medio_pago character varying, p_puntos_usados integer, p_items jsonb) RETURNS uuid
@@ -299,10 +295,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.confirmar_venta_pos(p_cliente_id uuid, p_empleado_id uuid, p_medio_pago character varying, p_puntos_usados integer, p_items jsonb) OWNER TO postgres;
-
 --
--- Name: set_updated_at(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: set_updated_at(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.set_updated_at() RETURNS trigger
@@ -315,10 +309,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.set_updated_at() OWNER TO postgres;
-
 --
--- Name: sync_puntos_saldo(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: sync_puntos_saldo(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.sync_puntos_saldo() RETURNS trigger
@@ -346,10 +338,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.sync_puntos_saldo() OWNER TO postgres;
-
 --
--- Name: trg_fn_carrito_touch(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: trg_fn_carrito_touch(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.trg_fn_carrito_touch() RETURNS trigger
@@ -363,10 +353,8 @@ END;
 $$;
 
 
-ALTER FUNCTION public.trg_fn_carrito_touch() OWNER TO postgres;
-
 --
--- Name: trg_fn_recepcion_compra(); Type: FUNCTION; Schema: public; Owner: postgres
+-- Name: trg_fn_recepcion_compra(); Type: FUNCTION; Schema: public; Owner: -
 --
 
 CREATE FUNCTION public.trg_fn_recepcion_compra() RETURNS trigger
@@ -387,14 +375,12 @@ END;
 $$;
 
 
-ALTER FUNCTION public.trg_fn_recepcion_compra() OWNER TO postgres;
-
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: editorial; Type: TABLE; Schema: public; Owner: postgres
+-- Name: editorial; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.editorial (
@@ -407,17 +393,15 @@ CREATE TABLE public.editorial (
 );
 
 
-ALTER TABLE public.editorial OWNER TO postgres;
-
 --
--- Name: TABLE editorial; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE editorial; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.editorial IS 'Catálogo de editoriales de los libros';
 
 
 --
--- Name: libro; Type: TABLE; Schema: public; Owner: postgres
+-- Name: libro; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.libro (
@@ -434,44 +418,43 @@ CREATE TABLE public.libro (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     imagen_key character varying(500),
+    sinopsis text,
     CONSTRAINT libro_precio_costo_check CHECK ((precio_costo >= (0)::numeric)),
     CONSTRAINT libro_precio_venta_check CHECK ((precio_venta >= (0)::numeric)),
     CONSTRAINT libro_stock_actual_check CHECK ((stock_actual >= 0))
 );
 
 
-ALTER TABLE public.libro OWNER TO postgres;
-
 --
--- Name: TABLE libro; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE libro; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.libro IS 'Catálogo central de productos — referenciado por todos los módulos';
 
 
 --
--- Name: COLUMN libro.stock_minimo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN libro.stock_minimo; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.libro.stock_minimo IS 'Umbral de alerta. Aparece en la vista alerta_stock_bajo cuando stock_actual lo alcanza';
 
 
 --
--- Name: COLUMN libro.updated_at; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN libro.updated_at; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.libro.updated_at IS 'Actualizado automáticamente por trg_libro_updated_at';
 
 
 --
--- Name: COLUMN libro.imagen_key; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN libro.imagen_key; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.libro.imagen_key IS 'Ruta relativa del archivo de portada (ej. portadas/uuid.jpg). NULL si el libro no tiene portada.';
 
 
 --
--- Name: alerta_stock_bajo; Type: VIEW; Schema: public; Owner: postgres
+-- Name: alerta_stock_bajo; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW public.alerta_stock_bajo AS
@@ -488,10 +471,8 @@ CREATE VIEW public.alerta_stock_bajo AS
   ORDER BY (l.stock_minimo - l.stock_actual) DESC;
 
 
-ALTER VIEW public.alerta_stock_bajo OWNER TO postgres;
-
 --
--- Name: autor; Type: TABLE; Schema: public; Owner: postgres
+-- Name: autor; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.autor (
@@ -503,17 +484,15 @@ CREATE TABLE public.autor (
 );
 
 
-ALTER TABLE public.autor OWNER TO postgres;
-
 --
--- Name: TABLE autor; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE autor; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.autor IS 'Catálogo de autores';
 
 
 --
--- Name: carrito; Type: TABLE; Schema: public; Owner: postgres
+-- Name: carrito; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.carrito (
@@ -523,17 +502,15 @@ CREATE TABLE public.carrito (
 );
 
 
-ALTER TABLE public.carrito OWNER TO postgres;
-
 --
--- Name: TABLE carrito; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE carrito; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.carrito IS 'Estado temporal del carrito antes de confirmar. Un cliente, un carrito activo';
 
 
 --
--- Name: categoria; Type: TABLE; Schema: public; Owner: postgres
+-- Name: categoria; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.categoria (
@@ -544,17 +521,15 @@ CREATE TABLE public.categoria (
 );
 
 
-ALTER TABLE public.categoria OWNER TO postgres;
-
 --
--- Name: TABLE categoria; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE categoria; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.categoria IS 'Clasificación por género o tema de los libros';
 
 
 --
--- Name: cliente; Type: TABLE; Schema: public; Owner: postgres
+-- Name: cliente; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.cliente (
@@ -571,45 +546,43 @@ CREATE TABLE public.cliente (
 );
 
 
-ALTER TABLE public.cliente OWNER TO postgres;
-
 --
--- Name: TABLE cliente; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE cliente; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.cliente IS 'Clientes del sistema. Teléfono es el identificador universal en tienda y online';
 
 
 --
--- Name: COLUMN cliente.telefono; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN cliente.telefono; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.cliente.telefono IS 'Identificador universal único. Se usa en tienda física y como login online';
 
 
 --
--- Name: COLUMN cliente.password_hash; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN cliente.password_hash; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.cliente.password_hash IS 'NULL si el cliente solo compra en tienda. Se llena al activar cuenta online';
 
 
 --
--- Name: COLUMN cliente.cuenta_activa; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN cliente.cuenta_activa; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.cliente.cuenta_activa IS 'TRUE cuando el cliente activó acceso a la plataforma online';
 
 
 --
--- Name: COLUMN cliente.puntos_saldo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN cliente.puntos_saldo; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.cliente.puntos_saldo IS 'Saldo rápido de puntos. Sincronizado automáticamente por trg_transaccion_puntos_sync';
 
 
 --
--- Name: configuracion; Type: TABLE; Schema: public; Owner: postgres
+-- Name: configuracion; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.configuracion (
@@ -622,24 +595,22 @@ CREATE TABLE public.configuracion (
 );
 
 
-ALTER TABLE public.configuracion OWNER TO postgres;
-
 --
--- Name: TABLE configuracion; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE configuracion; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.configuracion IS 'Parámetros del sistema editables sin tocar código. Las funciones POS y pedidos los leen en tiempo de ejecución';
 
 
 --
--- Name: COLUMN configuracion.tipo_dato; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN configuracion.tipo_dato; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.configuracion.tipo_dato IS 'Tipo esperado del valor: integer, numeric, text, boolean';
 
 
 --
--- Name: detalle_pedido_compra; Type: TABLE; Schema: public; Owner: postgres
+-- Name: detalle_pedido_compra; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.detalle_pedido_compra (
@@ -657,24 +628,22 @@ CREATE TABLE public.detalle_pedido_compra (
 );
 
 
-ALTER TABLE public.detalle_pedido_compra OWNER TO postgres;
-
 --
--- Name: TABLE detalle_pedido_compra; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE detalle_pedido_compra; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.detalle_pedido_compra IS 'Líneas de cada orden. cantidad_recibida actualiza stock vía trg_recepcion_compra';
 
 
 --
--- Name: COLUMN detalle_pedido_compra.cantidad_recibida; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN detalle_pedido_compra.cantidad_recibida; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.detalle_pedido_compra.cantidad_recibida IS 'Soporta entregas parciales. Cada incremento dispara trg_recepcion_compra y suma al stock';
 
 
 --
--- Name: detalle_pedido_linea; Type: TABLE; Schema: public; Owner: postgres
+-- Name: detalle_pedido_linea; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.detalle_pedido_linea (
@@ -690,17 +659,15 @@ CREATE TABLE public.detalle_pedido_linea (
 );
 
 
-ALTER TABLE public.detalle_pedido_linea OWNER TO postgres;
-
 --
--- Name: TABLE detalle_pedido_linea; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE detalle_pedido_linea; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.detalle_pedido_linea IS 'Líneas de cada pedido online. Inmutable por auditoría — ON DELETE RESTRICT';
 
 
 --
--- Name: detalle_venta; Type: TABLE; Schema: public; Owner: postgres
+-- Name: detalle_venta; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.detalle_venta (
@@ -716,24 +683,22 @@ CREATE TABLE public.detalle_venta (
 );
 
 
-ALTER TABLE public.detalle_venta OWNER TO postgres;
-
 --
--- Name: TABLE detalle_venta; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE detalle_venta; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.detalle_venta IS 'Líneas de cada venta. Inmutable por auditoría — ON DELETE RESTRICT';
 
 
 --
--- Name: COLUMN detalle_venta.precio_unitario; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN detalle_venta.precio_unitario; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.detalle_venta.precio_unitario IS 'Snapshot del precio al momento de la venta. No cambia si el libro se actualiza después';
 
 
 --
--- Name: direccion_entrega; Type: TABLE; Schema: public; Owner: postgres
+-- Name: direccion_entrega; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.direccion_entrega (
@@ -752,17 +717,15 @@ CREATE TABLE public.direccion_entrega (
 );
 
 
-ALTER TABLE public.direccion_entrega OWNER TO postgres;
-
 --
--- Name: TABLE direccion_entrega; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE direccion_entrega; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.direccion_entrega IS 'Direcciones guardadas por clientes para envíos de pedidos online';
 
 
 --
--- Name: empleado; Type: TABLE; Schema: public; Owner: postgres
+-- Name: empleado; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.empleado (
@@ -778,17 +741,15 @@ CREATE TABLE public.empleado (
 );
 
 
-ALTER TABLE public.empleado OWNER TO postgres;
-
 --
--- Name: TABLE empleado; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE empleado; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.empleado IS 'Usuarios internos del sistema: cajeros y administradores';
 
 
 --
--- Name: item_carrito; Type: TABLE; Schema: public; Owner: postgres
+-- Name: item_carrito; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.item_carrito (
@@ -800,17 +761,15 @@ CREATE TABLE public.item_carrito (
 );
 
 
-ALTER TABLE public.item_carrito OWNER TO postgres;
-
 --
--- Name: TABLE item_carrito; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE item_carrito; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.item_carrito IS 'Libros en el carrito. UNIQUE(carrito_id, libro_id) — se actualiza la cantidad si se repite';
 
 
 --
--- Name: libro_autor; Type: TABLE; Schema: public; Owner: postgres
+-- Name: libro_autor; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.libro_autor (
@@ -821,17 +780,15 @@ CREATE TABLE public.libro_autor (
 );
 
 
-ALTER TABLE public.libro_autor OWNER TO postgres;
-
 --
--- Name: TABLE libro_autor; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE libro_autor; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.libro_autor IS 'Relación muchos-a-muchos entre libros y autores con rol';
 
 
 --
--- Name: venta; Type: TABLE; Schema: public; Owner: postgres
+-- Name: venta; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.venta (
@@ -856,31 +813,29 @@ CREATE TABLE public.venta (
 );
 
 
-ALTER TABLE public.venta OWNER TO postgres;
-
 --
--- Name: TABLE venta; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE venta; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.venta IS 'Transacciones realizadas en el punto de venta físico';
 
 
 --
--- Name: COLUMN venta.cliente_id; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN venta.cliente_id; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.venta.cliente_id IS 'NULL si la venta es anónima — cliente no identificado';
 
 
 --
--- Name: COLUMN venta.descuento_puntos; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN venta.descuento_puntos; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.venta.descuento_puntos IS 'Monto en MXN descontado por canje de puntos de lealtad';
 
 
 --
--- Name: libros_mas_vendidos; Type: VIEW; Schema: public; Owner: postgres
+-- Name: libros_mas_vendidos; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW public.libros_mas_vendidos AS
@@ -897,10 +852,8 @@ CREATE VIEW public.libros_mas_vendidos AS
   ORDER BY (sum(dv.cantidad)) DESC;
 
 
-ALTER VIEW public.libros_mas_vendidos OWNER TO postgres;
-
 --
--- Name: log_acceso; Type: TABLE; Schema: public; Owner: postgres
+-- Name: log_acceso; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.log_acceso (
@@ -915,17 +868,15 @@ CREATE TABLE public.log_acceso (
 );
 
 
-ALTER TABLE public.log_acceso OWNER TO postgres;
-
 --
--- Name: TABLE log_acceso; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE log_acceso; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.log_acceso IS 'Auditoría de todos los accesos: login_ok, login_fallido, logout, cambio_password';
 
 
 --
--- Name: movimiento_inventario; Type: TABLE; Schema: public; Owner: postgres
+-- Name: movimiento_inventario; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.movimiento_inventario (
@@ -944,45 +895,43 @@ CREATE TABLE public.movimiento_inventario (
 );
 
 
-ALTER TABLE public.movimiento_inventario OWNER TO postgres;
-
 --
--- Name: TABLE movimiento_inventario; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE movimiento_inventario; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.movimiento_inventario IS 'Historial de ajustes manuales de stock (entradas, salidas, correcciones) realizados por un empleado';
 
 
 --
--- Name: COLUMN movimiento_inventario.tipo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN movimiento_inventario.tipo; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.movimiento_inventario.tipo IS 'entrada: suma stock | salida: resta stock | ajuste: correccion manual tras conteo fisico';
 
 
 --
--- Name: COLUMN movimiento_inventario.cantidad; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN movimiento_inventario.cantidad; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.movimiento_inventario.cantidad IS 'Delta con signo aplicado a libro.stock_actual: positivo en entrada/ajuste hacia arriba, negativo en salida/ajuste hacia abajo';
 
 
 --
--- Name: COLUMN movimiento_inventario.stock_anterior; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN movimiento_inventario.stock_anterior; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.movimiento_inventario.stock_anterior IS 'Snapshot de libro.stock_actual antes del movimiento';
 
 
 --
--- Name: COLUMN movimiento_inventario.stock_nuevo; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN movimiento_inventario.stock_nuevo; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.movimiento_inventario.stock_nuevo IS 'Snapshot de libro.stock_actual despues del movimiento';
 
 
 --
--- Name: pedido_compra; Type: TABLE; Schema: public; Owner: postgres
+-- Name: pedido_compra; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.pedido_compra (
@@ -999,17 +948,15 @@ CREATE TABLE public.pedido_compra (
 );
 
 
-ALTER TABLE public.pedido_compra OWNER TO postgres;
-
 --
--- Name: TABLE pedido_compra; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE pedido_compra; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.pedido_compra IS 'Órdenes de compra enviadas a proveedores';
 
 
 --
--- Name: pedido_linea; Type: TABLE; Schema: public; Owner: postgres
+-- Name: pedido_linea; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.pedido_linea (
@@ -1038,31 +985,29 @@ CREATE TABLE public.pedido_linea (
 );
 
 
-ALTER TABLE public.pedido_linea OWNER TO postgres;
-
 --
--- Name: TABLE pedido_linea; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE pedido_linea; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.pedido_linea IS 'Pedidos confirmados desde la plataforma online. Equivalente de venta para ese canal';
 
 
 --
--- Name: COLUMN pedido_linea.estado; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN pedido_linea.estado; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.pedido_linea.estado IS 'Flujo: recibido → en_preparacion → listo → enviado → entregado / cancelado';
 
 
 --
--- Name: COLUMN pedido_linea.costo_envio; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN pedido_linea.costo_envio; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.pedido_linea.costo_envio IS '0 si es recoger_en_tienda o si el subtotal supera envio_gratis_desde en configuracion';
 
 
 --
--- Name: proveedor; Type: TABLE; Schema: public; Owner: postgres
+-- Name: proveedor; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.proveedor (
@@ -1077,17 +1022,15 @@ CREATE TABLE public.proveedor (
 );
 
 
-ALTER TABLE public.proveedor OWNER TO postgres;
-
 --
--- Name: TABLE proveedor; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE proveedor; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.proveedor IS 'Catálogo de proveedores de libros';
 
 
 --
--- Name: rendimiento_empleados; Type: VIEW; Schema: public; Owner: postgres
+-- Name: rendimiento_empleados; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW public.rendimiento_empleados AS
@@ -1104,10 +1047,8 @@ CREATE VIEW public.rendimiento_empleados AS
   ORDER BY (sum(v.total)) DESC NULLS LAST;
 
 
-ALTER VIEW public.rendimiento_empleados OWNER TO postgres;
-
 --
--- Name: sesion; Type: TABLE; Schema: public; Owner: postgres
+-- Name: sesion; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.sesion (
@@ -1121,24 +1062,22 @@ CREATE TABLE public.sesion (
 );
 
 
-ALTER TABLE public.sesion OWNER TO postgres;
-
 --
--- Name: TABLE sesion; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE sesion; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.sesion IS 'Tokens activos. Al hacer logout se borra la fila — invalidación real del JWT';
 
 
 --
--- Name: COLUMN sesion.token_hash; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN sesion.token_hash; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.sesion.token_hash IS 'SHA-256 del JWT. Nunca se guarda el token completo en BD';
 
 
 --
--- Name: transaccion_puntos; Type: TABLE; Schema: public; Owner: postgres
+-- Name: transaccion_puntos; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.transaccion_puntos (
@@ -1157,24 +1096,22 @@ CREATE TABLE public.transaccion_puntos (
 );
 
 
-ALTER TABLE public.transaccion_puntos OWNER TO postgres;
-
 --
--- Name: TABLE transaccion_puntos; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE transaccion_puntos; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON TABLE public.transaccion_puntos IS 'Historial inmutable de puntos. Fuente de verdad — ON DELETE RESTRICT. Sincroniza puntos_saldo vía trg_transaccion_puntos_sync';
 
 
 --
--- Name: COLUMN transaccion_puntos.canal; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN transaccion_puntos.canal; Type: COMMENT; Schema: public; Owner: -
 --
 
 COMMENT ON COLUMN public.transaccion_puntos.canal IS 'pos = venta en tienda física, online = pedido desde la plataforma web';
 
 
 --
--- Name: ventas_por_dia; Type: VIEW; Schema: public; Owner: postgres
+-- Name: ventas_por_dia; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW public.ventas_por_dia AS
@@ -1203,10 +1140,8 @@ CREATE VIEW public.ventas_por_dia AS
   ORDER BY (date(fecha)) DESC;
 
 
-ALTER VIEW public.ventas_por_dia OWNER TO postgres;
-
 --
--- Name: autor autor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: autor autor_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.autor
@@ -1214,7 +1149,7 @@ ALTER TABLE ONLY public.autor
 
 
 --
--- Name: carrito carrito_cliente_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: carrito carrito_cliente_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.carrito
@@ -1222,7 +1157,7 @@ ALTER TABLE ONLY public.carrito
 
 
 --
--- Name: carrito carrito_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: carrito carrito_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.carrito
@@ -1230,7 +1165,7 @@ ALTER TABLE ONLY public.carrito
 
 
 --
--- Name: categoria categoria_nombre_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: categoria categoria_nombre_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.categoria
@@ -1238,7 +1173,7 @@ ALTER TABLE ONLY public.categoria
 
 
 --
--- Name: categoria categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: categoria categoria_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.categoria
@@ -1246,7 +1181,7 @@ ALTER TABLE ONLY public.categoria
 
 
 --
--- Name: cliente cliente_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cliente cliente_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cliente
@@ -1254,7 +1189,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cliente cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cliente
@@ -1262,7 +1197,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- Name: cliente cliente_telefono_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cliente cliente_telefono_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cliente
@@ -1270,7 +1205,7 @@ ALTER TABLE ONLY public.cliente
 
 
 --
--- Name: configuracion configuracion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: configuracion configuracion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.configuracion
@@ -1278,7 +1213,7 @@ ALTER TABLE ONLY public.configuracion
 
 
 --
--- Name: detalle_pedido_compra detalle_pedido_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_compra detalle_pedido_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_compra
@@ -1286,7 +1221,7 @@ ALTER TABLE ONLY public.detalle_pedido_compra
 
 
 --
--- Name: detalle_pedido_linea detalle_pedido_linea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_linea detalle_pedido_linea_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_linea
@@ -1294,7 +1229,7 @@ ALTER TABLE ONLY public.detalle_pedido_linea
 
 
 --
--- Name: detalle_venta detalle_venta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_venta detalle_venta_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_venta
@@ -1302,7 +1237,7 @@ ALTER TABLE ONLY public.detalle_venta
 
 
 --
--- Name: direccion_entrega direccion_entrega_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: direccion_entrega direccion_entrega_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.direccion_entrega
@@ -1310,7 +1245,7 @@ ALTER TABLE ONLY public.direccion_entrega
 
 
 --
--- Name: editorial editorial_nombre_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: editorial editorial_nombre_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.editorial
@@ -1318,7 +1253,7 @@ ALTER TABLE ONLY public.editorial
 
 
 --
--- Name: editorial editorial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: editorial editorial_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.editorial
@@ -1326,7 +1261,7 @@ ALTER TABLE ONLY public.editorial
 
 
 --
--- Name: empleado empleado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: empleado empleado_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.empleado
@@ -1334,7 +1269,7 @@ ALTER TABLE ONLY public.empleado
 
 
 --
--- Name: empleado empleado_usuario_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: empleado empleado_usuario_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.empleado
@@ -1342,7 +1277,7 @@ ALTER TABLE ONLY public.empleado
 
 
 --
--- Name: item_carrito item_carrito_carrito_id_libro_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: item_carrito item_carrito_carrito_id_libro_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.item_carrito
@@ -1350,7 +1285,7 @@ ALTER TABLE ONLY public.item_carrito
 
 
 --
--- Name: item_carrito item_carrito_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: item_carrito item_carrito_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.item_carrito
@@ -1358,7 +1293,7 @@ ALTER TABLE ONLY public.item_carrito
 
 
 --
--- Name: libro_autor libro_autor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro_autor libro_autor_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro_autor
@@ -1366,7 +1301,7 @@ ALTER TABLE ONLY public.libro_autor
 
 
 --
--- Name: libro libro_isbn_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro libro_isbn_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro
@@ -1374,7 +1309,7 @@ ALTER TABLE ONLY public.libro
 
 
 --
--- Name: libro libro_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro libro_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro
@@ -1382,7 +1317,7 @@ ALTER TABLE ONLY public.libro
 
 
 --
--- Name: log_acceso log_acceso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: log_acceso log_acceso_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log_acceso
@@ -1390,7 +1325,7 @@ ALTER TABLE ONLY public.log_acceso
 
 
 --
--- Name: movimiento_inventario movimiento_inventario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: movimiento_inventario movimiento_inventario_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.movimiento_inventario
@@ -1398,7 +1333,7 @@ ALTER TABLE ONLY public.movimiento_inventario
 
 
 --
--- Name: pedido_compra pedido_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_compra pedido_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_compra
@@ -1406,7 +1341,7 @@ ALTER TABLE ONLY public.pedido_compra
 
 
 --
--- Name: pedido_linea pedido_linea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_linea pedido_linea_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_linea
@@ -1414,7 +1349,7 @@ ALTER TABLE ONLY public.pedido_linea
 
 
 --
--- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.proveedor
@@ -1422,7 +1357,7 @@ ALTER TABLE ONLY public.proveedor
 
 
 --
--- Name: sesion sesion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sesion sesion_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sesion
@@ -1430,7 +1365,7 @@ ALTER TABLE ONLY public.sesion
 
 
 --
--- Name: sesion sesion_token_hash_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sesion sesion_token_hash_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sesion
@@ -1438,7 +1373,7 @@ ALTER TABLE ONLY public.sesion
 
 
 --
--- Name: transaccion_puntos transaccion_puntos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaccion_puntos transaccion_puntos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.transaccion_puntos
@@ -1446,7 +1381,7 @@ ALTER TABLE ONLY public.transaccion_puntos
 
 
 --
--- Name: venta venta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: venta venta_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.venta
@@ -1454,343 +1389,343 @@ ALTER TABLE ONLY public.venta
 
 
 --
--- Name: idx_autor_nombre; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_autor_nombre; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_autor_nombre ON public.autor USING btree (nombre);
 
 
 --
--- Name: idx_cliente_telefono; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_cliente_telefono; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_cliente_telefono ON public.cliente USING btree (telefono);
 
 
 --
--- Name: idx_det_compra_libro; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_det_compra_libro; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_det_compra_libro ON public.detalle_pedido_compra USING btree (libro_id);
 
 
 --
--- Name: idx_det_compra_pedido; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_det_compra_pedido; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_det_compra_pedido ON public.detalle_pedido_compra USING btree (pedido_compra_id);
 
 
 --
--- Name: idx_detalle_pedido_libro; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_detalle_pedido_libro; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_detalle_pedido_libro ON public.detalle_pedido_linea USING btree (libro_id);
 
 
 --
--- Name: idx_detalle_pedido_pedido; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_detalle_pedido_pedido; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_detalle_pedido_pedido ON public.detalle_pedido_linea USING btree (pedido_linea_id);
 
 
 --
--- Name: idx_detalle_venta_libro; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_detalle_venta_libro; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_detalle_venta_libro ON public.detalle_venta USING btree (libro_id);
 
 
 --
--- Name: idx_detalle_venta_venta; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_detalle_venta_venta; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_detalle_venta_venta ON public.detalle_venta USING btree (venta_id);
 
 
 --
--- Name: idx_dir_cliente; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_dir_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_dir_cliente ON public.direccion_entrega USING btree (cliente_id);
 
 
 --
--- Name: idx_item_carrito_carrito; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_item_carrito_carrito; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_item_carrito_carrito ON public.item_carrito USING btree (carrito_id);
 
 
 --
--- Name: idx_item_carrito_libro; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_item_carrito_libro; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_item_carrito_libro ON public.item_carrito USING btree (libro_id);
 
 
 --
--- Name: idx_libro_categoria; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_libro_categoria; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_libro_categoria ON public.libro USING btree (categoria_id);
 
 
 --
--- Name: idx_libro_editorial; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_libro_editorial; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_libro_editorial ON public.libro USING btree (editorial_id);
 
 
 --
--- Name: idx_libro_isbn; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_libro_isbn; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_libro_isbn ON public.libro USING btree (isbn);
 
 
 --
--- Name: idx_libro_titulo; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_libro_titulo; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_libro_titulo ON public.libro USING btree (titulo);
 
 
 --
--- Name: idx_log_acceso_cliente; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_log_acceso_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_log_acceso_cliente ON public.log_acceso USING btree (cliente_id) WHERE (cliente_id IS NOT NULL);
 
 
 --
--- Name: idx_log_acceso_empleado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_log_acceso_empleado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_log_acceso_empleado ON public.log_acceso USING btree (empleado_id) WHERE (empleado_id IS NOT NULL);
 
 
 --
--- Name: idx_log_acceso_fecha; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_log_acceso_fecha; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_log_acceso_fecha ON public.log_acceso USING btree (fecha);
 
 
 --
--- Name: idx_movimiento_inventario_fecha; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_movimiento_inventario_fecha; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_movimiento_inventario_fecha ON public.movimiento_inventario USING btree (created_at);
 
 
 --
--- Name: idx_movimiento_inventario_libro; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_movimiento_inventario_libro; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_movimiento_inventario_libro ON public.movimiento_inventario USING btree (libro_id);
 
 
 --
--- Name: idx_pedido_compra_empleado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_compra_empleado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_compra_empleado ON public.pedido_compra USING btree (empleado_id);
 
 
 --
--- Name: idx_pedido_compra_estado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_compra_estado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_compra_estado ON public.pedido_compra USING btree (estado);
 
 
 --
--- Name: idx_pedido_compra_proveedor; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_compra_proveedor; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_compra_proveedor ON public.pedido_compra USING btree (proveedor_id);
 
 
 --
--- Name: idx_pedido_linea_cliente; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_linea_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_linea_cliente ON public.pedido_linea USING btree (cliente_id);
 
 
 --
--- Name: idx_pedido_linea_direccion; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_linea_direccion; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_linea_direccion ON public.pedido_linea USING btree (direccion_id) WHERE (direccion_id IS NOT NULL);
 
 
 --
--- Name: idx_pedido_linea_estado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_linea_estado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_linea_estado ON public.pedido_linea USING btree (estado);
 
 
 --
--- Name: idx_pedido_linea_fecha; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_pedido_linea_fecha; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_pedido_linea_fecha ON public.pedido_linea USING btree (fecha);
 
 
 --
--- Name: idx_sesion_cliente; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_sesion_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_sesion_cliente ON public.sesion USING btree (cliente_id) WHERE (cliente_id IS NOT NULL);
 
 
 --
--- Name: idx_sesion_empleado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_sesion_empleado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_sesion_empleado ON public.sesion USING btree (empleado_id) WHERE (empleado_id IS NOT NULL);
 
 
 --
--- Name: idx_sesion_expira; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_sesion_expira; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_sesion_expira ON public.sesion USING btree (expira_en);
 
 
 --
--- Name: idx_sesion_token; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_sesion_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_sesion_token ON public.sesion USING btree (token_hash);
 
 
 --
--- Name: idx_txn_puntos_cliente; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_txn_puntos_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_txn_puntos_cliente ON public.transaccion_puntos USING btree (cliente_id);
 
 
 --
--- Name: idx_txn_puntos_fecha; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_txn_puntos_fecha; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_txn_puntos_fecha ON public.transaccion_puntos USING btree (fecha);
 
 
 --
--- Name: idx_txn_puntos_pedido; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_txn_puntos_pedido; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_txn_puntos_pedido ON public.transaccion_puntos USING btree (pedido_linea_id) WHERE (pedido_linea_id IS NOT NULL);
 
 
 --
--- Name: idx_txn_puntos_venta; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_txn_puntos_venta; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_txn_puntos_venta ON public.transaccion_puntos USING btree (venta_id) WHERE (venta_id IS NOT NULL);
 
 
 --
--- Name: idx_venta_cliente_id; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_venta_cliente_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_venta_cliente_id ON public.venta USING btree (cliente_id) WHERE (cliente_id IS NOT NULL);
 
 
 --
--- Name: idx_venta_empleado_id; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_venta_empleado_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_venta_empleado_id ON public.venta USING btree (empleado_id);
 
 
 --
--- Name: idx_venta_estado; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_venta_estado; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_venta_estado ON public.venta USING btree (estado);
 
 
 --
--- Name: idx_venta_fecha; Type: INDEX; Schema: public; Owner: postgres
+-- Name: idx_venta_fecha; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX idx_venta_fecha ON public.venta USING btree (fecha);
 
 
 --
--- Name: cliente trg_cliente_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: cliente trg_cliente_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_cliente_updated_at BEFORE UPDATE ON public.cliente FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: configuracion trg_configuracion_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: configuracion trg_configuracion_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_configuracion_updated_at BEFORE UPDATE ON public.configuracion FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: empleado trg_empleado_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: empleado trg_empleado_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_empleado_updated_at BEFORE UPDATE ON public.empleado FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: item_carrito trg_item_carrito_touch; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: item_carrito trg_item_carrito_touch; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_item_carrito_touch AFTER INSERT OR DELETE OR UPDATE ON public.item_carrito FOR EACH ROW EXECUTE FUNCTION public.trg_fn_carrito_touch();
 
 
 --
--- Name: libro trg_libro_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: libro trg_libro_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_libro_updated_at BEFORE UPDATE ON public.libro FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: pedido_compra trg_pedido_compra_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: pedido_compra trg_pedido_compra_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_pedido_compra_updated_at BEFORE UPDATE ON public.pedido_compra FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: pedido_linea trg_pedido_linea_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: pedido_linea trg_pedido_linea_updated_at; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_pedido_linea_updated_at BEFORE UPDATE ON public.pedido_linea FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 
 --
--- Name: detalle_pedido_compra trg_recepcion_compra; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: detalle_pedido_compra trg_recepcion_compra; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_recepcion_compra AFTER UPDATE OF cantidad_recibida ON public.detalle_pedido_compra FOR EACH ROW EXECUTE FUNCTION public.trg_fn_recepcion_compra();
 
 
 --
--- Name: transaccion_puntos trg_transaccion_puntos_sync; Type: TRIGGER; Schema: public; Owner: postgres
+-- Name: transaccion_puntos trg_transaccion_puntos_sync; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER trg_transaccion_puntos_sync AFTER INSERT OR DELETE ON public.transaccion_puntos FOR EACH ROW EXECUTE FUNCTION public.sync_puntos_saldo();
 
 
 --
--- Name: carrito carrito_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: carrito carrito_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.carrito
@@ -1798,7 +1733,7 @@ ALTER TABLE ONLY public.carrito
 
 
 --
--- Name: detalle_pedido_compra detalle_pedido_compra_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_compra detalle_pedido_compra_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_compra
@@ -1806,7 +1741,7 @@ ALTER TABLE ONLY public.detalle_pedido_compra
 
 
 --
--- Name: detalle_pedido_compra detalle_pedido_compra_pedido_compra_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_compra detalle_pedido_compra_pedido_compra_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_compra
@@ -1814,7 +1749,7 @@ ALTER TABLE ONLY public.detalle_pedido_compra
 
 
 --
--- Name: detalle_pedido_linea detalle_pedido_linea_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_linea detalle_pedido_linea_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_linea
@@ -1822,7 +1757,7 @@ ALTER TABLE ONLY public.detalle_pedido_linea
 
 
 --
--- Name: detalle_pedido_linea detalle_pedido_linea_pedido_linea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_pedido_linea detalle_pedido_linea_pedido_linea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_pedido_linea
@@ -1830,7 +1765,7 @@ ALTER TABLE ONLY public.detalle_pedido_linea
 
 
 --
--- Name: detalle_venta detalle_venta_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_venta detalle_venta_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_venta
@@ -1838,7 +1773,7 @@ ALTER TABLE ONLY public.detalle_venta
 
 
 --
--- Name: detalle_venta detalle_venta_venta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: detalle_venta detalle_venta_venta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.detalle_venta
@@ -1846,7 +1781,7 @@ ALTER TABLE ONLY public.detalle_venta
 
 
 --
--- Name: direccion_entrega direccion_entrega_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: direccion_entrega direccion_entrega_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.direccion_entrega
@@ -1854,7 +1789,7 @@ ALTER TABLE ONLY public.direccion_entrega
 
 
 --
--- Name: item_carrito item_carrito_carrito_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: item_carrito item_carrito_carrito_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.item_carrito
@@ -1862,7 +1797,7 @@ ALTER TABLE ONLY public.item_carrito
 
 
 --
--- Name: item_carrito item_carrito_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: item_carrito item_carrito_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.item_carrito
@@ -1870,7 +1805,7 @@ ALTER TABLE ONLY public.item_carrito
 
 
 --
--- Name: libro_autor libro_autor_autor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro_autor libro_autor_autor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro_autor
@@ -1878,7 +1813,7 @@ ALTER TABLE ONLY public.libro_autor
 
 
 --
--- Name: libro_autor libro_autor_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro_autor libro_autor_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro_autor
@@ -1886,7 +1821,7 @@ ALTER TABLE ONLY public.libro_autor
 
 
 --
--- Name: libro libro_categoria_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro libro_categoria_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro
@@ -1894,7 +1829,7 @@ ALTER TABLE ONLY public.libro
 
 
 --
--- Name: libro libro_editorial_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: libro libro_editorial_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.libro
@@ -1902,7 +1837,7 @@ ALTER TABLE ONLY public.libro
 
 
 --
--- Name: log_acceso log_acceso_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: log_acceso log_acceso_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log_acceso
@@ -1910,7 +1845,7 @@ ALTER TABLE ONLY public.log_acceso
 
 
 --
--- Name: log_acceso log_acceso_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: log_acceso log_acceso_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.log_acceso
@@ -1918,7 +1853,7 @@ ALTER TABLE ONLY public.log_acceso
 
 
 --
--- Name: movimiento_inventario movimiento_inventario_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: movimiento_inventario movimiento_inventario_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.movimiento_inventario
@@ -1926,7 +1861,7 @@ ALTER TABLE ONLY public.movimiento_inventario
 
 
 --
--- Name: movimiento_inventario movimiento_inventario_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: movimiento_inventario movimiento_inventario_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.movimiento_inventario
@@ -1934,7 +1869,7 @@ ALTER TABLE ONLY public.movimiento_inventario
 
 
 --
--- Name: pedido_compra pedido_compra_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_compra pedido_compra_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_compra
@@ -1942,7 +1877,7 @@ ALTER TABLE ONLY public.pedido_compra
 
 
 --
--- Name: pedido_compra pedido_compra_proveedor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_compra pedido_compra_proveedor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_compra
@@ -1950,7 +1885,7 @@ ALTER TABLE ONLY public.pedido_compra
 
 
 --
--- Name: pedido_linea pedido_linea_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_linea pedido_linea_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_linea
@@ -1958,7 +1893,7 @@ ALTER TABLE ONLY public.pedido_linea
 
 
 --
--- Name: pedido_linea pedido_linea_direccion_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: pedido_linea pedido_linea_direccion_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pedido_linea
@@ -1966,7 +1901,7 @@ ALTER TABLE ONLY public.pedido_linea
 
 
 --
--- Name: sesion sesion_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sesion sesion_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sesion
@@ -1974,7 +1909,7 @@ ALTER TABLE ONLY public.sesion
 
 
 --
--- Name: sesion sesion_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sesion sesion_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sesion
@@ -1982,7 +1917,7 @@ ALTER TABLE ONLY public.sesion
 
 
 --
--- Name: transaccion_puntos transaccion_puntos_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaccion_puntos transaccion_puntos_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.transaccion_puntos
@@ -1990,7 +1925,7 @@ ALTER TABLE ONLY public.transaccion_puntos
 
 
 --
--- Name: transaccion_puntos transaccion_puntos_pedido_linea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaccion_puntos transaccion_puntos_pedido_linea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.transaccion_puntos
@@ -1998,7 +1933,7 @@ ALTER TABLE ONLY public.transaccion_puntos
 
 
 --
--- Name: transaccion_puntos transaccion_puntos_venta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaccion_puntos transaccion_puntos_venta_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.transaccion_puntos
@@ -2006,7 +1941,7 @@ ALTER TABLE ONLY public.transaccion_puntos
 
 
 --
--- Name: venta venta_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: venta venta_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.venta
@@ -2014,7 +1949,7 @@ ALTER TABLE ONLY public.venta
 
 
 --
--- Name: venta venta_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: venta venta_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.venta
@@ -2025,5 +1960,5 @@ ALTER TABLE ONLY public.venta
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Ue4lMleVJEXhtjbttpfb0euTvvRgQObUl2HUCQgcEEcNw6cAHv72PdlbQH6rDM5
+\unrestrict VHZgUhhhOP1qW039XbX5egrT2TL85eO62Mu56kfszb0rXlnEMwJAJgQDHb0b3Az
 

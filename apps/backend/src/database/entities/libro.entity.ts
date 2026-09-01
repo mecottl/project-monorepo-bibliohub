@@ -50,6 +50,9 @@ export class Libro {
   @Column({ type: 'boolean', default: true })
   activo!: boolean;
 
+  @Column({ type: 'text', nullable: true })
+  sinopsis!: string | null;
+
   @Column({ type: 'varchar', length: 500, name: 'imagen_key', nullable: true })
   imagenKey!: string | null;
 
