@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { ClientesService } from '../../services/clientes.service';
 import { Cliente } from '../../models/cliente.model';
 
@@ -17,6 +18,7 @@ export class ClienteDetallePage {
   private readonly clientesService = inject(ClientesService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  readonly auth = inject(AuthService);
 
   clienteId = this.route.snapshot.paramMap.get('id')!;
   cliente = signal<Cliente | null>(null);

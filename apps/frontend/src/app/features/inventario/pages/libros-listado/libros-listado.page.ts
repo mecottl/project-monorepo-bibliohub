@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
 import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
 import { SearchInputComponent } from '../../../../shared/search-input/search-input.component';
@@ -25,6 +26,7 @@ import { Libro, LibroAutor } from '../../models/libro.model';
 export class LibrosListadoPage {
   private readonly catalogoService = inject(CatalogoService);
   private readonly router = inject(Router);
+  readonly auth = inject(AuthService);
 
   libros = signal<Libro[]>([]);
   total = signal(0);

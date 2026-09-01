@@ -20,10 +20,12 @@
   <nav class="sidebar__nav" aria-label="Navegación principal">
     <div class="sidebar__nav-links">
       @if (mostrarAdminChrome()) {
-        <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-dashboard class="sidebar__nav-icon" />
-          Dashboard
-        </a>
+        @if (auth.isAdmin()) {
+          <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-dashboard class="sidebar__nav-icon" />
+            Dashboard
+          </a>
+        }
         <a routerLink="/inventario" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-inventario class="sidebar__nav-icon" />
           Inventario
@@ -36,18 +38,20 @@
           <svg-clientes class="sidebar__nav-icon" />
           Clientes
         </a>
-        <a routerLink="/proveedores" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-proveedores class="sidebar__nav-icon" />
-          Proveedores
-        </a>
-        <a routerLink="/reportes" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-reportes class="sidebar__nav-icon" />
-          Reportes
-        </a>
-        <a routerLink="/configuracion" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-configuracion class="sidebar__nav-icon" />
-          Configuración
-        </a>
+        @if (auth.isAdmin()) {
+          <a routerLink="/proveedores" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-proveedores class="sidebar__nav-icon" />
+            Proveedores
+          </a>
+          <a routerLink="/reportes" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-reportes class="sidebar__nav-icon" />
+            Reportes
+          </a>
+          <a routerLink="/configuracion" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-configuracion class="sidebar__nav-icon" />
+            Configuración
+          </a>
+        }
       } @else {
         <a routerLink="/inicio" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-inicio class="sidebar__nav-icon" />

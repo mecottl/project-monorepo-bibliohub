@@ -17,80 +17,96 @@
           <dd>{{ fechaRegistroFormateada() }}</dd>
           <dt>Puntos actuales</dt>
           <dd class="cliente-detalle__puntos">{{ cliente()!.puntosSaldo }}</dd>
+          @if (auth.isCajero()) {
+            <dt>Nombre</dt>
+            <dd>{{ cliente()!.nombre ?? 'Sin nombre (solo teléfono)' }}</dd>
+            <dt>Email</dt>
+            <dd>{{ cliente()!.email ?? '—' }}</dd>
+            <dt>Cuenta</dt>
+            <dd>{{ cliente()!.cuentaActiva ? 'Activa' : 'Inactiva' }}</dd>
+          }
         </dl>
 
-        <form [formGroup]="form" (ngSubmit)="guardar()">
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input
-              id="nombre"
-              type="text"
-              formControlName="nombre"
-              placeholder="Aún sin nombre (cliente solo teléfono)"
-            />
-          </div>
+        @if (!auth.isCajero()) {
+          <form [formGroup]="form" (ngSubmit)="guardar()">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input
+                id="nombre"
+                type="text"
+                formControlName="nombre"
+                placeholder="Aún sin nombre (cliente solo teléfono)"
+              />
+            </div>
 
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" />
-          </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" formControlName="email" />
+            </div>
 
-          <div class="field field--checkbox">
-            <label for="cuentaActiva">
-              <input id="cuentaActiva" type="checkbox" formControlName="cuentaActiva" />
-              Cuenta activa
-            </label>
-          </div>
+            <div class="field field--checkbox">
+              <label for="cuentaActiva">
+                <input id="cuentaActiva" type="checkbox" formControlName="cuentaActiva" />
+                Cuenta activa
+              </label>
+            </div>
 
-          @if (errorMensaje()) {
-            <p class="cliente-detalle__error" role="alert">{{ errorMensaje() }}</p>
-          }
+            @if (errorMensaje()) {
+              <p class="cliente-detalle__error" role="alert">{{ errorMensaje() }}</p>
+            }
 
+            <div class="cliente-detalle__actions">
+              <button type="button" class="btn-outline" (click)="volver()">Cancelar</button>
+              <button type="submit" class="btn-primary" [disabled]="guardando()">
+                {{ guardando() ? 'Guardando…' : 'Guardar' }}
+              </button>
+            </div>
+          </form>
+        } @else {
           <div class="cliente-detalle__actions">
-            <button type="button" class="btn-outline" (click)="volver()">Cancelar</button>
-            <button type="submit" class="btn-primary" [disabled]="guardando()">
-              {{ guardando() ? 'Guardando…' : 'Guardar' }}
-            </button>
+            <a routerLink="/clientes" class="btn-outline">← Volver a clientes</a>
           </div>
-        </form>
+        }
       </div>
 
-      <div class="cliente-detalle__card">
-        <h2 class="font-display">Ajustar puntos</h2>
-        <p class="cliente-detalle__hint">
-          Los ajustes quedan registrados y no pueden dejar el saldo en negativo.
-        </p>
+      @if (!auth.isCajero()) {
+        <div class="cliente-detalle__card">
+          <h2 class="font-display">Ajustar puntos</h2>
+          <p class="cliente-detalle__hint">
+            Los ajustes quedan registrados y no pueden dejar el saldo en negativo.
+          </p>
 
-        <form [formGroup]="ajusteForm" (ngSubmit)="ajustarPuntos()">
-          <div class="field">
-            <label for="tipo">Tipo</label>
-            <select id="tipo" formControlName="tipo">
-              <option value="ganado">Sumar (ganado)</option>
-              <option value="canjeado">Restar (canjeado)</option>
-            </select>
-          </div>
+          <form [formGroup]="ajusteForm" (ngSubmit)="ajustarPuntos()">
+            <div class="field">
+              <label for="tipo">Tipo</label>
+              <select id="tipo" formControlName="tipo">
+                <option value="ganado">Sumar (ganado)</option>
+                <option value="canjeado">Restar (canjeado)</option>
+              </select>
+            </div>
 
-          <div class="field">
-            <label for="puntos">Puntos</label>
-            <input id="puntos" type="number" min="1" formControlName="puntos" />
-          </div>
+            <div class="field">
+              <label for="puntos">Puntos</label>
+              <input id="puntos" type="number" min="1" formControlName="puntos" />
+            </div>
 
-          <div class="field">
-            <label for="concepto">Concepto (opcional)</label>
-            <input id="concepto" type="text" formControlName="concepto" />
-          </div>
+            <div class="field">
+              <label for="concepto">Concepto (opcional)</label>
+              <input id="concepto" type="text" formControlName="concepto" />
+            </div>
 
-          @if (ajusteError()) {
-            <p class="cliente-detalle__error" role="alert">{{ ajusteError() }}</p>
-          }
+            @if (ajusteError()) {
+              <p class="cliente-detalle__error" role="alert">{{ ajusteError() }}</p>
+            }
 
-          <div class="cliente-detalle__actions">
-            <button type="submit" class="btn-primary" [disabled]="ajustando()">
-              {{ ajustando() ? 'Aplicando…' : 'Aplicar ajuste' }}
-            </button>
-          </div>
-        </form>
-      </div>
+            <div class="cliente-detalle__actions">
+              <button type="submit" class="btn-primary" [disabled]="ajustando()">
+                {{ ajustando() ? 'Aplicando…' : 'Aplicar ajuste' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      }
     </div>
   </section>
 }

@@ -18,7 +18,7 @@ export class ClientesController {
     return this.clientesService.findAll(query);
   }
 
-  @Roles('admin', 'cajero')
+  @Roles('admin')
   @Post()
   crear(@Body() dto: CreateClienteDto) {
     return this.clientesService.crear(dto);

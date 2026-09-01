@@ -34,7 +34,9 @@ export class MainLayoutComponent {
 
   private enRutaAdmin = computed(() => RUTAS_ADMIN.some((ruta) => this.urlActual().startsWith(ruta)));
 
-  mostrarAdminChrome = computed(() => this.auth.isAdmin() && this.enRutaAdmin());
+  mostrarAdminChrome = computed(
+    () => (this.auth.isAdmin() || this.auth.isCajero()) && this.enRutaAdmin()
+  );
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
   mostrarBusqueda = computed(() => RUTAS_BUSQUEDA.some((ruta) => this.urlActual().startsWith(ruta)));
 
@@ -61,6 +63,10 @@ export class MainLayoutComponent {
   }
 
   onLogoClick(): void {
+    if (this.auth.isCajero()) {
+      this.router.navigate(['/ventas']);
+      return;
+    }
     if (!this.auth.isAdmin()) {
       this.router.navigate(['/inicio']);
       return;

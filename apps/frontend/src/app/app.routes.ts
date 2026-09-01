@@ -28,7 +28,7 @@ export const routes: Routes = [
       {
         path: 'inventario',
         canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
+        data: { roles: ['admin', 'cajero'] },
         loadChildren: () =>
           import('./features/inventario/inventario.routes').then(
             m => m.INVENTARIO_ROUTES
@@ -46,7 +46,7 @@ export const routes: Routes = [
       {
         path: 'clientes',
         canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
+        data: { roles: ['admin', 'cajero'] },
         loadChildren: () =>
           import('./features/clientes/clientes.routes').then(
             m => m.CLIENTES_ROUTES

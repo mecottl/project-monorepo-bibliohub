@@ -1,7 +1,9 @@
 <section class="libros-listado">
   <header class="libros-listado__header">
     <h1 class="font-display">Inventario — Libros</h1>
-    <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
+    @if (!auth.isCajero()) {
+      <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
+    }
   </header>
 
   <app-search-input
@@ -15,7 +17,7 @@
     [data]="libros()"
     [loading]="loading()"
     trackByKey="id"
-    [rowActionsTemplate]="acciones"
+    [rowActionsTemplate]="auth.isCajero() ? null : acciones"
     (rowClick)="irAEditar($event)"
   >
     <app-empty-state
