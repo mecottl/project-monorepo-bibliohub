@@ -109,6 +109,14 @@ export class LibrosListadoPage {
     this.router.navigate(['/inventario', libro.id, 'editar']);
   }
 
+  onRowClick(libro: Libro): void {
+    if (this.auth.isCajero()) {
+      this.router.navigate(['/libro', libro.id]);
+      return;
+    }
+    this.irAEditar(libro);
+  }
+
   irAMovimiento(libro: Libro): void {
     this.router.navigate(['/inventario', libro.id, 'movimiento']);
   }

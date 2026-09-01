@@ -18,7 +18,7 @@
     [loading]="loading()"
     trackByKey="id"
     [rowActionsTemplate]="auth.isCajero() ? null : acciones"
-    (rowClick)="irAEditar($event)"
+    (rowClick)="onRowClick($event)"
   >
     <app-empty-state
       emptyState
