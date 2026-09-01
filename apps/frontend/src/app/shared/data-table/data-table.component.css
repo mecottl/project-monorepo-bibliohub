@@ -46,6 +46,15 @@
 
 .align-right {
   text-align: right;
+  /* Sin esto, table-layout: auto reparte el espacio sobrante entre todas
+     las columnas por igual, incluyendo estas (cortas) — quedan con huecos
+     de más. width:1px (no 1%) es el truco clásico para "ancho mínimo": con
+     1% varias columnas compiten por ese mismo 1% y terminan aplastadas;
+     con 1px cada una se expande independientemente a su propio contenido.
+     El resto del espacio lo absorben las columnas de texto (Título, ISBN,
+     Autor). */
+  width: 1px;
+  white-space: nowrap;
 }
 
 .data-table-actions {

@@ -51,11 +51,13 @@
               </td>
             }
             @if (rowActionsTemplate()) {
-              <td role="cell" class="align-right data-table-actions" (click)="$event.stopPropagation()">
-                <ng-container
-                  [ngTemplateOutlet]="rowActionsTemplate()"
-                  [ngTemplateOutletContext]="{ $implicit: row }"
-                ></ng-container>
+              <td role="cell" class="align-right" (click)="$event.stopPropagation()">
+                <div class="data-table-actions">
+                  <ng-container
+                    [ngTemplateOutlet]="rowActionsTemplate()"
+                    [ngTemplateOutletContext]="{ $implicit: row }"
+                  ></ng-container>
+                </div>
               </td>
             }
           </tr>

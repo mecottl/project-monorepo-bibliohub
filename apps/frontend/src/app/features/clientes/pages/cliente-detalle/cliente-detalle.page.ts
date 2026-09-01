@@ -85,9 +85,9 @@ export class ClienteDetallePage {
         cuentaActiva
       })
       .subscribe({
-        next: (cliente) => {
-          this.cliente.set(cliente);
+        next: () => {
           this.guardando.set(false);
+          this.router.navigate(['/clientes']);
         },
         error: (err: HttpErrorResponse) => {
           this.guardando.set(false);
