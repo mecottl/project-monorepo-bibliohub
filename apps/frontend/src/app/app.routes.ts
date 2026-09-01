@@ -37,11 +37,11 @@ export const routes: Routes = [
       {
         path: 'ventas',
         canActivate: [authGuard, roleGuard],
-        loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
+        loadChildren: () =>
+          import('./features/ventas/ventas.routes').then(
+            m => m.VENTAS_ROUTES
           ),
-        data: { titulo: 'Ventas', roles: ['admin'] }
+        data: { roles: ['admin', 'cajero'] }
       },
       {
         path: 'clientes',

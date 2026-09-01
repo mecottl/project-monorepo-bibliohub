@@ -1,0 +1,121 @@
+@if (ventaConfirmada(); as venta) {
+  <section class="pos__confirmacion">
+    <h1 class="font-display">Venta registrada</h1>
+    <p class="pos__confirmacion-total">Total: ${{ venta.total }}</p>
+    @if (venta.puntosGanados > 0) {
+      <p>Puntos ganados por el cliente: {{ venta.puntosGanados }}</p>
+    }
+    <button type="button" class="btn-primary pos__btn-pill" (click)="nuevaVenta()">
+      Nueva venta
+    </button>
+  </section>
+} @else {
+  <section class="pos">
+    <div class="pos__grid">
+      <div class="pos__col-izquierda">
+        <h1 class="font-display pos__titulo">Ventas</h1>
+
+        <app-search-input
+          ariaLabel="Buscar libro por título, autor o ISBN"
+          placeholder="Buscar"
+          (search)="buscar($event)"
+        />
+
+        @if (resultados().length > 0) {
+          <h2 class="font-display pos__subtitulo">Resultados</h2>
+
+          <div class="pos__resultados-grid">
+            @for (libro of resultados(); track libro.id) {
+              <div class="pos__resultado-card">
+                <span class="pos__resultado-titulo">{{ libro.titulo }}</span>
+                <span class="pos__resultado-precio">${{ libro.precioVenta }}</span>
+                <span class="pos__resultado-existencias">
+                  Existencias: {{ libro.stockActual }}
+                </span>
+                <button
+                  type="button"
+                  class="btn-primary pos__btn-pill"
+                  [disabled]="libro.stockActual <= 0"
+                  (click)="agregarAlCarrito(libro)"
+                >
+                  Agregar
+                </button>
+              </div>
+            }
+          </div>
+        } @else if (buscoAlgunaVez()) {
+          <p class="pos__vacio">No se encontraron libros con ese nombre.</p>
+        } @else {
+          <p class="pos__vacio">Busca un libro para agregarlo a la venta.</p>
+        }
+      </div>
+
+      <aside class="pos__carrito">
+        <h2 class="font-display">Carrito</h2>
+
+        <div class="field pos__telefono">
+          <label for="telefono">Teléfono del cliente (opcional)</label>
+          <input
+            id="telefono"
+            type="text"
+            placeholder="10 dígitos — deja vacío si es venta anónima"
+            [value]="clienteTelefono()"
+            (input)="clienteTelefono.set($any($event.target).value)"
+          />
+        </div>
+
+        @if (carrito().length === 0) {
+          <p class="pos__vacio">Agrega libros desde los resultados de la izquierda.</p>
+        } @else {
+          <ul class="pos__carrito-lista">
+            @for (item of carrito(); track item.libro.id) {
+              <li class="pos__carrito-item">
+                <span class="pos__carrito-item-info">
+                  {{ item.libro.titulo }} &nbsp;${{ item.libro.precioVenta }}
+                </span>
+                <button
+                  type="button"
+                  class="pos__carrito-item-cantidad"
+                  (click)="quitarUno(item.libro.id)"
+                  [attr.aria-label]="'Quitar uno de ' + item.libro.titulo"
+                  title="Click para quitar uno"
+                >
+                  X {{ item.cantidad }}
+                </button>
+              </li>
+            }
+          </ul>
+        }
+
+        <p class="pos__total">Total: ${{ total().toFixed(2) }}</p>
+
+        <div class="pos__medio-pago">
+          <label class="pos__medio-pago-opcion">
+            <input type="radio" name="medioPago" checked disabled />
+            Efectivo
+          </label>
+          <label
+            class="pos__medio-pago-opcion pos__medio-pago-opcion--deshabilitada"
+            title="Integración con terminal de tarjeta — próximamente"
+          >
+            <input type="radio" name="medioPago" disabled />
+            Tarjeta
+          </label>
+        </div>
+
+        @if (errorMensaje()) {
+          <p class="pos__error" role="alert">{{ errorMensaje() }}</p>
+        }
+
+        <button
+          type="button"
+          class="btn-primary pos__btn-cobrar"
+          [disabled]="!puedeCobrar()"
+          (click)="cobrar()"
+        >
+          {{ cobrando() ? 'Cobrando…' : 'Cobrar' }}
+        </button>
+      </aside>
+    </div>
+  </section>
+}

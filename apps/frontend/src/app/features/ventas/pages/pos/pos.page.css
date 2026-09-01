@@ -1,0 +1,177 @@
+.pos__grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.pos__titulo {
+  margin-bottom: 20px;
+}
+
+.pos__subtitulo {
+  margin-top: 28px;
+  margin-bottom: 14px;
+}
+
+.pos__vacio {
+  color: var(--color-gris-claro);
+  margin-top: 16px;
+}
+
+.pos__resultados-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.pos__resultado-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 18px;
+}
+
+.pos__resultado-titulo {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  color: var(--color-negro-suave);
+}
+
+.pos__resultado-precio {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.pos__resultado-existencias {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-gris-oscuro);
+  margin-bottom: 8px;
+}
+
+.pos__btn-pill {
+  width: auto;
+  border-radius: 999px;
+  padding: 10px 22px;
+  align-self: flex-start;
+}
+
+.pos__carrito {
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 20px;
+}
+
+.pos__telefono label {
+  font-size: 12px;
+  color: var(--color-gris-oscuro);
+}
+
+.pos__telefono input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-ui);
+  font-size: 13px;
+}
+
+.pos__carrito-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pos__carrito-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-beige);
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.pos__carrito-item-info {
+  color: var(--color-negro-suave);
+}
+
+.pos__carrito-item-cantidad {
+  background: none;
+  border: none;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  color: var(--color-gris-oscuro);
+  cursor: pointer;
+}
+
+.pos__carrito-item-cantidad:hover {
+  color: var(--color-error);
+}
+
+.pos__total {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-negro-suave);
+  margin: 4px 0;
+}
+
+.pos__medio-pago {
+  display: flex;
+  gap: 24px;
+}
+
+.pos__medio-pago-opcion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--color-negro-suave);
+  cursor: default;
+}
+
+.pos__medio-pago-opcion input[type='radio'] {
+  accent-color: var(--color-cafe-medio);
+  width: 18px;
+  height: 18px;
+}
+
+.pos__medio-pago-opcion--deshabilitada {
+  color: var(--color-gris-claro);
+  cursor: not-allowed;
+}
+
+.pos__error {
+  color: var(--color-error);
+  font-size: 13px;
+}
+
+.pos__btn-cobrar {
+  border-radius: 999px;
+  padding: 14px;
+  font-size: 16px;
+}
+
+.pos__confirmacion {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.pos__confirmacion-total {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0;
+}
