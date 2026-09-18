@@ -71,5 +71,6 @@
 }
 
 .book-card__btn {
+  width: auto;
   margin: 0 14px 14px;
 }

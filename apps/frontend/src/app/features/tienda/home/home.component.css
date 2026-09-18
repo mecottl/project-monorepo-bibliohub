@@ -37,14 +37,9 @@
 }
 
 .tienda-home__grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
   gap: 24px;
-}
-
-.tienda-home__grid app-book-card {
-  flex: 1 1 180px;
-  max-width: 220px;
 }
 
 .tienda-home__sentinel {
@@ -55,10 +50,6 @@
 @media (max-width: 480px) {
   .tienda-home__grid {
     gap: 16px;
-  }
-
-  .tienda-home__grid app-book-card {
-    flex-basis: 140px;
-    max-width: 170px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 170px));
   }
 }
