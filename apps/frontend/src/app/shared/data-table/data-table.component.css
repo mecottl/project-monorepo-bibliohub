@@ -122,3 +122,60 @@
   min-width: 0;
   max-width: 100%;
 }
+
+.th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.th-sort:hover {
+  color: var(--color-cafe-oscuro);
+}
+
+.th-sort:focus-visible {
+  outline: 2px solid var(--color-morado);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Flechas apiladas: la activa se resalta, la inactiva queda tenue. */
+.th-sort__icono {
+  position: relative;
+  width: 8px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.th-sort__icono::before,
+.th-sort__icono::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0.3;
+}
+
+.th-sort__icono::before {
+  top: 0;
+  border-bottom: 5px solid currentColor;
+}
+
+.th-sort__icono::after {
+  bottom: 0;
+  border-top: 5px solid currentColor;
+}
+
+.th-sort__icono.is-asc::before,
+.th-sort__icono.is-desc::after {
+  opacity: 1;
+}

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
+import { CambioOrden, DataTableComponent } from '../../../../shared/data-table/data-table.component';
 import { SearchInputComponent } from '../../../../shared/search-input/search-input.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { EmptyStateComponent } from '../../../../shared/empty-state/empty-state.component';
@@ -27,6 +27,7 @@ import { Libro, LibroAutor } from '../../models/libro.model';
 export class LibrosListadoPage {
   private readonly catalogoService = inject(CatalogoService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   readonly auth = inject(AuthService);
 
   libros = signal<Libro[]>([]);
@@ -36,6 +37,9 @@ export class LibrosListadoPage {
   titulo = signal('');
   loading = signal(false);
   libroAEliminar = signal<Libro | null>(null);
+  // Filtro que llega desde el dashboard (?stockBajo=1) y orden elegido en los encabezados (en el servidor).
+  soloStockBajo = signal(this.route.snapshot.queryParamMap.get('stockBajo') === '1');
+  orden = signal<CambioOrden<Libro> | null>(null);
 
   columns: DataTableColumn<Libro>[] = [
     { key: 'imagenUrl', label: 'Portada', image: true },
@@ -44,6 +48,7 @@ export class LibrosListadoPage {
     {
       key: 'libroAutores',
       label: 'Autor',
+      sortable: false,
       formatter: (value) => {
         const autores = (value as LibroAutor[] | undefined) ?? [];
         const nombres = autores
@@ -80,7 +85,14 @@ export class LibrosListadoPage {
   cargar(): void {
     this.loading.set(true);
     this.catalogoService
-      .buscarLibros({ titulo: this.titulo(), page: this.page(), limit: this.limit })
+      .buscarLibros({
+        titulo: this.titulo(),
+        stockBajo: this.soloStockBajo() || undefined,
+        orden: this.orden()?.key as 'titulo' | 'isbn' | 'stockActual' | 'precioVenta' | undefined,
+        direccion: this.orden() ? (this.orden()!.direccion === 'asc' ? 'ASC' : 'DESC') : undefined,
+        page: this.page(),
+        limit: this.limit
+      })
       .subscribe({
         next: (res) => {
           this.libros.set(res.data);
@@ -94,6 +106,25 @@ export class LibrosListadoPage {
   onSearch(valor: string): void {
     this.titulo.set(valor);
     this.page.set(1);
+    this.cargar();
+  }
+
+  onOrden(cambio: CambioOrden<Libro> | null): void {
+    this.orden.set(cambio);
+    this.page.set(1);
+    this.cargar();
+  }
+
+  alternarStockBajo(): void {
+    this.soloStockBajo.update((v) => !v);
+    this.page.set(1);
+    // Se refleja en la URL para poder compartir/recargar la vista filtrada.
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { stockBajo: this.soloStockBajo() ? 1 : null },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
     this.cargar();
   }
 

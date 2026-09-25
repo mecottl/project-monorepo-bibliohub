@@ -68,6 +68,9 @@ export interface LibrosQuery {
   isbn?: string;
   categoriaId?: string;
   editorialId?: string;
+  stockBajo?: boolean;
+  orden?: 'titulo' | 'isbn' | 'stockActual' | 'precioVenta';
+  direccion?: 'ASC' | 'DESC';
   page?: number;
   limit?: number;
 }

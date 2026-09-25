@@ -15,11 +15,28 @@
     (search)="onSearch($event)"
   />
 
+  <div class="libros-listado__filtros">
+    <button
+      type="button"
+      class="libros-listado__chip"
+      [class.is-activo]="soloStockBajo()"
+      [attr.aria-pressed]="soloStockBajo()"
+      (click)="alternarStockBajo()"
+    >
+      Solo stock bajo
+    </button>
+    @if (soloStockBajo()) {
+      <span class="libros-listado__conteo">{{ total() }} {{ total() === 1 ? 'libro' : 'libros' }} por reabastecer</span>
+    }
+  </div>
+
   <app-data-table
     [columns]="columns"
     [data]="libros()"
     [loading]="loading()"
     trackByKey="id"
+    [sortLocal]="false"
+    (sortChange)="onOrden($event)"
     [rowActionsTemplate]="auth.isCajero() ? null : acciones"
     (rowClick)="onRowClick($event)"
   >

@@ -35,3 +35,38 @@
 .libros-listado__accion:hover {
   text-decoration: underline;
 }
+
+.libros-listado__filtros {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.libros-listado__chip {
+  padding: 6px 14px;
+  border: 1.5px solid var(--color-beige);
+  border-radius: 999px;
+  background: white;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gris-oscuro);
+  cursor: pointer;
+}
+
+.libros-listado__chip:hover {
+  border-color: var(--color-cafe-medio);
+}
+
+.libros-listado__chip.is-activo {
+  border-color: #a05a00;
+  background: #fdf1df;
+  color: #a05a00;
+}
+
+.libros-listado__conteo {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+}

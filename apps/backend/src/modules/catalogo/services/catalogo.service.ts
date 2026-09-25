@@ -58,6 +58,9 @@ export class CatalogoService {
       isbn,
       categoriaId,
       editorialId,
+      stockBajo,
+      orden,
+      direccion = 'ASC',
       page = 1,
       limit = 10,
     } = query;
@@ -92,6 +95,15 @@ export class CatalogoService {
 
     if (autor) {
       qb.andWhere('autorRelacion.nombre ILIKE :autor', { autor: `%${autor}%` });
+    }
+
+    if (stockBajo) {
+      qb.andWhere('libro.stockActual <= libro.stockMinimo');
+    }
+
+    // Columnas ordenables (lista blanca: nunca se interpola texto del cliente en el ORDER BY).
+    if (orden) {
+      qb.orderBy(`libro.${orden}`, direccion).addOrderBy('libro.id', 'ASC');
     }
 
     qb.skip((page - 1) * limit).take(limit);
