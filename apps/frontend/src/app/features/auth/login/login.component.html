@@ -1,57 +1,47 @@
-<div class="login-page">
+<div class="login-page__card">
 
-  <div class="login-page__brand">
-    <app-auth-slideshow />
-  </div>
+    <a routerLink="/" class="login-page__back">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Volver al inicio
+    </a>
 
-  <div class="login-page__form-wrapper">
-    <div class="login-page__card">
+    <span class="login-page__kicker">Bienvenido de vuelta</span>
+    <h2>Iniciar sesión</h2>
 
-      <a routerLink="/" class="login-page__back">
+    @if (error()) {
+    <p class="login-page__error">{{ error() }}</p>
+    }
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <div class="field">
+        <label for="identificador">Usuario o teléfono</label>
+        <input id="identificador" type="text" formControlName="identificador" placeholder="admin1 o 9991234567"
+          autocomplete="username" />
+      </div>
+
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" formControlName="password" placeholder="••••••••"
+          autocomplete="current-password" />
+      </div>
+
+      <div class="login-page__extra">
+        <a routerLink="/login/recuperar-password" class="login-page__link">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="login-page__submit" [disabled]="form.invalid || loading()">
+        {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        Volver al inicio
-      </a>
+      </button>
 
-      <span class="login-page__kicker">Bienvenido de vuelta</span>
-      <h2>Iniciar sesión</h2>
+    </form>
 
-      @if (error()) {
-      <p class="login-page__error">{{ error() }}</p>
-      }
-      <form [formGroup]="form" (ngSubmit)="submit()">
-
-        <div class="field">
-          <label for="identificador">Usuario o teléfono</label>
-          <input id="identificador" type="text" formControlName="identificador" placeholder="admin1 o 9991234567"
-            autocomplete="username" />
-        </div>
-
-        <div class="field">
-          <label for="password">Contraseña</label>
-          <input id="password" type="password" formControlName="password" placeholder="••••••••"
-            autocomplete="current-password" />
-        </div>
-
-        <div class="login-page__extra">
-          <a routerLink="/login/recuperar-password" class="login-page__link">¿Olvidaste tu contraseña?</a>
-        </div>
-
-        <button type="submit" class="login-page__submit" [disabled]="form.invalid || loading()">
-          {{ loading() ? 'Ingresando...' : 'Iniciar sesión' }}
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-
-      </form>
-
-      <p class="login-page__footer">
-        ¿No tienes una cuenta?
-        <a routerLink="/login/registro">¡Regístrate ahora!</a>
-      </p>
-    </div>
-  </div>
-
+    <p class="login-page__footer">
+      ¿No tienes una cuenta?
+      <a routerLink="/login/registro">¡Regístrate ahora!</a>
+    </p>
 </div>

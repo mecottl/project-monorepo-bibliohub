@@ -3,11 +3,10 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../core/auth/auth.service';
-import { AuthSlideshowComponent } from '../auth-slideshow/auth-slideshow.component';
 
 @Component({
   selector: 'app-recuperar-password',
-  imports: [ReactiveFormsModule, RouterLink, AuthSlideshowComponent],
+  imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './recuperar-password.component.html',
   styleUrl: '../auth-shared.css'

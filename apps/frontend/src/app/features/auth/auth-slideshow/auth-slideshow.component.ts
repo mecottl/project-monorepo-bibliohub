@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal
 const CARPETA = '/login';
 const EXTENSIONES = ['png'];
 const MAX_SLIDES = 12;
-const DURACION_MS = 4000;
+const DURACION_MS = 6000;
 const RATIO_POR_DEFECTO = 4 / 3;
 
 @Component({
