@@ -3,8 +3,8 @@ import { RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import { CrowdCanvasComponent } from '../../shared/crowd-canvas/crowd-canvas.component';
 
-// Hoja de sprites (public/hoja-personajes.png): 8 columnas x 5 filas de escritores, fondo transparente (fuentes en design/personajes).
-const HOJA_PERSONAJES = '/hoja-personajes.png';
+// Hoja de sprites (public/hoja-personajes.webp): 8 columnas x 7 filas de escritores, fondo transparente (fuentes en design/personajes).
+const HOJA_PERSONAJES = '/hoja-personajes.webp';
 
 @Component({
   selector: 'app-landing',
@@ -21,7 +21,7 @@ const HOJA_PERSONAJES = '/hoja-personajes.png';
         <a routerLink="/inicio" class="btn-primary">Comencemos nuestra aventura</a>
       </section>
 
-      <app-crowd-canvas [src]="hoja" [columnas]="8" [filas]="5" [personas]="60" [lentitud]="2.2" [altoPct]="62" [escala]="0.85" [profundidad]="70" [bajada]="35" />
+      <app-crowd-canvas [src]="hoja" [columnas]="8" [filas]="7" [personas]="52" [lentitud]="2.2" [altoPct]="62" [escala]="0.92" [profundidad]="70" [bajada]="35" />
 
       <footer class="landing__pie">
         Skiper UI
@@ -55,7 +55,7 @@ const HOJA_PERSONAJES = '/hoja-personajes.png';
       align-items: center;
       gap: 20px;
       text-align: center;
-      padding: clamp(48px, 12vh, 120px) 16px 0;
+      padding: clamp(72px, 21vh, 230px) 16px 0;
     }
     .landing h1 {
       margin: 0;
