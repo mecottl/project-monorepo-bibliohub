@@ -69,3 +69,16 @@
   color: var(--color-gris-oscuro);
   background: var(--color-crema);
 }
+
+.stat-card-link {
+  margin-top: 4px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-cafe-medio);
+  text-decoration: none;
+}
+
+.stat-card-link:hover {
+  text-decoration: underline;
+}

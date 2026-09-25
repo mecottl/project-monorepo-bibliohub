@@ -13,4 +13,7 @@
       <span class="stat-card-hint">{{ hint() }}</span>
     }
   </div>
+  @if (linkTexto() && linkRuta()) {
+    <a class="stat-card-link" [routerLink]="linkRuta()" [queryParams]="linkParams()">{{ linkTexto() }}</a>
+  }
 </div>

@@ -27,6 +27,9 @@
       label="Libros con stock bajo"
       [value]="stockBajo().length"
       [hint]="stockBajo().length ? 'Por reabastecer' : 'Todo en orden'"
+      [linkTexto]="stockBajo().length ? 'Ver libros con stock bajo →' : null"
+      linkRuta="/inventario"
+      [linkParams]="{ stockBajo: 1 }"
     />
   </div>
 
@@ -61,7 +64,7 @@
   <section class="dashboard__tarjeta">
     <header class="dashboard__tarjeta-cabecera">
       <h2 class="font-display">Stock bajo</h2>
-      <a routerLink="/inventario">Ver inventario →</a>
+      <a routerLink="/inventario" [queryParams]="{ stockBajo: 1 }">Ver inventario →</a>
     </header>
     <app-data-table
       [columns]="columnasStockBajo"
