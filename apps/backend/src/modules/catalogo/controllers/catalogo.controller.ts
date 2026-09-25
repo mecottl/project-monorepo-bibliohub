@@ -24,6 +24,12 @@ import { QueryLibroDto } from '../dto/query-libro.dto';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { CreateLibroDto } from '../dto/create-libro.dto';
 import { UpdateLibroDto } from '../dto/update-libro.dto';
+import { CreateAutorDto } from '../dto/create-autor.dto';
+import { UpdateAutorDto } from '../dto/update-autor.dto';
+import { CreateEditorialDto } from '../dto/create-editorial.dto';
+import { UpdateEditorialDto } from '../dto/update-editorial.dto';
+import { CreateCategoriaDto } from '../dto/create-categoria.dto';
+import { UpdateCategoriaDto } from '../dto/update-categoria.dto';
 
 const TAMANO_MAXIMO_PORTADA = 2 * 1024 * 1024; // 2MB
 
@@ -101,16 +107,70 @@ export class CatalogoController {
     return this.catalogoService.findAllAutores();
   }
 
+  @Roles('admin')
+  @Post('autores')
+  createAutor(@Body() dto: CreateAutorDto) {
+    return this.catalogoService.createAutor(dto);
+  }
+
+  @Roles('admin')
+  @Patch('autores/:id')
+  updateAutor(@Param('id') id: string, @Body() dto: UpdateAutorDto) {
+    return this.catalogoService.updateAutor(id, dto);
+  }
+
+  @Roles('admin')
+  @Delete('autores/:id')
+  removeAutor(@Param('id') id: string) {
+    return this.catalogoService.removeAutor(id);
+  }
+
   @Public()
   @Get('editoriales')
   findAllEditoriales() {
     return this.catalogoService.findAllEditoriales();
   }
 
+  @Roles('admin')
+  @Post('editoriales')
+  createEditorial(@Body() dto: CreateEditorialDto) {
+    return this.catalogoService.createEditorial(dto);
+  }
+
+  @Roles('admin')
+  @Patch('editoriales/:id')
+  updateEditorial(@Param('id') id: string, @Body() dto: UpdateEditorialDto) {
+    return this.catalogoService.updateEditorial(id, dto);
+  }
+
+  @Roles('admin')
+  @Delete('editoriales/:id')
+  removeEditorial(@Param('id') id: string) {
+    return this.catalogoService.removeEditorial(id);
+  }
+
   @Public()
   @Get('categorias')
   findAllCategorias() {
     return this.catalogoService.findAllCategorias();
+  }
+
+  @Roles('admin')
+  @Post('categorias')
+  createCategoria(@Body() dto: CreateCategoriaDto) {
+    return this.catalogoService.createCategoria(dto);
+  }
+
+  @Roles('admin')
+  @Patch('categorias/:id')
+  updateCategoria(@Param('id') id: string, @Body() dto: UpdateCategoriaDto) {
+    return this.catalogoService.updateCategoria(id, dto);
+  }
+
+  @Roles('admin')
+  @Delete('categorias/:id')
+  removeCategoria(@Param('id') id: string) {
+    return this.catalogoService.removeCategoria(id);
   }
 
   @Roles('admin', 'cajero')

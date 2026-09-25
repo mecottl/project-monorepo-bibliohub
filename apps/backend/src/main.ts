@@ -2,11 +2,27 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet';
 import { join } from 'path';
 import { AppModule } from './app.module';
 
+function validarJwtSecret(): void {
+  const secreto = process.env.JWT_SECRET ?? '';
+  if (process.env.NODE_ENV === 'production' && secreto.length < 32) {
+    throw new Error('JWT_SECRET debe tener al menos 32 caracteres en producción.');
+  }
+}
+
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  validarJwtSecret();
+
+  // rawBody: true deja disponible req.rawBody — lo necesita el webhook de
+  // Stripe (pedidos/pedidos.controller.ts) para verificar la firma, ya que esa
+  // verificación requiere el cuerpo crudo tal cual Stripe lo firmó, antes de
+  // que el ValidationPipe/body-parser lo transforme a JSON.
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    rawBody: true,
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,7 +32,20 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors();
+  // API JSON: la CSP no aplica (y rompería Swagger UI); el resto de headers
+  // de helmet sí. CORP cross-origin para que el frontend (otro origen) pueda
+  // cargar las portadas de /uploads.
+  app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+
+  // Detrás de un proxy/balanceador req.ip sería la IP del proxy y el rate
+  // limiting bloquearía a todos a la vez — TRUST_PROXY=true lo corrige.
+  if (process.env.TRUST_PROXY === 'true') {
+    app.set('trust proxy', 1);
+  }
+
+  app.enableCors({
+    origin: (process.env.CORS_ORIGINS ?? 'http://localhost:4200').split(',').map((o) => o.trim()),
+  });
 
   // Assets públicos (portadas, etc.) fuera del prefijo /api y sin pasar por
   // el pipeline de guards de Nest (Express los sirve antes de llegar ahí).

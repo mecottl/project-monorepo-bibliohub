@@ -5,6 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { RecuperacionService } from './recuperacion.service';
+import { RecuperacionPassword } from '../../database/entities/recuperacion-password.entity';
+import { EMAIL_SERVICE, EmailService } from './email/email.interface';
+import { ConsoleEmailService } from './email/console-email.service';
+import { SmtpEmailService } from './email/smtp-email.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { Cliente } from '../../database/entities/cliente.entity';
 import { Empleado } from '../../database/entities/empleado.entity';
@@ -13,7 +18,7 @@ import { Sesion } from '../../database/entities/sesion.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Cliente, Empleado, LogAcceso, Sesion]),
+    TypeOrmModule.forFeature([Cliente, Empleado, LogAcceso, Sesion, RecuperacionPassword]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -30,7 +35,16 @@ import { Sesion } from '../../database/entities/sesion.entity';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    RecuperacionService,
+    {
+      provide: EMAIL_SERVICE,
+      useFactory: (): EmailService =>
+        process.env.EMAIL_DRIVER === 'smtp' ? new SmtpEmailService() : new ConsoleEmailService(),
+    },
+  ],
   exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

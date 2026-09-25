@@ -4,7 +4,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict VHZgUhhhOP1qW039XbX5egrT2TL85eO62Mu56kfszb0rXlnEMwJAJgQDHb0b3Az
+\restrict PJVzmTxz30GbyvwxDyQ0P2clHqd4gDqj4p8SWBqbgzeqSjhAzy17q3rlPKi94pM
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -188,9 +188,7 @@ BEGIN
         VALUES (p_cliente_id, 'ganado', v_puntos_ganados, 'online', v_pedido_id, 'Compra en línea');
     END IF;
 
-    UPDATE cliente
-    SET puntos_saldo = puntos_saldo - p_puntos_usados + v_puntos_ganados
-    WHERE id = p_cliente_id;
+    -- puntos_saldo lo sincroniza el trigger trg_transaccion_puntos_sync (un UPDATE manual lo duplicaba).
 
     RETURN v_pedido_id;
 END;
@@ -542,6 +540,7 @@ CREATE TABLE public.cliente (
     puntos_saldo integer DEFAULT 0 NOT NULL,
     fecha_registro timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    stripe_customer_id character varying(255),
     CONSTRAINT cliente_puntos_saldo_check CHECK ((puntos_saldo >= 0))
 );
 
@@ -853,6 +852,18 @@ CREATE VIEW public.libros_mas_vendidos AS
 
 
 --
+-- Name: lista_deseos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lista_deseos (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    cliente_id uuid NOT NULL,
+    libro_id uuid NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: log_acceso; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -974,9 +985,12 @@ CREATE TABLE public.pedido_linea (
     puntos_ganados integer DEFAULT 0 NOT NULL,
     notas text,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    stripe_payment_intent_id character varying(255),
+    estado_pago character varying(20) DEFAULT 'pendiente'::character varying NOT NULL,
     CONSTRAINT pedido_linea_costo_envio_check CHECK ((costo_envio >= (0)::numeric)),
     CONSTRAINT pedido_linea_descuento_puntos_check CHECK ((descuento_puntos >= (0)::numeric)),
     CONSTRAINT pedido_linea_estado_check CHECK (((estado)::text = ANY ((ARRAY['recibido'::character varying, 'en_preparacion'::character varying, 'listo'::character varying, 'enviado'::character varying, 'entregado'::character varying, 'cancelado'::character varying])::text[]))),
+    CONSTRAINT pedido_linea_estado_pago_check CHECK (((estado_pago)::text = ANY ((ARRAY['pendiente'::character varying, 'pagado'::character varying, 'fallido'::character varying, 'reembolsado'::character varying])::text[]))),
     CONSTRAINT pedido_linea_puntos_ganados_check CHECK ((puntos_ganados >= 0)),
     CONSTRAINT pedido_linea_puntos_usados_check CHECK ((puntos_usados >= 0)),
     CONSTRAINT pedido_linea_subtotal_check CHECK ((subtotal >= (0)::numeric)),
@@ -1027,6 +1041,20 @@ CREATE TABLE public.proveedor (
 --
 
 COMMENT ON TABLE public.proveedor IS 'Catálogo de proveedores de libros';
+
+
+--
+-- Name: recuperacion_password; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.recuperacion_password (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    cliente_id uuid NOT NULL,
+    token_hash character varying(64) NOT NULL,
+    expira_en timestamp without time zone NOT NULL,
+    usado boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL
+);
 
 
 --
@@ -1197,6 +1225,14 @@ ALTER TABLE ONLY public.cliente
 
 
 --
+-- Name: cliente cliente_stripe_customer_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cliente
+    ADD CONSTRAINT cliente_stripe_customer_id_key UNIQUE (stripe_customer_id);
+
+
+--
 -- Name: cliente cliente_telefono_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1317,6 +1353,22 @@ ALTER TABLE ONLY public.libro
 
 
 --
+-- Name: lista_deseos lista_deseos_cliente_id_libro_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lista_deseos
+    ADD CONSTRAINT lista_deseos_cliente_id_libro_id_key UNIQUE (cliente_id, libro_id);
+
+
+--
+-- Name: lista_deseos lista_deseos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lista_deseos
+    ADD CONSTRAINT lista_deseos_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: log_acceso log_acceso_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1349,11 +1401,35 @@ ALTER TABLE ONLY public.pedido_linea
 
 
 --
+-- Name: pedido_linea pedido_linea_stripe_payment_intent_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pedido_linea
+    ADD CONSTRAINT pedido_linea_stripe_payment_intent_id_key UNIQUE (stripe_payment_intent_id);
+
+
+--
 -- Name: proveedor proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.proveedor
     ADD CONSTRAINT proveedor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recuperacion_password recuperacion_password_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.recuperacion_password
+    ADD CONSTRAINT recuperacion_password_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recuperacion_password recuperacion_password_token_hash_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.recuperacion_password
+    ADD CONSTRAINT recuperacion_password_token_hash_key UNIQUE (token_hash);
 
 
 --
@@ -1494,6 +1570,13 @@ CREATE INDEX idx_libro_titulo ON public.libro USING btree (titulo);
 
 
 --
+-- Name: idx_lista_deseos_cliente; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_lista_deseos_cliente ON public.lista_deseos USING btree (cliente_id);
+
+
+--
 -- Name: idx_log_acceso_cliente; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1575,6 +1658,13 @@ CREATE INDEX idx_pedido_linea_estado ON public.pedido_linea USING btree (estado)
 --
 
 CREATE INDEX idx_pedido_linea_fecha ON public.pedido_linea USING btree (fecha);
+
+
+--
+-- Name: idx_recuperacion_password_cliente; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_recuperacion_password_cliente ON public.recuperacion_password USING btree (cliente_id);
 
 
 --
@@ -1837,6 +1927,22 @@ ALTER TABLE ONLY public.libro
 
 
 --
+-- Name: lista_deseos lista_deseos_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lista_deseos
+    ADD CONSTRAINT lista_deseos_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lista_deseos lista_deseos_libro_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lista_deseos
+    ADD CONSTRAINT lista_deseos_libro_id_fkey FOREIGN KEY (libro_id) REFERENCES public.libro(id) ON DELETE CASCADE;
+
+
+--
 -- Name: log_acceso log_acceso_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1901,6 +2007,14 @@ ALTER TABLE ONLY public.pedido_linea
 
 
 --
+-- Name: recuperacion_password recuperacion_password_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.recuperacion_password
+    ADD CONSTRAINT recuperacion_password_cliente_id_fkey FOREIGN KEY (cliente_id) REFERENCES public.cliente(id) ON DELETE CASCADE;
+
+
+--
 -- Name: sesion sesion_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1960,5 +2074,5 @@ ALTER TABLE ONLY public.venta
 -- PostgreSQL database dump complete
 --
 
-\unrestrict VHZgUhhhOP1qW039XbX5egrT2TL85eO62Mu56kfszb0rXlnEMwJAJgQDHb0b3Az
+\unrestrict PJVzmTxz30GbyvwxDyQ0P2clHqd4gDqj4p8SWBqbgzeqSjhAzy17q3rlPKi94pM
 

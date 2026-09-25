@@ -13,6 +13,17 @@ import { MovimientoInventario } from '../database/entities/movimiento-inventario
 import { TransaccionPuntos } from '../database/entities/transaccion-puntos.entity';
 import { Venta } from '../database/entities/venta.entity';
 import { DetalleVenta } from '../database/entities/detalle-venta.entity';
+import { Proveedor } from '../database/entities/proveedor.entity';
+import { PedidoCompra } from '../database/entities/pedido-compra.entity';
+import { DetallePedidoCompra } from '../database/entities/detalle-pedido-compra.entity';
+import { Configuracion } from '../database/entities/configuracion.entity';
+import { Carrito } from '../database/entities/carrito.entity';
+import { RecuperacionPassword } from '../database/entities/recuperacion-password.entity';
+import { ListaDeseos } from '../database/entities/lista-deseos.entity';
+import { ItemCarrito } from '../database/entities/item-carrito.entity';
+import { DireccionEntrega } from '../database/entities/direccion-entrega.entity';
+import { PedidoLinea } from '../database/entities/pedido-linea.entity';
+import { DetallePedidoLinea } from '../database/entities/detalle-pedido-linea.entity';
 
 export default registerAs(
   'database',
@@ -37,6 +48,17 @@ export default registerAs(
       TransaccionPuntos,
       Venta,
       DetalleVenta,
+      Proveedor,
+      PedidoCompra,
+      DetallePedidoCompra,
+      Configuracion,
+      Carrito,
+      ListaDeseos,
+      RecuperacionPassword,
+      ItemCarrito,
+      DireccionEntrega,
+      PedidoLinea,
+      DetallePedidoLinea,
     ],
     synchronize: false,
     logging: process.env.NODE_ENV === 'development',
