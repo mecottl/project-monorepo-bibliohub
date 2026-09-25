@@ -1,7 +1,16 @@
 <div class="stat-card" role="group" [attr.aria-label]="label()">
-  <span class="stat-card-value font-display">{{ value() }}</span>
   <span class="stat-card-label">{{ label() }}</span>
-  @if (hint()) {
-    <span class="stat-card-hint">{{ hint() }}</span>
-  }
+  <span class="stat-card-value font-display">{{ value() }}</span>
+  <div class="stat-card-pie">
+    @if (tendencia(); as t) {
+      <span class="stat-card-delta stat-card-delta--{{ t }}">
+        {{ t === 'sube' ? '▲' : t === 'baja' ? '▼' : '•' }} {{ deltaTexto() }}
+      </span>
+      @if (deltaLabel()) {
+        <span class="stat-card-hint">{{ deltaLabel() }}</span>
+      }
+    } @else if (hint()) {
+      <span class="stat-card-hint">{{ hint() }}</span>
+    }
+  </div>
 </div>

@@ -1,28 +1,71 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
 .stat-card {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 20px;
+  gap: 6px;
+  padding: 20px 22px;
+  height: 100%;
   border-radius: var(--border-radius-lg);
   background: white;
-  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-beige);
+  box-shadow: 0 1px 2px rgba(60, 40, 20, 0.04);
   min-width: 160px;
-}
-
-.stat-card-value {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--color-negro-suave);
 }
 
 .stat-card-label {
   font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--color-gris-oscuro);
+}
+
+.stat-card-value {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-negro-suave);
+}
+
+.stat-card-pie {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 22px;
 }
 
 .stat-card-hint {
   font-family: var(--font-ui);
   font-size: 12px;
   color: var(--color-gris-claro);
+}
+
+.stat-card-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-card-delta--sube {
+  color: #1f7a3d;
+  background: #e5f4ea;
+}
+
+.stat-card-delta--baja {
+  color: #b3261e;
+  background: #fbe7e5;
+}
+
+.stat-card-delta--igual {
+  color: var(--color-gris-oscuro);
+  background: var(--color-crema);
 }

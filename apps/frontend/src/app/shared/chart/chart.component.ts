@@ -10,6 +10,7 @@ import {
   viewChild
 } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
+import { aplicarTemaTremor } from './tremor-theme';
 
 @Component({
   selector: 'app-chart',
@@ -43,6 +44,7 @@ export class ChartComponent implements AfterViewInit {
   }
 
   private render(config: ChartConfiguration): void {
+    aplicarTemaTremor();
     if (this.chart) {
       this.chart.destroy();
     }

@@ -2,40 +2,72 @@
   <h1 class="font-display">Dashboard</h1>
 
   <div class="dashboard__stats">
-    <app-stat-card label="Ventas hoy" [value]="ventasHoy()" [hint]="montoHoyFormateado()" />
-    <app-stat-card label="Ventas últimos 7 días" [value]="ventasSemana()" [hint]="montoSemanaFormateado()" />
-    <app-stat-card label="Libros con stock bajo" [value]="stockBajo().length" />
+    <app-stat-card
+      label="Ventas hoy"
+      [value]="moneda(hoy().monto)"
+      [hint]="hoy().ventas + ' ventas'"
+      [delta]="deltaHoy()"
+      deltaLabel="vs. ayer"
+    />
+    <app-stat-card
+      label="Últimos 7 días"
+      [value]="moneda(semana().monto)"
+      [hint]="semana().ventas + ' ventas'"
+      [delta]="deltaSemana()"
+      deltaLabel="vs. 7 días previos"
+    />
+    <app-stat-card
+      label="Ticket promedio (7 días)"
+      [value]="moneda(ticketSemana())"
+      [hint]="'Sin ventas previas'"
+      [delta]="deltaTicket()"
+      deltaLabel="vs. 7 días previos"
+    />
+    <app-stat-card
+      label="Libros con stock bajo"
+      [value]="stockBajo().length"
+      [hint]="stockBajo().length ? 'Por reabastecer' : 'Todo en orden'"
+    />
   </div>
 
-  <div class="dashboard__secciones">
-    <section class="dashboard__seccion">
-      <h2 class="font-display">Ventas — últimos 30 días</h2>
+  <div class="dashboard__graficas">
+    <section class="dashboard__tarjeta dashboard__tarjeta--ancha">
+      <header class="dashboard__tarjeta-cabecera">
+        <div>
+          <h2 class="font-display">Ventas</h2>
+          <span class="dashboard__sub">Últimos 30 días</span>
+        </div>
+        <strong class="dashboard__total font-display">{{ moneda(total30()) }}</strong>
+      </header>
       <div class="dashboard__chart">
-        <app-chart [config]="chartVentasSemana()" />
+        <app-chart [config]="chartVentas()" />
       </div>
     </section>
 
-    <section class="dashboard__seccion">
-      <div class="dashboard__seccion-header">
-        <h2 class="font-display">Más vendidos</h2>
-        <a routerLink="/reportes">Ver reportes →</a>
-      </div>
+    <section class="dashboard__tarjeta">
+      <header class="dashboard__tarjeta-cabecera">
+        <div>
+          <h2 class="font-display">Más vendidos</h2>
+          <span class="dashboard__sub">Unidades</span>
+        </div>
+        <a routerLink="/reportes">Reportes →</a>
+      </header>
       <div class="dashboard__chart">
         <app-chart [config]="chartMasVendidos()" />
       </div>
     </section>
-
-    <section class="dashboard__seccion">
-      <div class="dashboard__seccion-header">
-        <h2 class="font-display">Stock bajo</h2>
-        <a routerLink="/inventario">Ver inventario →</a>
-      </div>
-      <app-data-table
-        [columns]="columnasStockBajo"
-        [data]="stockBajo()"
-        [loading]="loading()"
-        trackByKey="id"
-      />
-    </section>
   </div>
+
+  <section class="dashboard__tarjeta">
+    <header class="dashboard__tarjeta-cabecera">
+      <h2 class="font-display">Stock bajo</h2>
+      <a routerLink="/inventario">Ver inventario →</a>
+    </header>
+    <app-data-table
+      [columns]="columnasStockBajo"
+      [data]="stockBajo()"
+      [loading]="loading()"
+      trackByKey="id"
+    />
+  </section>
 </section>

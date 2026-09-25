@@ -6,15 +6,28 @@ import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
 import { DataTableColumn } from '../../shared/data-table/data-table.model';
 import { DataTableComponent } from '../../shared/data-table/data-table.component';
 import { ChartComponent } from '../../shared/chart/chart.component';
+import { COLOR_PRIMARIO, gradienteArea, moneda, monedaCorta } from '../../shared/chart/tremor-theme';
 import { ReportesService } from '../reportes/services/reportes.service';
 import { LibroMasVendido, VentasPorDia } from '../reportes/models/reporte.model';
 import { CatalogoService } from '../inventario/services/catalogo.service';
 import { Libro } from '../inventario/models/libro.model';
 
+// Fecha local (no UTC) en formato YYYY-MM-DD, igual que devuelve el backend por día.
 function haceDiasISO(dias: number): string {
   const fecha = new Date();
   fecha.setDate(fecha.getDate() - dias);
-  return fecha.toISOString().slice(0, 10);
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  return `${fecha.getFullYear()}-${mes}-${dia}`;
+}
+
+function variacion(actual: number, previo: number): number | null {
+  return previo > 0 ? ((actual - previo) / previo) * 100 : null;
+}
+
+interface Periodo {
+  ventas: number;
+  monto: number;
 }
 
 @Component({
@@ -31,43 +44,88 @@ export class DashboardComponent {
 
   stockBajo = signal<Libro[]>([]);
   masVendidos = signal<LibroMasVendido[]>([]);
-  ventasHoy = signal(0);
-  montoHoy = signal(0);
-  ventasSemana = signal(0);
-  montoSemana = signal(0);
   ventasPorDia = signal<VentasPorDia[]>([]);
   loading = signal(true);
 
-  montoSemanaFormateado = computed(() => `$${this.montoSemana().toFixed(2)}`);
-  montoHoyFormateado = computed(() => `$${this.montoHoy().toFixed(2)}`);
+  // Últimos 30 días completos (los días sin ventas cuentan como 0) para una serie continua.
+  private serie = computed(() => {
+    const porFecha = new Map(this.ventasPorDia().map((v) => [v.fecha, v]));
+    return Array.from({ length: 30 }, (_, i) => {
+      const fecha = haceDiasISO(29 - i);
+      const v = porFecha.get(fecha);
+      return { fecha, ventas: v?.totalVentas ?? 0, monto: Number(v?.montoTotal ?? 0) };
+    });
+  });
 
-  chartVentasSemana = computed<ChartConfiguration>(() => ({
+  // desde/hasta = posiciones de la serie (0 = hace 29 días, 29 = hoy).
+  private periodo(desde: number, hasta: number): Periodo {
+    return this.serie()
+      .slice(desde, hasta + 1)
+      .reduce((acc, d) => ({ ventas: acc.ventas + d.ventas, monto: acc.monto + d.monto }), { ventas: 0, monto: 0 });
+  }
+
+  hoy = computed(() => this.periodo(29, 29));
+  ayer = computed(() => this.periodo(28, 28));
+  semana = computed(() => this.periodo(23, 29));
+  semanaPrevia = computed(() => this.periodo(16, 22));
+
+  ticketSemana = computed(() => (this.semana().ventas ? this.semana().monto / this.semana().ventas : 0));
+  ticketPrevio = computed(() =>
+    this.semanaPrevia().ventas ? this.semanaPrevia().monto / this.semanaPrevia().ventas : 0
+  );
+
+  deltaHoy = computed(() => variacion(this.hoy().monto, this.ayer().monto));
+  deltaSemana = computed(() => variacion(this.semana().monto, this.semanaPrevia().monto));
+  deltaTicket = computed(() => variacion(this.ticketSemana(), this.ticketPrevio()));
+
+  moneda = (valor: number) => moneda.format(valor);
+  total30 = computed(() => this.serie().reduce((acc, d) => acc + d.monto, 0));
+
+  chartVentas = computed<ChartConfiguration>(() => ({
     type: 'line',
     data: {
-      labels: this.ventasPorDia().map((v) => v.fecha),
+      labels: this.serie().map((d) =>
+        new Date(`${d.fecha}T00:00:00`).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })
+      ),
       datasets: [
         {
-          label: 'Monto vendido',
-          data: this.ventasPorDia().map((v) => Number(v.montoTotal)),
-          borderColor: '#9c6b43',
-          backgroundColor: 'rgba(156, 107, 67, 0.15)',
+          label: 'Ventas',
+          data: this.serie().map((d) => d.monto),
+          borderColor: COLOR_PRIMARIO,
+          backgroundColor: gradienteArea(COLOR_PRIMARIO),
           fill: true,
-          tension: 0.3
+          cubicInterpolationMode: 'monotone',
+          pointBackgroundColor: '#ffffff',
+          pointBorderColor: COLOR_PRIMARIO
         }
       ]
     },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { grid: { display: false }, border: { display: false }, ticks: { maxTicksLimit: 6, maxRotation: 0 } },
+        y: {
+          beginAtZero: true,
+          border: { display: false },
+          ticks: { maxTicksLimit: 5, callback: (valor) => monedaCorta(Number(valor)) }
+        }
+      },
+      plugins: { tooltip: { callbacks: { label: (item) => ` ${moneda.format(Number(item.parsed.y))}` } } }
+    }
   }));
 
   chartMasVendidos = computed<ChartConfiguration>(() => ({
     type: 'bar',
     data: {
-      labels: this.masVendidos().map((l) => l.titulo),
+      labels: this.masVendidos().map((l) => (l.titulo.length > 26 ? `${l.titulo.slice(0, 25)}…` : l.titulo)),
       datasets: [
         {
-          label: 'Unidades vendidas',
+          label: 'Unidades',
           data: this.masVendidos().map((l) => l.unidadesVendidas),
-          backgroundColor: '#9c6b43'
+          backgroundColor: COLOR_PRIMARIO,
+          hoverBackgroundColor: '#7d5433',
+          barThickness: 16
         }
       ]
     },
@@ -75,7 +133,10 @@ export class DashboardComponent {
       responsive: true,
       maintainAspectRatio: false,
       indexAxis: 'y',
-      plugins: { legend: { display: false } }
+      scales: {
+        x: { beginAtZero: true, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5 } },
+        y: { grid: { display: false }, border: { display: false } }
+      }
     }
   }));
 
@@ -92,24 +153,10 @@ export class DashboardComponent {
       this.masVendidos.set(data.slice(0, 5));
     });
 
-    const hoy = haceDiasISO(0);
-    this.reportesService.ventasPorPeriodo(hoy, hoy).subscribe((data) => {
-      this.ventasHoy.set(data.reduce((acc, v) => acc + v.totalVentas, 0));
-      this.montoHoy.set(data.reduce((acc, v) => acc + Number(v.montoTotal), 0));
-    });
-
-    // Se pide un rango más amplio (30 días) para que la gráfica tenga algo que
-    // mostrar aunque no haya ventas en los últimos 7 días — el stat card de
-    // "últimos 7 días" se calcula filtrando este mismo resultado, sin otra
-    // llamada aparte.
-    const desde30 = haceDiasISO(30);
-    this.reportesService.ventasPorPeriodo(desde30, hoy).subscribe({
+    // Una sola llamada de 30 días alimenta las tarjetas (hoy, 7 días, ticket) y la gráfica.
+    this.reportesService.ventasPorPeriodo(haceDiasISO(29), haceDiasISO(0)).subscribe({
       next: (data) => {
         this.ventasPorDia.set(data);
-        const desde7 = haceDiasISO(7);
-        const ultimos7 = data.filter((v) => v.fecha >= desde7);
-        this.ventasSemana.set(ultimos7.reduce((acc, v) => acc + v.totalVentas, 0));
-        this.montoSemana.set(ultimos7.reduce((acc, v) => acc + Number(v.montoTotal), 0));
         this.loading.set(false);
       },
       error: () => this.loading.set(false)
