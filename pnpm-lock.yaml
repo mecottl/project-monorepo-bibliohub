@@ -188,6 +188,9 @@ importers:
       chart.js:
         specifier: ^4.5.1
         version: 4.5.1
+      kodama-id:
+        specifier: ^1.0.0
+        version: 1.0.0
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -3982,6 +3985,17 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
+
+  kodama-id@1.0.0:
+    resolution: {integrity: sha512-b+BtbKG6GBSe2bn4wqVCwD80vzzYmPCVYQUQM/OZj3EtMd+7dWGV7PGZBhAjEa4sMzU9r/fBktdtfIbz2gQegw==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
@@ -9635,6 +9649,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  kodama-id@1.0.0: {}
 
   leven@3.1.0: {}
 

@@ -7,11 +7,12 @@ import { ListaDeseosService } from '../../../features/tienda/lista-deseos/lista-
 import { SearchInputComponent } from '../../../shared/search-input/search-input.component';
 import { MenuIconComponent } from '../../../shared/icons/menu-icon.component';
 import { CarritoIconComponent } from '../../../shared/icons/carrito-icon.component';
+import { KodamaAvatarComponent } from '../../../shared/kodama-avatar/kodama-avatar.component';
 import { UsuarioIconComponent } from '../../../shared/icons/usuario-icon.component';
 
 @Component({
   selector: 'app-topbar',
-  imports: [RouterLink, SearchInputComponent, MenuIconComponent, CarritoIconComponent, UsuarioIconComponent],
+  imports: [RouterLink, SearchInputComponent, MenuIconComponent, CarritoIconComponent, UsuarioIconComponent, KodamaAvatarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'

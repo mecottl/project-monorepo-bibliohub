@@ -26,7 +26,7 @@
       @if (auth.currentUser(); as user) {
         <span class="topbar__user-chip">
           <span class="topbar__avatar" aria-hidden="true">
-            <svg-usuario />
+            <app-kodama-avatar [semilla]="user.id" [size]="32" />
           </span>
           <span class="topbar__user-info">
             <span class="topbar__user-name">{{ user.nombre }}</span>
@@ -55,7 +55,7 @@
           aria-label="Configuración de mi cuenta"
         >
           <span class="topbar__avatar" aria-hidden="true">
-            <svg-usuario />
+            <app-kodama-avatar [semilla]="user.id" [size]="32" />
           </span>
           <span class="topbar__user-name">{{ user.nombre }}</span>
         </a>

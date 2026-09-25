@@ -13,7 +13,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": { "kodama-id": ["./node_modules/kodama-id/dist/core/index.js"] }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
