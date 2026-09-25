@@ -1,0 +1,21 @@
+.pedidos-compra-listado {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pedidos-compra-listado__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pedidos-compra-listado__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pedidos-compra-listado__header-actions .btn-primary {
+  width: auto;
+}

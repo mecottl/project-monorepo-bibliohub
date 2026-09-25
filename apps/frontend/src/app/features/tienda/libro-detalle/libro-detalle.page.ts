@@ -4,6 +4,9 @@ import { CurrencyPipe } from '@angular/common';
 import { CatalogoService } from '../catalogo.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { StatusBadgeComponent } from '../../../shared/status-badge/status-badge.component';
+import { AuthService } from '../../../core/auth/auth.service';
+import { ListaDeseosService } from '../lista-deseos/lista-deseos.service';
+import { CarritoService } from '../carrito/services/carrito.service';
 import { Libro } from '../tienda.model';
 
 @Component({
@@ -17,11 +20,15 @@ export class LibroDetallePage {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly catalogoService = inject(CatalogoService);
+  private readonly auth = inject(AuthService);
+  private readonly carritoService = inject(CarritoService);
+  readonly deseos = inject(ListaDeseosService);
 
   libro = signal<Libro | null>(null);
   sugeridos = signal<Libro[]>([]);
   cargando = signal(true);
   noEncontrado = signal(false);
+  agregado = signal(false);
 
   autores = computed(() =>
     (this.libro()?.libroAutores ?? [])
@@ -41,6 +48,21 @@ export class LibroDetallePage {
 
   volver(): void {
     this.router.navigate(['/inicio']);
+  }
+
+  agregarAlCarrito(): void {
+    const libro = this.libro();
+    if (!libro) return;
+
+    if (!this.auth.isCliente()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.carritoService.agregarItem(libro.id).subscribe(() => {
+      this.agregado.set(true);
+      setTimeout(() => this.agregado.set(false), 1500);
+    });
   }
 
   private cargar(id: string): void {

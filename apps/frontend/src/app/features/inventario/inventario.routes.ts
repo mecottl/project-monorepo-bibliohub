@@ -8,6 +8,13 @@ export const INVENTARIO_ROUTES: Routes = [
       import('./pages/libros-listado/libros-listado.page').then(m => m.LibrosListadoPage)
   },
   {
+    path: 'catalogo',
+    canActivate: [roleGuard],
+    data: { roles: ['admin'] },
+    loadComponent: () =>
+      import('./pages/catalogo-admin/catalogo-admin.page').then(m => m.CatalogoAdminPage)
+  },
+  {
     path: 'nuevo',
     canActivate: [roleGuard],
     data: { roles: ['admin'] },

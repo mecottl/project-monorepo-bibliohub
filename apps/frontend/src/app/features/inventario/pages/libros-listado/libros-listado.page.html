@@ -2,7 +2,10 @@
   <header class="libros-listado__header">
     <h1 class="font-display">Inventario — Libros</h1>
     @if (!auth.isCajero()) {
-      <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
+      <div class="libros-listado__header-actions">
+        <a routerLink="/inventario/catalogo" class="btn-outline">Autores / editoriales / categorías</a>
+        <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
+      </div>
     }
   </header>
 

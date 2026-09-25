@@ -5,11 +5,17 @@ import { API_BASE_URL } from '../../../core/api.config';
 import {
   Autor,
   Categoria,
+  CreateAutorPayload,
+  CreateCategoriaPayload,
+  CreateEditorialPayload,
   CreateLibroPayload,
   Editorial,
   Libro,
   LibrosQuery,
   PaginatedLibros,
+  UpdateAutorPayload,
+  UpdateCategoriaPayload,
+  UpdateEditorialPayload,
   UpdateLibroPayload
 } from '../models/libro.model';
 
@@ -49,12 +55,48 @@ export class CatalogoService {
     return this.http.get<Autor[]>(`${this.baseUrl}/autores`);
   }
 
+  crearAutor(payload: CreateAutorPayload): Observable<Autor> {
+    return this.http.post<Autor>(`${this.baseUrl}/autores`, payload);
+  }
+
+  actualizarAutor(id: string, payload: UpdateAutorPayload): Observable<Autor> {
+    return this.http.patch<Autor>(`${this.baseUrl}/autores/${id}`, payload);
+  }
+
+  eliminarAutor(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/autores/${id}`);
+  }
+
   listarEditoriales(): Observable<Editorial[]> {
     return this.http.get<Editorial[]>(`${this.baseUrl}/editoriales`);
   }
 
+  crearEditorial(payload: CreateEditorialPayload): Observable<Editorial> {
+    return this.http.post<Editorial>(`${this.baseUrl}/editoriales`, payload);
+  }
+
+  actualizarEditorial(id: string, payload: UpdateEditorialPayload): Observable<Editorial> {
+    return this.http.patch<Editorial>(`${this.baseUrl}/editoriales/${id}`, payload);
+  }
+
+  eliminarEditorial(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/editoriales/${id}`);
+  }
+
   listarCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.baseUrl}/categorias`);
+  }
+
+  crearCategoria(payload: CreateCategoriaPayload): Observable<Categoria> {
+    return this.http.post<Categoria>(`${this.baseUrl}/categorias`, payload);
+  }
+
+  actualizarCategoria(id: string, payload: UpdateCategoriaPayload): Observable<Categoria> {
+    return this.http.patch<Categoria>(`${this.baseUrl}/categorias/${id}`, payload);
+  }
+
+  eliminarCategoria(id: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/categorias/${id}`);
   }
 
   listarStockBajo(): Observable<Libro[]> {

@@ -1,0 +1,97 @@
+<section class="pedido-compra-form">
+  <h1 class="font-display">Nuevo pedido de compra</h1>
+
+  @if (errorMensaje()) {
+    <p class="pedido-compra-form__error">{{ errorMensaje() }}</p>
+  }
+
+  <form class="pedido-compra-form__form" [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="field">
+      <label for="proveedorId">Proveedor</label>
+      <select id="proveedorId" formControlName="proveedorId">
+        <option value="" disabled>Selecciona un proveedor</option>
+        @for (proveedor of proveedores(); track proveedor.id) {
+          <option [value]="proveedor.id">{{ proveedor.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="notas">Notas (opcional)</label>
+      <textarea id="notas" formControlName="notas" rows="2"></textarea>
+    </div>
+
+    <div class="pedido-compra-form__buscador">
+      <label>Agregar libros</label>
+      <app-search-input
+        ariaLabel="Buscar libro por título"
+        placeholder="Buscar por título…"
+        (search)="buscarLibro($event)"
+      />
+      @if (resultadosBusqueda().length > 0) {
+        <ul class="pedido-compra-form__resultados">
+          @for (libro of resultadosBusqueda(); track libro.id) {
+            <li>
+              <button type="button" (click)="agregarLinea(libro)">
+                {{ libro.titulo }} — ${{ libro.precioCosto }}
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    @if (lineas().length > 0) {
+      <table class="pedido-compra-form__tabla">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Cantidad</th>
+            <th>Precio costo</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (linea of lineas(); track linea.libro.id) {
+            <tr>
+              <td>{{ linea.libro.titulo }}</td>
+              <td>
+                <input
+                  type="number"
+                  min="1"
+                  [value]="linea.cantidadSolicitada"
+                  (input)="actualizarCantidad(linea.libro.id, +$any($event.target).value)"
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  [value]="linea.precioCosto"
+                  (input)="actualizarPrecio(linea.libro.id, +$any($event.target).value)"
+                />
+              </td>
+              <td>${{ (linea.cantidadSolicitada * linea.precioCosto).toFixed(2) }}</td>
+              <td>
+                <button type="button" class="pedido-compra-form__quitar" (click)="quitarLinea(linea.libro.id)">
+                  Quitar
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <p class="pedido-compra-form__total">Total: ${{ total().toFixed(2) }}</p>
+    }
+
+    <div class="pedido-compra-form__actions">
+      <a routerLink="/proveedores/pedidos" class="btn-outline">Cancelar</a>
+      <button type="submit" class="btn-primary" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando…' : 'Crear pedido' }}
+      </button>
+    </div>
+  </form>
+</section>

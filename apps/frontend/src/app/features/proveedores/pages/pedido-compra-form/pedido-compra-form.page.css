@@ -1,0 +1,125 @@
+.pedido-compra-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+}
+
+.pedido-compra-form__error {
+  color: var(--color-error);
+  font-size: 14px;
+}
+
+.pedido-compra-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-negro-suave);
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.pedido-compra-form__buscador {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pedido-compra-form__buscador label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-negro-suave);
+}
+
+.pedido-compra-form__resultados {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.pedido-compra-form__resultados button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: white;
+  border: none;
+  border-bottom: 1px solid var(--color-beige);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.pedido-compra-form__resultados li:last-child button {
+  border-bottom: none;
+}
+
+.pedido-compra-form__resultados button:hover {
+  background: var(--color-crema);
+}
+
+.pedido-compra-form__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pedido-compra-form__tabla th,
+.pedido-compra-form__tabla td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-beige);
+  font-size: 14px;
+}
+
+.pedido-compra-form__tabla input {
+  width: 90px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+}
+
+.pedido-compra-form__quitar {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.pedido-compra-form__total {
+  font-weight: 600;
+  text-align: right;
+}
+
+.pedido-compra-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.pedido-compra-form__actions .btn-outline,
+.pedido-compra-form__actions .btn-primary {
+  width: auto;
+}

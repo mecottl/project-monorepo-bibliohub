@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
 import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
@@ -13,6 +13,7 @@ import { Libro, LibroAutor } from '../../models/libro.model';
 @Component({
   selector: 'app-libros-listado',
   imports: [
+    RouterLink,
     DataTableComponent,
     SearchInputComponent,
     PaginationComponent,

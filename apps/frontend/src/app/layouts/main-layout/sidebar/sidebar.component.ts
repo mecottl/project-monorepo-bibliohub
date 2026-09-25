@@ -13,6 +13,7 @@ import { InicioIconComponent } from '../../../shared/icons/inicio-icon.component
 import { CategoriasIconComponent } from '../../../shared/icons/categorias-icon.component';
 import { ListaDeseosIconComponent } from '../../../shared/icons/lista-deseos-icon.component';
 import { MisPedidosIconComponent } from '../../../shared/icons/mis-pedidos-icon.component';
+import { UsuarioIconComponent } from '../../../shared/icons/usuario-icon.component';
 import { VolverIconComponent } from '../../../shared/icons/volver-icon.component';
 import { LogoutIconComponent } from '../../../shared/icons/logout-icon.component';
 
@@ -34,6 +35,7 @@ import { LogoutIconComponent } from '../../../shared/icons/logout-icon.component
     ListaDeseosIconComponent,
     MisPedidosIconComponent,
     VolverIconComponent,
+    UsuarioIconComponent,
     LogoutIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +46,16 @@ export class SidebarComponent {
   auth = inject(AuthService);
 
   mostrarAdminChrome = input.required<boolean>();
+  readonly enlacesCuenta = [
+    { ruta: '/cuenta/perfil', texto: 'Perfil', icono: 'usuario' },
+    { ruta: '/cuenta/seguridad', texto: 'Correo y contraseña', icono: 'configuracion' },
+    { ruta: '/cuenta/direcciones', texto: 'Direcciones', icono: 'inicio' },
+    { ruta: '/cuenta/tarjetas', texto: 'Facturación', icono: 'ventas' },
+    { ruta: '/cuenta/compras', texto: 'Compras y rastreo', icono: 'pedidos' },
+    { ruta: '/cuenta/puntos', texto: 'Mis puntos', icono: 'puntos' }
+  ];
+
+  modoCuenta = input(false);
   abierto = input(false);
 
   brandClick = output<void>();

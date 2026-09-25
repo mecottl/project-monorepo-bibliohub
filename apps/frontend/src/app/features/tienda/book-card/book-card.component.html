@@ -1,4 +1,16 @@
 <article class="book-card">
+  <button
+    type="button"
+    class="book-card__deseo"
+    [class.is-active]="deseos.esDeseado(libro().id)"
+    [attr.aria-pressed]="deseos.esDeseado(libro().id)"
+    [attr.aria-label]="deseos.esDeseado(libro().id) ? 'Quitar de la lista de deseos' : 'Agregar a la lista de deseos'"
+    (click)="deseos.toggle(libro().id)"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 20.5s-7.5-4.6-7.5-10A4.5 4.5 0 0 1 12 7.6a4.5 4.5 0 0 1 7.5 2.9c0 5.4-7.5 10-7.5 10z" />
+    </svg>
+  </button>
   <a class="book-card__link" [routerLink]="['/libro', libro().id]">
     <div class="book-card__cover">
       @if (libro().imagenUrl) {
@@ -15,7 +27,7 @@
       <p class="book-card__price">{{ libro().precioVenta | currency }}</p>
     </div>
   </a>
-  <button type="button" class="btn-primary book-card__btn">
-    Agregar al carrito
+  <button type="button" class="btn-primary book-card__btn" (click)="agregarAlCarrito()">
+    {{ agregado() ? 'Agregado ✓' : 'Agregar al carrito' }}
   </button>
 </article>

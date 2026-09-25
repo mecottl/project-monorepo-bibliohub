@@ -1,17 +1,34 @@
 export interface Autor {
   id: string;
   nombre: string;
+  nacionalidad?: string | null;
+  biografia?: string | null;
+  activo?: boolean;
 }
 
 export interface Editorial {
   id: string;
   nombre: string;
+  pais?: string | null;
+  sitioWeb?: string | null;
+  activo?: boolean;
 }
 
 export interface Categoria {
   id: string;
   nombre: string;
+  descripcion?: string | null;
+  activo?: boolean;
 }
+
+export type CreateAutorPayload = Omit<Autor, 'id' | 'activo'>;
+export type UpdateAutorPayload = Partial<CreateAutorPayload>;
+
+export type CreateEditorialPayload = Omit<Editorial, 'id' | 'activo'>;
+export type UpdateEditorialPayload = Partial<CreateEditorialPayload>;
+
+export type CreateCategoriaPayload = Omit<Categoria, 'id' | 'activo'>;
+export type UpdateCategoriaPayload = Partial<CreateCategoriaPayload>;
 
 export interface LibroAutor {
   autorId: string;

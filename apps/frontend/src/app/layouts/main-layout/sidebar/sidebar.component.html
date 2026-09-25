@@ -52,6 +52,24 @@
             Configuración
           </a>
         }
+      } @else if (modoCuenta()) {
+        <a routerLink="/inicio" class="sidebar__nav-item">
+          <svg-volver class="sidebar__nav-icon" />
+          Volver a la tienda
+        </a>
+        @for (enlace of enlacesCuenta; track enlace.ruta) {
+          <a [routerLink]="enlace.ruta" routerLinkActive="is-active" class="sidebar__nav-item">
+            @switch (enlace.icono) {
+              @case ('usuario') { <svg-usuario class="sidebar__nav-icon" /> }
+              @case ('configuracion') { <svg-configuracion class="sidebar__nav-icon" /> }
+              @case ('inicio') { <svg-inicio class="sidebar__nav-icon" /> }
+              @case ('ventas') { <svg-ventas class="sidebar__nav-icon" /> }
+              @case ('pedidos') { <svg-mis-pedidos class="sidebar__nav-icon" /> }
+              @default { <svg-reportes class="sidebar__nav-icon" /> }
+            }
+            {{ enlace.texto }}
+          </a>
+        }
       } @else {
         <a routerLink="/inicio" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-inicio class="sidebar__nav-icon" />

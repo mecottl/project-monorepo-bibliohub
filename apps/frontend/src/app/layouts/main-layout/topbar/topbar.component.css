@@ -106,6 +106,27 @@
   color: var(--color-cafe-oscuro);
 }
 
+.topbar__cart-btn {
+  position: relative;
+}
+
+.topbar__cart-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--color-cafe-oscuro);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .topbar__user-chip {
   display: flex;
   align-items: center;

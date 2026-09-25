@@ -1,0 +1,118 @@
+.configuracion {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 640px;
+}
+
+.configuracion__tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--color-beige);
+}
+
+.configuracion__tabs button {
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-gris-oscuro);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.configuracion__tabs button.is-active {
+  color: var(--color-cafe-oscuro);
+  border-bottom-color: var(--color-cafe-medio);
+}
+
+.configuracion__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.configuracion__resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.configuracion__resumen p {
+  margin: 0;
+}
+
+.configuracion__rol {
+  font-size: 13px;
+  color: var(--color-gris-oscuro);
+}
+
+.configuracion__mensaje-ok {
+  color: var(--color-cafe-medio);
+  font-size: 14px;
+}
+
+.configuracion__error {
+  color: var(--color-error);
+  font-size: 14px;
+}
+
+.configuracion__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 360px;
+}
+
+.configuracion__form--empleado {
+  max-width: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.configuracion__form--empleado .field {
+  flex: 1 1 160px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-negro-suave);
+}
+
+.field input,
+.field select {
+  padding: 10px 12px;
+  border: 1px solid var(--color-beige);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.configuracion__form .btn-primary {
+  width: auto;
+}
+
+.configuracion__accion {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-cafe-medio);
+  cursor: pointer;
+}
+
+.configuracion__accion:hover {
+  text-decoration: underline;
+}

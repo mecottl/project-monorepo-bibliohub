@@ -1,0 +1,80 @@
+<section class="proveedores-listado">
+  <header class="proveedores-listado__header">
+    <h1 class="font-display">Proveedores</h1>
+    <div class="proveedores-listado__header-actions">
+      <a routerLink="/proveedores/pedidos" class="btn-outline">Pedidos de compra</a>
+      <button type="button" class="btn-primary" (click)="abrirCrear()">+ Nuevo proveedor</button>
+    </div>
+  </header>
+
+  <app-data-table
+    [columns]="columnas"
+    [data]="proveedores()"
+    [loading]="loading()"
+    trackByKey="id"
+    [rowActionsTemplate]="acciones"
+  >
+    <app-empty-state
+      emptyState
+      title="No hay proveedores"
+      description="Registra tu primer proveedor para empezar a hacer pedidos de compra."
+    />
+  </app-data-table>
+
+  <ng-template #acciones let-proveedor>
+    <button type="button" class="proveedores-listado__accion" (click)="abrirEditar(proveedor)">Editar</button>
+    <button type="button" class="proveedores-listado__accion" (click)="pedirEliminar(proveedor)">Desactivar</button>
+  </ng-template>
+
+  @if (mostrarForm()) {
+    <div class="proveedores-listado__backdrop" (click)="cerrarForm()">
+      <form
+        class="proveedores-listado__modal"
+        [formGroup]="form"
+        (ngSubmit)="guardar()"
+        (click)="$event.stopPropagation()"
+      >
+        <h2 class="font-display">{{ editando() ? 'Editar proveedor' : 'Nuevo proveedor' }}</h2>
+
+        @if (errorMensaje()) {
+          <p class="proveedores-listado__error">{{ errorMensaje() }}</p>
+        }
+
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" formControlName="nombre" />
+        </div>
+        <div class="field">
+          <label for="contactoNombre">Nombre de contacto</label>
+          <input id="contactoNombre" type="text" formControlName="contactoNombre" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" />
+        </div>
+        <div class="field">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" type="text" formControlName="telefono" />
+        </div>
+        <div class="field">
+          <label for="condicionesComerciales">Condiciones comerciales</label>
+          <textarea id="condicionesComerciales" formControlName="condicionesComerciales" rows="3"></textarea>
+        </div>
+
+        <div class="proveedores-listado__modal-actions">
+          <button type="button" class="btn-outline" (click)="cerrarForm()">Cancelar</button>
+          <button type="submit" class="btn-primary" [disabled]="form.invalid">Guardar</button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <app-confirm-modal
+    [open]="aEliminar() !== null"
+    title="Desactivar proveedor"
+    [message]="'¿Desactivar &quot;' + (aEliminar()?.nombre ?? '') + '&quot;? No podrás crear nuevos pedidos de compra con él.'"
+    confirmLabel="Desactivar"
+    (confirmed)="confirmarEliminar()"
+    (cancelled)="cancelarEliminar()"
+  />
+</section>

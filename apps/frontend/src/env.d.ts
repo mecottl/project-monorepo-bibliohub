@@ -3,6 +3,7 @@
 declare interface Env {
   readonly NODE_ENV: string;
   readonly NG_APP_API_BASE_URL: string;
+  readonly NG_APP_STRIPE_PUBLISHABLE_KEY: string;
 }
 
 declare interface ImportMeta {

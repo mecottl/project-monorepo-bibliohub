@@ -39,19 +39,26 @@
     </div>
   } @else {
     <div class="topbar__actions">
-      <button type="button" class="topbar__icon-btn" aria-label="Carrito">
+      <a routerLink="/carrito" class="topbar__icon-btn topbar__cart-btn" aria-label="Carrito">
         <svg-carrito />
-      </button>
+        @if (carritoService.carrito().totalItems > 0) {
+          <span class="topbar__cart-badge">{{ carritoService.carrito().totalItems }}</span>
+        }
+      </a>
 
       <span class="topbar__divider"></span>
 
       @if (auth.currentUser(); as user) {
-        <span class="topbar__user-chip">
+        <a
+          [routerLink]="user.rol === 'cliente' ? '/cuenta/perfil' : null"
+          class="topbar__user-chip"
+          aria-label="Configuración de mi cuenta"
+        >
           <span class="topbar__avatar" aria-hidden="true">
             <svg-usuario />
           </span>
           <span class="topbar__user-name">{{ user.nombre }}</span>
-        </span>
+        </a>
       } @else {
         <a routerLink="/login" class="topbar__icon-btn" aria-label="Iniciar sesión">
           <p>Iniciar sesión</p>

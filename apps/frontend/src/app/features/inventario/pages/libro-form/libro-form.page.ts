@@ -107,10 +107,20 @@ export class LibroFormPage {
 
     this.guardando.set(true);
     this.errorMensaje.set(null);
-    const valores = this.form.getRawValue();
+    // Los `numeric` de Postgres llegan como string desde la API; si el usuario no
+    // toca el campo, el control conserva ese string y el DTO lo rechaza.
+    const valores = {
+      ...this.form.getRawValue(),
+      precioVenta: Number(this.form.controls.precioVenta.value),
+      precioCosto: Number(this.form.controls.precioCosto.value)
+    };
+
+    // En edición isbn no es editable (UpdateLibroDto lo prohíbe) y el stock solo
+    // se ajusta vía "Movimiento" — getRawValue() incluye ambos aunque estén deshabilitados.
+    const { isbn: _isbn, stockActual: _stockActual, ...cambios } = valores;
 
     const peticion = this.esEdicion
-      ? this.catalogoService.actualizarLibro(this.libroId()!, valores)
+      ? this.catalogoService.actualizarLibro(this.libroId()!, cambios)
       : this.catalogoService.crearLibro(valores);
 
     peticion.subscribe({

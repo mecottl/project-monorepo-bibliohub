@@ -1,0 +1,80 @@
+@if (cargando()) {
+  <p>Cargando...</p>
+} @else if (pedido(); as pedido) {
+  <section class="pedido-compra-detalle">
+    <header class="pedido-compra-detalle__header">
+      <div>
+        <a routerLink="/proveedores/pedidos" class="pedido-compra-detalle__volver">← Pedidos de compra</a>
+        <h1 class="font-display">Pedido a {{ pedido.proveedor?.nombre }}</h1>
+        <p class="pedido-compra-detalle__meta">
+          {{ pedido.fecha | date: 'dd/MM/yyyy HH:mm' }} · Estado: {{ etiquetasEstado[pedido.estado] }}
+        </p>
+      </div>
+      @if (pedido.estado !== 'cancelado' && pedido.estado !== 'recibido') {
+        <button type="button" class="btn-outline" (click)="pedirCancelar()">Cancelar pedido</button>
+      }
+    </header>
+
+    @if (pedido.notas) {
+      <p class="pedido-compra-detalle__notas">{{ pedido.notas }}</p>
+    }
+
+    @if (errorMensaje()) {
+      <p class="pedido-compra-detalle__error">{{ errorMensaje() }}</p>
+    }
+
+    <table class="pedido-compra-detalle__tabla">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Solicitado</th>
+          <th>Recibido</th>
+          <th>Precio costo</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (detalle of pedido.detalles; track detalle.id) {
+          <tr>
+            <td>{{ detalle.libro?.titulo }}</td>
+            <td>{{ detalle.cantidadSolicitada }}</td>
+            <td>
+              @if (puedeRecibir()) {
+                <input
+                  type="number"
+                  min="0"
+                  [max]="detalle.cantidadSolicitada"
+                  [value]="cantidadesRecibidas()[detalle.id]"
+                  (input)="onCantidadChange(detalle.id, +$any($event.target).value)"
+                />
+              } @else {
+                {{ detalle.cantidadRecibida }}
+              }
+            </td>
+            <td>${{ detalle.precioCosto }}</td>
+            <td>${{ detalle.subtotalLinea }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <p class="pedido-compra-detalle__total">Total: ${{ pedido.total }}</p>
+
+    @if (puedeRecibir()) {
+      <div class="pedido-compra-detalle__actions">
+        <button type="button" class="btn-primary" (click)="registrarRecepcion()">
+          Registrar recepción
+        </button>
+      </div>
+    }
+  </section>
+
+  <app-confirm-modal
+    [open]="mostrarConfirmCancelar()"
+    title="Cancelar pedido"
+    message="¿Cancelar este pedido de compra? Esta acción no se puede deshacer."
+    confirmLabel="Cancelar pedido"
+    (confirmed)="confirmarCancelar()"
+    (cancelled)="cancelarModalCancelar()"
+  />
+}

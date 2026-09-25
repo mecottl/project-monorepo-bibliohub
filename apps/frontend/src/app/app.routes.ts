@@ -55,29 +55,29 @@ export const routes: Routes = [
       {
         path: 'proveedores',
         canActivate: [authGuard, roleGuard],
-        loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Proveedores', roles: ['admin'] }
+        data: { roles: ['admin'] },
+        loadChildren: () =>
+          import('./features/proveedores/proveedores.routes').then(
+            m => m.PROVEEDORES_ROUTES
+          )
       },
       {
         path: 'reportes',
         canActivate: [authGuard, roleGuard],
+        data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Reportes', roles: ['admin'] }
+          import('./features/reportes/pages/reportes/reportes.page').then(
+            m => m.ReportesPage
+          )
       },
       {
         path: 'configuracion',
         canActivate: [authGuard, roleGuard],
+        data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Configuración', roles: ['admin'] }
+          import('./features/configuracion/pages/configuracion/configuracion.page').then(
+            m => m.ConfiguracionPage
+          )
       },
       {
         path: 'categorias',
@@ -104,19 +104,36 @@ export const routes: Routes = [
         path: 'lista-deseos',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Lista de deseos' }
+          import('./features/tienda/lista-deseos/lista-deseos.page').then(
+            m => m.ListaDeseosPage
+          )
       },
       {
         path: 'mis-pedidos',
+        pathMatch: 'full',
+        redirectTo: 'cuenta/compras'
+      },
+      {
+        path: 'cuenta',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['cliente'] },
+        loadChildren: () => import('./features/cuenta/cuenta.routes').then(m => m.CUENTA_ROUTES)
+      },
+      {
+        path: 'carrito',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./shared/placeholder-page/placeholder-page.component').then(
-            m => m.PlaceholderPageComponent
-          ),
-        data: { titulo: 'Mis pedidos' }
+          import('./features/tienda/carrito/pages/carrito-checkout/carrito-checkout.page').then(
+            m => m.CarritoCheckoutPage
+          )
+      },
+      {
+        path: 'carrito/confirmacion',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/tienda/carrito/pages/pedido-confirmado/pedido-confirmado.page').then(
+            m => m.PedidoConfirmadoPage
+          )
       }
     ]
   },

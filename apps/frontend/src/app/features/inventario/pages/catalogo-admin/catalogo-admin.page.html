@@ -1,0 +1,96 @@
+<section class="catalogo-admin">
+  <header class="catalogo-admin__header">
+    <h1 class="font-display">Catálogo — Autores, editoriales y categorías</h1>
+  </header>
+
+  @if (errorMensaje()) {
+    <p class="catalogo-admin__error">{{ errorMensaje() }}</p>
+  }
+
+  <div class="catalogo-admin__tabs">
+    <button type="button" [class.is-active]="tab() === 'autores'" (click)="cambiarTab('autores')">
+      Autores
+    </button>
+    <button type="button" [class.is-active]="tab() === 'editoriales'" (click)="cambiarTab('editoriales')">
+      Editoriales
+    </button>
+    <button type="button" [class.is-active]="tab() === 'categorias'" (click)="cambiarTab('categorias')">
+      Categorías
+    </button>
+  </div>
+
+  @if (tab() === 'autores') {
+    <form class="catalogo-admin__form" [formGroup]="autorForm" (ngSubmit)="agregarAutor()">
+      <input type="text" formControlName="nombre" placeholder="Nombre del autor" />
+      <input type="text" formControlName="nacionalidad" placeholder="Nacionalidad (opcional)" />
+      <button type="submit" class="btn-primary" [disabled]="autorForm.invalid">+ Agregar autor</button>
+    </form>
+
+    <app-data-table
+      [columns]="columnasAutores"
+      [data]="autores()"
+      [loading]="loading()"
+      trackByKey="id"
+      [rowActionsTemplate]="accionesAutor"
+    />
+
+    <ng-template #accionesAutor let-autor>
+      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('autores', autor)">
+        Eliminar
+      </button>
+    </ng-template>
+  }
+
+  @if (tab() === 'editoriales') {
+    <form class="catalogo-admin__form" [formGroup]="editorialForm" (ngSubmit)="agregarEditorial()">
+      <input type="text" formControlName="nombre" placeholder="Nombre de la editorial" />
+      <input type="text" formControlName="pais" placeholder="País (opcional)" />
+      <button type="submit" class="btn-primary" [disabled]="editorialForm.invalid">+ Agregar editorial</button>
+    </form>
+
+    <app-data-table
+      [columns]="columnasEditoriales"
+      [data]="editoriales()"
+      [loading]="loading()"
+      trackByKey="id"
+      [rowActionsTemplate]="accionesEditorial"
+    />
+
+    <ng-template #accionesEditorial let-editorial>
+      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('editoriales', editorial)">
+        Eliminar
+      </button>
+    </ng-template>
+  }
+
+  @if (tab() === 'categorias') {
+    <form class="catalogo-admin__form" [formGroup]="categoriaForm" (ngSubmit)="agregarCategoria()">
+      <input type="text" formControlName="nombre" placeholder="Nombre de la categoría" />
+      <input type="text" formControlName="descripcion" placeholder="Descripción (opcional)" />
+      <button type="submit" class="btn-primary" [disabled]="categoriaForm.invalid">+ Agregar categoría</button>
+    </form>
+
+    <app-data-table
+      [columns]="columnasCategorias"
+      [data]="categorias()"
+      [loading]="loading()"
+      trackByKey="id"
+      [rowActionsTemplate]="accionesCategoria"
+    />
+
+    <ng-template #accionesCategoria let-categoria>
+      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('categorias', categoria)">
+        Eliminar
+      </button>
+    </ng-template>
+  }
+
+  <app-confirm-modal
+    [open]="aEliminar() !== null"
+    title="Desactivar"
+    [message]="'¿Desactivar &quot;' + (aEliminar()?.nombre ?? '') + '&quot;? Dejará de aparecer en el catálogo, pero no se borra físicamente.'"
+    confirmLabel="Desactivar"
+    (confirmed)="confirmarEliminar()"
+    (cancelled)="cancelarEliminar()"
+  />
+</section>

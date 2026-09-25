@@ -37,9 +37,25 @@ export class AuthService {
       .pipe(tap((res) => this.guardarSesion(res)));
   }
 
+  recuperarPassword(identificador: string) {
+    return this.http.post<{ message: string }>(`${this.API}/auth/recuperar-password`, { identificador });
+  }
+
+  resetPassword(token: string, password: string) {
+    return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, { token, password });
+  }
+
   logout(): void {
     this.http.post(`${this.API}/auth/logout`, {}).subscribe({ error: () => {} });
     this.clearSession();
+  }
+
+  actualizarNombreLocal(nombre: string): void {
+    const user = this.currentUser();
+    if (!user) return;
+    const actualizado = { ...user, nombre };
+    localStorage.setItem('user', JSON.stringify(actualizado));
+    this.currentUser.set(actualizado);
   }
 
   private guardarSesion(res: LoginResponse): void {

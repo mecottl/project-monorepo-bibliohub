@@ -1,0 +1,220 @@
+<section class="carrito-checkout">
+  <ol class="carrito-checkout__stepper">
+    <li [class.is-active]="paso() >= 1" [class.is-done]="paso() > 1">
+      <span class="carrito-checkout__step-numero">1</span>
+      <span class="carrito-checkout__step-label">Carrito</span>
+    </li>
+    <li [class.is-active]="paso() >= 2" [class.is-done]="paso() > 2">
+      <span class="carrito-checkout__step-numero">2</span>
+      <span class="carrito-checkout__step-label">Dirección</span>
+    </li>
+    <li [class.is-active]="paso() >= 3">
+      <span class="carrito-checkout__step-numero">3</span>
+      <span class="carrito-checkout__step-label">Pago</span>
+    </li>
+  </ol>
+
+  @if (paso() === 1) {
+    <div class="carrito-checkout__layout">
+      <div class="carrito-checkout__principal">
+        @if (carrito().items.length > 0) {
+          <button type="button" class="carrito-checkout__vaciar" (click)="vaciarCarrito()">
+            🗑 Vaciar carrito
+          </button>
+
+          @for (item of carrito().items; track item.libroId) {
+            <article class="carrito-checkout__item">
+              @if (item.libro.imagenUrl) {
+                <img [src]="item.libro.imagenUrl" [alt]="'Portada de ' + item.libro.titulo" />
+              } @else {
+                <div class="carrito-checkout__item-sin-imagen">{{ item.libro.titulo }}</div>
+              }
+              <div class="carrito-checkout__item-info">
+                <h3>{{ item.libro.titulo }}</h3>
+                <p class="carrito-checkout__item-precio">{{ item.libro.precioVenta | currency }}</p>
+              </div>
+              <div class="carrito-checkout__item-cantidad">
+                <button type="button" (click)="actualizarCantidad(item.libroId, item.cantidad - 1)">−</button>
+                <span>{{ item.cantidad }}</span>
+                <button
+                  type="button"
+                  [disabled]="item.cantidad >= item.libro.stockActual"
+                  (click)="actualizarCantidad(item.libroId, item.cantidad + 1)"
+                >
+                  +
+                </button>
+              </div>
+            </article>
+          }
+        } @else {
+          <p class="carrito-checkout__vacio">Tu carrito está vacío.</p>
+        }
+      </div>
+
+      @if (carrito().items.length > 0) {
+        <aside class="carrito-checkout__detalles">
+          <h3>Detalles</h3>
+          <p class="carrito-checkout__detalles-items">{{ carrito().totalItems }} items</p>
+          @for (item of carrito().items; track item.libroId) {
+            <div class="carrito-checkout__detalles-linea">
+              <span>{{ item.cantidad }}x {{ item.libro.titulo }}</span>
+              <span>{{ item.subtotal | currency }}</span>
+            </div>
+          }
+          <div class="carrito-checkout__detalles-total">
+            <span>Total</span>
+            <span>{{ carrito().subtotal | currency }}</span>
+          </div>
+          <button type="button" class="btn-primary" (click)="irAPaso2()">Proceder con la orden →</button>
+        </aside>
+      }
+    </div>
+  }
+
+  @if (paso() === 2) {
+    <div class="carrito-checkout__layout">
+      <div class="carrito-checkout__principal">
+        <h2 class="font-display">Información de entrega</h2>
+
+        <div class="carrito-checkout__tipo-entrega">
+          <button
+            type="button"
+            [class.is-active]="tipoEntrega() === 'recoger_en_tienda'"
+            (click)="seleccionarTipoEntrega('recoger_en_tienda')"
+          >
+            Recoger en tienda
+          </button>
+          <button
+            type="button"
+            [class.is-active]="tipoEntrega() === 'envio_a_domicilio'"
+            (click)="seleccionarTipoEntrega('envio_a_domicilio')"
+          >
+            Envío a domicilio
+          </button>
+        </div>
+
+        @if (tipoEntrega() === 'envio_a_domicilio') {
+          @if (direcciones().length > 0 && !mostrarFormDireccion()) {
+            <div class="carrito-checkout__direcciones">
+              @for (direccion of direcciones(); track direccion.id) {
+                <label class="carrito-checkout__direccion-opcion">
+                  <input
+                    type="radio"
+                    name="direccion"
+                    [checked]="direccionSeleccionadaId() === direccion.id"
+                    (change)="seleccionarDireccion(direccion.id)"
+                  />
+                  <span>
+                    <strong>{{ direccion.alias }}</strong> — {{ direccion.calle }}, {{ direccion.colonia }},
+                    {{ direccion.ciudad }}, {{ direccion.estado }} {{ direccion.codigoPostal }}
+                  </span>
+                </label>
+              }
+              <button type="button" class="carrito-checkout__link-btn" (click)="abrirFormNuevaDireccion()">
+                + Agregar otra dirección
+              </button>
+            </div>
+          } @else {
+            <form class="carrito-checkout__form" [formGroup]="direccionForm" (ngSubmit)="guardarNuevaDireccion()">
+              <div class="field">
+                <label for="alias">Alias</label>
+                <input id="alias" type="text" formControlName="alias" />
+              </div>
+              <div class="field">
+                <label for="calle">Calle y número</label>
+                <input id="calle" type="text" formControlName="calle" />
+              </div>
+              <div class="field">
+                <label for="colonia">Colonia</label>
+                <input id="colonia" type="text" formControlName="colonia" />
+              </div>
+              <div class="carrito-checkout__form-row">
+                <div class="field">
+                  <label for="ciudad">Ciudad</label>
+                  <input id="ciudad" type="text" formControlName="ciudad" />
+                </div>
+                <div class="field">
+                  <label for="estado">Estado</label>
+                  <input id="estado" type="text" formControlName="estado" />
+                </div>
+                <div class="field">
+                  <label for="codigoPostal">C.P.</label>
+                  <input id="codigoPostal" type="text" formControlName="codigoPostal" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="referencias">Referencias (opcional)</label>
+                <input id="referencias" type="text" formControlName="referencias" />
+              </div>
+              <button type="submit" class="btn-outline" [disabled]="direccionForm.invalid">
+                Guardar dirección
+              </button>
+            </form>
+          }
+        }
+
+        @if (errorCheckout()) {
+          <p class="carrito-checkout__error">{{ errorCheckout() }}</p>
+        }
+
+        <button
+          type="button"
+          class="btn-primary carrito-checkout__proceder"
+          [disabled]="!puedeContinuarDireccion() || procesandoCheckout()"
+          (click)="irAPaso3()"
+        >
+          {{ procesandoCheckout() ? 'Procesando…' : 'Proceder con la orden →' }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (paso() === 3) {
+    <div class="carrito-checkout__layout">
+      <div class="carrito-checkout__principal">
+        <h2 class="font-display">Detalles de pago</h2>
+
+        <div id="stripe-payment-element"></div>
+
+        @if (errorPago()) {
+          <p class="carrito-checkout__error">{{ errorPago() }}</p>
+        }
+
+        <button
+          type="button"
+          class="btn-primary carrito-checkout__proceder"
+          [disabled]="procesandoPago()"
+          (click)="pagar()"
+        >
+          {{ procesandoPago() ? 'Procesando pago…' : 'Pagar' }}
+        </button>
+      </div>
+
+      @if (totales(); as totales) {
+        <aside class="carrito-checkout__detalles">
+          <h3>Detalles</h3>
+          <div class="carrito-checkout__detalles-linea">
+            <span>Subtotal</span>
+            <span>{{ totales.subtotal | currency }}</span>
+          </div>
+          @if (totales.costoEnvio > 0) {
+            <div class="carrito-checkout__detalles-linea">
+              <span>Envío</span>
+              <span>{{ totales.costoEnvio | currency }}</span>
+            </div>
+          }
+          @if (totales.descuentoPuntos > 0) {
+            <div class="carrito-checkout__detalles-linea">
+              <span>Descuento por puntos</span>
+              <span>−{{ totales.descuentoPuntos | currency }}</span>
+            </div>
+          }
+          <div class="carrito-checkout__detalles-total">
+            <span>Total</span>
+            <span>{{ totales.total | currency }}</span>
+          </div>
+        </aside>
+      }
+    </div>
+  }
+</section>

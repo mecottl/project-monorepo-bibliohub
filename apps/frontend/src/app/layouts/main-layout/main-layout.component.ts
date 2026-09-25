@@ -40,6 +40,8 @@ export class MainLayoutComponent {
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
   mostrarBusqueda = computed(() => RUTAS_BUSQUEDA.some((ruta) => this.urlActual().startsWith(ruta)));
 
+  enCuenta = computed(() => this.urlActual().startsWith('/cuenta'));
+
   menuAbierto = signal(false);
 
   constructor() {

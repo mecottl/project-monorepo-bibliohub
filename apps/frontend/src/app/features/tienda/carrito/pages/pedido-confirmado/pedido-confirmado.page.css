@@ -1,0 +1,36 @@
+.pedido-confirmado {
+  max-width: 480px;
+  margin: 60px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pedido-confirmado__icono {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-cafe-medio);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.pedido-confirmado p {
+  color: var(--color-gris-oscuro);
+}
+
+.pedido-confirmado__acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.pedido-confirmado__acciones .btn-primary,
+.pedido-confirmado__acciones .btn-outline {
+  width: auto;
+}

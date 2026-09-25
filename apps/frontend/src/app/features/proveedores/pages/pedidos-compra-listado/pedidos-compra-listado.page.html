@@ -1,0 +1,23 @@
+<section class="pedidos-compra-listado">
+  <header class="pedidos-compra-listado__header">
+    <h1 class="font-display">Pedidos de compra</h1>
+    <div class="pedidos-compra-listado__header-actions">
+      <a routerLink="/proveedores" class="btn-outline">Proveedores</a>
+      <a routerLink="/proveedores/pedidos/nuevo" class="btn-primary">+ Nuevo pedido</a>
+    </div>
+  </header>
+
+  <app-data-table
+    [columns]="columnas"
+    [data]="pedidos()"
+    [loading]="loading()"
+    trackByKey="id"
+    (rowClick)="irADetalle($event)"
+  >
+    <app-empty-state
+      emptyState
+      title="No hay pedidos de compra"
+      description="Crea un pedido para reabastecer tu inventario desde un proveedor."
+    />
+  </app-data-table>
+</section>
