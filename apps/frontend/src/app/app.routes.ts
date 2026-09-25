@@ -2,8 +2,15 @@ import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { authGuard } from './core/auth/auth.guard';
 import { roleGuard } from './core/auth/role.guard';
+import { landingGuard } from './core/auth/landing.guard';
 
 export const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    canActivate: [landingGuard],
+    loadComponent: () => import('./features/landing/landing.page').then(m => m.LandingPage)
+  },
   {
     path: '',
     loadComponent: () =>
