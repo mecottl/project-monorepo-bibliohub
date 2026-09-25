@@ -20,6 +20,12 @@
   <nav class="sidebar__nav" aria-label="Navegación principal">
     <div class="sidebar__nav-links">
       @if (mostrarAdminChrome()) {
+        @if (auth.isAdmin()) {
+          <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-dashboard class="sidebar__nav-icon" />
+            Dashboard
+          </a>
+        }
         <a routerLink="/ventas" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-ventas class="sidebar__nav-icon" />
           Ventas
@@ -37,10 +43,6 @@
           Clientes
         </a>
         @if (auth.isAdmin()) {
-          <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
-            <svg-dashboard class="sidebar__nav-icon" />
-            Dashboard
-          </a>
           <a routerLink="/reportes" routerLinkActive="is-active" class="sidebar__nav-item">
             <svg-reportes class="sidebar__nav-icon" />
             Reportes
@@ -49,11 +51,15 @@
             <svg-proveedores class="sidebar__nav-icon" />
             Proveedores
           </a>
-          <a routerLink="/configuracion" routerLinkActive="is-active" class="sidebar__nav-item">
-            <svg-configuracion class="sidebar__nav-icon" />
-            Configuración
+          <a routerLink="/empleados" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-usuario class="sidebar__nav-icon" />
+            Empleados
           </a>
         }
+        <a routerLink="/configuracion" routerLinkActive="is-active" class="sidebar__nav-item">
+          <svg-configuracion class="sidebar__nav-icon" />
+          Configuración
+        </a>
       } @else if (modoCuenta()) {
         <a routerLink="/inicio" class="sidebar__nav-item">
           <svg-volver class="sidebar__nav-icon" />
@@ -102,20 +108,19 @@
       }
     </div>
 
-    @if (!mostrarAdminChrome() && auth.isAdmin()) {
-      <div class="sidebar__nav-bottom">
+    <div class="sidebar__nav-bottom">
+      @if (!mostrarAdminChrome() && auth.isAdmin()) {
         <button type="button" class="sidebar__nav-item" (click)="brandClick.emit()">
           <svg-volver class="sidebar__nav-icon" />
           Volver al panel admin
         </button>
-      </div>
-    } @else if (!mostrarAdminChrome() && auth.isAuthenticated()) {
-      <div class="sidebar__nav-bottom">
+      }
+      @if (auth.isAuthenticated()) {
         <button type="button" class="sidebar__nav-item" (click)="logout.emit()">
           <svg-logout class="sidebar__nav-icon" />
           Cerrar sesión
         </button>
-      </div>
-    }
+      }
+    </div>
   </nav>
 </aside>

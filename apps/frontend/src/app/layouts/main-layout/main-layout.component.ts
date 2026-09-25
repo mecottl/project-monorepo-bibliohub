@@ -16,7 +16,8 @@ const RUTAS_ADMIN = [
   '/clientes',
   '/proveedores',
   '/reportes',
-  '/configuracion'
+  '/configuracion',
+  '/empleados'
 ];
 
 @Component({

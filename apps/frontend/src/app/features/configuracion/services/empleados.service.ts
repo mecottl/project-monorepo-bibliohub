@@ -26,6 +26,10 @@ export class EmpleadosService {
     return this.http.patch<Empleado>(`${this.baseUrl}/${id}`, payload);
   }
 
+  actualizarPerfil(payload: { nombre: string }): Observable<Empleado> {
+    return this.http.patch<Empleado>(`${this.baseUrl}/me`, payload);
+  }
+
   cambiarPassword(payload: ChangePasswordPayload): Observable<{ message: string }> {
     return this.http.patch<{ message: string }>(`${this.baseUrl}/me/password`, payload);
   }

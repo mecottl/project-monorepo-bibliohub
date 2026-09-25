@@ -1,0 +1,53 @@
+<section class="configuracion configuracion--ancho">
+  <h1 class="font-display">Empleados</h1>
+
+  <div class="configuracion__panel">
+    <h2 class="font-display">Agregar cajero o administrador</h2>
+
+    @if (nuevoEmpleadoError()) {
+      <p class="configuracion__error">{{ nuevoEmpleadoError() }}</p>
+    }
+
+    <form class="configuracion__form configuracion__form--empleado" [formGroup]="nuevoEmpleadoForm" (ngSubmit)="crearEmpleado()">
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+      <div class="field">
+        <label for="usuario">Usuario</label>
+        <input id="usuario" type="text" formControlName="usuario" />
+      </div>
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
+      <div class="field">
+        <label for="rol">Rol</label>
+        <select id="rol" formControlName="rol">
+          <option value="cajero">Cajero</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary" [disabled]="nuevoEmpleadoForm.invalid || creandoEmpleado()">
+        {{ creandoEmpleado() ? 'Creando…' : '+ Agregar' }}
+      </button>
+    </form>
+  </div>
+
+  <div class="configuracion__panel">
+    <h2 class="font-display">Equipo</h2>
+    <app-data-table
+      [columns]="columnasEmpleados"
+      [data]="empleados()"
+      [loading]="loadingEmpleados()"
+      trackByKey="id"
+      [rowActionsTemplate]="acciones"
+    />
+
+    <ng-template #acciones let-empleado>
+      <button type="button" class="configuracion__accion" (click)="toggleActivo(empleado)">
+        {{ empleado.activo ? 'Desactivar' : 'Reactivar' }}
+      </button>
+    </ng-template>
+  </div>
+</section>

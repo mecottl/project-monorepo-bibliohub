@@ -6,6 +6,7 @@ import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interf
 import { EmpleadosService } from '../services/empleados.service';
 import { CreateEmpleadoDto } from '../dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from '../dto/update-empleado.dto';
+import { UpdatePerfilEmpleadoDto } from '../dto/update-perfil-empleado.dto';
 import { ChangePasswordDto } from '../dto/change-password.dto';
 
 @ApiTags('empleados')
@@ -23,6 +24,12 @@ export class EmpleadosController {
   @Post()
   create(@Body() dto: CreateEmpleadoDto) {
     return this.empleadosService.create(dto);
+  }
+
+  // Antes de ':id' para que "me" no se interprete como un id.
+  @Patch('me')
+  actualizarPerfil(@CurrentUser() user: AuthenticatedUser, @Body() dto: UpdatePerfilEmpleadoDto) {
+    return this.empleadosService.update(user.id, { nombre: dto.nombre });
   }
 
   @Roles('admin')

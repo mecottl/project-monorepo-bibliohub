@@ -116,3 +116,7 @@
 .configuracion__accion:hover {
   text-decoration: underline;
 }
+
+.configuracion--ancho {
+  max-width: 900px;
+}
