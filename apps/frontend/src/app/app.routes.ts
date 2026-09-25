@@ -6,6 +6,10 @@ import { landingGuard } from './core/auth/landing.guard';
 
 export const routes: Routes = [
   {
+    path: 'portal',
+    loadComponent: () => import('./features/landing/landing-portal.page').then(m => m.LandingPortalPage)
+  },
+  {
     path: '',
     pathMatch: 'full',
     canActivate: [landingGuard],
