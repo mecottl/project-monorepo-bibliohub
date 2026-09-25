@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../../core/api.config';
+import { PedidoLinea } from '../tienda/carrito/models/carrito.model';
 
 export interface Perfil {
   id: string;
@@ -54,6 +55,14 @@ export class CuentaService {
       passwordActual,
       passwordNueva
     });
+  }
+
+  comprasTienda(): Observable<PedidoLinea[]> {
+    return this.http.get<PedidoLinea[]>(`${this.baseUrl}/compras-tienda`);
+  }
+
+  compraTienda(id: string): Observable<PedidoLinea> {
+    return this.http.get<PedidoLinea>(`${this.baseUrl}/compras-tienda/${id}`);
   }
 
   puntos(): Observable<PuntosCuenta> {

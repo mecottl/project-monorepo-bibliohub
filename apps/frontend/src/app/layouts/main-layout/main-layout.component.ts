@@ -12,6 +12,7 @@ const RUTAS_ADMIN = [
   '/dashboard',
   '/inventario',
   '/ventas',
+  '/pedidos-en-linea',
   '/clientes',
   '/proveedores',
   '/reportes',

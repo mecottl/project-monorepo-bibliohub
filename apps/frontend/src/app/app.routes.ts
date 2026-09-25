@@ -44,6 +44,13 @@ export const routes: Routes = [
         data: { roles: ['admin', 'cajero'] }
       },
       {
+        path: 'pedidos-en-linea',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['admin', 'cajero'] },
+        loadComponent: () =>
+          import('./features/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
+      },
+      {
         path: 'clientes',
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },

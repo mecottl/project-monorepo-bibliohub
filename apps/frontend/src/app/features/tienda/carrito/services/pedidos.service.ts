@@ -6,6 +6,7 @@ import {
   CheckoutPayload,
   CreateDireccionPayload,
   DireccionEntrega,
+  EstadoPedidoLinea,
   IniciarCheckoutResult,
   PedidoLinea
 } from '../models/carrito.model';
@@ -39,6 +40,19 @@ export class PedidosService {
 
   actualizarDireccion(id: string, cambios: Partial<CreateDireccionPayload>): Observable<DireccionEntrega> {
     return this.http.patch<DireccionEntrega>(`${this.baseUrl}/direcciones/${id}`, cambios);
+  }
+
+  listarPedidosAdmin(estado?: EstadoPedidoLinea): Observable<PedidoLinea[]> {
+    return this.http.get<PedidoLinea[]>(`${this.baseUrl}/admin/pedidos`, {
+      params: estado ? { estado } : {}
+    });
+  }
+
+  cambiarEstado(id: string, estado: EstadoPedidoLinea): Observable<{ id: string; estado: EstadoPedidoLinea }> {
+    return this.http.patch<{ id: string; estado: EstadoPedidoLinea }>(
+      `${this.baseUrl}/admin/pedidos/${id}/estado`,
+      { estado }
+    );
   }
 
   listarPedidos(): Observable<PedidoLinea[]> {

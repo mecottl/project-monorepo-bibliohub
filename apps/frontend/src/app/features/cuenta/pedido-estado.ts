@@ -16,7 +16,15 @@ export function claseEstado(estado: EstadoPedidoLinea): 'en-curso' | 'entregado'
   return 'en-curso';
 }
 
+export function etiquetaEstado(pedido: PedidoLinea): string {
+  if (pedido.origen === 'tienda') {
+    return pedido.estado === 'cancelado' ? 'Cancelada' : 'Compra en tienda';
+  }
+  return ETIQUETAS_ESTADO[pedido.estado];
+}
+
 export function esActivo(pedido: PedidoLinea): boolean {
+  if (pedido.origen === 'tienda') return false;
   return pedido.estado !== 'entregado' && pedido.estado !== 'cancelado';
 }
 

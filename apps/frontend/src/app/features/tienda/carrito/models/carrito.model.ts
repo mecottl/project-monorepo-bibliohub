@@ -80,6 +80,11 @@ export interface DetallePedidoLinea {
 
 export interface PedidoLinea {
   id: string;
+  // Solo en el listado de admin/cajero.
+  cliente?: { id: string; nombre: string | null; telefono: string };
+  // 'tienda' = venta física (POS) ligada al cliente; sin rastreo.
+  origen?: 'online' | 'tienda';
+  medioPago?: 'efectivo' | 'tarjeta';
   fecha: string;
   estado: EstadoPedidoLinea;
   tipoEntrega: TipoEntrega;

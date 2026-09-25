@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { CuentaService } from '../cuenta.service';
 import { PedidosService } from '../../tienda/carrito/services/pedidos.service';
 import { PedidoLinea } from '../../tienda/carrito/models/carrito.model';
 import { PedidoTrackerComponent } from '../pedido-tracker.component';
-import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden } from '../pedido-estado';
+import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '../pedido-estado';
 
 @Component({
   selector: 'app-cuenta-compras',
@@ -23,7 +26,7 @@ import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden } from '../pedido-
         @for (pedido of pedidos(); track pedido.id) {
           <article class="compra">
             <div class="compra__cabecera">
-              <span class="estado estado--{{ clase(pedido) }}">{{ etiquetas[pedido.estado] }}</span>
+              <span class="estado estado--{{ clase(pedido) }}">{{ etiqueta(pedido) }}</span>
               <span class="compra__fecha">{{ pedido.fecha | date: 'dd/MM/yyyy' }}</span>
             </div>
             <div class="compra__cuerpo">
@@ -40,7 +43,7 @@ import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden } from '../pedido-
                 <span class="compra__orden">Orden N. {{ orden(pedido) }}</span>
                 <span class="compra__total">{{ pedido.total | currency }}</span>
               </div>
-              <a class="btn-primary" [routerLink]="['/cuenta/compras', pedido.id]">Ver detalles</a>
+              <a class="btn-primary" [routerLink]="ruta(pedido)">Ver detalles</a>
             </div>
             @if (activo(pedido)) {
               <app-pedido-tracker [estado]="pedido.estado" [tipoEntrega]="pedido.tipoEntrega" />
@@ -53,20 +56,28 @@ import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden } from '../pedido-
 })
 export class ComprasPage {
   private readonly pedidosService = inject(PedidosService);
+  private readonly cuenta = inject(CuentaService);
 
   pedidos = signal<PedidoLinea[]>([]);
   cargando = signal(true);
 
-  readonly etiquetas = ETIQUETAS_ESTADO;
+  readonly etiqueta = etiquetaEstado;
+  readonly ruta = (p: PedidoLinea) =>
+    p.origen === 'tienda' ? ['/cuenta/compras/tienda', p.id] : ['/cuenta/compras', p.id];
   readonly clase = (pedido: PedidoLinea) => claseEstado(pedido.estado);
   readonly orden = numeroOrden;
   readonly activo = esActivo;
   readonly primeros = (pedido: PedidoLinea) => (pedido.detalles ?? []).slice(0, 3);
 
   constructor() {
-    this.pedidosService.listarPedidos().subscribe({
-      next: (data) => {
-        this.pedidos.set(data);
+    forkJoin({
+      online: this.pedidosService.listarPedidos(),
+      tienda: this.cuenta.comprasTienda().pipe(catchError(() => of([] as PedidoLinea[])))
+    }).subscribe({
+      next: ({ online, tienda }) => {
+        const todos = [...online.map((p) => ({ ...p, origen: 'online' as const })), ...tienda];
+        todos.sort((a, b) => b.fecha.localeCompare(a.fecha));
+        this.pedidos.set(todos);
         this.cargando.set(false);
       },
       error: () => this.cargando.set(false)
