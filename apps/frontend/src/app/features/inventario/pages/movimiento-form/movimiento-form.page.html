@@ -1,45 +1,134 @@
-<section class="movimiento-form">
-  <h1 class="font-display">Registrar movimiento de stock</h1>
+<section class="mov">
+  <a routerLink="/inventario" class="mov__volver">← Inventario</a>
+  <h1 class="font-display">Ajustar inventario</h1>
 
-  <form [formGroup]="form" (ngSubmit)="guardar()">
-    <div class="field">
-      <label for="tipo">Tipo</label>
-      <select id="tipo" formControlName="tipo">
-        <option value="entrada">Entrada</option>
-        <option value="salida">Salida</option>
-        <option value="ajuste">Ajuste</option>
-      </select>
+  @if (cargando()) {
+    <p class="mov__estado">Cargando…</p>
+  } @else if (libro(); as libro) {
+    <div class="mov__grid">
+      <aside class="mov__libro">
+        <div class="mov__portada">
+          @if (libro.imagenUrl) {
+            <img [src]="libro.imagenUrl" [alt]="'Portada de ' + libro.titulo" />
+          } @else {
+            <span class="mov__portada-vacia" aria-hidden="true">Sin portada</span>
+          }
+        </div>
+        <div class="mov__libro-info">
+          <h2 class="font-display">{{ libro.titulo }}</h2>
+          @if (autores()) {
+            <p class="mov__autor">{{ autores() }}</p>
+          }
+          <dl class="mov__datos">
+            <div><dt>ISBN</dt><dd>{{ libro.isbn }}</dd></div>
+            @if (libro.categoria) {
+              <div><dt>Categoría</dt><dd>{{ libro.categoria.nombre }}</dd></div>
+            }
+            <div><dt>Precio</dt><dd>{{ libro.precioVenta | currency }}</dd></div>
+          </dl>
+        </div>
+
+        <div class="mov__stock" [class.is-bajo]="stockBajoActual()">
+          <span class="mov__stock-label">Stock actual</span>
+          <strong class="mov__stock-valor font-display">{{ libro.stockActual }}</strong>
+          <span class="mov__stock-min">
+            {{ stockBajoActual() ? 'Stock bajo' : 'En orden' }} · mínimo {{ libro.stockMinimo }}
+          </span>
+        </div>
+      </aside>
+
+      <div class="mov__panel">
+        <form [formGroup]="form" (ngSubmit)="guardar()" class="mov__form">
+          <fieldset class="mov__tipos">
+            <legend>Tipo de movimiento</legend>
+            @for (t of tipos; track t.valor) {
+              <button
+                type="button"
+                class="mov__tipo mov__tipo--{{ t.valor }}"
+                [class.is-activo]="tipo() === t.valor"
+                [attr.aria-pressed]="tipo() === t.valor"
+                (click)="elegirTipo(t.valor)"
+              >
+                <span class="mov__tipo-simbolo" aria-hidden="true">{{ t.simbolo }}</span>
+                <span class="mov__tipo-titulo">{{ t.titulo }}</span>
+                <span class="mov__tipo-detalle">{{ t.detalle }}</span>
+              </button>
+            }
+          </fieldset>
+
+          <div class="mov__cantidad">
+            <label for="cantidad">Cantidad</label>
+            <div class="mov__stepper">
+              <button type="button" aria-label="Disminuir cantidad" (click)="cambiarCantidad(-1)">−</button>
+              <input id="cantidad" type="number" formControlName="cantidad" [attr.min]="tipo() === 'ajuste' ? null : 1" />
+              <button type="button" aria-label="Aumentar cantidad" (click)="cambiarCantidad(1)">+</button>
+            </div>
+            @if (tipo() === 'ajuste') {
+              <span class="mov__ayuda">Usa un número negativo para reducir.</span>
+            }
+          </div>
+
+          <div class="mov__resultado" [class.is-negativo]="stockNegativo()" [class.is-aviso]="bajoMinimo()" role="status">
+            <span>Stock resultante</span>
+            <span class="mov__flujo">
+              {{ libro.stockActual }}
+              <span aria-hidden="true">→</span>
+              <strong class="font-display">{{ stockResultante() }}</strong>
+              <span class="mov__delta" [class.mov__delta--pos]="delta() > 0" [class.mov__delta--neg]="delta() < 0">
+                ({{ delta() > 0 ? '+' : '' }}{{ delta() }})
+              </span>
+            </span>
+            @if (stockNegativo()) {
+              <span class="mov__alerta">El stock no puede quedar en negativo.</span>
+            } @else if (bajoMinimo()) {
+              <span class="mov__alerta">Quedará por debajo del mínimo ({{ libro.stockMinimo }}).</span>
+            }
+          </div>
+
+          <div class="mov__motivo">
+            <label for="motivo">Motivo (opcional)</label>
+            <input id="motivo" type="text" formControlName="motivo" maxlength="200" />
+            <div class="mov__chips">
+              @for (m of motivosSugeridos(); track m) {
+                <button type="button" class="mov__chip" (click)="usarMotivo(m)">{{ m }}</button>
+              }
+            </div>
+          </div>
+
+          @if (errorMensaje()) {
+            <p class="mov__error" role="alert">{{ errorMensaje() }}</p>
+          }
+          @if (exito()) {
+            <p class="mov__exito" role="status">{{ exito() }}</p>
+          }
+
+          <div class="mov__acciones">
+            <button type="button" class="btn-outline" (click)="volver()">Volver al inventario</button>
+            <button type="submit" class="btn-primary" [disabled]="guardando() || form.invalid || stockNegativo()">
+              {{ guardando() ? 'Guardando…' : 'Registrar movimiento' }}
+            </button>
+          </div>
+        </form>
+
+        <section class="mov__historial">
+          <h3 class="font-display">Últimos movimientos</h3>
+          @for (m of movimientos(); track m.id) {
+            <div class="mov__fila">
+              <span class="mov__badge mov__badge--{{ m.tipo }}">{{ m.tipo }}</span>
+              <span class="mov__fila-cambio">
+                {{ m.stockAnterior }} → <strong>{{ m.stockNuevo }}</strong>
+                <small>({{ m.cantidad > 0 ? '+' : '' }}{{ m.cantidad }})</small>
+              </span>
+              <span class="mov__fila-motivo">{{ m.motivo || '—' }}</span>
+              <time class="mov__fila-fecha">{{ m.createdAt | date: 'dd/MM/yy HH:mm' }}</time>
+            </div>
+          } @empty {
+            <p class="mov__estado">Aún no hay movimientos.</p>
+          }
+        </section>
+      </div>
     </div>
-
-    <div class="field">
-      <label for="cantidad">Cantidad</label>
-      <input
-        id="cantidad"
-        type="number"
-        [attr.min]="esAjuste() ? null : 1"
-        formControlName="cantidad"
-      />
-      <p class="movimiento-form__hint">
-        @if (esAjuste()) {
-          Puedes usar un número negativo para reducir el stock.
-        }
-      </p>
-    </div>
-
-    <div class="field">
-      <label for="motivo">Motivo (opcional)</label>
-      <input id="motivo" type="text" formControlName="motivo" />
-    </div>
-
-    @if (errorMensaje()) {
-      <p class="movimiento-form__error" role="alert">{{ errorMensaje() }}</p>
-    }
-
-    <div class="movimiento-form__actions">
-      <button type="button" class="btn-outline" (click)="cancelar()">Cancelar</button>
-      <button type="submit" class="btn-primary" [disabled]="guardando()">
-        {{ guardando() ? 'Guardando…' : 'Registrar' }}
-      </button>
-    </div>
-  </form>
+  } @else {
+    <p class="mov__error">No encontramos este libro.</p>
+  }
 </section>
