@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import type { Request } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
@@ -27,6 +28,16 @@ export class CuentaController {
   @Patch('password')
   cambiarPassword(@CurrentUser() user: AuthenticatedUser, @Body() dto: CambiarPasswordClienteDto) {
     return this.cuentaService.cambiarPassword(user.id, dto);
+  }
+
+  @Get('compras-tienda')
+  comprasTienda(@CurrentUser() user: AuthenticatedUser, @Req() req: Request) {
+    return this.cuentaService.listarComprasTienda(user.id, `${req.protocol}://${req.get('host')}`);
+  }
+
+  @Get('compras-tienda/:id')
+  compraTienda(@CurrentUser() user: AuthenticatedUser, @Param('id') id: string, @Req() req: Request) {
+    return this.cuentaService.obtenerCompraTienda(user.id, id, `${req.protocol}://${req.get('host')}`);
   }
 
   @Get('puntos')

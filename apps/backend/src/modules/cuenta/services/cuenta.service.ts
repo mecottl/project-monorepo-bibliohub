@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 import Stripe from 'stripe';
 import { Cliente } from '../../../database/entities/cliente.entity';
 import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
+import { Venta } from '../../../database/entities/venta.entity';
 import { Configuracion } from '../../../database/entities/configuracion.entity';
 import { asignarDefinidos } from '../../../common/asignar-definidos';
 import { CambiarPasswordClienteDto, UpdatePerfilDto } from '../dto/cuenta.dto';
@@ -41,7 +42,63 @@ export class CuentaService {
     private readonly puntosRepo: Repository<TransaccionPuntos>,
     @InjectRepository(Configuracion)
     private readonly configuracionRepo: Repository<Configuracion>,
+    @InjectRepository(Venta) private readonly ventaRepo: Repository<Venta>,
   ) {}
+
+  // --- Compras en tienda (ventas POS ligadas al cliente) ---
+
+  async listarComprasTienda(clienteId: string, baseUrl: string) {
+    const ventas = await this.ventaRepo.find({
+      where: { clienteId },
+      relations: ['detalles', 'detalles.libro'],
+      order: { fecha: 'DESC' },
+    });
+    return ventas.map((venta) => this.mapVenta(venta, baseUrl));
+  }
+
+  async obtenerCompraTienda(clienteId: string, id: string, baseUrl: string) {
+    const venta = await this.ventaRepo.findOne({
+      where: { id, clienteId },
+      relations: ['detalles', 'detalles.libro'],
+    });
+    if (!venta) {
+      throw new NotFoundException('Compra no encontrada');
+    }
+    return this.mapVenta(venta, baseUrl);
+  }
+
+  // Misma forma que un pedido en línea para que el frontend liste ambos juntos.
+  private mapVenta(venta: Venta, baseUrl: string) {
+    return {
+      id: venta.id,
+      origen: 'tienda' as const,
+      fecha: venta.fecha,
+      estado: venta.estado === 'cancelada' ? 'cancelado' : 'entregado',
+      tipoEntrega: 'recoger_en_tienda' as const,
+      subtotal: Number(venta.subtotal),
+      descuentoPuntos: Number(venta.descuentoPuntos),
+      costoEnvio: 0,
+      total: Number(venta.total),
+      puntosGanados: venta.puntosGanados,
+      estadoPago: 'pagado' as const,
+      medioPago: venta.medioPago,
+      direccion: null,
+      detalles: (venta.detalles ?? []).map((detalle) => ({
+        id: detalle.id,
+        libroId: detalle.libroId,
+        cantidad: detalle.cantidad,
+        precioUnitario: Number(detalle.precioUnitario),
+        subtotalLinea: Number(detalle.subtotalLinea),
+        libro: {
+          id: detalle.libro.id,
+          titulo: detalle.libro.titulo,
+          imagenUrl: detalle.libro.imagenKey
+            ? `${baseUrl}/uploads/portadas/${detalle.libro.imagenKey}`
+            : null,
+        },
+      })),
+    };
+  }
 
   // --- Perfil ---
 

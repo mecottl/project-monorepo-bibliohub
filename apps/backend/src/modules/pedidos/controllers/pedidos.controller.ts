@@ -8,6 +8,7 @@ import {
   Body,
   Headers,
   Req,
+  Query,
   BadRequestException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -21,6 +22,7 @@ import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interf
 import { PedidosService } from '../services/pedidos.service';
 import { CreateDireccionDto } from '../dto/create-direccion.dto';
 import { UpdateDireccionDto } from '../dto/update-direccion.dto';
+import { CambiarEstadoPedidoDto } from '../dto/cambiar-estado.dto';
 import { CheckoutDto } from '../dto/checkout.dto';
 
 @ApiTags('pedidos')
@@ -69,6 +71,22 @@ export class PedidosController {
       throw new BadRequestException('Falta paymentIntentId');
     }
     return this.pedidosService.confirmarPago(user.id, paymentIntentId);
+  }
+
+  // Rutas 'admin/...' antes de 'pedidos/:id' no chocan: prefijo distinto.
+  @Roles('admin', 'cajero')
+  @Get('admin/pedidos')
+  listarPedidosAdmin(@Query('estado') estado: string | undefined, @Req() req: Request) {
+    return this.pedidosService.listarPedidosAdmin(
+      estado as Parameters<PedidosService['listarPedidosAdmin']>[0],
+      this.baseUrl(req),
+    );
+  }
+
+  @Roles('admin', 'cajero')
+  @Patch('admin/pedidos/:id/estado')
+  cambiarEstado(@Param('id') id: string, @Body() dto: CambiarEstadoPedidoDto) {
+    return this.pedidosService.cambiarEstado(id, dto.estado);
   }
 
   @Roles('cliente')
