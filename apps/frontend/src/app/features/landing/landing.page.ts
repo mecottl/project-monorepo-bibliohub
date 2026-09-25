@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import { CrowdCanvasComponent } from '../../shared/crowd-canvas/crowd-canvas.component';
 
-// Hoja de sprites (public/hoja-personajes.webp): 8 columnas x 7 filas de escritores, fondo transparente (fuentes en design/personajes).
+// Hoja de sprites (public/hoja-personajes.webp): 8 columnas x 8 filas de escritores y personajes, fondo transparente (fuentes en design/personajes).
 const HOJA_PERSONAJES = '/hoja-personajes.webp';
 
 @Component({
@@ -22,7 +22,7 @@ const HOJA_PERSONAJES = '/hoja-personajes.webp';
         <a href="/inicio" class="btn-primary" (click)="entrar($event)">Comencemos nuestra aventura</a>
       </section>
 
-      <app-crowd-canvas [src]="hoja" [columnas]="8" [filas]="7" [personas]="52" [lentitud]="2.2" [altoPct]="62" [escala]="0.92" [profundidad]="70" [bajada]="35" />
+      <app-crowd-canvas [src]="hoja" [columnas]="8" [filas]="8" [personas]="57" [lentitud]="2.2" [altoPct]="62" [escala]="0.92" [profundidad]="70" [bajada]="35" />
       </div>
 
       <footer class="landing__pie">
