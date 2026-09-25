@@ -15,7 +15,7 @@ import { Libro } from '../tienda.model';
         <p>Cargando...</p>
       } @else if (libros().length === 0) {
         <p class="lista-deseos__vacia">
-          Aún no guardas ningún libro. Toca el corazón en cualquier libro para agregarlo.
+          Tu lista está vacía.
           <a routerLink="/inicio">Explorar libros</a>
         </p>
       } @else {

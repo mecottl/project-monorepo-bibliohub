@@ -16,7 +16,6 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Pedidos en línea</h1>
-      <p class="cuenta-hint">Avanza el estado de cada pedido; el cliente lo ve en su cuenta al instante.</p>
 
       <div class="cuenta-acciones" role="tablist" aria-label="Filtrar por estado">
         @for (f of filtros; track f) {

@@ -13,6 +13,7 @@ import { InicioIconComponent } from '../../../shared/icons/inicio-icon.component
 import { CategoriasIconComponent } from '../../../shared/icons/categorias-icon.component';
 import { ListaDeseosIconComponent } from '../../../shared/icons/lista-deseos-icon.component';
 import { MisPedidosIconComponent } from '../../../shared/icons/mis-pedidos-icon.component';
+import { CarritoIconComponent } from '../../../shared/icons/carrito-icon.component';
 import { UsuarioIconComponent } from '../../../shared/icons/usuario-icon.component';
 import { VolverIconComponent } from '../../../shared/icons/volver-icon.component';
 import { LogoutIconComponent } from '../../../shared/icons/logout-icon.component';
@@ -36,6 +37,7 @@ import { LogoutIconComponent } from '../../../shared/icons/logout-icon.component
     MisPedidosIconComponent,
     VolverIconComponent,
     UsuarioIconComponent,
+    CarritoIconComponent,
     LogoutIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

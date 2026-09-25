@@ -20,7 +20,7 @@ import { CuentaService } from '../cuenta.service';
         <div class="field">
           <label for="telefono">Teléfono</label>
           <input id="telefono" type="text" [value]="telefono()" readonly />
-          <span class="cuenta-hint">Es tu identificador para iniciar sesión y acumular puntos; no se puede cambiar.</span>
+          <span class="cuenta-hint">No se puede cambiar.</span>
         </div>
 
         @if (mensaje()) { <p class="cuenta-ok" role="status">{{ mensaje() }}</p> }

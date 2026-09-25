@@ -1,8 +1,5 @@
 <section class="dashboard">
   <h1 class="font-display">Dashboard</h1>
-  @if (auth.currentUser(); as user) {
-    <p class="dashboard__saludo">Bienvenido, {{ user.nombre }}</p>
-  }
 
   <div class="dashboard__stats">
     <app-stat-card label="Ventas hoy" [value]="ventasHoy()" [hint]="montoHoyFormateado()" />

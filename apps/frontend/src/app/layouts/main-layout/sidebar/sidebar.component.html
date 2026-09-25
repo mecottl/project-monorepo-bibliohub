@@ -20,16 +20,6 @@
   <nav class="sidebar__nav" aria-label="Navegación principal">
     <div class="sidebar__nav-links">
       @if (mostrarAdminChrome()) {
-        @if (auth.isAdmin()) {
-          <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
-            <svg-dashboard class="sidebar__nav-icon" />
-            Dashboard
-          </a>
-        }
-        <a routerLink="/inventario" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-inventario class="sidebar__nav-icon" />
-          Inventario
-        </a>
         <a routerLink="/ventas" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-ventas class="sidebar__nav-icon" />
           Ventas
@@ -38,18 +28,26 @@
           <svg-mis-pedidos class="sidebar__nav-icon" />
           Pedidos en línea
         </a>
+        <a routerLink="/inventario" routerLinkActive="is-active" class="sidebar__nav-item">
+          <svg-inventario class="sidebar__nav-icon" />
+          Inventario
+        </a>
         <a routerLink="/clientes" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-clientes class="sidebar__nav-icon" />
           Clientes
         </a>
         @if (auth.isAdmin()) {
-          <a routerLink="/proveedores" routerLinkActive="is-active" class="sidebar__nav-item">
-            <svg-proveedores class="sidebar__nav-icon" />
-            Proveedores
+          <a routerLink="/dashboard" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-dashboard class="sidebar__nav-icon" />
+            Dashboard
           </a>
           <a routerLink="/reportes" routerLinkActive="is-active" class="sidebar__nav-item">
             <svg-reportes class="sidebar__nav-icon" />
             Reportes
+          </a>
+          <a routerLink="/proveedores" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-proveedores class="sidebar__nav-icon" />
+            Proveedores
           </a>
           <a routerLink="/configuracion" routerLinkActive="is-active" class="sidebar__nav-item">
             <svg-configuracion class="sidebar__nav-icon" />
@@ -83,14 +81,24 @@
           <svg-categorias class="sidebar__nav-icon" />
           Categorías
         </a>
+        <a routerLink="/carrito" routerLinkActive="is-active" class="sidebar__nav-item">
+          <svg-carrito class="sidebar__nav-icon" />
+          Carrito
+        </a>
         <a routerLink="/lista-deseos" routerLinkActive="is-active" class="sidebar__nav-item">
           <svg-lista-deseos class="sidebar__nav-icon" />
           Lista de deseos
         </a>
-        <a routerLink="/mis-pedidos" routerLinkActive="is-active" class="sidebar__nav-item">
-          <svg-mis-pedidos class="sidebar__nav-icon" />
-          Mis pedidos
-        </a>
+        @if (auth.isCliente()) {
+          <a routerLink="/cuenta/compras" routerLinkActive="is-active" class="sidebar__nav-item">
+            <svg-mis-pedidos class="sidebar__nav-icon" />
+            Mis compras
+          </a>
+          <a routerLink="/cuenta/perfil" class="sidebar__nav-item">
+            <svg-usuario class="sidebar__nav-icon" />
+            Mi cuenta
+          </a>
+        }
       }
     </div>
 

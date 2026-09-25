@@ -16,7 +16,6 @@ import { CuentaService } from '../cuenta.service';
         <div class="field">
           <label for="email">Correo electrónico</label>
           <input id="email" type="email" formControlName="email" autocomplete="email" />
-          <span class="cuenta-hint">Lo usamos para recuperar tu contraseña.</span>
         </div>
         @if (correoMensaje()) { <p class="cuenta-ok" role="status">{{ correoMensaje() }}</p> }
         @if (correoError()) { <p class="cuenta-error">{{ correoError() }}</p> }

@@ -44,6 +44,7 @@
 
 .main-layout__content {
   flex: 1;
+  min-width: 0;
   padding: 8px 32px 32px;
 }
 

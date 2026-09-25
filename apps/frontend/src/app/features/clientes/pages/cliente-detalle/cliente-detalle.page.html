@@ -72,9 +72,6 @@
       @if (!auth.isCajero()) {
         <div class="cliente-detalle__card">
           <h2 class="font-display">Ajustar puntos</h2>
-          <p class="cliente-detalle__hint">
-            Los ajustes quedan registrados y no pueden dejar el saldo en negativo.
-          </p>
 
           <form [formGroup]="ajusteForm" (ngSubmit)="ajustarPuntos()">
             <div class="field">

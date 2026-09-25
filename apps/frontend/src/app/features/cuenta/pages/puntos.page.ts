@@ -32,7 +32,7 @@ import { CuentaService, PuntosCuenta } from '../cuenta.service';
               <span [class]="m.tipo">{{ m.tipo === 'ganado' ? '+' : '−' }}{{ m.puntos }}</span>
             </div>
           } @empty {
-            <p class="cuenta-hint">Aún no tienes movimientos. Cada compra suma puntos.</p>
+            <p class="cuenta-hint">Aún no tienes movimientos.</p>
           }
         </div>
       } @else {

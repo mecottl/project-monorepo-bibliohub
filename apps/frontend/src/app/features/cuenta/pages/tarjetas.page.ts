@@ -10,9 +10,6 @@ import { CuentaService, TarjetaGuardada } from '../cuenta.service';
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Facturación y tarjetas</h1>
-      <p class="cuenta-hint">
-        Tus tarjetas se guardan cifradas en Stripe; BiblioHub nunca ve ni almacena el número completo.
-      </p>
 
       <div class="cuenta-lista">
         @for (t of tarjetas(); track t.id) {
