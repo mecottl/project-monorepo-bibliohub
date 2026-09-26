@@ -1,0 +1,105 @@
+# Producción local / servidor único: docker compose up -d --build
+# Copia .env.docker.example a .env y ajusta los secretos antes de levantar.
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: bibliohubv1
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Solo se ejecutan en el primer arranque (volumen vacío): esquema + parámetros por defecto.
+      - ./db/bibliohub_estructura.sql:/docker-entrypoint-initdb.d/01-esquema.sql:ro
+      - ./apps/backend/seed/configuracion.sql:/docker-entrypoint-initdb.d/02-configuracion.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d bibliohubv1']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 2077
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: bibliohubv1
+      JWT_SECRET: ${JWT_SECRET:?define JWT_SECRET (>=32 caracteres) en .env}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      EMAIL_DRIVER: ${EMAIL_DRIVER:-console}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:8080}
+      CORS_ORIGINS: ${FRONTEND_URL:-http://localhost:8080}
+      TRUST_PROXY: 'true'
+      STORAGE_DRIVER: local
+    volumes:
+      - uploads:/app/uploads
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:2077/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+      args:
+        NG_APP_API_BASE_URL: /api
+        NG_APP_STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '${WEB_PORT:-8080}:80'
+
+  # Respaldo diario con retención; cada 7 respaldos restaura el último en una base temporal para
+  # comprobar que sirve. Los respaldos quedan en el volumen "respaldos" (copiarlos fuera del servidor).
+  respaldo:
+    image: postgres:17
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: bibliohubv1
+      RETENCION_DIAS: ${RETENCION_DIAS:-14}
+    volumes:
+      - respaldos:/backups
+      - ./ops:/ops:ro
+    entrypoint: ['sh', '-c']
+    command:
+      - |
+        n=0
+        while true; do
+          sh /ops/respaldo.sh || echo "RESPALDO FALLIDO"
+          n=$$((n+1))
+          if [ $$((n % 7)) -eq 0 ]; then sh /ops/probar-restauracion.sh || echo "PRUEBA DE RESTAURACION FALLIDA"; fi
+          sleep 86400
+        done
+
+volumes:
+  pgdata:
+  uploads:
+  respaldos:

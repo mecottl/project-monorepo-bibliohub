@@ -35,7 +35,8 @@ const patron = /(\\(?:un)?restrict )(\S+)/g;
 let previo = '';
 try {
   previo = readFileSync(destino, 'utf8');
-} catch {}
+} catch { /* empty */ }
+
 const token = /\\restrict (\S+)/.exec(previo)?.[1];
 let nuevo = r.stdout.replace(/\r\n/g, '\n');
 if (token) nuevo = nuevo.replace(patron, (_, p) => p + token);
