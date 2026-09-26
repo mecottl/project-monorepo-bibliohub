@@ -12,14 +12,12 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "sourceMap": true,
-    "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./",
     "paths": {
-      "@common/*": ["src/common/*"],
-      "@infra/*": ["src/infra/*"],
-      "@config/*": ["src/config/*"],
-      "@modules/*": ["src/modules/*"]
+      "@common/*": ["./src/common/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@config/*": ["./src/config/*"],
+      "@modules/*": ["./src/modules/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
