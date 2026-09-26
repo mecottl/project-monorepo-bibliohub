@@ -1,3 +1,5 @@
+import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
+import { CONFIG } from '@modules/configuracion/config-claves';
 import {
   BadRequestException,
   ConflictException,
@@ -13,7 +15,6 @@ import { TransaccionPuntos } from '@modules/clientes/entities/transaccion-puntos
 import { Sesion } from '@modules/auth/entities/sesion.entity';
 import { cerrarOtrasSesiones } from '@common/sesiones';
 import { Venta } from '@modules/ventas/entities/venta.entity';
-import { Configuracion } from '@modules/configuracion/entities/configuracion.entity';
 import { asignarDefinidos } from '@common/asignar-definidos';
 import { CambiarPasswordClienteDto, UpdatePerfilDto } from '../dto/cuenta.dto';
 
@@ -42,8 +43,7 @@ export class CuentaService {
     @InjectRepository(Cliente) private readonly clienteRepo: Repository<Cliente>,
     @InjectRepository(TransaccionPuntos)
     private readonly puntosRepo: Repository<TransaccionPuntos>,
-    @InjectRepository(Configuracion)
-    private readonly configuracionRepo: Repository<Configuracion>,
+    private readonly configuracion: ConfiguracionService,
     @InjectRepository(Venta) private readonly ventaRepo: Repository<Venta>,
     @InjectRepository(Sesion) private readonly sesionRepo: Repository<Sesion>,
   ) {}
@@ -152,8 +152,8 @@ export class CuentaService {
       order: { fecha: 'DESC' },
       take: 50,
     });
-    const tasaAcumulacion = await this.leerConfiguracion('tasa_puntos_acumulacion');
-    const tasaCanje = await this.leerConfiguracion('tasa_puntos_canje');
+    const tasaAcumulacion = await this.configuracion.valorNumerico(CONFIG.tasaPuntosAcumulacion, 0);
+    const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 0);
 
     return {
       saldo: cliente.puntosSaldo,
@@ -234,11 +234,6 @@ export class CuentaService {
       throw new NotFoundException('Cliente no encontrado');
     }
     return cliente;
-  }
-
-  private async leerConfiguracion(clave: string): Promise<number> {
-    const parametro = await this.configuracionRepo.findOne({ where: { clave } });
-    return parametro ? Number(parametro.valor) : 0;
   }
 
   private mapPerfil(cliente: Cliente): Perfil {

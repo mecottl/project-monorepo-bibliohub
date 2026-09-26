@@ -1,3 +1,5 @@
+import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
+import { CONFIG } from '@modules/configuracion/config-claves';
 import {
   Injectable,
   NotFoundException,
@@ -23,6 +25,7 @@ export class ClientesService {
     @InjectRepository(Cliente)
     private readonly clienteRepository: Repository<Cliente>,
     private readonly dataSource: DataSource,
+    private readonly configuracion: ConfiguracionService,
   ) {}
 
   async findAll(query: QueryClienteDto): Promise<PaginatedClientes> {
@@ -107,10 +110,7 @@ export class ClientesService {
   // Para el POS: datos mínimos del cliente por teléfono (sin crearlo) y la tasa de canje vigente.
   async consultarPorTelefono(telefono: string) {
     const cliente = await this.clienteRepository.findOne({ where: { telefono } });
-    const filas: { valor: string }[] = await this.dataSource.query(
-      "SELECT valor FROM configuracion WHERE clave = 'tasa_puntos_canje'",
-    );
-    const tasaCanje = Number(filas[0]?.valor ?? 1);
+    const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 1);
     return cliente
       ? { existe: true, id: cliente.id, nombre: cliente.nombre, telefono: cliente.telefono, puntosSaldo: cliente.puntosSaldo, tasaCanje }
       : { existe: false, telefono, puntosSaldo: 0, tasaCanje };

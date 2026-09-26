@@ -1,3 +1,5 @@
+import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
+import { CONFIG } from '@modules/configuracion/config-claves';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
@@ -8,7 +10,6 @@ import { ItemCarrito } from '@modules/carrito/entities/item-carrito.entity';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
 import { PedidoLinea } from '../entities/pedido-linea.entity';
 import type { EstadoPedidoLinea } from '../entities/pedido-linea.entity';
-import { Configuracion } from '@modules/configuracion/entities/configuracion.entity';
 import { CreateDireccionDto } from '../dto/create-direccion.dto';
 import { UpdateDireccionDto } from '../dto/update-direccion.dto';
 import { asignarDefinidos } from '@common/asignar-definidos';
@@ -30,8 +31,7 @@ export class PedidosService {
     private readonly clienteRepository: Repository<Cliente>,
     @InjectRepository(PedidoLinea)
     private readonly pedidoRepository: Repository<PedidoLinea>,
-    @InjectRepository(Configuracion)
-    private readonly configuracionRepository: Repository<Configuracion>,
+    private readonly configuracion: ConfiguracionService,
     private readonly dataSource: DataSource,
   ) {}
 
@@ -178,12 +178,12 @@ export class PedidosService {
 
     const subtotal = items.reduce((acc, item) => acc + item.cantidad * Number(item.libro.precioVenta), 0);
 
-    const tasaAcumulacion = await this.leerConfiguracion('tasa_puntos_acumulacion');
-    const envioDefault = await this.leerConfiguracion('costo_envio_default');
-    const envioGratisDesde = await this.leerConfiguracion('envio_gratis_desde');
+    const tasaAcumulacion = await this.configuracion.valorNumerico(CONFIG.tasaPuntosAcumulacion);
+    const envioDefault = await this.configuracion.valorNumerico(CONFIG.costoEnvioDefault);
+    const envioGratisDesde = await this.configuracion.valorNumerico(CONFIG.envioGratisDesde);
 
     // Pesos de descuento por punto (configuracion.tasa_puntos_canje); misma tasa que usan las funciones SQL.
-    const tasaCanje = await this.leerConfiguracion('tasa_puntos_canje');
+    const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje);
     const descuentoPuntos = puntosUsados > 0 ? puntosUsados * tasaCanje : 0;
     if (descuentoPuntos > subtotal) {
       throw new BadRequestException('Estás usando más puntos de los necesarios para este pedido');
@@ -200,14 +200,6 @@ export class PedidosService {
       total: totalNeto + costoEnvio,
       puntosGanados: Math.floor(totalNeto / tasaAcumulacion),
     };
-  }
-
-  private async leerConfiguracion(clave: string): Promise<number> {
-    const parametro = await this.configuracionRepository.findOne({ where: { clave } });
-    if (!parametro) {
-      throw new BadRequestException(`Falta el parámetro de configuración "${clave}"`);
-    }
-    return Number(parametro.valor);
   }
 
   // --- Webhook de Stripe ---

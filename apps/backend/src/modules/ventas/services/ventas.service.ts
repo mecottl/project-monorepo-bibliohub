@@ -1,3 +1,5 @@
+import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
+import { CONFIG } from '@modules/configuracion/config-claves';
 import {
   Injectable,
   NotFoundException,
@@ -21,6 +23,7 @@ export class VentasService {
     private readonly libroRepository: Repository<Libro>,
     private readonly dataSource: DataSource,
     private readonly clientesService: ClientesService,
+    private readonly configuracion: ConfiguracionService,
   ) {}
 
   // La lógica transaccional (validar stock, calcular subtotal/descuento/total,
@@ -105,10 +108,7 @@ export class VentasService {
       );
     }
 
-    const filas: { valor: string }[] = await this.dataSource.query(
-      "SELECT valor FROM configuracion WHERE clave = 'tasa_puntos_canje'",
-    );
-    const tasaCanje = Number(filas[0]?.valor ?? 1);
+    const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 1);
     const subtotal = items.reduce((acc, i) => acc + i.cantidad * Number(i.precio_unitario), 0);
     if (puntosUsados * tasaCanje > subtotal) {
       throw new BadRequestException('Se están usando más puntos de los necesarios para esta venta.');

@@ -1,3 +1,4 @@
+import { ConfiguracionModule } from '@modules/configuracion/configuracion.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Venta } from './entities/venta.entity';
@@ -9,6 +10,7 @@ import { ClientesModule } from '@modules/clientes/clientes.module';
 
 @Module({
   imports: [
+    ConfiguracionModule,
     TypeOrmModule.forFeature([Venta, DetalleVenta, Libro]),
     ClientesModule,
   ],
