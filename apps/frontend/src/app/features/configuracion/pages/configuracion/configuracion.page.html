@@ -49,4 +49,11 @@
       </button>
     </form>
   </div>
+
+  <div class="configuracion__panel">
+    <h2 class="font-display">Sesiones</h2>
+    <button type="button" class="btn-outline configuracion__cerrar-todas" [disabled]="cerrandoTodas()" (click)="cerrarTodas()">
+      Cerrar sesión en todos los dispositivos
+    </button>
+  </div>
 </section>

@@ -236,6 +236,27 @@ export class AuthService {
     );
   }
 
+  // Cierra todas las sesiones de la cuenta (incluida la actual) en todos los dispositivos.
+  async cerrarTodasLasSesiones(
+    user: { id: string; tipo: 'cliente' | 'empleado' },
+    ip?: string,
+    userAgent?: string,
+  ): Promise<{ cerradas: number }> {
+    const { affected } = await this.sesionRepo.delete(
+      user.tipo === 'cliente' ? { clienteId: user.id } : { empleadoId: user.id },
+    );
+    await this.logAccesoRepo.save(
+      this.logAccesoRepo.create({
+        clienteId: user.tipo === 'cliente' ? user.id : null,
+        empleadoId: user.tipo === 'empleado' ? user.id : null,
+        evento: 'logout' as EventoAcceso,
+        ip: ip ?? null,
+        userAgent: userAgent ?? null,
+      }),
+    );
+    return { cerradas: affected ?? 0 };
+  }
+
   async logout(
     token: string,
     user: { id: string; tipo: 'cliente' | 'empleado' },

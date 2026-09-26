@@ -10,6 +10,8 @@ import * as bcrypt from 'bcrypt';
 import Stripe from 'stripe';
 import { Cliente } from '../../../database/entities/cliente.entity';
 import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
+import { Sesion } from '../../../database/entities/sesion.entity';
+import { cerrarOtrasSesiones } from '../../../common/sesiones';
 import { Venta } from '../../../database/entities/venta.entity';
 import { Configuracion } from '../../../database/entities/configuracion.entity';
 import { asignarDefinidos } from '../../../common/asignar-definidos';
@@ -43,6 +45,7 @@ export class CuentaService {
     @InjectRepository(Configuracion)
     private readonly configuracionRepo: Repository<Configuracion>,
     @InjectRepository(Venta) private readonly ventaRepo: Repository<Venta>,
+    @InjectRepository(Sesion) private readonly sesionRepo: Repository<Sesion>,
   ) {}
 
   // --- Compras en tienda (ventas POS ligadas al cliente) ---
@@ -123,6 +126,7 @@ export class CuentaService {
   async cambiarPassword(
     clienteId: string,
     dto: CambiarPasswordClienteDto,
+    hashSesionActual?: string,
   ): Promise<{ message: string }> {
     const cliente = await this.buscar(clienteId);
 
@@ -133,6 +137,7 @@ export class CuentaService {
     await this.clienteRepo.update(clienteId, {
       passwordHash: await bcrypt.hash(dto.passwordNueva, 10),
     });
+    await cerrarOtrasSesiones(this.sesionRepo, { clienteId }, hashSesionActual);
     return { message: 'Contraseña actualizada.' };
   }
 

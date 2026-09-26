@@ -32,6 +32,13 @@ export class ConfiguracionPage {
     passwordNueva: ['', [Validators.required, Validators.minLength(8)]]
   });
 
+  cerrandoTodas = signal(false);
+
+  cerrarTodas(): void {
+    this.cerrandoTodas.set(true);
+    this.auth.cerrarSesionEnTodos().subscribe({ error: () => this.cerrandoTodas.set(false) });
+  }
+
   guardarPerfil(): void {
     if (this.perfilForm.invalid) return;
 

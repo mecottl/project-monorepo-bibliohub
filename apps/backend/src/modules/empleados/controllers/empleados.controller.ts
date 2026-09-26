@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Body, Req } from '@nestjs/common';
+import type { Request } from 'express';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
+import { hashDeToken } from '../../../common/sesiones';
 import { EmpleadosService } from '../services/empleados.service';
 import { CreateEmpleadoDto } from '../dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from '../dto/update-empleado.dto';
@@ -41,7 +43,11 @@ export class EmpleadosController {
   // Sin @Roles: cualquier empleado autenticado (admin o cajero) puede cambiar
   // su propia contraseña — el id sale del JWT, nunca de la URL.
   @Patch('me/password')
-  cambiarPassword(@CurrentUser() user: AuthenticatedUser, @Body() dto: ChangePasswordDto) {
-    return this.empleadosService.cambiarPassword(user.id, dto);
+  cambiarPassword(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: ChangePasswordDto,
+    @Req() req: Request,
+  ) {
+    return this.empleadosService.cambiarPassword(user.id, dto, hashDeToken(req.headers['authorization']));
   }
 }

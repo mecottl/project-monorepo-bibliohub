@@ -51,6 +51,11 @@ export class AuthController {
     return user;
   }
 
+  @Post('logout-all')
+  logoutAll(@Req() req: Request, @CurrentUser() user: AuthenticatedUser) {
+    return this.authService.cerrarTodasLasSesiones(user, req.ip, req.headers['user-agent']);
+  }
+
   @Post('logout')
   logout(
     @Req() req: Request,

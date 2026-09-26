@@ -4,6 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
+import { hashDeToken } from '../../../common/sesiones';
 import { CuentaService } from '../services/cuenta.service';
 import { CambiarPasswordClienteDto, UpdatePerfilDto } from '../dto/cuenta.dto';
 
@@ -26,8 +27,12 @@ export class CuentaController {
   }
 
   @Patch('password')
-  cambiarPassword(@CurrentUser() user: AuthenticatedUser, @Body() dto: CambiarPasswordClienteDto) {
-    return this.cuentaService.cambiarPassword(user.id, dto);
+  cambiarPassword(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: CambiarPasswordClienteDto,
+    @Req() req: Request,
+  ) {
+    return this.cuentaService.cambiarPassword(user.id, dto, hashDeToken(req.headers['authorization']));
   }
 
   @Get('compras-tienda')

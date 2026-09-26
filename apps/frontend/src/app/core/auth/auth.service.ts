@@ -45,6 +45,11 @@ export class AuthService {
     return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, { token, password });
   }
 
+  // Cierra la sesión en todos los dispositivos (también esta) y vuelve al login.
+  cerrarSesionEnTodos() {
+    return this.http.post<{ cerradas: number }>(`${this.API}/auth/logout-all`, {}).pipe(tap(() => this.clearSession()));
+  }
+
   logout(): void {
     this.http.post(`${this.API}/auth/logout`, {}).subscribe({ error: () => {} });
     this.clearSession();

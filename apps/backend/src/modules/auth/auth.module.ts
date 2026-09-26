@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { SesionesLimpiezaService } from './sesiones-limpieza.service';
 import { RecuperacionService } from './recuperacion.service';
 import { RecuperacionPassword } from '../../database/entities/recuperacion-password.entity';
 import { EMAIL_SERVICE, EmailService } from './email/email.interface';
@@ -39,6 +40,7 @@ import { Sesion } from '../../database/entities/sesion.entity';
     AuthService,
     JwtStrategy,
     RecuperacionService,
+    SesionesLimpiezaService,
     {
       provide: EMAIL_SERVICE,
       useFactory: (): EmailService =>

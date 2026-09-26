@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/auth/auth.service';
 import { CuentaService } from '../cuenta.service';
 
 @Component({
@@ -40,12 +41,22 @@ import { CuentaService } from '../cuenta.service';
           {{ guardandoPassword() ? 'Guardando…' : 'Actualizar contraseña' }}
         </button>
       </form>
+
+      <div class="cuenta-card cuenta-form">
+        <h2 class="font-display">Sesiones</h2>
+        <button type="button" class="btn-outline" [disabled]="cerrandoTodas()" (click)="cerrarTodas()">
+          Cerrar sesión en todos los dispositivos
+        </button>
+      </div>
     </section>
   `
 })
 export class SeguridadPage {
   private readonly cuenta = inject(CuentaService);
   private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
+
+  cerrandoTodas = signal(false);
 
   guardandoCorreo = signal(false);
   correoMensaje = signal<string | null>(null);
@@ -62,6 +73,11 @@ export class SeguridadPage {
 
   constructor() {
     this.cuenta.perfil().subscribe((perfil) => this.correoForm.patchValue({ email: perfil.email ?? '' }));
+  }
+
+  cerrarTodas(): void {
+    this.cerrandoTodas.set(true);
+    this.auth.cerrarSesionEnTodos().subscribe({ error: () => this.cerrandoTodas.set(false) });
   }
 
   guardarCorreo(): void {

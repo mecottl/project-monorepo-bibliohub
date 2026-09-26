@@ -9,6 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Empleado } from '../../../database/entities/empleado.entity';
+import { Sesion } from '../../../database/entities/sesion.entity';
+import { cerrarOtrasSesiones } from '../../../common/sesiones';
 import { asignarDefinidos } from '../../../common/asignar-definidos';
 import { CreateEmpleadoDto } from '../dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from '../dto/update-empleado.dto';
@@ -20,6 +22,8 @@ export class EmpleadosService {
   constructor(
     @InjectRepository(Empleado)
     private readonly empleadoRepository: Repository<Empleado>,
+    @InjectRepository(Sesion)
+    private readonly sesionRepo: Repository<Sesion>,
   ) {}
 
   async findAll(): Promise<EmpleadoSeguro[]> {
@@ -54,7 +58,11 @@ export class EmpleadosService {
 
   // El empleado autenticado cambia su propia contraseña — nunca la de otro
   // (no recibe id por parámetro, solo el id que viene del JWT).
-  async cambiarPassword(empleadoId: string, dto: ChangePasswordDto): Promise<{ message: string }> {
+  async cambiarPassword(
+    empleadoId: string,
+    dto: ChangePasswordDto,
+    hashSesionActual?: string,
+  ): Promise<{ message: string }> {
     const empleado = await this.empleadoRepository.findOne({ where: { id: empleadoId } });
     if (!empleado) {
       throw new ForbiddenException('Empleado no encontrado');
@@ -67,6 +75,7 @@ export class EmpleadosService {
 
     empleado.passwordHash = await bcrypt.hash(dto.passwordNueva, 10);
     await this.empleadoRepository.save(empleado);
+    await cerrarOtrasSesiones(this.sesionRepo, { empleadoId }, hashSesionActual);
 
     return { message: 'Contraseña actualizada.' };
   }

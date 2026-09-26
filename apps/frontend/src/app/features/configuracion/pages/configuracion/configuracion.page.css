@@ -120,3 +120,8 @@
 .configuracion--ancho {
   max-width: 900px;
 }
+
+.configuracion__cerrar-todas {
+  width: auto;
+  align-self: flex-start;
+}
