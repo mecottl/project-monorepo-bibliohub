@@ -77,3 +77,9 @@ docker compose start backend
 ## Stripe en producción
 
 Configura el webhook de Stripe apuntando a `https://TU-DOMINIO/api/pedidos/webhook` y copia su secreto a `STRIPE_WEBHOOK_SECRET`. Mientras se use el modo test no se cobra dinero real.
+
+## Seguridad de sesión y contraseñas
+
+- **Contraseñas** (registro, cambio y restablecimiento; clientes y empleados): 8–72 caracteres, sin lista de contraseñas comunes, repeticiones ni secuencias simples. La regla vive en `apps/backend/src/common/validation/contrasena-segura.ts` y se replica en `apps/frontend/src/app/shared/utils/contrasena.ts`; si cambias una, cambia la otra. Las cuentas existentes con contraseñas cortas siguen entrando; la política aplica al establecer una nueva.
+- **Bloqueo por cuenta**: 5 intentos fallidos desde el último acceso correcto bloquean la cuenta 15 minutos (HTTP 429), además del límite por IP. Al llegar al 5.º fallo el cliente recibe un correo si tiene uno registrado. Se calcula sobre `log_acceso`.
+- **CSP**: el frontend (nginx, `apps/frontend/nginx-seguridad.conf`) solo permite el propio origen, Stripe y las fuentes de Google; no admite scripts inline (el build no inyecta CSS crítico inline por eso). La API responde con `default-src 'none'` salvo Swagger (`/api/docs`). Si añades un tercero (analítica, mapas…), agrégalo en ese archivo.

@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsEmail, MinLength, Matches } from 'class-validator';
+import { ContrasenaSegura } from '@common/validation/contrasena-segura';
+import { IsString, IsOptional, IsEmail, Matches } from 'class-validator';
 
 export class RegistroClienteDto {
   @IsString()
@@ -7,8 +8,7 @@ export class RegistroClienteDto {
   })
   telefono!: string;
 
-  @IsString()
-  @MinLength(4)
+  @ContrasenaSegura()
   password!: string;
 
   @IsOptional()

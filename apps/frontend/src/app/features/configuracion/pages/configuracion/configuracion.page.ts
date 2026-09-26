@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@core/auth/auth.service';
 import { EmpleadosService } from '@domain/empleados/empleados.service';
+import { AYUDA_CONTRASENA, contrasenaSegura } from '@shared/utils/contrasena';
 
 @Component({
   selector: 'app-configuracion',
@@ -11,6 +12,7 @@ import { EmpleadosService } from '@domain/empleados/empleados.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfiguracionPage {
+  readonly ayudaContrasena = AYUDA_CONTRASENA;
   private readonly fb = inject(FormBuilder);
   private readonly empleadosService = inject(EmpleadosService);
   readonly auth = inject(AuthService);
@@ -32,7 +34,7 @@ export class ConfiguracionPage {
 
   passwordForm = this.fb.nonNullable.group({
     passwordActual: ['', [Validators.required]],
-    passwordNueva: ['', [Validators.required, Validators.minLength(8)]],
+    passwordNueva: ['', [Validators.required, contrasenaSegura]],
   });
 
   cerrandoTodas = signal(false);

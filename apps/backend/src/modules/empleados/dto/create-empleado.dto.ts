@@ -1,3 +1,4 @@
+import { ContrasenaSegura } from '@common/validation/contrasena-segura';
 import { IsString, IsIn, MinLength, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -14,8 +15,7 @@ export class CreateEmpleadoDto {
   usuario!: string;
 
   @ApiProperty({ example: 'contraseña123', minLength: 8 })
-  @IsString()
-  @MinLength(8)
+  @ContrasenaSegura()
   password!: string;
 
   @ApiProperty({ example: 'cajero', enum: ['cajero', 'admin'] })

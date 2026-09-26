@@ -18,5 +18,6 @@ RUN pnpm --filter frontend build
 
 FROM nginx:1.27-alpine AS runtime
 COPY apps/frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY apps/frontend/nginx-seguridad.conf /etc/nginx/snippets/seguridad.conf
 COPY --from=build /repo/apps/frontend/dist/frontend/browser /usr/share/nginx/html
 EXPOSE 80

@@ -4,6 +4,7 @@ import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
 import { DataTableComponent } from '@shared/ui/data-table/data-table.component';
 import { EmpleadosService } from '@domain/empleados/empleados.service';
 import { Empleado } from '@domain/empleados/empleado.model';
+import { AYUDA_CONTRASENA, contrasenaSegura } from '@shared/utils/contrasena';
 
 @Component({
   selector: 'app-empleados',
@@ -13,6 +14,7 @@ import { Empleado } from '@domain/empleados/empleado.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmpleadosPage {
+  readonly ayudaContrasena = AYUDA_CONTRASENA;
   private readonly fb = inject(FormBuilder);
   private readonly empleadosService = inject(EmpleadosService);
 
@@ -24,7 +26,7 @@ export class EmpleadosPage {
   nuevoEmpleadoForm = this.fb.nonNullable.group({
     nombre: ['', [Validators.required]],
     usuario: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, contrasenaSegura]],
     rol: ['cajero' as 'cajero' | 'admin', [Validators.required]],
   });
 

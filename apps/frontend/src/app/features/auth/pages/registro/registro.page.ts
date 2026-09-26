@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@core/auth/auth.service';
+import { AYUDA_CONTRASENA, contrasenaSegura } from '@shared/utils/contrasena';
 
 @Component({
   selector: 'app-registro',
@@ -12,6 +13,7 @@ import { AuthService } from '@core/auth/auth.service';
   styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class RegistroPage {
+  readonly ayudaContrasena = AYUDA_CONTRASENA;
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -22,7 +24,7 @@ export class RegistroPage {
   form = this.fb.group({
     nombre: ['', [Validators.required]],
     telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    password: ['', [Validators.required, contrasenaSegura]],
   });
 
   submit(): void {

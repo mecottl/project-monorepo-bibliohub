@@ -1,4 +1,5 @@
-import { IsEmail, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { ContrasenaSegura } from '@common/validation/contrasena-segura';
+import { IsEmail, IsOptional, IsString, MaxLength } from 'class-validator';
 import { ApiPropertyOptional, ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePerfilDto {
@@ -20,8 +21,7 @@ export class CambiarPasswordClienteDto {
   @IsString()
   passwordActual!: string;
 
-  @ApiProperty({ minLength: 4 })
-  @IsString()
-  @MinLength(4)
+  @ApiProperty({ minLength: 8 })
+  @ContrasenaSegura()
   passwordNueva!: string;
 }

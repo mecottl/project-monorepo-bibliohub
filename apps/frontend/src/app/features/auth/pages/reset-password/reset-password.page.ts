@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@core/auth/auth.service';
+import { AYUDA_CONTRASENA, contrasenaSegura } from '@shared/utils/contrasena';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,6 +13,7 @@ import { AuthService } from '@core/auth/auth.service';
   styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class ResetPasswordPage {
+  readonly ayudaContrasena = AYUDA_CONTRASENA;
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
 
@@ -22,7 +24,7 @@ export class ResetPasswordPage {
   exito = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    password: ['', [Validators.required, contrasenaSegura]],
   });
 
   submit(): void {

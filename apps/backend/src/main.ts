@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
+import type { NextFunction, Request, Response } from 'express';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { JsonLogger } from '@common/logging/json-logger';
@@ -41,9 +42,17 @@ async function bootstrap() {
     }),
   );
 
-  // API JSON: la CSP no aplica (y rompería Swagger UI); el resto de headers
-  // de helmet sí. CORP cross-origin para que el frontend (otro origen) pueda
-  // cargar las portadas de /uploads.
+  // La API solo devuelve JSON: CSP estricta sin ningún origen permitido (#45). Swagger UI
+  // (/api/docs) necesita scripts propios, así que queda fuera. Helmet no la fija (ver abajo).
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (!req.path.startsWith('/api/docs')) {
+      res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
+    }
+    next();
+  });
+
+  // El resto de headers de helmet sí. CORP cross-origin para que el frontend (otro origen)
+  // pueda cargar las portadas de /uploads.
   app.use(
     helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }),
   );

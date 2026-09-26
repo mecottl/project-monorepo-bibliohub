@@ -1,11 +1,15 @@
 import {
+  HttpException,
+  HttpStatus,
+  Inject,
   Injectable,
+  Logger,
   UnauthorizedException,
   ConflictException,
   BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
@@ -16,8 +20,14 @@ import { RegistroClienteDto } from '../dto/registro-cliente.dto';
 import { JwtPayload } from '@common/auth/jwt-payload.interface';
 import { Sesion } from '../entities/sesion.entity';
 import * as crypto from 'crypto';
+import { EMAIL_SERVICE } from '@infra/email/email.interface';
+import type { EmailService } from '@infra/email/email.interface';
 
 const TELEFONO_REGEX = /^[0-9]{10}$/;
+
+// Bloqueo temporal por cuenta (además del rate limit por IP): MAX_INTENTOS fallos seguidos en la ventana.
+export const MAX_INTENTOS_FALLIDOS = 5;
+export const VENTANA_BLOQUEO_MIN = 15;
 
 export interface LoginResult {
   accessToken: string;
@@ -43,7 +53,10 @@ export class AuthService {
     @InjectRepository(Sesion)
     private readonly sesionRepo: Repository<Sesion>,
     private readonly jwtService: JwtService,
+    @Inject(EMAIL_SERVICE) private readonly email: EmailService,
   ) {}
+
+  private readonly logger = new Logger(AuthService.name);
 
   async login(dto: LoginDto, ip?: string, userAgent?: string): Promise<LoginResult> {
     const esTelefono = TELEFONO_REGEX.test(dto.identificador.trim());
@@ -66,9 +79,11 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
+    await this.exigirNoBloqueado({ clienteId: cliente.id });
     const passwordValido = await bcrypt.compare(password, cliente.passwordHash);
     if (!passwordValido) {
       await this.registrarLogFallido(cliente.id, ip, userAgent);
+      await this.avisarSiSeBloqueo({ clienteId: cliente.id }, cliente.email);
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
@@ -110,6 +125,7 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
+    await this.exigirNoBloqueado({ empleadoId: empleado.id });
     const passwordValido = await bcrypt.compare(password, empleado.passwordHash);
     if (!passwordValido) {
       await this.registrarLogFallido(null, ip, userAgent, empleado.id);
@@ -200,6 +216,54 @@ export class AuthService {
         userAgent: userAgent ?? null,
       }),
     );
+  }
+
+  // Fallos desde el último acceso correcto, dentro de la ventana de bloqueo.
+  private async intentosFallidosRecientes(cuenta: {
+    clienteId?: string;
+    empleadoId?: string;
+  }): Promise<number> {
+    const desde = new Date(Date.now() - VENTANA_BLOQUEO_MIN * 60_000);
+    const ultimoOk = await this.logAccesoRepo.findOne({
+      where: { ...cuenta, evento: 'login_ok' },
+      order: { fecha: 'DESC' },
+    });
+    const limite = ultimoOk && ultimoOk.fecha > desde ? ultimoOk.fecha : desde;
+    return this.logAccesoRepo.count({
+      where: { ...cuenta, evento: 'login_fallido', fecha: MoreThan(limite) },
+    });
+  }
+
+  private async exigirNoBloqueado(cuenta: {
+    clienteId?: string;
+    empleadoId?: string;
+  }): Promise<void> {
+    if ((await this.intentosFallidosRecientes(cuenta)) >= MAX_INTENTOS_FALLIDOS) {
+      throw new HttpException(
+        `Demasiados intentos fallidos. Intenta de nuevo en ${VENTANA_BLOQUEO_MIN} minutos.`,
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
+    }
+  }
+
+  // Al llegar al límite avisa al cliente por correo (si tiene uno); un fallo de envío no afecta al login.
+  private async avisarSiSeBloqueo(
+    cuenta: { clienteId: string },
+    correo: string | null,
+  ): Promise<void> {
+    if (!correo || (await this.intentosFallidosRecientes(cuenta)) !== MAX_INTENTOS_FALLIDOS) return;
+    try {
+      await this.email.enviar({
+        para: correo,
+        asunto: 'Bloqueo temporal de tu cuenta de BiblioHub',
+        texto:
+          `Detectamos ${MAX_INTENTOS_FALLIDOS} intentos fallidos de inicio de sesión en tu cuenta. ` +
+          `Por seguridad, quedó bloqueada durante ${VENTANA_BLOQUEO_MIN} minutos. ` +
+          'Si no fuiste tú, cambia tu contraseña cuando puedas entrar de nuevo.',
+      });
+    } catch (error) {
+      this.logger.warn(`No se pudo enviar el aviso de bloqueo: ${(error as Error).message}`);
+    }
   }
 
   private async registrarLogFallido(

@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty, MinLength } from 'class-validator';
+import { ContrasenaSegura } from '@common/validation/contrasena-segura';
+import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RecuperarPasswordDto {
@@ -14,8 +15,7 @@ export class ResetPasswordDto {
   @IsNotEmpty()
   token!: string;
 
-  @ApiProperty({ minLength: 4 })
-  @IsString()
-  @MinLength(4)
+  @ApiProperty({ minLength: 8 })
+  @ContrasenaSegura()
   password!: string;
 }

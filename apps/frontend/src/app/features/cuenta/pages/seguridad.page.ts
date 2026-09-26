@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@core/auth/auth.service';
 import { CuentaService } from '@domain/cuenta/cuenta.service';
+import { AYUDA_CONTRASENA, contrasenaSegura } from '@shared/utils/contrasena';
 
 @Component({
   selector: 'app-cuenta-seguridad',
@@ -56,6 +57,7 @@ import { CuentaService } from '@domain/cuenta/cuenta.service';
             formControlName="passwordNueva"
             autocomplete="new-password"
           />
+          <small class="ayuda-contrasena">{{ ayudaContrasena }}</small>
         </div>
         @if (passwordMensaje()) {
           <p class="cuenta-ok" role="status">{{ passwordMensaje() }}</p>
@@ -87,6 +89,7 @@ import { CuentaService } from '@domain/cuenta/cuenta.service';
   `,
 })
 export class SeguridadPage {
+  readonly ayudaContrasena = AYUDA_CONTRASENA;
   private readonly cuenta = inject(CuentaService);
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
@@ -103,7 +106,7 @@ export class SeguridadPage {
   correoForm = this.fb.nonNullable.group({ email: ['', [Validators.required, Validators.email]] });
   passwordForm = this.fb.nonNullable.group({
     passwordActual: ['', Validators.required],
-    passwordNueva: ['', [Validators.required, Validators.minLength(4)]],
+    passwordNueva: ['', [Validators.required, contrasenaSegura]],
   });
 
   constructor() {
