@@ -85,3 +85,6 @@ reglas de negocio en el `AGENTS.md` raíz. Si necesitas el detalle completo de u
 solo está resumida ahí, pregúntalo explícitamente — la versión extendida vive en un
 documento fuera de este repo (Google Drive del proyecto), a la que Claude Code no tiene
 acceso directo.
+## Límites entre módulos
+
+ESLint (`no-restricted-imports`) impide importar `controllers/`, `dto/` o `interfaces/` de otro módulo, salir de la carpeta del módulo con `../../` y que `common/`/`infra/` dependan de servicios o controllers. Entre módulos solo se usan `entities/`, `services/` y el `*.module` por alias `@modules/...` (no se usan barrels `index.ts`: con entidades que se referencian entre sí provocan ciclos de carga).
