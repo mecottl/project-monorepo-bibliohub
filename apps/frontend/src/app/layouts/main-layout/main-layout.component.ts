@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthService } from '../../core/auth/auth.service';
-import { CatalogoBusquedaService } from '../../features/tienda/catalogo-busqueda.service';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { TopbarComponent } from './topbar/topbar.component';
+import { AuthService } from '@core/auth/auth.service';
+import { CatalogoBusquedaService } from '@features/tienda/catalogo-busqueda.service';
+import { SidebarComponent } from '@layouts/main-layout/sidebar/sidebar.component';
+import { TopbarComponent } from '@layouts/main-layout/topbar/topbar.component';
 
 const RUTAS_BUSQUEDA = ['/inicio', '/categorias'];
 

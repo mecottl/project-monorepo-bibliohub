@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CuentaService } from '../cuenta.service';
-import { PedidosService } from '../../tienda/carrito/services/pedidos.service';
-import { PedidoLinea } from '../../tienda/carrito/models/carrito.model';
+import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
+import { PedidoLinea } from '@features/tienda/carrito/models/carrito.model';
 import { PedidoTrackerComponent } from '../pedido-tracker.component';
 import { claseEstado, etiquetaEstado, numeroOrden } from '../pedido-estado';
 

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ConfirmModalComponent } from '../../../../shared/confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { EstadoPedidoCompra, PedidoCompra } from '../../models/pedido-compra.model';
 

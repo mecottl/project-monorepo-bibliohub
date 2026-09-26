@@ -11,10 +11,10 @@ import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
-import { STRIPE_PUBLISHABLE_KEY } from '../../../../../core/api.config';
+import { STRIPE_PUBLISHABLE_KEY } from '@core/api.config';
 import { CarritoService } from '../../services/carrito.service';
 import { PedidosService } from '../../services/pedidos.service';
-import { CuentaService } from '../../../../cuenta/cuenta.service';
+import { CuentaService } from '@features/cuenta/cuenta.service';
 import { DireccionEntrega, TipoEntrega, TotalesCheckout } from '../../models/carrito.model';
 
 type Paso = 1 | 2 | 3;

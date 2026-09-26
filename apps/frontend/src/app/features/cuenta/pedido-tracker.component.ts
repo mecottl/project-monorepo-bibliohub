@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { EstadoPedidoLinea, TipoEntrega } from '../tienda/carrito/models/carrito.model';
+import { EstadoPedidoLinea, TipoEntrega } from '@features/tienda/carrito/models/carrito.model';
 import { ETIQUETAS_ESTADO, pasosRastreo } from './pedido-estado';
 
 @Component({

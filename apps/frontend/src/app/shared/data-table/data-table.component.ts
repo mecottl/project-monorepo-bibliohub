@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, output, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { DataTableColumn } from './data-table.model';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
 
 export type DireccionOrden = 'asc' | 'desc';
 

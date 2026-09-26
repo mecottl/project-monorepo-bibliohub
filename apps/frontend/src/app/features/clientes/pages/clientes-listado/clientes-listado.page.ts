@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
-import { SearchInputComponent } from '../../../../shared/search-input/search-input.component';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { EmptyStateComponent } from '../../../../shared/empty-state/empty-state.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
+import { SearchInputComponent } from '@shared/search-input/search-input.component';
+import { PaginationComponent } from '@shared/pagination/pagination.component';
+import { EmptyStateComponent } from '@shared/empty-state/empty-state.component';
 import { ClientesService } from '../../services/clientes.service';
 import { Cliente } from '../../models/cliente.model';
 

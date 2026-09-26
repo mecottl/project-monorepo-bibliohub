@@ -4,7 +4,7 @@ import { CatalogoService } from '../catalogo.service';
 import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
 import { FiltrosCatalogoComponent, FiltrosCatalogo, SIN_FILTROS, filtrosAApi, filtrosAUrl, filtrosDeUrl } from '../filtros-catalogo/filtros-catalogo.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponent } from '@shared/pagination/pagination.component';
 import { Categoria, Libro } from '../tienda.model';
 
 const LIMIT = 12;

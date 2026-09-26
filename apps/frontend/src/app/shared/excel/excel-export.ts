@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { DataTableColumn } from '../data-table/data-table.model';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
 
 export function exportarExcel<T extends object>(
   nombreArchivo: string,

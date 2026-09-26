@@ -1,4 +1,4 @@
-import { EstadoPedidoLinea, PedidoLinea, TipoEntrega } from '../tienda/carrito/models/carrito.model';
+import { EstadoPedidoLinea, PedidoLinea, TipoEntrega } from '@features/tienda/carrito/models/carrito.model';
 
 export const ETIQUETAS_ESTADO: Record<EstadoPedidoLinea, string> = {
   recibido: 'Recibido',

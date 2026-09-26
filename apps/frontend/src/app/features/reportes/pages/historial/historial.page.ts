@@ -2,16 +2,16 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CambioOrden, DataTableComponent } from '../../../../shared/data-table/data-table.component';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { StatCardComponent } from '../../../../shared/stat-card/stat-card.component';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ConfirmModalComponent } from '../../../../shared/confirm-modal/confirm-modal.component';
-import { exportarExcel } from '../../../../shared/excel/excel-export';
+import { CambioOrden, DataTableComponent } from '@shared/data-table/data-table.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { StatCardComponent } from '@shared/stat-card/stat-card.component';
+import { PaginationComponent } from '@shared/pagination/pagination.component';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
+import { exportarExcel } from '@shared/excel/excel-export';
 import { ReportesTabsComponent } from '../../reportes-tabs.component';
 import { ReportesService } from '../../services/reportes.service';
-import { VentasService } from '../../../ventas/services/ventas.service';
-import { PedidosService } from '../../../tienda/carrito/services/pedidos.service';
+import { VentasService } from '@features/ventas/services/ventas.service';
+import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
 import { HistorialVentas, VentaHistorial, DetalleHistorial } from '../../models/historial.model';
 
 const LIMITE = 15;

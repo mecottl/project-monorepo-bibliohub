@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth.service';
+import { AuthService } from '@core/auth/auth.service';
 import { CarritoService } from '../carrito/services/carrito.service';
 import { ListaDeseosService } from '../lista-deseos/lista-deseos.service';
 import { Libro } from '../tienda.model';

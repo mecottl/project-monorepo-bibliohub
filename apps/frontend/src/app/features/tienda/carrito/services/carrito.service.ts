@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
-import { API_BASE_URL } from '../../../../core/api.config';
-import { AuthService } from '../../../../core/auth/auth.service';
+import { API_BASE_URL } from '@core/api.config';
+import { AuthService } from '@core/auth/auth.service';
 import { Carrito } from '../models/carrito.model';
 
 const CARRITO_VACIO: Carrito = { id: '', items: [], totalItems: 0, subtotal: 0 };

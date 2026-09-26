@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
-import { ConfirmModalComponent } from '../../../../shared/confirm-modal/confirm-modal.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
+import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
 import { CatalogoService } from '../../services/catalogo.service';
 import { Autor, Categoria, Editorial } from '../../models/libro.model';
 

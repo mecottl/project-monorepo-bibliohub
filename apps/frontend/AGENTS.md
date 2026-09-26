@@ -53,3 +53,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Alias de importación
+
+Los imports entre carpetas usan alias (definidos en `tsconfig.json`), no rutas relativas profundas:
+`@core/*`, `@shared/*`, `@domain/*`, `@layouts/*` y `@features/<feature>/*`. Dentro de la misma feature
+se permiten relativos cortos (`./` o `../`, máximo dos niveles). `templateUrl` y `styleUrl` siguen siendo
+relativos al componente.

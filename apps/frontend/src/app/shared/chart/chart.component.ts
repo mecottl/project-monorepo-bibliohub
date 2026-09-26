@@ -10,7 +10,7 @@ import {
   viewChild
 } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
-import { aplicarTemaTremor } from './tremor-theme';
+import { aplicarTemaTremor } from '@shared/chart/tremor-theme';
 
 @Component({
   selector: 'app-chart',

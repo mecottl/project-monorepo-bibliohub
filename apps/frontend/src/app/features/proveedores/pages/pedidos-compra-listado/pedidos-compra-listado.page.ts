@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
-import { EmptyStateComponent } from '../../../../shared/empty-state/empty-state.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
+import { EmptyStateComponent } from '@shared/empty-state/empty-state.component';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { EstadoPedidoCompra, PedidoCompra } from '../../models/pedido-compra.model';
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { PedidosService } from '../tienda/carrito/services/pedidos.service';
-import { EstadoPedidoLinea, PedidoLinea } from '../tienda/carrito/models/carrito.model';
-import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden, pasosRastreo } from '../cuenta/pedido-estado';
+import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
+import { EstadoPedidoLinea, PedidoLinea } from '@features/tienda/carrito/models/carrito.model';
+import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden, pasosRastreo } from '@features/cuenta/pedido-estado';
 
 const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
   'activos', 'recibido', 'en_preparacion', 'listo', 'enviado', 'entregado', 'cancelado'

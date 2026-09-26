@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CuentaService } from '../cuenta.service';
-import { PedidosService } from '../../tienda/carrito/services/pedidos.service';
-import { PedidoLinea } from '../../tienda/carrito/models/carrito.model';
+import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
+import { PedidoLinea } from '@features/tienda/carrito/models/carrito.model';
 import { PedidoTrackerComponent } from '../pedido-tracker.component';
 import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '../pedido-estado';
 

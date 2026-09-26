@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { API_BASE_URL } from '../../../core/api.config';
-import { AuthService } from '../../../core/auth/auth.service';
+import { API_BASE_URL } from '@core/api.config';
+import { AuthService } from '@core/auth/auth.service';
 import { Libro } from '../tienda.model';
 
 @Injectable({ providedIn: 'root' })

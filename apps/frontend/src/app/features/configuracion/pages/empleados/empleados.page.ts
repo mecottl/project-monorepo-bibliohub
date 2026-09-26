@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Empleado } from '../../models/empleado.model';
 

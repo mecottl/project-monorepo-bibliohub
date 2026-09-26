@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, inject, signal } from '@angular/core';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
-import { STRIPE_PUBLISHABLE_KEY } from '../../../core/api.config';
+import { STRIPE_PUBLISHABLE_KEY } from '@core/api.config';
 import { CuentaService, TarjetaGuardada } from '../cuenta.service';
 
 @Component({

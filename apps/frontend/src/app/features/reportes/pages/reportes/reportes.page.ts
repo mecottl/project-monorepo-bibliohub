@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataTableColumn } from '../../../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
-import { StatCardComponent } from '../../../../shared/stat-card/stat-card.component';
-import { exportarExcel } from '../../../../shared/excel/excel-export';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
+import { StatCardComponent } from '@shared/stat-card/stat-card.component';
+import { exportarExcel } from '@shared/excel/excel-export';
 import { ReportesTabsComponent } from '../../reportes-tabs.component';
 import { ReportesService } from '../../services/reportes.service';
 import { LibroMasVendido, RendimientoEmpleado, VentasPorDia } from '../../models/reporte.model';

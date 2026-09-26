@@ -2,8 +2,8 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { AuthUser, LoginResponse, RegistroClientePayload } from './auth.model';
-import { API_BASE_URL } from '../api.config';
+import { AuthUser, LoginResponse, RegistroClientePayload } from '@core/auth/auth.model';
+import { API_BASE_URL } from '@core/api.config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_BASE_URL } from '../../core/api.config';
-import { PedidoLinea } from '../tienda/carrito/models/carrito.model';
+import { API_BASE_URL } from '@core/api.config';
+import { PedidoLinea } from '@features/tienda/carrito/models/carrito.model';
 
 export interface Perfil {
   id: string;

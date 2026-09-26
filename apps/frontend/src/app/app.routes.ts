@@ -1,20 +1,20 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { authGuard } from './core/auth/auth.guard';
-import { roleGuard } from './core/auth/role.guard';
-import { landingGuard } from './core/auth/landing.guard';
+import { AuthLayoutComponent } from '@layouts/auth-layout/auth-layout.component';
+import { authGuard } from '@core/auth/auth.guard';
+import { roleGuard } from '@core/auth/role.guard';
+import { landingGuard } from '@core/auth/landing.guard';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     canActivate: [landingGuard],
-    loadComponent: () => import('./features/landing/landing.page').then(m => m.LandingPage)
+    loadComponent: () => import('@features/landing/landing.page').then(m => m.LandingPage)
   },
   {
     path: '',
     loadComponent: () =>
-      import('./layouts/main-layout/main-layout.component').then(
+      import('@layouts/main-layout/main-layout.component').then(
         m => m.MainLayoutComponent
       ),
     children: [
@@ -28,7 +28,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./features/dashboard/dashboard.component').then(
+          import('@features/dashboard/dashboard.component').then(
             m => m.DashboardComponent
           )
       },
@@ -37,7 +37,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },
         loadChildren: () =>
-          import('./features/inventario/inventario.routes').then(
+          import('@features/inventario/inventario.routes').then(
             m => m.INVENTARIO_ROUTES
           )
       },
@@ -45,7 +45,7 @@ export const routes: Routes = [
         path: 'ventas',
         canActivate: [authGuard, roleGuard],
         loadChildren: () =>
-          import('./features/ventas/ventas.routes').then(
+          import('@features/ventas/ventas.routes').then(
             m => m.VENTAS_ROUTES
           ),
         data: { roles: ['admin', 'cajero'] }
@@ -55,14 +55,14 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },
         loadComponent: () =>
-          import('./features/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
+          import('@features/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
       },
       {
         path: 'clientes',
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },
         loadChildren: () =>
-          import('./features/clientes/clientes.routes').then(
+          import('@features/clientes/clientes.routes').then(
             m => m.CLIENTES_ROUTES
           )
       },
@@ -71,7 +71,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadChildren: () =>
-          import('./features/proveedores/proveedores.routes').then(
+          import('@features/proveedores/proveedores.routes').then(
             m => m.PROVEEDORES_ROUTES
           )
       },
@@ -80,14 +80,14 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./features/reportes/pages/historial/historial.page').then(m => m.HistorialVentasPage)
+          import('@features/reportes/pages/historial/historial.page').then(m => m.HistorialVentasPage)
       },
       {
         path: 'reportes',
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./features/reportes/pages/reportes/reportes.page').then(
+          import('@features/reportes/pages/reportes/reportes.page').then(
             m => m.ReportesPage
           )
       },
@@ -96,7 +96,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },
         loadComponent: () =>
-          import('./features/configuracion/pages/configuracion/configuracion.page').then(
+          import('@features/configuracion/pages/configuracion/configuracion.page').then(
             m => m.ConfiguracionPage
           )
       },
@@ -105,26 +105,26 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('./features/configuracion/pages/empleados/empleados.page').then(m => m.EmpleadosPage)
+          import('@features/configuracion/pages/empleados/empleados.page').then(m => m.EmpleadosPage)
       },
       {
         path: 'categorias',
         loadComponent: () =>
-          import('./features/tienda/libros/libros.page').then(
+          import('@features/tienda/libros/libros.page').then(
             m => m.LibrosPage
           )
       },
       {
         path: 'inicio',
         loadComponent: () =>
-          import('./features/tienda/home/home.component').then(
+          import('@features/tienda/home/home.component').then(
             m => m.HomeComponent
           )
       },
       {
         path: 'libro/:id',
         loadComponent: () =>
-          import('./features/tienda/libro-detalle/libro-detalle.page').then(
+          import('@features/tienda/libro-detalle/libro-detalle.page').then(
             m => m.LibroDetallePage
           )
       },
@@ -132,7 +132,7 @@ export const routes: Routes = [
         path: 'lista-deseos',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./features/tienda/lista-deseos/lista-deseos.page').then(
+          import('@features/tienda/lista-deseos/lista-deseos.page').then(
             m => m.ListaDeseosPage
           )
       },
@@ -145,13 +145,13 @@ export const routes: Routes = [
         path: 'cuenta',
         canActivate: [authGuard, roleGuard],
         data: { roles: ['cliente'] },
-        loadChildren: () => import('./features/cuenta/cuenta.routes').then(m => m.CUENTA_ROUTES)
+        loadChildren: () => import('@features/cuenta/cuenta.routes').then(m => m.CUENTA_ROUTES)
       },
       {
         path: 'carrito',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./features/tienda/carrito/pages/carrito-checkout/carrito-checkout.page').then(
+          import('@features/tienda/carrito/pages/carrito-checkout/carrito-checkout.page').then(
             m => m.CarritoCheckoutPage
           )
       },
@@ -159,7 +159,7 @@ export const routes: Routes = [
         path: 'carrito/confirmacion',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('./features/tienda/carrito/pages/pedido-confirmado/pedido-confirmado.page').then(
+          import('@features/tienda/carrito/pages/pedido-confirmado/pedido-confirmado.page').then(
             m => m.PedidoConfirmadoPage
           )
       }
@@ -172,7 +172,7 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+          import('@features/auth/auth.routes').then(m => m.AUTH_ROUTES)
       }
     ]
   },

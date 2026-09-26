@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SearchInputComponent } from '../../../../shared/search-input/search-input.component';
-import { CatalogoService } from '../../../inventario/services/catalogo.service';
-import { Libro } from '../../../inventario/models/libro.model';
-import { ClientesService } from '../../../clientes/services/clientes.service';
-import { ConsultaTelefono } from '../../../clientes/models/cliente.model';
+import { SearchInputComponent } from '@shared/search-input/search-input.component';
+import { CatalogoService } from '@features/inventario/services/catalogo.service';
+import { Libro } from '@features/inventario/models/libro.model';
+import { ClientesService } from '@features/clientes/services/clientes.service';
+import { ConsultaTelefono } from '@features/clientes/models/cliente.model';
 import { VentasService } from '../../services/ventas.service';
 import { Venta } from '../../models/venta.model';
 

@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { ChartConfiguration } from 'chart.js';
-import { AuthService } from '../../core/auth/auth.service';
-import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
-import { DataTableColumn } from '../../shared/data-table/data-table.model';
-import { DataTableComponent } from '../../shared/data-table/data-table.component';
-import { ChartComponent } from '../../shared/chart/chart.component';
-import { COLOR_PRIMARIO, gradienteArea, moneda, monedaCorta } from '../../shared/chart/tremor-theme';
-import { ReportesService } from '../reportes/services/reportes.service';
-import { LibroMasVendido, VentasPorDia } from '../reportes/models/reporte.model';
-import { CatalogoService } from '../inventario/services/catalogo.service';
-import { Libro } from '../inventario/models/libro.model';
+import { AuthService } from '@core/auth/auth.service';
+import { StatCardComponent } from '@shared/stat-card/stat-card.component';
+import { DataTableColumn } from '@shared/data-table/data-table.model';
+import { DataTableComponent } from '@shared/data-table/data-table.component';
+import { ChartComponent } from '@shared/chart/chart.component';
+import { COLOR_PRIMARIO, gradienteArea, moneda, monedaCorta } from '@shared/chart/tremor-theme';
+import { ReportesService } from '@features/reportes/services/reportes.service';
+import { LibroMasVendido, VentasPorDia } from '@features/reportes/models/reporte.model';
+import { CatalogoService } from '@features/inventario/services/catalogo.service';
+import { Libro } from '@features/inventario/models/libro.model';
 
 // Fecha local (no UTC) en formato YYYY-MM-DD, igual que devuelve el backend por día.
 function haceDiasISO(dias: number): string {

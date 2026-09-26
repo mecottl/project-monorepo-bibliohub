@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { roleGuard } from '../../core/auth/role.guard';
+import { roleGuard } from '@core/auth/role.guard';
 
 export const INVENTARIO_ROUTES: Routes = [
   {

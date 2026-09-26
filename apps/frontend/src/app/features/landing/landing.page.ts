@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { LogoComponent } from '../../shared/logo/logo.component';
-import { CrowdCanvasComponent } from '../../shared/crowd-canvas/crowd-canvas.component';
+import { LogoComponent } from '@shared/logo/logo.component';
+import { CrowdCanvasComponent } from '@shared/crowd-canvas/crowd-canvas.component';
 
 // Hoja de sprites (public/hoja-personajes.webp): 8 columnas x 8 filas de escritores y personajes, fondo transparente (fuentes en design/personajes).
 const HOJA_PERSONAJES = '/hoja-personajes.webp';

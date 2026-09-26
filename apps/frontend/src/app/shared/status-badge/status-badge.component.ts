@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { StatusBadgeVariant } from './status-badge.model';
+import { StatusBadgeVariant } from '@shared/status-badge/status-badge.model';
 
 @Component({
   selector: 'app-status-badge',

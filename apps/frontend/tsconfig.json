@@ -14,7 +14,14 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "paths": { "kodama-id": ["./node_modules/kodama-id/dist/core/index.js"] }
+    "paths": {
+      "@core/*": ["./src/app/core/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@domain/*": ["./src/app/domain/*"],
+      "@layouts/*": ["./src/app/layouts/*"],
+      "@features/*": ["./src/app/features/*"],
+      "kodama-id": ["./node_modules/kodama-id/dist/core/index.js"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

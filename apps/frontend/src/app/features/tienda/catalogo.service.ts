@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_BASE_URL } from '../../core/api.config';
+import { API_BASE_URL } from '@core/api.config';
 import { Categoria, Libro, PaginatedLibros } from './tienda.model';
 
 @Injectable({ providedIn: 'root' })
