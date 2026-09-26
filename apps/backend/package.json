@@ -7,23 +7,19 @@
   "license": "AGPL-3.0-only",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "migrar": "node --env-file-if-exists=.env scripts/migrar.mjs",
     "migrar:estado": "node --env-file-if-exists=.env scripts/migrar.mjs estado",
     "migrar:baseline": "node --env-file-if-exists=.env scripts/migrar.mjs baseline",
     "db:dump": "node --env-file-if-exists=.env scripts/volcar-esquema.mjs",
-    "rellenar-portadas": "node --env-file=.env scripts/rellenar-portadas.mjs",
     "test:ci": "jest"
   },
   "dependencies": {
@@ -40,7 +36,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "helmet": "^8.3.0",
-    "multer": "^2.2.0",
     "nodemailer": "^10.0.10",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -51,8 +46,6 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.18.0",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
@@ -65,20 +58,12 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.0.0",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.2",
-    "globals": "^17.0.0",
     "jest": "^30.0.0",
-    "prettier": "^3.4.2",
-    "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
-    "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript": "^5.7.3"
   },
   "jest": {
     "moduleFileExtensions": [

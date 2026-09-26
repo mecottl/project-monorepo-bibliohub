@@ -1,7 +1,6 @@
 // Crea (o reactiva) un administrador. Uso:
 //   ADMIN_USUARIO=admin ADMIN_PASSWORD='una-contraseña-larga' ADMIN_NOMBRE='Administrador' \
 //     node scripts/crear-admin.mjs
-// En Docker: docker compose exec -e ADMIN_USUARIO=... -e ADMIN_PASSWORD=... backend node scripts/crear-admin.mjs
 
 import bcrypt from 'bcrypt';
 import pg from 'pg';

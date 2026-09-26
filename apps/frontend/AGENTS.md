@@ -76,4 +76,4 @@ relativos al componente.
 ## Rutas y límites entre capas
 
 - Cada feature expone su `<f>.routes.ts` con sus guards y `data.roles`; `app.routes.ts` solo compone con `loadChildren`.
-- `pnpm --filter frontend lint` (ESLint `no-restricted-imports`) prohíbe imports entre features y de `core/shared/domain` hacia `features/layouts`.
+- Convención (sin linter; se revisa en el PR): una feature no importa de otra, y `core/shared/domain` no importan de `features/layouts`.

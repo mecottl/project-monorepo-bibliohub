@@ -74,9 +74,7 @@ negocio en dos lugares.
 
 ## TypeScript
 
-- El ESLint del proyecto tiene `@typescript-eslint/no-explicit-any` desactivado — el linter
-  NO te va a marcar el uso de `any`. Aun así, evítalo: usa las interfaces de `interfaces/`
-  o los tipos de las entidades. Esto es una convención del equipo, no una regla del linter.
+- Evita `any`: usa las interfaces de `interfaces/` o los tipos de las entidades (convención del equipo; no hay linter que lo marque).
 
 ## Antes de dar por buena una regla de negocio
 
@@ -87,7 +85,7 @@ documento fuera de este repo (Google Drive del proyecto), a la que Claude Code n
 acceso directo.
 ## Límites entre módulos
 
-ESLint (`no-restricted-imports`) impide importar `controllers/`, `dto/` o `interfaces/` de otro módulo, salir de la carpeta del módulo con `../../` y que `common/`/`infra/` dependan de servicios o controllers. Entre módulos solo se usan `entities/`, `services/` y el `*.module` por alias `@modules/...` (no se usan barrels `index.ts`: con entidades que se referencian entre sí provocan ciclos de carga).
+Convención (ya no hay linter que la imponga; se revisa en el PR): no importar `controllers/`, `dto/` o `interfaces/` de otro módulo, no salir de la carpeta del módulo con `../../` y que `common/`/`infra/` no dependan de servicios ni controllers. Entre módulos solo se usan `entities/`, `services/` y el `*.module` por alias `@modules/...` (no se usan barrels `index.ts`: con entidades que se referencian entre sí provocan ciclos de carga).
 
 ## Frontera cuenta / clientes
 

@@ -8,8 +8,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint src",
-    "lint:check": "eslint src",
     "test:ci": "ng test --watch=false"
   },
   "private": true,
@@ -34,12 +32,8 @@
     "@angular/cli": "^21.2.1",
     "@angular/compiler-cli": "^21.2.0",
     "@ngx-env/builder": "21.0.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-boundaries": "^7.2.0",
     "jsdom": "^28.0.0",
-    "prettier": "^3.8.1",
     "typescript": "~5.9.2",
-    "typescript-eslint": "^8.62.1",
     "vitest": "^4.0.8"
   }
 }

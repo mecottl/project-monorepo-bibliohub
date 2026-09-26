@@ -42,20 +42,19 @@ Este repo se trabaja principalmente vía guías `.md` generadas en sesiones de p
 similar en la raíz o adjunto a la tarea, es la fuente de instrucciones para esa tarea
 específica — síguelo tal cual, no lo reinterpretes.
 
-## Datos de ejemplo (desarrollo)
+## Datos iniciales
 
-`apps/backend/seed/proveedores.sql` carga proveedores y órdenes de compra de ejemplo (idempotente; no
-modifica el stock). Ejecutar con `PGCLIENTENCODING=UTF8 psql ... -f apps/backend/seed/proveedores.sql`.
+`apps/backend/seed/configuracion.sql` inserta los parámetros por defecto de la tienda (tasas de puntos, envío); es idempotente. Una base nueva se crea con `db/bibliohub_estructura.sql` + ese seed (ver `docs/despliegue.md`).
 
 ## Formato y finales de línea
 
 El repo usa LF (`.gitattributes`), `.editorconfig` y una única configuración de Prettier en la raíz
-(`.prettierrc.json`). `pnpm format` formatea y `pnpm format:check` verifica (pendiente enlazarlo al CI, #17).
+(`.prettierrc.json`). `pnpm format` formatea y `pnpm format:check` verifica (corre en el CI).
 
 ## Nx y CI
 
-El monorepo usa Nx sobre pnpm workspaces (`nx.json`; los proyectos y sus targets se infieren de los `package.json`). Caché local de `build`, `lint` y `test`.
+El monorepo usa Nx sobre pnpm workspaces (`nx.json`; los proyectos y sus targets se infieren de los `package.json`). Caché local de `build` y `test`.
 
-- `pnpm build`, `pnpm lint` (solo verifica, sin `--fix`), `pnpm test` (unitarias) y `pnpm test:e2e` (backend, requiere PostgreSQL) corren con `nx run-many`; `pnpm affected` ejecuta solo lo afectado; `pnpm graph` muestra el grafo.
-- No se usa `@nx/enforce-module-boundaries`: los límites entre capas ya se imponen con `no-restricted-imports` en cada app (más simple y sin dependencias extra). Tampoco hay `libs/` compartidas aún; se evaluará si aparecen tipos duplicados entre frontend y backend.
-- CI (`.github/workflows/ci.yml`, en cada PR y push a `main`): format:check, lint, build, pruebas unitarias, carga del esquema en un PostgreSQL de servicio, línea base de migraciones y `test:e2e`. Para reproducirlo localmente basta con esos mismos comandos.
+- `pnpm build`, `pnpm test` (unitarias) y `pnpm test:e2e` (backend, requiere PostgreSQL) corren con `nx run-many`; `pnpm affected` ejecuta solo lo afectado; `pnpm graph` muestra el grafo.
+- No se usa `@nx/enforce-module-boundaries` ni ESLint: el repo solo usa Prettier; los límites entre capas se mantienen por convención y revisión (ver `apps/*/AGENTS.md`). Tampoco hay `libs/` compartidas aún; se evaluará si aparecen tipos duplicados entre frontend y backend.
+- CI (`.github/workflows/ci.yml`, en cada PR y push a `main`): format:check, build, pruebas unitarias, carga del esquema en un PostgreSQL de servicio, línea base de migraciones y `test:e2e`. Para reproducirlo localmente basta con esos mismos comandos.

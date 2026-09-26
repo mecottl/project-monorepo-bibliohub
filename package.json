@@ -10,11 +10,10 @@
     "format": "prettier --write \"apps/*/src/**/*.{ts,html,css}\"",
     "format:check": "prettier --check \"apps/*/src/**/*.{ts,html,css}\"",
     "build": "nx run-many -t build",
-    "lint": "nx run-many -t lint:check",
     "test": "nx run-many -t test:ci",
     "test:e2e": "nx run backend:test:e2e",
     "graph": "nx graph",
-    "affected": "nx affected -t build lint:check test:ci"
+    "affected": "nx affected -t build test:ci"
   },
   "keywords": [],
   "author": "",

@@ -2,9 +2,6 @@
 //
 //   pnpm --filter backend migrar             aplica las migraciones pendientes, en orden
 //   pnpm --filter backend migrar:estado      lista aplicadas y pendientes
-//   node scripts/migrar.mjs iniciar         (contenedor) igual que "aplicar", pero si la base se acaba de
-//                                            cargar desde db/bibliohub_estructura.sql (schema_migrations
-//                                            existe y está vacía, y ya hay tablas) hace baseline primero
 //   pnpm --filter backend migrar:baseline    marca todas las migraciones actuales como aplicadas
 //                                            (para una base creada desde db/bibliohub_estructura.sql
 //                                            o una base existente donde ya se aplicaron a mano)
@@ -42,11 +39,6 @@ const archivos = readdirSync(DIR)
 
 await client.connect();
 try {
-  const {
-    rows: [{ existia, hay_esquema }],
-  } = await client.query(
-    "SELECT to_regclass('public.schema_migrations') IS NOT NULL AS existia, to_regclass('public.libro') IS NOT NULL AS hay_esquema",
-  );
   await client.query(`
     CREATE TABLE IF NOT EXISTS schema_migrations (
       nombre      text PRIMARY KEY,
@@ -62,24 +54,18 @@ try {
       throw new Error(`La migración ya aplicada "${a.nombre}" fue modificada. Agrega una migración nueva.`);
     }
   }
-  let pendientes = archivos.filter((a) => !aplicadas.has(a.nombre));
-  let modoEfectivo = modo;
-  if (modo === 'iniciar') {
-    // Esquema recién cargado desde el volcado (ya incluye todas las migraciones): línea base.
-    modoEfectivo = existia && hay_esquema && aplicadas.size === 0 ? 'baseline' : 'aplicar';
-    if (modoEfectivo === 'baseline') console.log('Base recién creada desde el volcado: se marca la línea base.');
-  }
+  const pendientes = archivos.filter((a) => !aplicadas.has(a.nombre));
 
-  if (modoEfectivo === 'estado') {
+  if (modo === 'estado') {
     for (const a of archivos) console.log(`${aplicadas.has(a.nombre) ? '[x]' : '[ ]'} ${a.nombre}`);
     console.log(`\n${pendientes.length} pendiente(s).`);
-  } else if (modoEfectivo === 'baseline') {
+  } else if (modo === 'baseline') {
     for (const a of pendientes) {
       await client.query('INSERT INTO schema_migrations (nombre, checksum) VALUES ($1, $2)', [a.nombre, a.checksum]);
       console.log(`baseline: ${a.nombre}`);
     }
     console.log(`${pendientes.length} migración(es) marcadas como aplicadas.`);
-  } else if (modoEfectivo === 'aplicar') {
+  } else if (modo === 'aplicar') {
     for (const a of pendientes) {
       await client.query('BEGIN');
       try {
@@ -94,7 +80,7 @@ try {
     }
     console.log(pendientes.length ? `${pendientes.length} migración(es) aplicadas.` : 'Nada pendiente.');
   } else {
-    throw new Error(`Modo desconocido "${modo}" (aplicar | estado | baseline | iniciar)`);
+    throw new Error(`Modo desconocido "${modo}" (aplicar | estado | baseline)`);
   }
 } catch (error) {
   console.error(error.message);

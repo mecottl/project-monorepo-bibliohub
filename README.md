@@ -14,7 +14,7 @@ apps/
   frontend/   Angular (http://localhost:4200)
 db/           bibliohub_estructura.sql: esquema completo (tablas, funciones, triggers y vistas)
 apps/backend/migrations/   cambios de esquema posteriores, en orden por fecha
-apps/backend/seed/         datos de ejemplo para desarrollo
+apps/backend/seed/         parámetros iniciales de la tienda
 ```
 
 El esquema real vive en `db/bibliohub_estructura.sql`; las reglas de negocio críticas (puntos, ventas, pedidos) están en sus funciones y triggers. Ver también [`AGENTS.md`](AGENTS.md).
@@ -56,10 +56,10 @@ INSERT INTO empleado (nombre, rol, usuario, password_hash)
 VALUES ('Administrador', 'admin', 'admin', '<hash generado>');
 ```
 
-Datos de ejemplo (opcional, solo desarrollo): proveedores y órdenes de compra.
+Parámetros iniciales de la tienda (tasas de puntos, envío):
 
 ```bash
-PGCLIENTENCODING=UTF8 psql -d bibliohub -f apps/backend/seed/proveedores.sql
+PGCLIENTENCODING=UTF8 psql -d bibliohub -f apps/backend/seed/configuracion.sql
 ```
 
 ### 3. Variables de entorno
@@ -110,7 +110,7 @@ pnpm dev:front      # web en http://localhost:4200
 
 ```bash
 pnpm build                      # compila todo (Nx, con caché)
-pnpm lint                       # lint de todo, incluidos los límites entre capas
+pnpm format:check               # verifica el formato (Prettier)
 pnpm test                       # pruebas unitarias
 pnpm test:e2e                   # integración/e2e del backend (requiere PostgreSQL)
 pnpm --filter backend migrar    # aplica las migraciones SQL pendientes
@@ -118,7 +118,7 @@ pnpm --filter backend migrar    # aplica las migraciones SQL pendientes
 
 ## Despliegue
 
-`docker compose up -d --build` levanta base de datos, backend, frontend y respaldos automáticos. Guía completa (variables, HTTPS, salud, logs, respaldos y restauración) en [`docs/despliegue.md`](docs/despliegue.md).
+Variables, migraciones, salud, logs, respaldos y CSP en [`docs/despliegue.md`](docs/despliegue.md).
 
 ## Licencia y créditos
 

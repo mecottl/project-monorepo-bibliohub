@@ -9,3 +9,10 @@ desktop.ini
 Thumbs.db
 
 .nx/
+
+# Backend / Angular
+apps/backend/uploads/
+out-tsc/
+.angular/
+coverage/
+__screenshots__/
