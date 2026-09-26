@@ -68,6 +68,10 @@ export class VentasService {
       };
     });
 
+    if ((dto.puntosUsados ?? 0) > 0 && clienteId) {
+      await this.validarPuntos(clienteId, dto.puntosUsados ?? 0, itemsSql);
+    }
+
     let ventaId: string;
     try {
       const resultado = await this.dataSource.query(
@@ -86,6 +90,29 @@ export class VentasService {
     }
 
     return this.findOne(ventaId);
+  }
+
+  // Los puntos no pueden exceder el saldo del cliente ni el valor de la venta (canjearlos de más se perderían).
+  private async validarPuntos(
+    clienteId: string,
+    puntosUsados: number,
+    items: { cantidad: number; precio_unitario: number }[],
+  ): Promise<void> {
+    const cliente = await this.clientesService.findOne(clienteId);
+    if (puntosUsados > cliente.puntosSaldo) {
+      throw new BadRequestException(
+        `El cliente no tiene suficientes puntos (tiene ${cliente.puntosSaldo}, intentas usar ${puntosUsados}).`,
+      );
+    }
+
+    const filas: { valor: string }[] = await this.dataSource.query(
+      "SELECT valor FROM configuracion WHERE clave = 'tasa_puntos_canje'",
+    );
+    const tasaCanje = Number(filas[0]?.valor ?? 1);
+    const subtotal = items.reduce((acc, i) => acc + i.cantidad * Number(i.precio_unitario), 0);
+    if (puntosUsados * tasaCanje > subtotal) {
+      throw new BadRequestException('Se están usando más puntos de los necesarios para esta venta.');
+    }
   }
 
   async findAll(query: QueryVentaDto): Promise<PaginatedVentas> {

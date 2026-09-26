@@ -14,6 +14,7 @@ import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from '../../../../../core/api.config';
 import { CarritoService } from '../../services/carrito.service';
 import { PedidosService } from '../../services/pedidos.service';
+import { CuentaService } from '../../../../cuenta/cuenta.service';
 import { DireccionEntrega, TipoEntrega, TotalesCheckout } from '../../models/carrito.model';
 
 type Paso = 1 | 2 | 3;
@@ -28,6 +29,7 @@ type Paso = 1 | 2 | 3;
 export class CarritoCheckoutPage {
   private readonly carritoService = inject(CarritoService);
   private readonly pedidosService = inject(PedidosService);
+  private readonly cuentaService = inject(CuentaService);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
@@ -64,7 +66,27 @@ export class CarritoCheckoutPage {
     referencias: ['']
   });
 
+  // Puntos: saldo del cliente, pesos por punto y cuántos se aplican como descuento (máximo: sin pasarse del subtotal).
+  saldoPuntos = signal(0);
+  tasaCanje = signal(1);
+  puntosUsados = signal(0);
+  maxPuntos = computed(() =>
+    Math.max(0, Math.min(this.saldoPuntos(), Math.floor(this.carrito().subtotal / this.tasaCanje())))
+  );
+  descuentoPuntos = computed(() => this.puntosUsados() * this.tasaCanje());
+
+  fijarPuntos(valor: number): void {
+    this.puntosUsados.set(Math.max(0, Math.min(this.maxPuntos(), Math.floor(Number(valor) || 0))));
+  }
+
   constructor() {
+    this.cuentaService.puntos().subscribe({
+      next: (p) => {
+        this.saldoPuntos.set(p.saldo);
+        this.tasaCanje.set(p.pesosPorPuntoCanjeado || 1);
+      },
+      error: () => undefined
+    });
     this.carritoService.cargar();
     this.pedidosService.listarDirecciones().subscribe((data) => {
       this.direcciones.set(data);
@@ -130,7 +152,8 @@ export class CarritoCheckoutPage {
     this.pedidosService
       .iniciarCheckout({
         tipoEntrega: this.tipoEntrega(),
-        direccionId: this.tipoEntrega() === 'envio_a_domicilio' ? this.direccionSeleccionadaId()! : undefined
+        direccionId: this.tipoEntrega() === 'envio_a_domicilio' ? this.direccionSeleccionadaId()! : undefined,
+        puntosUsados: this.puntosUsados() > 0 ? this.puntosUsados() : undefined
       })
       .subscribe({
         next: (resultado) => {

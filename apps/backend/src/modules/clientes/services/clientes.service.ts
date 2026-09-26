@@ -104,6 +104,18 @@ export class ClientesService {
     return this.mapCliente(guardado);
   }
 
+  // Para el POS: datos mínimos del cliente por teléfono (sin crearlo) y la tasa de canje vigente.
+  async consultarPorTelefono(telefono: string) {
+    const cliente = await this.clienteRepository.findOne({ where: { telefono } });
+    const filas: { valor: string }[] = await this.dataSource.query(
+      "SELECT valor FROM configuracion WHERE clave = 'tasa_puntos_canje'",
+    );
+    const tasaCanje = Number(filas[0]?.valor ?? 1);
+    return cliente
+      ? { existe: true, id: cliente.id, nombre: cliente.nombre, telefono: cliente.telefono, puntosSaldo: cliente.puntosSaldo, tasaCanje }
+      : { existe: false, telefono, puntosSaldo: 0, tasaCanje };
+  }
+
   async findOne(id: string): Promise<ClienteSinPassword> {
     const cliente = await this.buscarClienteSimple(id);
     return this.mapCliente(cliente);

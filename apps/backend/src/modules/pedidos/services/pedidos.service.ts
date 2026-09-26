@@ -182,7 +182,12 @@ export class PedidosService {
     const envioDefault = await this.leerConfiguracion('costo_envio_default');
     const envioGratisDesde = await this.leerConfiguracion('envio_gratis_desde');
 
-    const descuentoPuntos = puntosUsados > 0 ? puntosUsados * 1.0 : 0;
+    // Pesos de descuento por punto (configuracion.tasa_puntos_canje); misma tasa que usan las funciones SQL.
+    const tasaCanje = await this.leerConfiguracion('tasa_puntos_canje');
+    const descuentoPuntos = puntosUsados > 0 ? puntosUsados * tasaCanje : 0;
+    if (descuentoPuntos > subtotal) {
+      throw new BadRequestException('Estás usando más puntos de los necesarios para este pedido');
+    }
     const costoEnvio =
       tipoEntrega === 'envio_a_domicilio' ? (subtotal >= envioGratisDesde ? 0 : envioDefault) : 0;
 

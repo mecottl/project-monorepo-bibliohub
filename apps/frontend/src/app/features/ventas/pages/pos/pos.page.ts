@@ -3,6 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SearchInputComponent } from '../../../../shared/search-input/search-input.component';
 import { CatalogoService } from '../../../inventario/services/catalogo.service';
 import { Libro } from '../../../inventario/models/libro.model';
+import { ClientesService } from '../../../clientes/services/clientes.service';
+import { ConsultaTelefono } from '../../../clientes/models/cliente.model';
 import { VentasService } from '../../services/ventas.service';
 import { Venta } from '../../models/venta.model';
 
@@ -23,6 +25,7 @@ type MedioPago = 'efectivo' | 'tarjeta';
 export class PosPage {
   private readonly catalogoService = inject(CatalogoService);
   private readonly ventasService = inject(VentasService);
+  private readonly clientesService = inject(ClientesService);
 
   resultados = signal<Libro[]>([]);
   buscoAlgunaVez = signal(false);
@@ -42,6 +45,36 @@ export class PosPage {
   // — carrito()/clienteTelefono() ya se limpian al confirmar la venta.
   ultimosItems = signal<ItemCarrito[]>([]);
   clienteTelefonoVenta = signal<string | null>(null);
+
+  // Puntos del cliente identificado por teléfono: se consulta al completar los 10 dígitos.
+  clienteInfo = signal<ConsultaTelefono | null>(null);
+  puntosUsados = signal(0);
+  private consultaId = 0;
+
+  actualizarTelefono(valor: string): void {
+    this.clienteTelefono.set(valor);
+    this.puntosUsados.set(0);
+    this.clienteInfo.set(null);
+    if (!/^[0-9]{10}$/.test(valor)) return;
+
+    const id = ++this.consultaId;
+    this.clientesService.consultarPorTelefono(valor).subscribe({
+      // Se ignora la respuesta si el teléfono ya cambió mientras tanto.
+      next: (info) => { if (id === this.consultaId) this.clienteInfo.set(info); },
+      error: () => undefined
+    });
+  }
+
+  tasaCanje = computed(() => this.clienteInfo()?.tasaCanje || 1);
+  maxPuntos = computed(() =>
+    Math.max(0, Math.min(this.clienteInfo()?.puntosSaldo ?? 0, Math.floor(this.total() / this.tasaCanje())))
+  );
+  descuento = computed(() => this.puntosUsados() * this.tasaCanje());
+  totalAPagar = computed(() => Math.max(this.total() - this.descuento(), 0));
+
+  fijarPuntos(valor: number): void {
+    this.puntosUsados.set(Math.max(0, Math.min(this.maxPuntos(), Math.floor(Number(valor) || 0))));
+  }
 
   total = computed(() =>
     this.carrito().reduce(
@@ -141,6 +174,7 @@ export class PosPage {
       .crear({
         clienteTelefono: this.clienteTelefono() || undefined,
         medioPago: this.medioPago(),
+        puntosUsados: this.puntosUsados() > 0 ? this.puntosUsados() : undefined,
         items: this.carrito().map((item) => ({
           libroId: item.libro.id,
           cantidad: item.cantidad
@@ -154,6 +188,8 @@ export class PosPage {
           this.clienteTelefonoVenta.set(this.clienteTelefono() || null);
           this.carrito.set([]);
           this.clienteTelefono.set('');
+          this.clienteInfo.set(null);
+          this.puntosUsados.set(0);
           this.resultados.set([]);
         },
         error: (err: HttpErrorResponse) => {

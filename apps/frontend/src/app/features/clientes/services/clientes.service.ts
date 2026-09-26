@@ -6,6 +6,7 @@ import {
   AjustePuntosPayload,
   Cliente,
   ClientesQuery,
+  ConsultaTelefono,
   PaginatedClientes,
   UpdateClientePayload
 } from '../models/cliente.model';
@@ -14,6 +15,10 @@ import {
 export class ClientesService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = `${API_BASE_URL}/clientes`;
+
+  consultarPorTelefono(telefono: string): Observable<ConsultaTelefono> {
+    return this.http.get<ConsultaTelefono>(`${this.baseUrl}/telefono/${telefono}`);
+  }
 
   buscarClientes(query: ClientesQuery): Observable<PaginatedClientes> {
     let params = new HttpParams();

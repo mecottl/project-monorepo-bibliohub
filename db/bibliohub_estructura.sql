@@ -4,7 +4,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict PJVzmTxz30GbyvwxDyQ0P2clHqd4gDqj4p8SWBqbgzeqSjhAzy17q3rlPKi94pM
+\restrict sU2NjkQvicjCMBUekBCDfLKYTgwVxDlISQwCnUuiiJcaUj9sq8fyhPr7kRHGROE
 
 -- Dumped from database version 18.4
 -- Dumped by pg_dump version 18.4
@@ -105,6 +105,7 @@ CREATE FUNCTION public.confirmar_pedido_linea(p_cliente_id uuid, p_direccion_id 
     LANGUAGE plpgsql
     AS $$
 DECLARE
+    v_tasa_canje     NUMERIC := 1;
     v_pedido_id      UUID;
     v_carrito_id     UUID;
     v_subtotal       NUMERIC(10,2) := 0;
@@ -118,6 +119,7 @@ DECLARE
     v_item           RECORD;
     v_stock          INT;
 BEGIN
+    v_tasa_canje := COALESCE((SELECT valor::NUMERIC FROM configuracion WHERE clave = 'tasa_puntos_canje'), 1);
     SELECT valor::INT      INTO v_tasa_acum     FROM configuracion WHERE clave = 'tasa_puntos_acumulacion';
     SELECT valor::NUMERIC  INTO v_envio_default  FROM configuracion WHERE clave = 'costo_envio_default';
     SELECT valor::NUMERIC  INTO v_envio_gratis   FROM configuracion WHERE clave = 'envio_gratis_desde';
@@ -144,7 +146,7 @@ BEGIN
 
     -- Descuento puntos y costo de envío
     IF p_puntos_usados > 0 THEN
-        v_descuento := p_puntos_usados * 1.0;
+        v_descuento := p_puntos_usados * v_tasa_canje;
     END IF;
 
     IF p_tipo_entrega = 'envio_a_domicilio' THEN
@@ -202,94 +204,185 @@ $$;
 CREATE FUNCTION public.confirmar_venta_pos(p_cliente_id uuid, p_empleado_id uuid, p_medio_pago character varying, p_puntos_usados integer, p_items jsonb) RETURNS uuid
     LANGUAGE plpgsql
     AS $$
+
 DECLARE
+    v_tasa_canje     NUMERIC := 1;
+
     v_venta_id        UUID;
+
     v_subtotal        NUMERIC(10,2) := 0;
+
     v_descuento       NUMERIC(10,2) := 0;
+
     v_total           NUMERIC(10,2);
+
     v_puntos_ganados  INT := 0;
+
     v_tasa_acum       INT;
+
     v_item            JSONB;
+
     v_libro_id        UUID;
+
     v_cantidad        INT;
+
     v_precio          NUMERIC(10,2);
+
     v_linea           NUMERIC(10,2);
+
     v_stock           INT;
+
 BEGIN
+    v_tasa_canje := COALESCE((SELECT valor::NUMERIC FROM configuracion WHERE clave = 'tasa_puntos_canje'), 1);
+
     SELECT valor::INT INTO v_tasa_acum
+
     FROM configuracion WHERE clave = 'tasa_puntos_acumulacion';
 
+
+
     -- Paso 1: validar stock y acumular subtotal
+
     FOR v_item IN SELECT value FROM jsonb_array_elements(p_items)
+
     LOOP
+
         v_libro_id := (v_item->>'libro_id')::UUID;
+
         v_cantidad := (v_item->>'cantidad')::INT;
+
         v_precio   := (v_item->>'precio_unitario')::NUMERIC;
+
+
 
         SELECT stock_actual INTO v_stock
+
         FROM libro WHERE id = v_libro_id FOR UPDATE;
 
+
+
         IF v_stock < v_cantidad THEN
+
             RAISE EXCEPTION 'Stock insuficiente para libro %', v_libro_id;
+
         END IF;
+
+
 
         v_subtotal := v_subtotal + (v_cantidad * v_precio);
+
     END LOOP;
+
+
 
     -- Paso 2: descuento y totales
+
     IF p_puntos_usados > 0 AND p_cliente_id IS NOT NULL THEN
-        v_descuento := p_puntos_usados * 1.0;
+
+        v_descuento := p_puntos_usados * v_tasa_canje;
+
     END IF;
+
+
 
     v_total          := GREATEST(v_subtotal - v_descuento, 0);
+
     v_puntos_ganados := FLOOR(v_total / v_tasa_acum);
 
+
+
     -- Paso 3: INSERT venta
+
     INSERT INTO venta (
+
         cliente_id, empleado_id, subtotal, descuento_puntos,
+
         total, medio_pago, puntos_usados, puntos_ganados
+
     )
+
     VALUES (
+
         p_cliente_id, p_empleado_id, v_subtotal, v_descuento,
+
         v_total, p_medio_pago, p_puntos_usados, v_puntos_ganados
+
     )
+
     RETURNING id INTO v_venta_id;
 
+
+
     -- Paso 4: detalles + stock
+
     FOR v_item IN SELECT value FROM jsonb_array_elements(p_items)
+
     LOOP
+
         v_libro_id := (v_item->>'libro_id')::UUID;
+
         v_cantidad := (v_item->>'cantidad')::INT;
+
         v_precio   := (v_item->>'precio_unitario')::NUMERIC;
+
         v_linea    := v_cantidad * v_precio;
 
+
+
         INSERT INTO detalle_venta
+
             (venta_id, libro_id, cantidad, precio_unitario, subtotal_linea)
+
         VALUES (v_venta_id, v_libro_id, v_cantidad, v_precio, v_linea);
 
+
+
         UPDATE libro
+
         SET stock_actual = stock_actual - v_cantidad
+
         WHERE id = v_libro_id;
+
     END LOOP;
 
+
+
     -- Paso 5: puntos
+
     IF p_cliente_id IS NOT NULL THEN
+
         IF p_puntos_usados > 0 THEN
+
             INSERT INTO transaccion_puntos
+
                 (cliente_id, tipo, puntos, canal, venta_id, concepto)
+
             VALUES (p_cliente_id, 'canjeado', p_puntos_usados, 'pos',
+
                     v_venta_id, 'Canje en venta POS');
+
         END IF;
+
         IF v_puntos_ganados > 0 THEN
+
             INSERT INTO transaccion_puntos
+
                 (cliente_id, tipo, puntos, canal, venta_id, concepto)
+
             VALUES (p_cliente_id, 'ganado', v_puntos_ganados, 'pos',
+
                     v_venta_id, 'Compra en tienda física');
+
         END IF;
+
     END IF;
 
+
+
     RETURN v_venta_id;
+
 END;
+
 $$;
 
 
@@ -2074,5 +2167,5 @@ ALTER TABLE ONLY public.venta
 -- PostgreSQL database dump complete
 --
 
-\unrestrict PJVzmTxz30GbyvwxDyQ0P2clHqd4gDqj4p8SWBqbgzeqSjhAzy17q3rlPKi94pM
+\unrestrict sU2NjkQvicjCMBUekBCDfLKYTgwVxDlISQwCnUuiiJcaUj9sq8fyhPr7kRHGROE
 

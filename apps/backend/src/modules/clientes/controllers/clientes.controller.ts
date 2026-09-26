@@ -25,6 +25,12 @@ export class ClientesController {
   }
 
   @Roles('admin', 'cajero')
+  @Get('telefono/:telefono')
+  consultarPorTelefono(@Param('telefono') telefono: string) {
+    return this.clientesService.consultarPorTelefono(telefono);
+  }
+
+  @Roles('admin', 'cajero')
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.clientesService.findOne(id);

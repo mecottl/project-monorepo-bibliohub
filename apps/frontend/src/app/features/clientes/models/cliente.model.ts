@@ -39,3 +39,13 @@ export interface AjustePuntosPayload {
   puntos: number;
   concepto?: string;
 }
+
+/** Respuesta de GET /clientes/telefono/:telefono (para el POS): datos mínimos y tasa de canje vigente. */
+export interface ConsultaTelefono {
+  existe: boolean;
+  id?: string;
+  nombre?: string | null;
+  telefono: string;
+  puntosSaldo: number;
+  tasaCanje: number;
+}

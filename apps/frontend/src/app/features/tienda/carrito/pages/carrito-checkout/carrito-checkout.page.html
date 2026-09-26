@@ -153,6 +153,27 @@
           }
         }
 
+        @if (saldoPuntos() > 0) {
+          <div class="puntos-uso">
+            <div class="puntos-uso__cabecera">
+              <strong>Usar mis puntos</strong>
+              <span class="puntos-uso__saldo">Tienes {{ saldoPuntos() }} · cada punto vale {{ tasaCanje() | currency }}</span>
+            </div>
+            <div class="puntos-uso__control">
+              <div class="puntos-uso__stepper">
+                <button type="button" aria-label="Usar un punto menos" [disabled]="puntosUsados() <= 0" (click)="fijarPuntos(puntosUsados() - 1)">−</button>
+                <input type="number" min="0" [max]="maxPuntos()" aria-label="Puntos a usar" [value]="puntosUsados()" (change)="fijarPuntos($any($event.target).value)" />
+                <button type="button" aria-label="Usar un punto más" [disabled]="puntosUsados() >= maxPuntos()" (click)="fijarPuntos(puntosUsados() + 1)">+</button>
+              </div>
+              <button type="button" class="puntos-uso__link" (click)="fijarPuntos(maxPuntos())">Usar el máximo ({{ maxPuntos() }})</button>
+              @if (puntosUsados() > 0) {
+                <button type="button" class="puntos-uso__link" (click)="fijarPuntos(0)">No usar</button>
+                <span class="puntos-uso__descuento">−{{ descuentoPuntos() | currency }}</span>
+              }
+            </div>
+          </div>
+        }
+
         @if (errorCheckout()) {
           <p class="carrito-checkout__error">{{ errorCheckout() }}</p>
         }

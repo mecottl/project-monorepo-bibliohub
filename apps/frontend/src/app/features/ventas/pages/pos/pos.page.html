@@ -121,9 +121,31 @@
             type="text"
             placeholder="10 dígitos — deja vacío si es venta anónima"
             [value]="clienteTelefono()"
-            (input)="clienteTelefono.set($any($event.target).value)"
+            (input)="actualizarTelefono($any($event.target).value)"
           />
         </div>
+
+        @if (clienteInfo(); as cliente) {
+          <div class="puntos-uso">
+            <div class="puntos-uso__cabecera">
+              <strong>{{ cliente.existe ? (cliente.nombre || 'Cliente sin nombre') : 'Cliente nuevo' }}</strong>
+              <span class="puntos-uso__saldo">{{ cliente.puntosSaldo }} puntos · cada uno vale ${{ cliente.tasaCanje }}</span>
+            </div>
+            @if (maxPuntos() > 0) {
+              <div class="puntos-uso__control">
+                <div class="puntos-uso__stepper">
+                  <button type="button" aria-label="Usar un punto menos" [disabled]="puntosUsados() <= 0" (click)="fijarPuntos(puntosUsados() - 1)">−</button>
+                  <input type="number" min="0" [max]="maxPuntos()" aria-label="Puntos a usar" [value]="puntosUsados()" (change)="fijarPuntos($any($event.target).value)" />
+                  <button type="button" aria-label="Usar un punto más" [disabled]="puntosUsados() >= maxPuntos()" (click)="fijarPuntos(puntosUsados() + 1)">+</button>
+                </div>
+                <button type="button" class="puntos-uso__link" (click)="fijarPuntos(maxPuntos())">Usar el máximo ({{ maxPuntos() }})</button>
+                @if (puntosUsados() > 0) {
+                  <button type="button" class="puntos-uso__link" (click)="fijarPuntos(0)">No usar</button>
+                }
+              </div>
+            }
+          </div>
+        }
 
         @if (carrito().length === 0) {
           <p class="pos__vacio">Agrega libros desde los resultados de la izquierda.</p>
@@ -172,7 +194,11 @@
           </ul>
         }
 
-        <p class="pos__total">Total: ${{ total().toFixed(2) }}</p>
+        @if (puntosUsados() > 0) {
+          <p class="pos__desglose">Subtotal: ${{ total().toFixed(2) }}</p>
+          <p class="pos__desglose puntos-uso__descuento">Descuento por puntos: −${{ descuento().toFixed(2) }}</p>
+        }
+        <p class="pos__total">Total: ${{ totalAPagar().toFixed(2) }}</p>
 
         <div class="pos__medio-pago">
           <label class="pos__medio-pago-opcion">
