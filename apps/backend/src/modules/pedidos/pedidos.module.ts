@@ -9,6 +9,8 @@ import { Cliente } from '@modules/clientes/entities/cliente.entity';
 import { PedidoLinea } from './entities/pedido-linea.entity';
 import { PedidosController } from './controllers/pedidos.controller';
 import { PedidosService } from './services/pedidos.service';
+import { DireccionesService } from './services/direcciones.service';
+import { CheckoutService } from './services/checkout.service';
 
 @Module({
   imports: [
@@ -17,6 +19,6 @@ import { PedidosService } from './services/pedidos.service';
     TypeOrmModule.forFeature([DireccionEntrega, Carrito, ItemCarrito, Cliente, PedidoLinea]),
   ],
   controllers: [PedidosController],
-  providers: [PedidosService],
+  providers: [PedidosService, DireccionesService, CheckoutService],
 })
 export class PedidosModule {}

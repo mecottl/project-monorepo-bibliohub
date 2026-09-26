@@ -20,6 +20,8 @@ import { Roles } from '@common/auth/roles.decorator';
 import { CurrentUser } from '@common/auth/current-user.decorator';
 import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
 import { PedidosService } from '../services/pedidos.service';
+import { DireccionesService } from '../services/direcciones.service';
+import { CheckoutService } from '../services/checkout.service';
 import { CreateDireccionDto } from '../dto/create-direccion.dto';
 import { UpdateDireccionDto } from '../dto/update-direccion.dto';
 import { CambiarEstadoPedidoDto } from '../dto/cambiar-estado.dto';
@@ -28,18 +30,22 @@ import { CheckoutDto } from '../dto/checkout.dto';
 @ApiTags('pedidos')
 @Controller()
 export class PedidosController {
-  constructor(private readonly pedidosService: PedidosService) {}
+  constructor(
+    private readonly pedidosService: PedidosService,
+    private readonly direccionesService: DireccionesService,
+    private readonly checkoutService: CheckoutService,
+  ) {}
 
   @Roles('cliente')
   @Get('direcciones')
   listarDirecciones(@CurrentUser() user: AuthenticatedUser) {
-    return this.pedidosService.listarDirecciones(user.id);
+    return this.direccionesService.listarDirecciones(user.id);
   }
 
   @Roles('cliente')
   @Post('direcciones')
   crearDireccion(@CurrentUser() user: AuthenticatedUser, @Body() dto: CreateDireccionDto) {
-    return this.pedidosService.crearDireccion(user.id, dto);
+    return this.direccionesService.crearDireccion(user.id, dto);
   }
 
   @Roles('cliente')
@@ -49,28 +55,31 @@ export class PedidosController {
     @Param('id') id: string,
     @Body() dto: UpdateDireccionDto,
   ) {
-    return this.pedidosService.actualizarDireccion(user.id, id, dto);
+    return this.direccionesService.actualizarDireccion(user.id, id, dto);
   }
 
   @Roles('cliente')
   @Delete('direcciones/:id')
   eliminarDireccion(@CurrentUser() user: AuthenticatedUser, @Param('id') id: string) {
-    return this.pedidosService.eliminarDireccion(user.id, id);
+    return this.direccionesService.eliminarDireccion(user.id, id);
   }
 
   @Roles('cliente')
   @Post('pedidos/checkout')
   iniciarCheckout(@CurrentUser() user: AuthenticatedUser, @Body() dto: CheckoutDto) {
-    return this.pedidosService.iniciarCheckout(user.id, dto);
+    return this.checkoutService.iniciarCheckout(user.id, dto);
   }
 
   @Roles('cliente')
   @Post('pedidos/confirmar-pago')
-  confirmarPago(@CurrentUser() user: AuthenticatedUser, @Body('paymentIntentId') paymentIntentId: string) {
+  confirmarPago(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body('paymentIntentId') paymentIntentId: string,
+  ) {
     if (!paymentIntentId) {
       throw new BadRequestException('Falta paymentIntentId');
     }
-    return this.pedidosService.confirmarPago(user.id, paymentIntentId);
+    return this.checkoutService.confirmarPago(user.id, paymentIntentId);
   }
 
   // Rutas 'admin/...' antes de 'pedidos/:id' no chocan: prefijo distinto.
@@ -120,7 +129,7 @@ export class PedidosController {
     if (!req.rawBody) {
       throw new BadRequestException('Falta el cuerpo crudo de la petición');
     }
-    await this.pedidosService.manejarWebhook(req.rawBody, firma);
+    await this.checkoutService.manejarWebhook(req.rawBody, firma);
     return { received: true };
   }
 
