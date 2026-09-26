@@ -50,6 +50,11 @@ describe('App (e2e)', () => {
     expect(rutas.sort()).toMatchSnapshot();
   });
 
+  it('health responde 200 con la base disponible y sin sesión', async () => {
+    const res = await request(app.getHttpServer()).get('/api/health').expect(200);
+    expect(res.body).toMatchObject({ status: 'ok', db: 'ok' });
+  });
+
   it('el catálogo público responde sin sesión', async () => {
     await request(app.getHttpServer()).get('/api/catalogo/libros').expect(200);
     await request(app.getHttpServer()).get('/api/catalogo/categorias').expect(200);

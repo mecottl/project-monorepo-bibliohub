@@ -34,6 +34,7 @@ exports[`App (e2e) mapa de rutas, roles y acceso público 1`] = `
   "GET /cuenta/tarjetas roles=cliente",
   "GET /direcciones roles=cliente",
   "GET /empleados roles=admin",
+  "GET /health roles=- publico",
   "GET /inventario/movimientos roles=admin,cajero",
   "GET /lista-deseos roles=cliente",
   "GET /lista-deseos/ids roles=cliente",
@@ -91,6 +92,7 @@ exports[`App (e2e) mapa de rutas, roles y acceso público 1`] = `
   "POST /pedidos/confirmar-pago roles=cliente",
   "POST /pedidos/webhook roles=- publico",
   "POST /proveedores roles=admin",
+  "POST /telemetria/errores roles=- publico",
   "POST /ventas roles=admin,cajero",
   "POST /ventas/:id/cancelar roles=admin",
 ]

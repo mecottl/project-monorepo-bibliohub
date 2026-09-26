@@ -20,6 +20,8 @@ import { EmpleadosModule } from '@modules/empleados/empleados.module';
 import { CarritoModule } from '@modules/carrito/carrito.module';
 import { PedidosModule } from '@modules/pedidos/pedidos.module';
 import { CuentaModule } from '@modules/cuenta/cuenta.module';
+import { HealthModule } from '@modules/health/health.module';
+import { TelemetriaModule } from '@modules/telemetria/telemetria.module';
 import { ListaDeseosModule } from '@modules/lista-deseos/lista-deseos.module';
 
 @Module({
@@ -49,6 +51,8 @@ import { ListaDeseosModule } from '@modules/lista-deseos/lista-deseos.module';
     PedidosModule,
     ListaDeseosModule,
     CuentaModule,
+    HealthModule,
+    TelemetriaModule,
   ],
   controllers: [AppController],
   providers: [

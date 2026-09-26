@@ -1,10 +1,13 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { JsonLogger } from '@common/logging/json-logger';
+import { requestLogger } from '@common/logging/request-logger.middleware';
+import { AllExceptionsFilter } from '@common/logging/all-exceptions.filter';
 
 function validarJwtSecret(): void {
   const secreto = process.env.JWT_SECRET ?? '';
@@ -20,9 +23,15 @@ async function bootstrap() {
   // Stripe (pedidos/pedidos.controller.ts) para verificar la firma, ya que esa
   // verificación requiere el cuerpo crudo tal cual Stripe lo firmó, antes de
   // que el ValidationPipe/body-parser lo transforme a JSON.
+  // Logs en JSON (una línea por evento) en producción o con LOG_FORMAT=json.
+  const logJson = process.env.NODE_ENV === 'production' || process.env.LOG_FORMAT === 'json';
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     rawBody: true,
+    ...(logJson ? { logger: new JsonLogger() } : {}),
   });
+
+  app.use(requestLogger);
+  app.useGlobalFilters(new AllExceptionsFilter(app.get(HttpAdapterHost).httpAdapter));
 
   app.useGlobalPipes(
     new ValidationPipe({
