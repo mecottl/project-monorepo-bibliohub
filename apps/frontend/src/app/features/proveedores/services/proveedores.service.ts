@@ -5,13 +5,13 @@ import { API_BASE_URL } from '@core/api.config';
 import {
   CreateProveedorPayload,
   Proveedor,
-  UpdateProveedorPayload
+  UpdateProveedorPayload,
 } from '../models/proveedor.model';
 import {
   CreatePedidoCompraPayload,
   ItemRecepcionPayload,
   PaginatedPedidosCompra,
-  PedidoCompra
+  PedidoCompra,
 } from '../models/pedido-compra.model';
 
 export interface QueryPedidosCompra {
@@ -65,7 +65,9 @@ export class ProveedoresService {
   }
 
   recibirPedido(id: string, items: ItemRecepcionPayload[]): Observable<PedidoCompra> {
-    return this.http.post<PedidoCompra>(`${this.baseUrl}/pedidos-compra/${id}/recepcion`, { items });
+    return this.http.post<PedidoCompra>(`${this.baseUrl}/pedidos-compra/${id}/recepcion`, {
+      items,
+    });
   }
 
   cancelarPedido(id: string): Observable<PedidoCompra> {

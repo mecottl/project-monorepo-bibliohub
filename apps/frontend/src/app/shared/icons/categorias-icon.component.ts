@@ -11,6 +11,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <rect x="3" y="13" width="8" height="8" rx="1.5" />
       <rect x="13" y="13" width="8" height="8" rx="1.5" />
     </svg>
-  `
+  `,
 })
 export class CategoriasIconComponent {}

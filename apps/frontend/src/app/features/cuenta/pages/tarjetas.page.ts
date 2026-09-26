@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from '@core/api.config';
 import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
@@ -29,7 +36,9 @@ import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
         <div class="cuenta-card">
           <h2 class="font-display">Agregar tarjeta</h2>
           <div id="stripe-tarjeta-element"></div>
-          @if (error()) { <p class="cuenta-error">{{ error() }}</p> }
+          @if (error()) {
+            <p class="cuenta-error">{{ error() }}</p>
+          }
           <div class="cuenta-lista">
             <button type="button" class="btn-primary" [disabled]="guardando()" (click)="guardar()">
               {{ guardando() ? 'Guardando…' : 'Guardar tarjeta' }}
@@ -38,11 +47,15 @@ import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
           </div>
         </div>
       } @else {
-        <button type="button" class="btn-primary" (click)="abrirFormulario()">+ Agregar tarjeta</button>
-        @if (error()) { <p class="cuenta-error">{{ error() }}</p> }
+        <button type="button" class="btn-primary" (click)="abrirFormulario()">
+          + Agregar tarjeta
+        </button>
+        @if (error()) {
+          <p class="cuenta-error">{{ error() }}</p>
+        }
       }
     </section>
-  `
+  `,
 })
 export class TarjetasPage {
   private readonly cuenta = inject(CuentaService);
@@ -63,7 +76,7 @@ export class TarjetasPage {
   private cargar(): void {
     this.cuenta.tarjetas().subscribe({
       next: (data) => this.tarjetas.set(data),
-      error: (err) => this.error.set(err?.error?.message ?? 'No se pudieron cargar las tarjetas.')
+      error: (err) => this.error.set(err?.error?.message ?? 'No se pudieron cargar las tarjetas.'),
     });
   }
 
@@ -80,7 +93,7 @@ export class TarjetasPage {
         // App zoneless: hay que esperar al render real para que exista el div.
         afterNextRender(() => this.montar(clientSecret), { injector: this.injector });
       },
-      error: (err) => this.error.set(err?.error?.message ?? 'No se pudo iniciar el guardado.')
+      error: (err) => this.error.set(err?.error?.message ?? 'No se pudo iniciar el guardado.'),
     });
   }
 
@@ -94,8 +107,13 @@ export class TarjetasPage {
       clientSecret,
       appearance: {
         theme: 'stripe',
-        variables: { colorPrimary: '#9c6b43', colorText: '#3a3128', fontFamily: 'inherit', borderRadius: '8px' }
-      }
+        variables: {
+          colorPrimary: '#9c6b43',
+          colorText: '#3a3128',
+          fontFamily: 'inherit',
+          borderRadius: '8px',
+        },
+      },
     });
     this.elements.create('payment').mount('#stripe-tarjeta-element');
   }
@@ -105,7 +123,10 @@ export class TarjetasPage {
     this.guardando.set(true);
     this.error.set(null);
 
-    const { error } = await this.stripe.confirmSetup({ elements: this.elements, redirect: 'if_required' });
+    const { error } = await this.stripe.confirmSetup({
+      elements: this.elements,
+      redirect: 'if_required',
+    });
     this.guardando.set(false);
 
     if (error) {
@@ -122,8 +143,8 @@ export class TarjetasPage {
   }
 
   eliminar(id: string): void {
-    this.cuenta.eliminarTarjeta(id).subscribe(() =>
-      this.tarjetas.update((actuales) => actuales.filter((t) => t.id !== id))
-    );
+    this.cuenta
+      .eliminarTarjeta(id)
+      .subscribe(() => this.tarjetas.update((actuales) => actuales.filter((t) => t.id !== id)));
   }
 }

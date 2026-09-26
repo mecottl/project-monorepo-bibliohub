@@ -28,11 +28,26 @@ import { Libro } from '@domain/catalogo/catalogo.model';
     </section>
   `,
   styles: `
-    .lista-deseos { display: flex; flex-direction: column; gap: 20px; }
-    .lista-deseos__vacia { color: var(--color-gris-oscuro); }
-    .lista-deseos__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 220px)); gap: 24px; }
-    @media (max-width: 480px) { .lista-deseos__grid { grid-template-columns: repeat(auto-fill, minmax(140px, 170px)); gap: 16px; } }
-  `
+    .lista-deseos {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .lista-deseos__vacia {
+      color: var(--color-gris-oscuro);
+    }
+    .lista-deseos__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+      gap: 24px;
+    }
+    @media (max-width: 480px) {
+      .lista-deseos__grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 170px));
+        gap: 16px;
+      }
+    }
+  `,
 })
 export class ListaDeseosPage {
   private readonly service = inject(ListaDeseosService);
@@ -47,7 +62,7 @@ export class ListaDeseosPage {
         this.libros.set(libros);
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
   }
 }

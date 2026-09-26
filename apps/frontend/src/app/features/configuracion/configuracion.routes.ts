@@ -7,6 +7,7 @@ export const CONFIGURACION_ROUTES: Routes = [
     path: '',
     canActivate: [authGuard, roleGuard],
     data: { roles: ['admin', 'cajero'] },
-    loadComponent: () => import('./pages/configuracion/configuracion.page').then((m) => m.ConfiguracionPage)
-  }
+    loadComponent: () =>
+      import('./pages/configuracion/configuracion.page').then((m) => m.ConfiguracionPage),
+  },
 ];

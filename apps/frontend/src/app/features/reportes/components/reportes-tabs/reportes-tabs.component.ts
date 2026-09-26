@@ -7,12 +7,21 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="tabs" aria-label="Secciones de reportes">
-      <a routerLink="/reportes" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Resumen</a>
+      <a
+        routerLink="/reportes"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Resumen</a
+      >
       <a routerLink="/reportes/historial" routerLinkActive="is-active">Historial de ventas</a>
     </nav>
   `,
   styles: `
-    .tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--color-beige); }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--color-beige);
+    }
     .tabs a {
       padding: 10px 16px;
       font-family: var(--font-ui);
@@ -22,7 +31,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       text-decoration: none;
       border-bottom: 2px solid transparent;
     }
-    .tabs a.is-active { color: var(--color-cafe-oscuro); border-bottom-color: var(--color-cafe-medio); }
-  `
+    .tabs a.is-active {
+      color: var(--color-cafe-oscuro);
+      border-bottom-color: var(--color-cafe-medio);
+    }
+  `,
 })
 export class ReportesTabsComponent {}

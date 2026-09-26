@@ -3,7 +3,10 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ItemRecepcionDto {
-  @ApiProperty({ example: 'uuid-del-detalle', description: 'id de la línea (detalle_pedido_compra)' })
+  @ApiProperty({
+    example: 'uuid-del-detalle',
+    description: 'id de la línea (detalle_pedido_compra)',
+  })
   @IsUUID()
   detalleId!: string;
 

@@ -9,7 +9,7 @@ import { AuthService } from '@core/auth/auth.service';
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './registro.page.html',
-  styleUrl: '../../../../shared/styles/auth-shared.css'
+  styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class RegistroPage {
   private fb = inject(FormBuilder);
@@ -22,7 +22,7 @@ export class RegistroPage {
   form = this.fb.group({
     nombre: ['', [Validators.required]],
     telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-    password: ['', [Validators.required, Validators.minLength(4)]]
+    password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
   submit(): void {
@@ -31,12 +31,14 @@ export class RegistroPage {
     this.error.set(null);
 
     const { nombre, telefono, password } = this.form.value;
-    this.auth.registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! }).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      error: (err: HttpErrorResponse) => {
-        this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
-        this.loading.set(false);
-      }
-    });
+    this.auth
+      .registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! })
+      .subscribe({
+        next: () => this.router.navigate(['/inicio']),
+        error: (err: HttpErrorResponse) => {
+          this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
+          this.loading.set(false);
+        },
+      });
   }
 }

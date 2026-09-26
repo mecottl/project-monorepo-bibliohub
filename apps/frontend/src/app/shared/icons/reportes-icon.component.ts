@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <path d="M4 20V10M10 20V4M16 20v-7" stroke-linecap="round" />
       <path d="M2 20h20" stroke-linecap="round" />
     </svg>
-  `
+  `,
 })
 export class ReportesIconComponent {}

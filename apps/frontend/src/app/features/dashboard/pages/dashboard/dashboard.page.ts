@@ -35,7 +35,7 @@ interface Periodo {
   imports: [RouterLink, StatCardComponent, DataTableComponent, ChartComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard.page.html',
-  styleUrl: './dashboard.page.css'
+  styleUrl: './dashboard.page.css',
 })
 export class DashboardPage {
   auth = inject(AuthService);
@@ -61,7 +61,10 @@ export class DashboardPage {
   private periodo(desde: number, hasta: number): Periodo {
     return this.serie()
       .slice(desde, hasta + 1)
-      .reduce((acc, d) => ({ ventas: acc.ventas + d.ventas, monto: acc.monto + d.monto }), { ventas: 0, monto: 0 });
+      .reduce((acc, d) => ({ ventas: acc.ventas + d.ventas, monto: acc.monto + d.monto }), {
+        ventas: 0,
+        monto: 0,
+      });
   }
 
   hoy = computed(() => this.periodo(29, 29));
@@ -69,9 +72,11 @@ export class DashboardPage {
   semana = computed(() => this.periodo(23, 29));
   semanaPrevia = computed(() => this.periodo(16, 22));
 
-  ticketSemana = computed(() => (this.semana().ventas ? this.semana().monto / this.semana().ventas : 0));
+  ticketSemana = computed(() =>
+    this.semana().ventas ? this.semana().monto / this.semana().ventas : 0,
+  );
   ticketPrevio = computed(() =>
-    this.semanaPrevia().ventas ? this.semanaPrevia().monto / this.semanaPrevia().ventas : 0
+    this.semanaPrevia().ventas ? this.semanaPrevia().monto / this.semanaPrevia().ventas : 0,
   );
 
   deltaHoy = computed(() => variacion(this.hoy().monto, this.ayer().monto));
@@ -85,7 +90,10 @@ export class DashboardPage {
     type: 'line',
     data: {
       labels: this.serie().map((d) =>
-        new Date(`${d.fecha}T00:00:00`).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })
+        new Date(`${d.fecha}T00:00:00`).toLocaleDateString('es-MX', {
+          day: 'numeric',
+          month: 'short',
+        }),
       ),
       datasets: [
         {
@@ -96,54 +104,66 @@ export class DashboardPage {
           fill: true,
           cubicInterpolationMode: 'monotone',
           pointBackgroundColor: '#ffffff',
-          pointBorderColor: COLOR_PRIMARIO
-        }
-      ]
+          pointBorderColor: COLOR_PRIMARIO,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: { grid: { display: false }, border: { display: false }, ticks: { maxTicksLimit: 6, maxRotation: 0 } },
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { maxTicksLimit: 6, maxRotation: 0 },
+        },
         y: {
           beginAtZero: true,
           border: { display: false },
-          ticks: { maxTicksLimit: 5, callback: (valor) => monedaCorta(Number(valor)) }
-        }
+          ticks: { maxTicksLimit: 5, callback: (valor) => monedaCorta(Number(valor)) },
+        },
       },
-      plugins: { tooltip: { callbacks: { label: (item) => ` ${moneda.format(Number(item.parsed.y))}` } } }
-    }
+      plugins: {
+        tooltip: { callbacks: { label: (item) => ` ${moneda.format(Number(item.parsed.y))}` } },
+      },
+    },
   }));
 
   chartMasVendidos = computed<ChartConfiguration>(() => ({
     type: 'bar',
     data: {
-      labels: this.masVendidos().map((l) => (l.titulo.length > 26 ? `${l.titulo.slice(0, 25)}…` : l.titulo)),
+      labels: this.masVendidos().map((l) =>
+        l.titulo.length > 26 ? `${l.titulo.slice(0, 25)}…` : l.titulo,
+      ),
       datasets: [
         {
           label: 'Unidades',
           data: this.masVendidos().map((l) => l.unidadesVendidas),
           backgroundColor: COLOR_PRIMARIO,
           hoverBackgroundColor: '#7d5433',
-          barThickness: 16
-        }
-      ]
+          barThickness: 16,
+        },
+      ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       indexAxis: 'y',
       scales: {
-        x: { beginAtZero: true, border: { display: false }, ticks: { precision: 0, maxTicksLimit: 5 } },
-        y: { grid: { display: false }, border: { display: false } }
-      }
-    }
+        x: {
+          beginAtZero: true,
+          border: { display: false },
+          ticks: { precision: 0, maxTicksLimit: 5 },
+        },
+        y: { grid: { display: false }, border: { display: false } },
+      },
+    },
   }));
 
   columnasStockBajo: DataTableColumn<Libro>[] = [
     { key: 'titulo', label: 'Libro' },
     { key: 'stockActual', label: 'Stock actual', align: 'right' },
-    { key: 'stockMinimo', label: 'Stock mínimo', align: 'right' }
+    { key: 'stockMinimo', label: 'Stock mínimo', align: 'right' },
   ];
 
   constructor() {
@@ -159,7 +179,7 @@ export class DashboardPage {
         this.ventasPorDia.set(data);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 }

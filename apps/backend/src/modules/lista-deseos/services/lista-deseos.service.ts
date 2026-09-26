@@ -18,7 +18,13 @@ export class ListaDeseosService {
   async listar(clienteId: string, baseUrl: string) {
     const filas = await this.listaRepository.find({
       where: { clienteId },
-      relations: ['libro', 'libro.editorial', 'libro.categoria', 'libro.libroAutores', 'libro.libroAutores.autor'],
+      relations: [
+        'libro',
+        'libro.editorial',
+        'libro.categoria',
+        'libro.libroAutores',
+        'libro.libroAutores.autor',
+      ],
       order: { createdAt: 'DESC' },
     });
 
@@ -26,7 +32,10 @@ export class ListaDeseosService {
       .filter((fila) => fila.libro.activo)
       .map(({ libro }) => {
         const { imagenKey, ...resto } = libro;
-        return { ...resto, imagenUrl: imagenKey ? `${baseUrl}/uploads/portadas/${imagenKey}` : null };
+        return {
+          ...resto,
+          imagenUrl: imagenKey ? `${baseUrl}/uploads/portadas/${imagenKey}` : null,
+        };
       });
   }
 

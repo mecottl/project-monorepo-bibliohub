@@ -9,7 +9,7 @@ import { AuthService } from '@core/auth/auth.service';
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './reset-password.page.html',
-  styleUrl: '../../../../shared/styles/auth-shared.css'
+  styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class ResetPasswordPage {
   private fb = inject(FormBuilder);
@@ -22,7 +22,7 @@ export class ResetPasswordPage {
   exito = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
-    password: ['', [Validators.required, Validators.minLength(4)]]
+    password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
   submit(): void {
@@ -38,7 +38,7 @@ export class ResetPasswordPage {
       error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'No se pudo actualizar la contraseña.');
         this.loading.set(false);
-      }
+      },
     });
   }
 }

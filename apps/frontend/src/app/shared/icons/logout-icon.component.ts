@@ -10,6 +10,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <path d="M16 17l5-5-5-5" />
       <path d="M21 12H9" />
     </svg>
-  `
+  `,
 })
 export class LogoutIconComponent {}

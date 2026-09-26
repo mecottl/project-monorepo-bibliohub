@@ -18,38 +18,73 @@ import { CuentaService } from '@domain/cuenta/cuenta.service';
           <label for="email">Correo electrónico</label>
           <input id="email" type="email" formControlName="email" autocomplete="email" />
         </div>
-        @if (correoMensaje()) { <p class="cuenta-ok" role="status">{{ correoMensaje() }}</p> }
-        @if (correoError()) { <p class="cuenta-error">{{ correoError() }}</p> }
-        <button type="submit" class="btn-primary" [disabled]="correoForm.invalid || guardandoCorreo()">
+        @if (correoMensaje()) {
+          <p class="cuenta-ok" role="status">{{ correoMensaje() }}</p>
+        }
+        @if (correoError()) {
+          <p class="cuenta-error">{{ correoError() }}</p>
+        }
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="correoForm.invalid || guardandoCorreo()"
+        >
           {{ guardandoCorreo() ? 'Guardando…' : 'Guardar correo' }}
         </button>
       </form>
 
-      <form class="cuenta-card cuenta-form" [formGroup]="passwordForm" (ngSubmit)="guardarPassword()">
+      <form
+        class="cuenta-card cuenta-form"
+        [formGroup]="passwordForm"
+        (ngSubmit)="guardarPassword()"
+      >
         <h2 class="font-display">Cambiar contraseña</h2>
         <div class="field">
           <label for="passwordActual">Contraseña actual</label>
-          <input id="passwordActual" type="password" formControlName="passwordActual" autocomplete="current-password" />
+          <input
+            id="passwordActual"
+            type="password"
+            formControlName="passwordActual"
+            autocomplete="current-password"
+          />
         </div>
         <div class="field">
           <label for="passwordNueva">Nueva contraseña</label>
-          <input id="passwordNueva" type="password" formControlName="passwordNueva" autocomplete="new-password" />
+          <input
+            id="passwordNueva"
+            type="password"
+            formControlName="passwordNueva"
+            autocomplete="new-password"
+          />
         </div>
-        @if (passwordMensaje()) { <p class="cuenta-ok" role="status">{{ passwordMensaje() }}</p> }
-        @if (passwordError()) { <p class="cuenta-error">{{ passwordError() }}</p> }
-        <button type="submit" class="btn-primary" [disabled]="passwordForm.invalid || guardandoPassword()">
+        @if (passwordMensaje()) {
+          <p class="cuenta-ok" role="status">{{ passwordMensaje() }}</p>
+        }
+        @if (passwordError()) {
+          <p class="cuenta-error">{{ passwordError() }}</p>
+        }
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="passwordForm.invalid || guardandoPassword()"
+        >
           {{ guardandoPassword() ? 'Guardando…' : 'Actualizar contraseña' }}
         </button>
       </form>
 
       <div class="cuenta-card cuenta-form">
         <h2 class="font-display">Sesiones</h2>
-        <button type="button" class="btn-outline" [disabled]="cerrandoTodas()" (click)="cerrarTodas()">
+        <button
+          type="button"
+          class="btn-outline"
+          [disabled]="cerrandoTodas()"
+          (click)="cerrarTodas()"
+        >
           Cerrar sesión en todos los dispositivos
         </button>
       </div>
     </section>
-  `
+  `,
 })
 export class SeguridadPage {
   private readonly cuenta = inject(CuentaService);
@@ -68,11 +103,13 @@ export class SeguridadPage {
   correoForm = this.fb.nonNullable.group({ email: ['', [Validators.required, Validators.email]] });
   passwordForm = this.fb.nonNullable.group({
     passwordActual: ['', Validators.required],
-    passwordNueva: ['', [Validators.required, Validators.minLength(4)]]
+    passwordNueva: ['', [Validators.required, Validators.minLength(4)]],
   });
 
   constructor() {
-    this.cuenta.perfil().subscribe((perfil) => this.correoForm.patchValue({ email: perfil.email ?? '' }));
+    this.cuenta
+      .perfil()
+      .subscribe((perfil) => this.correoForm.patchValue({ email: perfil.email ?? '' }));
   }
 
   cerrarTodas(): void {
@@ -94,7 +131,7 @@ export class SeguridadPage {
       error: (err) => {
         this.correoError.set(err?.error?.message ?? 'No se pudo guardar el correo.');
         this.guardandoCorreo.set(false);
-      }
+      },
     });
   }
 
@@ -114,7 +151,7 @@ export class SeguridadPage {
       error: (err) => {
         this.passwordError.set(err?.error?.message ?? 'No se pudo actualizar la contraseña.');
         this.guardandoPassword.set(false);
-      }
+      },
     });
   }
 }

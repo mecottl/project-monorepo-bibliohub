@@ -10,7 +10,7 @@ import { Empleado } from '@domain/empleados/empleado.model';
   imports: [ReactiveFormsModule, DataTableComponent],
   templateUrl: './empleados.page.html',
   styleUrl: '../../../../shared/styles/ajustes-panel.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmpleadosPage {
   private readonly fb = inject(FormBuilder);
@@ -25,7 +25,7 @@ export class EmpleadosPage {
     nombre: ['', [Validators.required]],
     usuario: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    rol: ['cajero' as 'cajero' | 'admin', [Validators.required]]
+    rol: ['cajero' as 'cajero' | 'admin', [Validators.required]],
   });
 
   columnasEmpleados: DataTableColumn<Empleado>[] = [
@@ -35,8 +35,8 @@ export class EmpleadosPage {
     {
       key: 'activo',
       label: 'Estado',
-      formatter: (value) => (value ? 'Activo' : 'Desactivado')
-    }
+      formatter: (value) => (value ? 'Activo' : 'Desactivado'),
+    },
   ];
 
   constructor() {
@@ -45,7 +45,7 @@ export class EmpleadosPage {
         this.empleados.set(data);
         this.loadingEmpleados.set(false);
       },
-      error: () => this.loadingEmpleados.set(false)
+      error: () => this.loadingEmpleados.set(false),
     });
   }
 
@@ -64,15 +64,17 @@ export class EmpleadosPage {
       error: (err) => {
         this.creandoEmpleado.set(false);
         this.nuevoEmpleadoError.set(err?.error?.message ?? 'No se pudo crear el empleado.');
-      }
+      },
     });
   }
 
   toggleActivo(empleado: Empleado): void {
-    this.empleadosService.actualizar(empleado.id, { activo: !empleado.activo }).subscribe((actualizado) => {
-      this.empleados.update((actuales) =>
-        actuales.map((e) => (e.id === actualizado.id ? actualizado : e))
-      );
-    });
+    this.empleadosService
+      .actualizar(empleado.id, { activo: !empleado.activo })
+      .subscribe((actualizado) => {
+        this.empleados.update((actuales) =>
+          actuales.map((e) => (e.id === actualizado.id ? actualizado : e)),
+        );
+      });
   }
 }

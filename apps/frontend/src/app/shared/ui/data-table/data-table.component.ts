@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
 
@@ -16,7 +24,7 @@ const collator = new Intl.Collator('es', { sensitivity: 'base', numeric: true })
   imports: [NgTemplateOutlet],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataTableComponent<T extends object> {
   columns = input.required<DataTableColumn<T>[]>();
@@ -76,8 +84,11 @@ export class DataTableComponent<T extends object> {
   ordenarPor(column: DataTableColumn<T>): void {
     if (!this.esOrdenable(column)) return;
     const actual = this.direccionDe(column);
-    const siguiente: DireccionOrden | null = actual === null ? 'asc' : actual === 'asc' ? 'desc' : null;
-    const cambio: CambioOrden<T> | null = siguiente ? { key: column.key, direccion: siguiente } : null;
+    const siguiente: DireccionOrden | null =
+      actual === null ? 'asc' : actual === 'asc' ? 'desc' : null;
+    const cambio: CambioOrden<T> | null = siguiente
+      ? { key: column.key, direccion: siguiente }
+      : null;
     this.orden.set(cambio);
     this.sortChange.emit(cambio);
   }
@@ -91,7 +102,9 @@ export class DataTableComponent<T extends object> {
     if (typeof valor === 'boolean') return valor ? 1 : 0;
     const texto = String(valor);
     // Números que llegan como texto (numeric de Postgres) se comparan como números.
-    return texto !== '' && !Number.isNaN(Number(texto)) && /^-?\d+(\.\d+)?$/.test(texto) ? Number(texto) : texto;
+    return texto !== '' && !Number.isNaN(Number(texto)) && /^-?\d+(\.\d+)?$/.test(texto)
+      ? Number(texto)
+      : texto;
   }
 
   cellValue(row: T, column: DataTableColumn<T>): string {

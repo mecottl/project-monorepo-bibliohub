@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  computed,
+  signal,
+} from '@angular/core';
 
 const CARPETA = '/login';
 const EXTENSIONES = ['png'];
@@ -10,7 +17,7 @@ const RATIO_POR_DEFECTO = 4 / 3;
   selector: 'app-auth-slideshow',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth-slideshow.component.html',
-  styleUrl: './auth-slideshow.component.css'
+  styleUrl: './auth-slideshow.component.css',
 })
 export class AuthSlideshowComponent implements OnInit, OnDestroy {
   slides = signal<string[]>([]);

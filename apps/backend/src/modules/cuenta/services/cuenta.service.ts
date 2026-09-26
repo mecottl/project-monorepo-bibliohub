@@ -119,7 +119,10 @@ export class CuentaService {
   ): Promise<{ message: string }> {
     const cliente = await this.buscar(clienteId);
 
-    if (!cliente.passwordHash || !(await bcrypt.compare(dto.passwordActual, cliente.passwordHash))) {
+    if (
+      !cliente.passwordHash ||
+      !(await bcrypt.compare(dto.passwordActual, cliente.passwordHash))
+    ) {
       throw new BadRequestException('La contraseña actual no es correcta');
     }
 

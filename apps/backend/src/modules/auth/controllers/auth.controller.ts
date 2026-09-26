@@ -57,16 +57,8 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout(
-    @Req() req: Request,
-    @CurrentUser() user: AuthenticatedUser,
-  ): Promise<void> {
+  logout(@Req() req: Request, @CurrentUser() user: AuthenticatedUser): Promise<void> {
     const token = req.headers['authorization']?.replace('Bearer ', '') ?? '';
-    return this.authService.logout(
-      token,
-      user,
-      req.ip,
-      req.headers['user-agent'],
-    );
+    return this.authService.logout(token, user, req.ip, req.headers['user-agent']);
   }
 }

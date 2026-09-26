@@ -15,13 +15,18 @@
 
   <div class="reportes__stats">
     <app-stat-card label="Ventas en el período" [value]="totalVentasPeriodo()" />
-    <app-stat-card label="Monto total en el período" [value]="'$' + montoTotalPeriodo().toFixed(2)" />
+    <app-stat-card
+      label="Monto total en el período"
+      [value]="'$' + montoTotalPeriodo().toFixed(2)"
+    />
   </div>
 
   <section class="reportes__seccion">
     <div class="reportes__seccion-header">
       <h2 class="font-display">Ventas por día</h2>
-      <button type="button" class="btn-outline" (click)="exportarVentasPorDia()">Descargar Excel</button>
+      <button type="button" class="btn-outline" (click)="exportarVentasPorDia()">
+        Descargar Excel
+      </button>
     </div>
     <app-data-table
       [columns]="columnasVentasPorDia"
@@ -34,7 +39,9 @@
   <section class="reportes__seccion">
     <div class="reportes__seccion-header">
       <h2 class="font-display">Rendimiento por empleado</h2>
-      <button type="button" class="btn-outline" (click)="exportarRendimiento()">Descargar Excel</button>
+      <button type="button" class="btn-outline" (click)="exportarRendimiento()">
+        Descargar Excel
+      </button>
     </div>
     <app-data-table
       [columns]="columnasRendimiento"
@@ -47,7 +54,9 @@
   <section class="reportes__seccion">
     <div class="reportes__seccion-header">
       <h2 class="font-display">Libros más vendidos</h2>
-      <button type="button" class="btn-outline" (click)="exportarMasVendidos()">Descargar Excel</button>
+      <button type="button" class="btn-outline" (click)="exportarMasVendidos()">
+        Descargar Excel
+      </button>
     </div>
     <app-data-table
       [columns]="columnasMasVendidos"

@@ -7,6 +7,6 @@ export const EMPLEADOS_ROUTES: Routes = [
     path: '',
     canActivate: [authGuard, roleGuard],
     data: { roles: ['admin'] },
-    loadComponent: () => import('./pages/empleados/empleados.page').then((m) => m.EmpleadosPage)
-  }
+    loadComponent: () => import('./pages/empleados/empleados.page').then((m) => m.EmpleadosPage),
+  },
 ];

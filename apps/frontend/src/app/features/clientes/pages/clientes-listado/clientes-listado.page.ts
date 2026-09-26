@@ -13,7 +13,7 @@ import { Cliente } from '@domain/clientes/cliente.model';
   imports: [DataTableComponent, SearchInputComponent, PaginationComponent, EmptyStateComponent],
   templateUrl: './clientes-listado.page.html',
   styleUrl: './clientes-listado.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientesListadoPage {
   private readonly clientesService = inject(ClientesService);
@@ -32,19 +32,19 @@ export class ClientesListadoPage {
     {
       key: 'email',
       label: 'Email',
-      formatter: (value) => (value as string | null) ?? '—'
+      formatter: (value) => (value as string | null) ?? '—',
     },
     {
       key: 'cuentaActiva',
       label: 'Cuenta',
       formatter: (value) => (value ? 'Activa' : 'Inactiva'),
-      cellClass: (value) => (value ? '' : 'cell-danger')
+      cellClass: (value) => (value ? '' : 'cell-danger'),
     },
     {
       key: 'puntosSaldo',
       label: 'Puntos',
-      align: 'right'
-    }
+      align: 'right',
+    },
   ];
 
   totalPages = computed(() => Math.max(1, Math.ceil(this.total() / this.limit)));
@@ -63,7 +63,7 @@ export class ClientesListadoPage {
           this.total.set(res.total);
           this.loading.set(false);
         },
-        error: () => this.loading.set(false)
+        error: () => this.loading.set(false),
       });
   }
 

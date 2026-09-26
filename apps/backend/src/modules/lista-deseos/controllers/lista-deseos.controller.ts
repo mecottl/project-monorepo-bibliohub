@@ -23,7 +23,10 @@ export class ListaDeseosController {
   }
 
   @Post(':libroId')
-  agregar(@CurrentUser() user: AuthenticatedUser, @Param('libroId', ParseUUIDPipe) libroId: string) {
+  agregar(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('libroId', ParseUUIDPipe) libroId: string,
+  ) {
     return this.service.agregar(user.id, libroId);
   }
 

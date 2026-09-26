@@ -38,11 +38,11 @@ import { LogoutIconComponent } from '@shared/icons/logout-icon.component';
     VolverIconComponent,
     UsuarioIconComponent,
     CarritoIconComponent,
-    LogoutIconComponent
+    LogoutIconComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+  styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
   auth = inject(AuthService);
@@ -54,7 +54,7 @@ export class SidebarComponent {
     { ruta: '/cuenta/direcciones', texto: 'Direcciones', icono: 'inicio' },
     { ruta: '/cuenta/tarjetas', texto: 'Facturación', icono: 'ventas' },
     { ruta: '/cuenta/compras', texto: 'Compras y rastreo', icono: 'pedidos' },
-    { ruta: '/cuenta/puntos', texto: 'Mis puntos', icono: 'puntos' }
+    { ruta: '/cuenta/puntos', texto: 'Mis puntos', icono: 'puntos' },
   ];
 
   modoCuenta = input(false);

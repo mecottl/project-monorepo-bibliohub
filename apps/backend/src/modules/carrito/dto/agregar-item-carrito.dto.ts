@@ -6,7 +6,11 @@ export class AgregarItemCarritoDto {
   @IsUUID()
   libroId!: string;
 
-  @ApiPropertyOptional({ example: 1, default: 1, description: 'Se suma a la cantidad ya en el carrito' })
+  @ApiPropertyOptional({
+    example: 1,
+    default: 1,
+    description: 'Se suma a la cantidad ya en el carrito',
+  })
   @IsOptional()
   @IsInt()
   @Min(1)

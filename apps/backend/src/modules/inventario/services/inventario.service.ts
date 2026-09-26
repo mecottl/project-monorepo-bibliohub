@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
 import { Libro } from '@modules/catalogo/entities/libro.entity';
@@ -62,21 +58,13 @@ export class InventarioService {
   }
 
   async findAll(query: QueryMovimientoDto): Promise<PaginatedMovimientos> {
-    const {
-      libroId,
-      tipo,
-      fechaDesde,
-      fechaHasta,
-      page = 1,
-      limit = 10,
-    } = query;
+    const { libroId, tipo, fechaDesde, fechaHasta, page = 1, limit = 10 } = query;
 
-    const qb: SelectQueryBuilder<MovimientoInventario> =
-      this.movimientoRepository
-        .createQueryBuilder('movimiento')
-        .leftJoinAndSelect('movimiento.libro', 'libro')
-        .leftJoinAndSelect('movimiento.empleado', 'empleado')
-        .orderBy('movimiento.createdAt', 'DESC');
+    const qb: SelectQueryBuilder<MovimientoInventario> = this.movimientoRepository
+      .createQueryBuilder('movimiento')
+      .leftJoinAndSelect('movimiento.libro', 'libro')
+      .leftJoinAndSelect('movimiento.empleado', 'empleado')
+      .orderBy('movimiento.createdAt', 'DESC');
 
     if (libroId) {
       qb.andWhere('movimiento.libroId = :libroId', { libroId });
@@ -107,10 +95,7 @@ export class InventarioService {
     };
   }
 
-  private validarSignoPorTipo(
-    tipo: 'entrada' | 'salida' | 'ajuste',
-    cantidad: number,
-  ): void {
+  private validarSignoPorTipo(tipo: 'entrada' | 'salida' | 'ajuste', cantidad: number): void {
     if (tipo === 'entrada' && cantidad <= 0) {
       throw new BadRequestException(
         'Un movimiento de tipo "entrada" debe tener cantidad positiva.',
@@ -118,9 +103,7 @@ export class InventarioService {
     }
 
     if (tipo === 'salida' && cantidad >= 0) {
-      throw new BadRequestException(
-        'Un movimiento de tipo "salida" debe tener cantidad negativa.',
-      );
+      throw new BadRequestException('Un movimiento de tipo "salida" debe tener cantidad negativa.');
     }
   }
 }

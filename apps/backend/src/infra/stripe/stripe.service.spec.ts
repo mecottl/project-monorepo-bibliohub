@@ -24,6 +24,8 @@ describe('StripeService', () => {
     const servicio = new StripeService();
     expect(() => servicio.construirEvento(Buffer.from('{}'), 'x')).toThrow(/WEBHOOK_SECRET/);
     process.env.STRIPE_WEBHOOK_SECRET = 'whsec_dummy';
-    expect(() => servicio.construirEvento(Buffer.from('{}'), 'firma-mala')).toThrow(/Firma de webhook inválida/);
+    expect(() => servicio.construirEvento(Buffer.from('{}'), 'firma-mala')).toThrow(
+      /Firma de webhook inválida/,
+    );
   });
 });

@@ -11,10 +11,18 @@
     <button type="button" [class.is-active]="tab() === 'autores'" (click)="cambiarTab('autores')">
       Autores
     </button>
-    <button type="button" [class.is-active]="tab() === 'editoriales'" (click)="cambiarTab('editoriales')">
+    <button
+      type="button"
+      [class.is-active]="tab() === 'editoriales'"
+      (click)="cambiarTab('editoriales')"
+    >
       Editoriales
     </button>
-    <button type="button" [class.is-active]="tab() === 'categorias'" (click)="cambiarTab('categorias')">
+    <button
+      type="button"
+      [class.is-active]="tab() === 'categorias'"
+      (click)="cambiarTab('categorias')"
+    >
       Categorías
     </button>
   </div>
@@ -23,7 +31,9 @@
     <form class="catalogo-admin__form" [formGroup]="autorForm" (ngSubmit)="agregarAutor()">
       <input type="text" formControlName="nombre" placeholder="Nombre del autor" />
       <input type="text" formControlName="nacionalidad" placeholder="Nacionalidad (opcional)" />
-      <button type="submit" class="btn-primary" [disabled]="autorForm.invalid">+ Agregar autor</button>
+      <button type="submit" class="btn-primary" [disabled]="autorForm.invalid">
+        + Agregar autor
+      </button>
     </form>
 
     <app-data-table
@@ -35,7 +45,11 @@
     />
 
     <ng-template #accionesAutor let-autor>
-      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('autores', autor)">
+      <button
+        type="button"
+        class="catalogo-admin__accion"
+        (click)="pedirEliminar('autores', autor)"
+      >
         Eliminar
       </button>
     </ng-template>
@@ -45,7 +59,9 @@
     <form class="catalogo-admin__form" [formGroup]="editorialForm" (ngSubmit)="agregarEditorial()">
       <input type="text" formControlName="nombre" placeholder="Nombre de la editorial" />
       <input type="text" formControlName="pais" placeholder="País (opcional)" />
-      <button type="submit" class="btn-primary" [disabled]="editorialForm.invalid">+ Agregar editorial</button>
+      <button type="submit" class="btn-primary" [disabled]="editorialForm.invalid">
+        + Agregar editorial
+      </button>
     </form>
 
     <app-data-table
@@ -57,7 +73,11 @@
     />
 
     <ng-template #accionesEditorial let-editorial>
-      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('editoriales', editorial)">
+      <button
+        type="button"
+        class="catalogo-admin__accion"
+        (click)="pedirEliminar('editoriales', editorial)"
+      >
         Eliminar
       </button>
     </ng-template>
@@ -67,7 +87,9 @@
     <form class="catalogo-admin__form" [formGroup]="categoriaForm" (ngSubmit)="agregarCategoria()">
       <input type="text" formControlName="nombre" placeholder="Nombre de la categoría" />
       <input type="text" formControlName="descripcion" placeholder="Descripción (opcional)" />
-      <button type="submit" class="btn-primary" [disabled]="categoriaForm.invalid">+ Agregar categoría</button>
+      <button type="submit" class="btn-primary" [disabled]="categoriaForm.invalid">
+        + Agregar categoría
+      </button>
     </form>
 
     <app-data-table
@@ -79,7 +101,11 @@
     />
 
     <ng-template #accionesCategoria let-categoria>
-      <button type="button" class="catalogo-admin__accion" (click)="pedirEliminar('categorias', categoria)">
+      <button
+        type="button"
+        class="catalogo-admin__accion"
+        (click)="pedirEliminar('categorias', categoria)"
+      >
         Eliminar
       </button>
     </ng-template>
@@ -88,7 +114,11 @@
   <app-confirm-modal
     [open]="aEliminar() !== null"
     title="Desactivar"
-    [message]="'¿Desactivar &quot;' + (aEliminar()?.nombre ?? '') + '&quot;? Dejará de aparecer en el catálogo, pero no se borra físicamente.'"
+    [message]="
+      '¿Desactivar &quot;' +
+      (aEliminar()?.nombre ?? '') +
+      '&quot;? Dejará de aparecer en el catálogo, pero no se borra físicamente.'
+    "
     confirmLabel="Desactivar"
     (confirmed)="confirmarEliminar()"
     (cancelled)="cancelarEliminar()"

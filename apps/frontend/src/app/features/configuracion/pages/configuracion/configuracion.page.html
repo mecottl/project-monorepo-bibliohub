@@ -19,7 +19,11 @@
       @if (auth.currentUser(); as user) {
         <p class="configuracion__rol">{{ user.rol === 'admin' ? 'Administrador' : 'Cajero' }}</p>
       }
-      <button type="submit" class="btn-primary" [disabled]="perfilForm.invalid || guardandoPerfil()">
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="perfilForm.invalid || guardandoPerfil()"
+      >
         {{ guardandoPerfil() ? 'Guardando…' : 'Guardar cambios' }}
       </button>
     </form>
@@ -38,13 +42,27 @@
     <form class="configuracion__form" [formGroup]="passwordForm" (ngSubmit)="guardarPassword()">
       <div class="field">
         <label for="passwordActual">Contraseña actual</label>
-        <input id="passwordActual" type="password" formControlName="passwordActual" autocomplete="current-password" />
+        <input
+          id="passwordActual"
+          type="password"
+          formControlName="passwordActual"
+          autocomplete="current-password"
+        />
       </div>
       <div class="field">
         <label for="passwordNueva">Nueva contraseña</label>
-        <input id="passwordNueva" type="password" formControlName="passwordNueva" autocomplete="new-password" />
+        <input
+          id="passwordNueva"
+          type="password"
+          formControlName="passwordNueva"
+          autocomplete="new-password"
+        />
       </div>
-      <button type="submit" class="btn-primary" [disabled]="passwordForm.invalid || guardandoPassword()">
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="passwordForm.invalid || guardandoPassword()"
+      >
         {{ guardandoPassword() ? 'Guardando…' : 'Actualizar contraseña' }}
       </button>
     </form>
@@ -52,7 +70,12 @@
 
   <div class="configuracion__panel">
     <h2 class="font-display">Sesiones</h2>
-    <button type="button" class="btn-outline configuracion__cerrar-todas" [disabled]="cerrandoTodas()" (click)="cerrarTodas()">
+    <button
+      type="button"
+      class="btn-outline configuracion__cerrar-todas"
+      [disabled]="cerrandoTodas()"
+      (click)="cerrarTodas()"
+    >
       Cerrar sesión en todos los dispositivos
     </button>
   </div>

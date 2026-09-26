@@ -23,15 +23,19 @@ import { CuentaService } from '@domain/cuenta/cuenta.service';
           <span class="cuenta-hint">No se puede cambiar.</span>
         </div>
 
-        @if (mensaje()) { <p class="cuenta-ok" role="status">{{ mensaje() }}</p> }
-        @if (error()) { <p class="cuenta-error">{{ error() }}</p> }
+        @if (mensaje()) {
+          <p class="cuenta-ok" role="status">{{ mensaje() }}</p>
+        }
+        @if (error()) {
+          <p class="cuenta-error">{{ error() }}</p>
+        }
 
         <button type="submit" class="btn-primary" [disabled]="form.invalid || guardando()">
           {{ guardando() ? 'Guardando…' : 'Guardar cambios' }}
         </button>
       </form>
     </section>
-  `
+  `,
 })
 export class PerfilPage {
   private readonly cuenta = inject(CuentaService);
@@ -43,7 +47,9 @@ export class PerfilPage {
   mensaje = signal<string | null>(null);
   error = signal<string | null>(null);
 
-  form = this.fb.nonNullable.group({ nombre: ['', [Validators.required, Validators.maxLength(120)]] });
+  form = this.fb.nonNullable.group({
+    nombre: ['', [Validators.required, Validators.maxLength(120)]],
+  });
 
   constructor() {
     this.cuenta.perfil().subscribe((perfil) => {
@@ -67,7 +73,7 @@ export class PerfilPage {
       error: (err) => {
         this.error.set(err?.error?.message ?? 'No se pudo guardar.');
         this.guardando.set(false);
-      }
+      },
     });
   }
 }

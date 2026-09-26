@@ -7,7 +7,7 @@ import {
   effect,
   inject,
   input,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { aplicarTemaTremor } from '@shared/ui/chart/tremor-theme';
@@ -16,7 +16,7 @@ import { aplicarTemaTremor } from '@shared/ui/chart/tremor-theme';
   selector: 'app-chart',
   template: '<canvas #canvas></canvas>',
   styles: ':host { display: block; width: 100%; height: 100%; }',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);

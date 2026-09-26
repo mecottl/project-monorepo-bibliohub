@@ -6,10 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { Sesion } from '../entities/sesion.entity';
-import type {
-  JwtPayload,
-  AuthenticatedUser,
-} from '@common/auth/jwt-payload.interface';
+import type { JwtPayload, AuthenticatedUser } from '@common/auth/jwt-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

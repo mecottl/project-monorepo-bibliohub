@@ -16,7 +16,7 @@ import {
   UpdateAutorPayload,
   UpdateCategoriaPayload,
   UpdateEditorialPayload,
-  UpdateLibroPayload
+  UpdateLibroPayload,
 } from '@domain/catalogo/catalogo.model';
 
 @Injectable({ providedIn: 'root' })

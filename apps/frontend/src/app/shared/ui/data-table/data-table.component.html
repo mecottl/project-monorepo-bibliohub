@@ -18,7 +18,12 @@
               @if (esOrdenable(column)) {
                 <button type="button" class="th-sort" (click)="ordenarPor(column)">
                   {{ column.label }}
-                  <span class="th-sort__icono" [class.is-asc]="direccionDe(column) === 'asc'" [class.is-desc]="direccionDe(column) === 'desc'" aria-hidden="true"></span>
+                  <span
+                    class="th-sort__icono"
+                    [class.is-asc]="direccionDe(column) === 'asc'"
+                    [class.is-desc]="direccionDe(column) === 'desc'"
+                    aria-hidden="true"
+                  ></span>
                 </button>
               } @else {
                 {{ column.label }}
@@ -34,12 +39,7 @@
       </thead>
       <tbody>
         @for (row of filas(); track trackRow($index, row)) {
-          <tr
-            role="row"
-            tabindex="0"
-            (click)="onRowClick(row)"
-            (keyup.enter)="onRowClick(row)"
-          >
+          <tr role="row" tabindex="0" (click)="onRowClick(row)" (keyup.enter)="onRowClick(row)">
             @for (column of columns(); track column.key) {
               <td
                 role="cell"
@@ -51,7 +51,10 @@
                   @if (!imagenFallida(row) && imagenSrc(row, column); as src) {
                     <img class="data-table-thumb" [src]="src" alt="" (error)="onImagenError(row)" />
                   } @else {
-                    <span class="data-table-thumb data-table-thumb--empty" aria-hidden="true"></span>
+                    <span
+                      class="data-table-thumb data-table-thumb--empty"
+                      aria-hidden="true"
+                    ></span>
                   }
                 } @else {
                   {{ cellValue(row, column) }}

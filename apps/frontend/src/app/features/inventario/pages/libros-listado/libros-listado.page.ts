@@ -18,11 +18,11 @@ import { Libro, LibroAutor } from '@domain/catalogo/catalogo.model';
     SearchInputComponent,
     PaginationComponent,
     EmptyStateComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
   ],
   templateUrl: './libros-listado.page.html',
   styleUrl: './libros-listado.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LibrosListadoPage {
   private readonly catalogoService = inject(CatalogoService);
@@ -55,27 +55,27 @@ export class LibrosListadoPage {
           .map((la) => la.autor?.nombre)
           .filter((nombre): nombre is string => !!nombre);
         return nombres.length ? nombres.join(', ') : '—';
-      }
+      },
     },
     {
       key: 'stockActual',
       label: 'Stock',
       align: 'right',
-      cellClass: (value, row) => (Number(value) <= row.stockMinimo ? 'cell-danger' : '')
+      cellClass: (value, row) => (Number(value) <= row.stockMinimo ? 'cell-danger' : ''),
     },
     {
       key: 'precioVenta',
       label: 'Precio',
       align: 'right',
-      formatter: (value) => `$${Number(value).toFixed(2)}`
-    }
+      formatter: (value) => `$${Number(value).toFixed(2)}`,
+    },
   ];
 
   totalPages = computed(() => Math.max(1, Math.ceil(this.total() / this.limit)));
 
   eliminarMensaje = computed(
     () =>
-      `¿Eliminar "${this.libroAEliminar()?.titulo ?? ''}"? Si tiene ventas asociadas, se dará de baja en vez de borrarse.`
+      `¿Eliminar "${this.libroAEliminar()?.titulo ?? ''}"? Si tiene ventas asociadas, se dará de baja en vez de borrarse.`,
   );
 
   constructor() {
@@ -91,7 +91,7 @@ export class LibrosListadoPage {
         orden: this.orden()?.key as 'titulo' | 'isbn' | 'stockActual' | 'precioVenta' | undefined,
         direccion: this.orden() ? (this.orden()!.direccion === 'asc' ? 'ASC' : 'DESC') : undefined,
         page: this.page(),
-        limit: this.limit
+        limit: this.limit,
       })
       .subscribe({
         next: (res) => {
@@ -99,7 +99,7 @@ export class LibrosListadoPage {
           this.total.set(res.total);
           this.loading.set(false);
         },
-        error: () => this.loading.set(false)
+        error: () => this.loading.set(false),
       });
   }
 
@@ -123,7 +123,7 @@ export class LibrosListadoPage {
       relativeTo: this.route,
       queryParams: { stockBajo: this.soloStockBajo() ? 1 : null },
       queryParamsHandling: 'merge',
-      replaceUrl: true
+      replaceUrl: true,
     });
     this.cargar();
   }

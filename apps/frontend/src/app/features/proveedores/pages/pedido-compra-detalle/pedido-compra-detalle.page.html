@@ -4,10 +4,13 @@
   <section class="pedido-compra-detalle">
     <header class="pedido-compra-detalle__header">
       <div>
-        <a routerLink="/proveedores/pedidos" class="pedido-compra-detalle__volver">← Pedidos de compra</a>
+        <a routerLink="/proveedores/pedidos" class="pedido-compra-detalle__volver"
+          >← Pedidos de compra</a
+        >
         <h1 class="font-display">Pedido a {{ pedido.proveedor?.nombre }}</h1>
         <p class="pedido-compra-detalle__meta">
-          {{ pedido.fecha | date: 'dd/MM/yyyy HH:mm' }} · Estado: {{ etiquetasEstado[pedido.estado] }}
+          {{ pedido.fecha | date: 'dd/MM/yyyy HH:mm' }} · Estado:
+          {{ etiquetasEstado[pedido.estado] }}
         </p>
       </div>
       @if (pedido.estado !== 'cancelado' && pedido.estado !== 'recibido') {

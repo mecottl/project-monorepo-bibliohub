@@ -11,6 +11,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <circle cx="17" cy="9" r="2.3" />
       <path d="M15.3 14.2A5 5 0 0 1 21 19" />
     </svg>
-  `
+  `,
 })
 export class ClientesIconComponent {}

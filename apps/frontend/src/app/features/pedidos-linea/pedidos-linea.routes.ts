@@ -7,6 +7,7 @@ export const PEDIDOS_LINEA_ROUTES: Routes = [
     path: '',
     canActivate: [authGuard, roleGuard],
     data: { roles: ['admin', 'cajero'] },
-    loadComponent: () => import('./pages/pedidos-linea/pedidos-linea.page').then((m) => m.PedidosLineaPage)
-  }
+    loadComponent: () =>
+      import('./pages/pedidos-linea/pedidos-linea.page').then((m) => m.PedidosLineaPage),
+  },
 ];

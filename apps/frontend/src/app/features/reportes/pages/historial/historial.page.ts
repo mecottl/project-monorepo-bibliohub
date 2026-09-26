@@ -12,7 +12,11 @@ import { ReportesTabsComponent } from '../../components/reportes-tabs/reportes-t
 import { ReportesService } from '@domain/reportes/reportes.service';
 import { VentasService } from '@domain/ventas/ventas.service';
 import { PedidosService } from '@domain/pedidos/pedidos.service';
-import { HistorialVentas, VentaHistorial, DetalleHistorial } from '@domain/reportes/historial.model';
+import {
+  HistorialVentas,
+  VentaHistorial,
+  DetalleHistorial,
+} from '@domain/reportes/historial.model';
 
 const LIMITE = 15;
 
@@ -25,18 +29,25 @@ function iso(fecha: Date): string {
 const ETIQUETA_ESTADO: Record<string, string> = {
   completada: 'Completada',
   en_proceso: 'En proceso',
-  cancelada: 'Cancelada'
+  cancelada: 'Cancelada',
 };
 
 @Component({
   selector: 'app-historial-ventas',
   imports: [
-    CurrencyPipe, DatePipe, FormsModule, RouterLink, DataTableComponent, StatCardComponent,
-    PaginationComponent, ConfirmModalComponent, ReportesTabsComponent
+    CurrencyPipe,
+    DatePipe,
+    FormsModule,
+    RouterLink,
+    DataTableComponent,
+    StatCardComponent,
+    PaginationComponent,
+    ConfirmModalComponent,
+    ReportesTabsComponent,
   ],
   templateUrl: './historial.page.html',
   styleUrl: './historial.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HistorialVentasPage {
   private readonly reportes = inject(ReportesService);
@@ -64,19 +75,51 @@ export class HistorialVentasPage {
   private temporizador?: ReturnType<typeof setTimeout>;
 
   readonly columnas: DataTableColumn<VentaHistorial>[] = [
-    { key: 'fecha', label: 'Fecha', formatter: (v) => new Date(String(v)).toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' }) },
-    { key: 'id', label: 'Folio', sortable: false, formatter: (v) => String(v).slice(0, 8).toUpperCase() },
-    { key: 'canal', label: 'Canal', sortable: false, formatter: (v) => (v === 'tienda' ? 'Tienda' : 'En línea') },
-    { key: 'clienteNombre', label: 'Cliente', sortable: false, formatter: (_v, f) => f.clienteNombre || f.clienteTelefono || 'Mostrador' },
-    { key: 'empleado', label: 'Empleado', sortable: false, formatter: (v) => (v ? String(v) : '—') },
-    { key: 'medioPago', label: 'Pago', sortable: false, formatter: (v) => (v === 'efectivo' ? 'Efectivo' : 'Tarjeta') },
+    {
+      key: 'fecha',
+      label: 'Fecha',
+      formatter: (v) =>
+        new Date(String(v)).toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' }),
+    },
+    {
+      key: 'id',
+      label: 'Folio',
+      sortable: false,
+      formatter: (v) => String(v).slice(0, 8).toUpperCase(),
+    },
+    {
+      key: 'canal',
+      label: 'Canal',
+      sortable: false,
+      formatter: (v) => (v === 'tienda' ? 'Tienda' : 'En línea'),
+    },
+    {
+      key: 'clienteNombre',
+      label: 'Cliente',
+      sortable: false,
+      formatter: (_v, f) => f.clienteNombre || f.clienteTelefono || 'Mostrador',
+    },
+    {
+      key: 'empleado',
+      label: 'Empleado',
+      sortable: false,
+      formatter: (v) => (v ? String(v) : '—'),
+    },
+    {
+      key: 'medioPago',
+      label: 'Pago',
+      sortable: false,
+      formatter: (v) => (v === 'efectivo' ? 'Efectivo' : 'Tarjeta'),
+    },
     { key: 'unidades', label: 'Unid.', align: 'right', sortable: false },
     { key: 'total', label: 'Total', align: 'right', formatter: (v) => `$${Number(v).toFixed(2)}` },
     {
-      key: 'estadoGrupo', label: 'Estado', sortable: false,
+      key: 'estadoGrupo',
+      label: 'Estado',
+      sortable: false,
       formatter: (v) => ETIQUETA_ESTADO[String(v)] ?? String(v),
-      cellClass: (v) => (v === 'cancelada' ? 'cell-danger' : '')
-    }
+      cellClass: (v) => (v === 'cancelada' ? 'cell-danger' : ''),
+    },
   ];
 
   readonly etiquetaEstado = (g: string) => ETIQUETA_ESTADO[g] ?? g;
@@ -101,7 +144,7 @@ export class HistorialVentasPage {
       orden: o.key === 'total' ? 'total' : 'fecha',
       direccion: o.direccion === 'asc' ? 'ASC' : 'DESC',
       page,
-      limit
+      limit,
     };
   }
 
@@ -116,7 +159,7 @@ export class HistorialVentasPage {
       error: () => {
         this.error.set('No se pudo cargar el historial.');
         this.cargando.set(false);
-      }
+      },
     });
   }
 
@@ -167,13 +210,14 @@ export class HistorialVentasPage {
       error: () => {
         this.mensajeDetalle.set('No se pudo cargar el detalle.');
         this.cargandoDetalle.set(false);
-      }
+      },
     };
     const mostrar = (d: unknown) => {
       this.detalle.set(d as DetalleHistorial);
       this.cargandoDetalle.set(false);
     };
-    if (venta.canal === 'tienda') this.ventas.obtener(venta.id).subscribe({ next: mostrar, ...alTerminar });
+    if (venta.canal === 'tienda')
+      this.ventas.obtener(venta.id).subscribe({ next: mostrar, ...alTerminar });
     else this.pedidos.obtenerPedidoAdmin(venta.id).subscribe({ next: mostrar, ...alTerminar });
   }
 
@@ -193,7 +237,8 @@ export class HistorialVentasPage {
         this.seleccionada.set({ ...venta, estado: 'cancelada', estadoGrupo: 'cancelada' });
         this.cargar();
       },
-      error: (err) => this.mensajeDetalle.set(err?.error?.message ?? 'No se pudo cancelar la venta.')
+      error: (err) =>
+        this.mensajeDetalle.set(err?.error?.message ?? 'No se pudo cancelar la venta.'),
     });
   }
 }

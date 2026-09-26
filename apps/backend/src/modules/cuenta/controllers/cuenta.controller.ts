@@ -32,7 +32,11 @@ export class CuentaController {
     @Body() dto: CambiarPasswordClienteDto,
     @Req() req: Request,
   ) {
-    return this.cuentaService.cambiarPassword(user.id, dto, hashDeToken(req.headers['authorization']));
+    return this.cuentaService.cambiarPassword(
+      user.id,
+      dto,
+      hashDeToken(req.headers['authorization']),
+    );
   }
 
   @Get('compras-tienda')
@@ -41,8 +45,16 @@ export class CuentaController {
   }
 
   @Get('compras-tienda/:id')
-  compraTienda(@CurrentUser() user: AuthenticatedUser, @Param('id') id: string, @Req() req: Request) {
-    return this.cuentaService.obtenerCompraTienda(user.id, id, `${req.protocol}://${req.get('host')}`);
+  compraTienda(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id') id: string,
+    @Req() req: Request,
+  ) {
+    return this.cuentaService.obtenerCompraTienda(
+      user.id,
+      id,
+      `${req.protocol}://${req.get('host')}`,
+    );
   }
 
   @Get('puntos')

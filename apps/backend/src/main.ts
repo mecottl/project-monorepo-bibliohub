@@ -35,7 +35,9 @@ async function bootstrap() {
   // API JSON: la CSP no aplica (y rompería Swagger UI); el resto de headers
   // de helmet sí. CORP cross-origin para que el frontend (otro origen) pueda
   // cargar las portadas de /uploads.
-  app.use(helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+  app.use(
+    helmet({ contentSecurityPolicy: false, crossOriginResourcePolicy: { policy: 'cross-origin' } }),
+  );
 
   // Detrás de un proxy/balanceador req.ip sería la IP del proxy y el rate
   // limiting bloquearía a todos a la vez — TRUST_PROXY=true lo corrige.

@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
   imports: [],
   templateUrl: './confirm-modal.component.html',
   styleUrl: './confirm-modal.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmModalComponent {
   open = input.required<boolean>();

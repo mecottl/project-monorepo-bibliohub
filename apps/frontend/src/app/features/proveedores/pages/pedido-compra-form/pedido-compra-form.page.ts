@@ -18,7 +18,7 @@ interface LineaPedido {
   imports: [RouterLink, ReactiveFormsModule, SearchInputComponent],
   templateUrl: './pedido-compra-form.page.html',
   styleUrl: './pedido-compra-form.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PedidoCompraFormPage {
   private readonly proveedoresService = inject(ProveedoresService);
@@ -34,11 +34,11 @@ export class PedidoCompraFormPage {
 
   form = this.fb.nonNullable.group({
     proveedorId: ['', [Validators.required]],
-    notas: ['']
+    notas: [''],
   });
 
   total = computed(() =>
-    this.lineas().reduce((acc, l) => acc + l.cantidadSolicitada * l.precioCosto, 0)
+    this.lineas().reduce((acc, l) => acc + l.cantidadSolicitada * l.precioCosto, 0),
   );
 
   constructor() {
@@ -59,7 +59,7 @@ export class PedidoCompraFormPage {
     if (this.lineas().some((l) => l.libro.id === libro.id)) return;
     this.lineas.update((actuales) => [
       ...actuales,
-      { libro, cantidadSolicitada: 1, precioCosto: Number(libro.precioCosto) }
+      { libro, cantidadSolicitada: 1, precioCosto: Number(libro.precioCosto) },
     ]);
     this.resultadosBusqueda.set([]);
   }
@@ -70,13 +70,13 @@ export class PedidoCompraFormPage {
 
   actualizarCantidad(libroId: string, cantidad: number): void {
     this.lineas.update((actuales) =>
-      actuales.map((l) => (l.libro.id === libroId ? { ...l, cantidadSolicitada: cantidad } : l))
+      actuales.map((l) => (l.libro.id === libroId ? { ...l, cantidadSolicitada: cantidad } : l)),
     );
   }
 
   actualizarPrecio(libroId: string, precio: number): void {
     this.lineas.update((actuales) =>
-      actuales.map((l) => (l.libro.id === libroId ? { ...l, precioCosto: precio } : l))
+      actuales.map((l) => (l.libro.id === libroId ? { ...l, precioCosto: precio } : l)),
     );
   }
 
@@ -95,15 +95,15 @@ export class PedidoCompraFormPage {
         items: this.lineas().map((l) => ({
           libroId: l.libro.id,
           cantidadSolicitada: l.cantidadSolicitada,
-          precioCosto: l.precioCosto
-        }))
+          precioCosto: l.precioCosto,
+        })),
       })
       .subscribe({
         next: (pedido) => this.router.navigate(['/proveedores/pedidos', pedido.id]),
         error: (err) => {
           this.guardando.set(false);
           this.errorMensaje.set(err?.error?.message ?? 'No se pudo crear el pedido.');
-        }
+        },
       });
   }
 }

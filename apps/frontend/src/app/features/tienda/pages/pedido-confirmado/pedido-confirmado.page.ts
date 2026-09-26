@@ -6,6 +6,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './pedido-confirmado.page.html',
   styleUrl: './pedido-confirmado.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PedidoConfirmadoPage {}

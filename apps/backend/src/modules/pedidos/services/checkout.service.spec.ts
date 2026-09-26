@@ -1,7 +1,12 @@
 import { BadRequestException } from '@nestjs/common';
 import { CheckoutService } from './checkout.service';
 
-const metadata = { clienteId: 'cli-1', direccionId: '', tipoEntrega: 'recoger_en_tienda', puntosUsados: '20' };
+const metadata = {
+  clienteId: 'cli-1',
+  direccionId: '',
+  tipoEntrega: 'recoger_en_tienda',
+  puntosUsados: '20',
+};
 const intent = { id: 'pi_1', metadata, status: 'succeeded' };
 
 function crear(opciones: { existente?: { id: string } | null; eventoTipo?: string } = {}) {
@@ -11,7 +16,12 @@ function crear(opciones: { existente?: { id: string } | null; eventoTipo?: strin
   };
   const dataSource = { query: jest.fn().mockResolvedValue([{ id: 'pedido-1' }]) };
   const stripe = {
-    construirEvento: jest.fn().mockReturnValue({ type: opciones.eventoTipo ?? 'payment_intent.succeeded', data: { object: intent } }),
+    construirEvento: jest
+      .fn()
+      .mockReturnValue({
+        type: opciones.eventoTipo ?? 'payment_intent.succeeded',
+        data: { object: intent },
+      }),
     api: { paymentIntents: { retrieve: jest.fn().mockResolvedValue(intent) } },
   };
   const servicio = new CheckoutService(
@@ -36,12 +46,10 @@ describe('CheckoutService (pago)', () => {
   it('el webhook crea el pedido con la función SQL y marca el pago', async () => {
     const { servicio, dataSource, pedidoRepo } = crear();
     await servicio.manejarWebhook(Buffer.from('{}'), 'firma');
-    expect(dataSource.query).toHaveBeenCalledWith('SELECT confirmar_pedido_linea($1, $2, $3, $4) AS id', [
-      'cli-1',
-      null,
-      'recoger_en_tienda',
-      20,
-    ]);
+    expect(dataSource.query).toHaveBeenCalledWith(
+      'SELECT confirmar_pedido_linea($1, $2, $3, $4) AS id',
+      ['cli-1', null, 'recoger_en_tienda', 20],
+    );
     expect(pedidoRepo.update).toHaveBeenCalledWith(
       'pedido-1',
       expect.objectContaining({ stripePaymentIntentId: 'pi_1', estadoPago: 'pagado' }),
@@ -56,8 +64,15 @@ describe('CheckoutService (pago)', () => {
 
   it('confirmarPago rechaza un pago de otro cliente o no confirmado', async () => {
     const { servicio, stripe } = crear();
-    await expect(servicio.confirmarPago('otro', 'pi_1')).rejects.toBeInstanceOf(BadRequestException);
-    stripe.api.paymentIntents.retrieve.mockResolvedValue({ ...intent, status: 'requires_payment_method' });
-    await expect(servicio.confirmarPago('cli-1', 'pi_1')).rejects.toBeInstanceOf(BadRequestException);
+    await expect(servicio.confirmarPago('otro', 'pi_1')).rejects.toBeInstanceOf(
+      BadRequestException,
+    );
+    stripe.api.paymentIntents.retrieve.mockResolvedValue({
+      ...intent,
+      status: 'requires_payment_method',
+    });
+    await expect(servicio.confirmarPago('cli-1', 'pi_1')).rejects.toBeInstanceOf(
+      BadRequestException,
+    );
   });
 });

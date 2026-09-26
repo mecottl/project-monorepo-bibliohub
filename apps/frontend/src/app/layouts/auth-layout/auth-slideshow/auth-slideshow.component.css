@@ -99,7 +99,9 @@
   cursor: pointer;
   overflow: hidden;
   flex-shrink: 0;
-  transition: width 0.25s ease, background 0.25s ease;
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
 }
 
 .slideshow__dot:hover {

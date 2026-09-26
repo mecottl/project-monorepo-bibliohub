@@ -12,10 +12,17 @@ import { UsuarioIconComponent } from '@shared/icons/usuario-icon.component';
 
 @Component({
   selector: 'app-topbar',
-  imports: [RouterLink, SearchInputComponent, MenuIconComponent, CarritoIconComponent, UsuarioIconComponent, KodamaAvatarComponent],
+  imports: [
+    RouterLink,
+    SearchInputComponent,
+    MenuIconComponent,
+    CarritoIconComponent,
+    UsuarioIconComponent,
+    KodamaAvatarComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './topbar.component.html',
-  styleUrl: './topbar.component.css'
+  styleUrl: './topbar.component.css',
 })
 export class TopbarComponent {
   auth = inject(AuthService);

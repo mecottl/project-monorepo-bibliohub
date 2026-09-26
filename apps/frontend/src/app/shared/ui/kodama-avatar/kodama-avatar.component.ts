@@ -9,9 +9,15 @@ import { createKodama } from 'kodama-id';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<img [src]="src()" [width]="size()" [height]="size()" alt="" />`,
   styles: `
-    :host { display: inline-flex; line-height: 0; }
-    img { display: block; border-radius: 50%; }
-  `
+    :host {
+      display: inline-flex;
+      line-height: 0;
+    }
+    img {
+      display: block;
+      border-radius: 50%;
+    }
+  `,
 })
 export class KodamaAvatarComponent {
   private readonly sanitizer = inject(DomSanitizer);
@@ -20,7 +26,13 @@ export class KodamaAvatarComponent {
   size = input(32);
 
   src = computed(() => {
-    const { svg } = createKodama({ name: this.semilla(), size: this.size(), animations: ['blink'] });
-    return this.sanitizer.bypassSecurityTrustUrl(`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`);
+    const { svg } = createKodama({
+      name: this.semilla(),
+      size: this.size(),
+      animations: ['blink'],
+    });
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`,
+    );
   });
 }

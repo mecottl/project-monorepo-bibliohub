@@ -4,7 +4,7 @@ import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
 export function exportarExcel<T extends object>(
   nombreArchivo: string,
   columnas: DataTableColumn<T>[],
-  data: T[]
+  data: T[],
 ): void {
   const filas = data.map((fila) =>
     Object.fromEntries(
@@ -12,8 +12,8 @@ export function exportarExcel<T extends object>(
         const crudo = fila[columna.key];
         const valor = columna.formatter ? columna.formatter(crudo, fila) : crudo;
         return [columna.label, valor ?? ''];
-      })
-    )
+      }),
+    ),
   );
 
   const hoja = XLSX.utils.json_to_sheet(filas);

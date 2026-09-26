@@ -14,6 +14,8 @@
     }
   </div>
   @if (linkTexto() && linkRuta()) {
-    <a class="stat-card-link" [routerLink]="linkRuta()" [queryParams]="linkParams()">{{ linkTexto() }}</a>
+    <a class="stat-card-link" [routerLink]="linkRuta()" [queryParams]="linkParams()">{{
+      linkTexto()
+    }}</a>
   }
 </div>

@@ -14,7 +14,7 @@ import { Libro } from '@domain/catalogo/catalogo.model';
   imports: [CurrencyPipe, BookCardComponent, StatusBadgeComponent],
   templateUrl: './libro-detalle.page.html',
   styleUrl: './libro-detalle.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LibroDetallePage {
   private readonly route = inject(ActivatedRoute);
@@ -34,7 +34,7 @@ export class LibroDetallePage {
     (this.libro()?.libroAutores ?? [])
       .map((relacion) => relacion.autor?.nombre)
       .filter((nombre): nombre is string => !!nombre)
-      .join(', ')
+      .join(', '),
   );
 
   disponible = computed(() => (this.libro()?.stockActual ?? 0) > 0);
@@ -77,7 +77,7 @@ export class LibroDetallePage {
       error: () => {
         this.cargando.set(false);
         this.noEncontrado.set(true);
-      }
+      },
     });
   }
 

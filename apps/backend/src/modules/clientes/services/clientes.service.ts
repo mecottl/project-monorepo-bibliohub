@@ -14,10 +14,7 @@ import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
 import { CreateClienteDto } from '../dto/create-cliente.dto';
 import { AjustePuntosClienteDto } from '../dto/ajuste-puntos-cliente.dto';
-import {
-  ClienteSinPassword,
-  PaginatedClientes,
-} from '../interfaces/clientes.interface';
+import { ClienteSinPassword, PaginatedClientes } from '../interfaces/clientes.interface';
 
 @Injectable()
 export class ClientesService {
@@ -67,9 +64,7 @@ export class ClientesService {
     });
 
     if (existente) {
-      throw new ConflictException(
-        `Ya existe un cliente con el teléfono ${dto.telefono}`,
-      );
+      throw new ConflictException(`Ya existe un cliente con el teléfono ${dto.telefono}`);
     }
 
     const cliente = this.clienteRepository.create({
@@ -114,7 +109,14 @@ export class ClientesService {
     const cliente = await this.clienteRepository.findOne({ where: { telefono } });
     const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 1);
     return cliente
-      ? { existe: true, id: cliente.id, nombre: cliente.nombre, telefono: cliente.telefono, puntosSaldo: cliente.puntosSaldo, tasaCanje }
+      ? {
+          existe: true,
+          id: cliente.id,
+          nombre: cliente.nombre,
+          telefono: cliente.telefono,
+          puntosSaldo: cliente.puntosSaldo,
+          tasaCanje,
+        }
       : { existe: false, telefono, puntosSaldo: 0, tasaCanje };
   }
 
@@ -143,10 +145,7 @@ export class ClientesService {
     return this.findOne(id);
   }
 
-  async ajustarPuntos(
-    id: string,
-    dto: AjustePuntosClienteDto,
-  ): Promise<ClienteSinPassword> {
+  async ajustarPuntos(id: string, dto: AjustePuntosClienteDto): Promise<ClienteSinPassword> {
     return this.dataSource.transaction(async (manager) => {
       const cliente = await manager.findOne(Cliente, { where: { id } });
 

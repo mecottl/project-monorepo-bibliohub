@@ -48,6 +48,10 @@ export class EmpleadosController {
     @Body() dto: ChangePasswordDto,
     @Req() req: Request,
   ) {
-    return this.empleadosService.cambiarPassword(user.id, dto, hashDeToken(req.headers['authorization']));
+    return this.empleadosService.cambiarPassword(
+      user.id,
+      dto,
+      hashDeToken(req.headers['authorization']),
+    );
   }
 }

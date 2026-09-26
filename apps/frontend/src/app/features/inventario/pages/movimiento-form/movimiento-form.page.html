@@ -20,11 +20,20 @@
             <p class="mov__autor">{{ autores() }}</p>
           }
           <dl class="mov__datos">
-            <div><dt>ISBN</dt><dd>{{ libro.isbn }}</dd></div>
+            <div>
+              <dt>ISBN</dt>
+              <dd>{{ libro.isbn }}</dd>
+            </div>
             @if (libro.categoria) {
-              <div><dt>Categoría</dt><dd>{{ libro.categoria.nombre }}</dd></div>
+              <div>
+                <dt>Categoría</dt>
+                <dd>{{ libro.categoria.nombre }}</dd>
+              </div>
             }
-            <div><dt>Precio</dt><dd>{{ libro.precioVenta | currency }}</dd></div>
+            <div>
+              <dt>Precio</dt>
+              <dd>{{ libro.precioVenta | currency }}</dd>
+            </div>
           </dl>
         </div>
 
@@ -59,29 +68,49 @@
           <div class="mov__cantidad">
             <label for="cantidad">Cantidad</label>
             <div class="mov__stepper">
-              <button type="button" aria-label="Disminuir cantidad" (click)="cambiarCantidad(-1)">−</button>
-              <input id="cantidad" type="number" formControlName="cantidad" [attr.min]="tipo() === 'ajuste' ? null : 1" />
-              <button type="button" aria-label="Aumentar cantidad" (click)="cambiarCantidad(1)">+</button>
+              <button type="button" aria-label="Disminuir cantidad" (click)="cambiarCantidad(-1)">
+                −
+              </button>
+              <input
+                id="cantidad"
+                type="number"
+                formControlName="cantidad"
+                [attr.min]="tipo() === 'ajuste' ? null : 1"
+              />
+              <button type="button" aria-label="Aumentar cantidad" (click)="cambiarCantidad(1)">
+                +
+              </button>
             </div>
             @if (tipo() === 'ajuste') {
               <span class="mov__ayuda">Usa un número negativo para reducir.</span>
             }
           </div>
 
-          <div class="mov__resultado" [class.is-negativo]="stockNegativo()" [class.is-aviso]="bajoMinimo()" role="status">
+          <div
+            class="mov__resultado"
+            [class.is-negativo]="stockNegativo()"
+            [class.is-aviso]="bajoMinimo()"
+            role="status"
+          >
             <span>Stock resultante</span>
             <span class="mov__flujo">
               {{ libro.stockActual }}
               <span aria-hidden="true">→</span>
               <strong class="font-display">{{ stockResultante() }}</strong>
-              <span class="mov__delta" [class.mov__delta--pos]="delta() > 0" [class.mov__delta--neg]="delta() < 0">
+              <span
+                class="mov__delta"
+                [class.mov__delta--pos]="delta() > 0"
+                [class.mov__delta--neg]="delta() < 0"
+              >
                 ({{ delta() > 0 ? '+' : '' }}{{ delta() }})
               </span>
             </span>
             @if (stockNegativo()) {
               <span class="mov__alerta">El stock no puede quedar en negativo.</span>
             } @else if (bajoMinimo()) {
-              <span class="mov__alerta">Quedará por debajo del mínimo ({{ libro.stockMinimo }}).</span>
+              <span class="mov__alerta"
+                >Quedará por debajo del mínimo ({{ libro.stockMinimo }}).</span
+              >
             }
           </div>
 
@@ -103,8 +132,14 @@
           }
 
           <div class="mov__acciones">
-            <button type="button" class="btn-outline" (click)="volver()">Volver al inventario</button>
-            <button type="submit" class="btn-primary" [disabled]="guardando() || form.invalid || stockNegativo()">
+            <button type="button" class="btn-outline" (click)="volver()">
+              Volver al inventario
+            </button>
+            <button
+              type="submit"
+              class="btn-primary"
+              [disabled]="guardando() || form.invalid || stockNegativo()"
+            >
               {{ guardando() ? 'Guardando…' : 'Registrar movimiento' }}
             </button>
           </div>

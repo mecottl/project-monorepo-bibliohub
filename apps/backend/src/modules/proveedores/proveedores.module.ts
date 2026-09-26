@@ -8,9 +8,7 @@ import { ProveedoresController } from './controllers/proveedores.controller';
 import { ProveedoresService } from './services/proveedores.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Proveedor, PedidoCompra, DetallePedidoCompra, Libro]),
-  ],
+  imports: [TypeOrmModule.forFeature([Proveedor, PedidoCompra, DetallePedidoCompra, Libro])],
   controllers: [ProveedoresController],
   providers: [ProveedoresService],
 })

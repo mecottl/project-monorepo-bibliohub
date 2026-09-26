@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, computed, input, output } from '@an
   imports: [],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
   page = input.required<number>();

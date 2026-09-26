@@ -11,7 +11,7 @@ import { Cliente } from '@domain/clientes/cliente.model';
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './cliente-detalle.page.html',
   styleUrl: './cliente-detalle.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClienteDetallePage {
   private readonly fb = inject(FormBuilder);
@@ -36,13 +36,13 @@ export class ClienteDetallePage {
     // que solo aplica si sí se escribe algo.
     nombre: ['', [Validators.minLength(2)]],
     email: ['', [Validators.email]],
-    cuentaActiva: [true]
+    cuentaActiva: [true],
   });
 
   ajusteForm = this.fb.nonNullable.group({
     tipo: 'ganado' as 'ganado' | 'canjeado',
     puntos: [0, [Validators.required, Validators.min(1)]],
-    concepto: ['']
+    concepto: [''],
   });
 
   fechaRegistroFormateada = computed(() => {
@@ -62,11 +62,11 @@ export class ClienteDetallePage {
         this.form.patchValue({
           nombre: cliente.nombre ?? '',
           email: cliente.email ?? '',
-          cuentaActiva: cliente.cuentaActiva
+          cuentaActiva: cliente.cuentaActiva,
         });
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
   }
 
@@ -84,7 +84,7 @@ export class ClienteDetallePage {
       .actualizarCliente(this.clienteId, {
         nombre: nombre || null,
         email: email || undefined,
-        cuentaActiva
+        cuentaActiva,
       })
       .subscribe({
         next: () => {
@@ -94,7 +94,7 @@ export class ClienteDetallePage {
         error: (err: HttpErrorResponse) => {
           this.guardando.set(false);
           this.errorMensaje.set(this.extraerMensajeError(err, 'No se pudo guardar el cliente.'));
-        }
+        },
       });
   }
 
@@ -108,19 +108,21 @@ export class ClienteDetallePage {
     this.ajusteError.set(null);
     const { tipo, puntos, concepto } = this.ajusteForm.getRawValue();
 
-    this.clientesService.ajustarPuntos(this.clienteId, { tipo, puntos, concepto: concepto || undefined }).subscribe({
-      next: (cliente) => {
-        this.cliente.set(cliente);
-        this.ajustando.set(false);
-        this.ajusteForm.reset({ tipo: 'ganado', puntos: 0, concepto: '' });
-      },
-      error: (err: HttpErrorResponse) => {
-        this.ajustando.set(false);
-        this.ajusteError.set(
-          this.extraerMensajeError(err, 'No se pudo ajustar el saldo de puntos.')
-        );
-      }
-    });
+    this.clientesService
+      .ajustarPuntos(this.clienteId, { tipo, puntos, concepto: concepto || undefined })
+      .subscribe({
+        next: (cliente) => {
+          this.cliente.set(cliente);
+          this.ajustando.set(false);
+          this.ajusteForm.reset({ tipo: 'ganado', puntos: 0, concepto: '' });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.ajustando.set(false);
+          this.ajusteError.set(
+            this.extraerMensajeError(err, 'No se pudo ajustar el saldo de puntos.'),
+          );
+        },
+      });
   }
 
   volver(): void {

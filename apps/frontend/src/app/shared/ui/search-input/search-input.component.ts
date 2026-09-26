@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input, output, signal } from '@angu
   imports: [],
   templateUrl: './search-input.component.html',
   styleUrl: './search-input.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchInputComponent {
   placeholder = input('Buscar…');

@@ -70,4 +70,6 @@ export function gradienteArea(color: string) {
 export const moneda = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
 
 export const monedaCorta = (valor: number): string =>
-  valor >= 1000 ? `$${(valor / 1000).toLocaleString('es-MX', { maximumFractionDigits: 1 })} mil` : `$${valor}`;
+  valor >= 1000
+    ? `$${(valor / 1000).toLocaleString('es-MX', { maximumFractionDigits: 1 })} mil`
+    : `$${valor}`;

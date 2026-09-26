@@ -24,13 +24,13 @@ interface OpcionTipo {
 const TIPOS: OpcionTipo[] = [
   { valor: 'entrada', titulo: 'Entrada', simbolo: '+', detalle: 'Llegan libros' },
   { valor: 'salida', titulo: 'Salida', simbolo: '−', detalle: 'Salen libros' },
-  { valor: 'ajuste', titulo: 'Ajuste', simbolo: '±', detalle: 'Corregir conteo' }
+  { valor: 'ajuste', titulo: 'Ajuste', simbolo: '±', detalle: 'Corregir conteo' },
 ];
 
 const MOTIVOS: Record<TipoMovimiento, string[]> = {
   entrada: ['Compra a proveedor', 'Devolución de cliente', 'Reposición'],
   salida: ['Dañado', 'Merma', 'Devolución a proveedor', 'Extravío'],
-  ajuste: ['Conteo físico', 'Corrección de captura']
+  ajuste: ['Conteo físico', 'Corrección de captura'],
 };
 
 @Component({
@@ -38,7 +38,7 @@ const MOTIVOS: Record<TipoMovimiento, string[]> = {
   imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, DatePipe],
   templateUrl: './movimiento-form.page.html',
   styleUrl: './movimiento-form.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovimientoFormPage {
   private readonly fb = inject(FormBuilder);
@@ -60,11 +60,11 @@ export class MovimientoFormPage {
   form = this.fb.nonNullable.group({
     tipo: this.fb.nonNullable.control<TipoMovimiento>('entrada', Validators.required),
     cantidad: this.fb.nonNullable.control(1, [Validators.required, cantidadNoCero]),
-    motivo: ['']
+    motivo: [''],
   });
 
   private valores = toSignal(this.form.valueChanges.pipe(startWith(this.form.getRawValue())), {
-    initialValue: this.form.getRawValue()
+    initialValue: this.form.getRawValue(),
   });
 
   tipo = computed(() => this.valores().tipo ?? 'entrada');
@@ -75,14 +75,18 @@ export class MovimientoFormPage {
       this.libro()
         ?.libroAutores?.map((la) => la.autor?.nombre)
         .filter(Boolean)
-        .join(', ') ?? ''
+        .join(', ') ?? '',
   );
 
   // Cambio con signo tal como lo espera el backend: entrada +, salida −, ajuste con su propio signo.
   delta = computed(() => {
     const cantidad = Number(this.valores().cantidad) || 0;
     const tipo = this.tipo();
-    return tipo === 'salida' ? -Math.abs(cantidad) : tipo === 'entrada' ? Math.abs(cantidad) : cantidad;
+    return tipo === 'salida'
+      ? -Math.abs(cantidad)
+      : tipo === 'entrada'
+        ? Math.abs(cantidad)
+        : cantidad;
   });
 
   stockResultante = computed(() => (this.libro()?.stockActual ?? 0) + this.delta());
@@ -106,7 +110,7 @@ export class MovimientoFormPage {
         this.libro.set(libro);
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
     this.inventarioService
       .buscarMovimientos({ libroId: this.libroId, limit: 6 })
@@ -144,7 +148,12 @@ export class MovimientoFormPage {
 
     const { tipo, motivo } = this.form.getRawValue();
     this.inventarioService
-      .registrarMovimiento({ libroId: this.libroId, tipo, cantidad: this.delta(), motivo: motivo.trim() || undefined })
+      .registrarMovimiento({
+        libroId: this.libroId,
+        tipo,
+        cantidad: this.delta(),
+        motivo: motivo.trim() || undefined,
+      })
       .subscribe({
         next: (mov) => {
           this.guardando.set(false);
@@ -157,9 +166,9 @@ export class MovimientoFormPage {
           this.errorMensaje.set(
             err.status === 400
               ? (err.error?.message ?? 'Movimiento inválido: revisa el tipo y la cantidad.')
-              : 'No se pudo registrar el movimiento.'
+              : 'No se pudo registrar el movimiento.',
           );
-        }
+        },
       });
   }
 

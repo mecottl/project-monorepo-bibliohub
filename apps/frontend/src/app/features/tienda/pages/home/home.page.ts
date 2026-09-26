@@ -1,10 +1,26 @@
-import { ChangeDetectionStrategy, Component, ElementRef, computed, effect, inject, signal, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  effect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogoService } from '@domain/catalogo/catalogo.service';
 import { CatalogoBusquedaService } from '@domain/catalogo/catalogo-busqueda.service';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
 import { Libro } from '@domain/catalogo/catalogo.model';
-import { FiltrosCatalogoComponent, FiltrosCatalogo, SIN_FILTROS, filtrosAApi, filtrosAUrl, filtrosDeUrl } from '../../components/filtros-catalogo/filtros-catalogo.component';
+import {
+  FiltrosCatalogoComponent,
+  FiltrosCatalogo,
+  SIN_FILTROS,
+  filtrosAApi,
+  filtrosAUrl,
+  filtrosDeUrl,
+} from '../../components/filtros-catalogo/filtros-catalogo.component';
 
 // Simulado: toma los primeros N libros hasta que existan registros de ventas reales para ordenar por más vendidos.
 const DESTACADOS_LIMIT = 8;
@@ -16,7 +32,7 @@ const TODOS_LIBROS_LIMIT = 12;
   imports: [BookCardComponent, FiltrosCatalogoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.page.html',
-  styleUrl: './home.page.css'
+  styleUrl: './home.page.css',
 })
 export class HomePage {
   private catalogo = inject(CatalogoService);
@@ -36,7 +52,9 @@ export class HomePage {
   filtros = signal<FiltrosCatalogo>(SIN_FILTROS);
 
   encabezado = computed(() =>
-    this.busqueda.termino() ? `Búsquedas relacionadas a "${this.busqueda.termino()}"` : 'Destacados'
+    this.busqueda.termino()
+      ? `Búsquedas relacionadas a "${this.busqueda.termino()}"`
+      : 'Destacados',
   );
 
   todosHayMas = computed(() => this.todosLibros().length < this.todosTotal());
@@ -68,7 +86,12 @@ export class HomePage {
   }
 
   cambiarFiltros(filtros: FiltrosCatalogo): void {
-    this.router.navigate([], { relativeTo: this.route, queryParams: filtrosAUrl(filtros), queryParamsHandling: 'merge', replaceUrl: true });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: filtrosAUrl(filtros),
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   limpiarFiltros(): void {
@@ -83,7 +106,7 @@ export class HomePage {
         this.libros.set(respuesta.data);
         this.loadingLibros.set(false);
       },
-      error: () => this.loadingLibros.set(false)
+      error: () => this.loadingLibros.set(false),
     });
   }
 
@@ -93,16 +116,18 @@ export class HomePage {
     this.todosLoading.set(true);
     const siguiente = this.todosPage() + 1;
     const filtros = this.filtros();
-    this.catalogo.buscarLibros({ ...filtrosAApi(filtros), page: siguiente, limit: TODOS_LIBROS_LIMIT }).subscribe({
-      next: (respuesta) => {
-        // Descarta respuestas de una consulta con filtros anteriores.
-        if (filtros !== this.filtros()) return;
-        this.todosPage.set(siguiente);
-        this.todosLibros.update((actuales) => [...actuales, ...respuesta.data]);
-        this.todosTotal.set(respuesta.total);
-        this.todosLoading.set(false);
-      },
-      error: () => this.todosLoading.set(false)
-    });
+    this.catalogo
+      .buscarLibros({ ...filtrosAApi(filtros), page: siguiente, limit: TODOS_LIBROS_LIMIT })
+      .subscribe({
+        next: (respuesta) => {
+          // Descarta respuestas de una consulta con filtros anteriores.
+          if (filtros !== this.filtros()) return;
+          this.todosPage.set(siguiente);
+          this.todosLibros.update((actuales) => [...actuales, ...respuesta.data]);
+          this.todosTotal.set(respuesta.total);
+          this.todosLoading.set(false);
+        },
+        error: () => this.todosLoading.set(false),
+      });
   }
 }

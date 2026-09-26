@@ -39,7 +39,9 @@ export class CarritoService {
   }
 
   vaciar() {
-    return this.http.delete<Carrito>(this.baseUrl).pipe(tap((carrito) => this.carrito.set(carrito)));
+    return this.http
+      .delete<Carrito>(this.baseUrl)
+      .pipe(tap((carrito) => this.carrito.set(carrito)));
   }
 
   limpiarLocal(): void {

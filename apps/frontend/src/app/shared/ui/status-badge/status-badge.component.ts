@@ -6,7 +6,7 @@ import { StatusBadgeVariant } from '@shared/ui/status-badge/status-badge.model';
   imports: [],
   templateUrl: './status-badge.component.html',
   styleUrl: './status-badge.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBadgeComponent {
   label = input.required<string>();

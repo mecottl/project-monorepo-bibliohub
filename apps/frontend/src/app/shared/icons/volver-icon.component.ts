@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <path d="M8 4 3 9l5 5" />
       <path d="M3 9h11a5 5 0 0 1 5 5v1" />
     </svg>
-  `
+  `,
 })
 export class VolverIconComponent {}

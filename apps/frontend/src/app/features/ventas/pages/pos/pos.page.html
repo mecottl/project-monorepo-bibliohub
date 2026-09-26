@@ -128,19 +128,48 @@
         @if (clienteInfo(); as cliente) {
           <div class="puntos-uso">
             <div class="puntos-uso__cabecera">
-              <strong>{{ cliente.existe ? (cliente.nombre || 'Cliente sin nombre') : 'Cliente nuevo' }}</strong>
-              <span class="puntos-uso__saldo">{{ cliente.puntosSaldo }} puntos · cada uno vale ${{ cliente.tasaCanje }}</span>
+              <strong>{{
+                cliente.existe ? cliente.nombre || 'Cliente sin nombre' : 'Cliente nuevo'
+              }}</strong>
+              <span class="puntos-uso__saldo"
+                >{{ cliente.puntosSaldo }} puntos · cada uno vale ${{ cliente.tasaCanje }}</span
+              >
             </div>
             @if (maxPuntos() > 0) {
               <div class="puntos-uso__control">
                 <div class="puntos-uso__stepper">
-                  <button type="button" aria-label="Usar un punto menos" [disabled]="puntosUsados() <= 0" (click)="fijarPuntos(puntosUsados() - 1)">−</button>
-                  <input type="number" min="0" [max]="maxPuntos()" aria-label="Puntos a usar" [value]="puntosUsados()" (change)="fijarPuntos($any($event.target).value)" />
-                  <button type="button" aria-label="Usar un punto más" [disabled]="puntosUsados() >= maxPuntos()" (click)="fijarPuntos(puntosUsados() + 1)">+</button>
+                  <button
+                    type="button"
+                    aria-label="Usar un punto menos"
+                    [disabled]="puntosUsados() <= 0"
+                    (click)="fijarPuntos(puntosUsados() - 1)"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    [max]="maxPuntos()"
+                    aria-label="Puntos a usar"
+                    [value]="puntosUsados()"
+                    (change)="fijarPuntos($any($event.target).value)"
+                  />
+                  <button
+                    type="button"
+                    aria-label="Usar un punto más"
+                    [disabled]="puntosUsados() >= maxPuntos()"
+                    (click)="fijarPuntos(puntosUsados() + 1)"
+                  >
+                    +
+                  </button>
                 </div>
-                <button type="button" class="puntos-uso__link" (click)="fijarPuntos(maxPuntos())">Usar el máximo ({{ maxPuntos() }})</button>
+                <button type="button" class="puntos-uso__link" (click)="fijarPuntos(maxPuntos())">
+                  Usar el máximo ({{ maxPuntos() }})
+                </button>
                 @if (puntosUsados() > 0) {
-                  <button type="button" class="puntos-uso__link" (click)="fijarPuntos(0)">No usar</button>
+                  <button type="button" class="puntos-uso__link" (click)="fijarPuntos(0)">
+                    No usar
+                  </button>
                 }
               </div>
             }
@@ -156,7 +185,9 @@
                 <div class="pos__carrito-item-info">
                   <span class="pos__carrito-item-titulo">{{ item.libro.titulo }}</span>
                   <span class="pos__carrito-item-detalle">
-                    ${{ item.libro.precioVenta }} c/u &nbsp;·&nbsp; Subtotal: ${{ subtotalLinea(item).toFixed(2) }}
+                    ${{ item.libro.precioVenta }} c/u &nbsp;·&nbsp; Subtotal: ${{
+                      subtotalLinea(item).toFixed(2)
+                    }}
                   </span>
                 </div>
 
@@ -196,7 +227,9 @@
 
         @if (puntosUsados() > 0) {
           <p class="pos__desglose">Subtotal: ${{ total().toFixed(2) }}</p>
-          <p class="pos__desglose puntos-uso__descuento">Descuento por puntos: −${{ descuento().toFixed(2) }}</p>
+          <p class="pos__desglose puntos-uso__descuento">
+            Descuento por puntos: −${{ descuento().toFixed(2) }}
+          </p>
         }
         <p class="pos__total">Total: ${{ totalAPagar().toFixed(2) }}</p>
 

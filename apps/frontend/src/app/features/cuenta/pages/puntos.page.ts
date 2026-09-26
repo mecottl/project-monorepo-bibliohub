@@ -27,7 +27,10 @@ import { CuentaService, PuntosCuenta } from '@domain/cuenta/cuenta.service';
             <div class="puntos-mov">
               <span>
                 {{ m.concepto ?? (m.tipo === 'ganado' ? 'Puntos ganados' : 'Puntos canjeados') }}
-                <small class="cuenta-hint">· {{ m.canal === 'pos' ? 'Tienda' : 'En línea' }} · {{ m.fecha | date: 'dd/MM/yyyy' }}</small>
+                <small class="cuenta-hint"
+                  >· {{ m.canal === 'pos' ? 'Tienda' : 'En línea' }} ·
+                  {{ m.fecha | date: 'dd/MM/yyyy' }}</small
+                >
               </span>
               <span [class]="m.tipo">{{ m.tipo === 'ganado' ? '+' : '−' }}{{ m.puntos }}</span>
             </div>
@@ -39,12 +42,14 @@ import { CuentaService, PuntosCuenta } from '@domain/cuenta/cuenta.service';
         <p class="cuenta-hint">Cargando...</p>
       }
     </section>
-  `
+  `,
 })
 export class PuntosPage {
   datos = signal<PuntosCuenta | null>(null);
 
   constructor() {
-    inject(CuentaService).puntos().subscribe((datos) => this.datos.set(datos));
+    inject(CuentaService)
+      .puntos()
+      .subscribe((datos) => this.datos.set(datos));
   }
 }

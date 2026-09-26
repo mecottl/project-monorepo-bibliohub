@@ -3,7 +3,9 @@ import { ConfiguracionService } from './configuracion.service';
 
 function crear(filas: Record<string, { valor: string; tipoDato: string }>) {
   const repo = {
-    findOne: jest.fn(async ({ where: { clave } }) => (filas[clave] ? { clave, ...filas[clave] } : null)),
+    findOne: jest.fn(async ({ where: { clave } }) =>
+      filas[clave] ? { clave, ...filas[clave] } : null,
+    ),
     save: jest.fn(async (x) => {
       filas[x.clave].valor = x.valor;
       return x;

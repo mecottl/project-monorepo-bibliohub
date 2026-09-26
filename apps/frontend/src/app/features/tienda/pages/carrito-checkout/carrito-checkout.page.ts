@@ -5,7 +5,7 @@ import {
   afterNextRender,
   computed,
   inject,
-  signal
+  signal,
 } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ type Paso = 1 | 2 | 3;
   imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './carrito-checkout.page.html',
   styleUrl: './carrito-checkout.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarritoCheckoutPage {
   private readonly carritoService = inject(CarritoService);
@@ -53,7 +53,7 @@ export class CarritoCheckoutPage {
   private elements: StripeElements | null = null;
 
   puedeContinuarDireccion = computed(
-    () => this.tipoEntrega() === 'recoger_en_tienda' || this.direccionSeleccionadaId() !== null
+    () => this.tipoEntrega() === 'recoger_en_tienda' || this.direccionSeleccionadaId() !== null,
   );
 
   direccionForm = this.fb.nonNullable.group({
@@ -63,7 +63,7 @@ export class CarritoCheckoutPage {
     ciudad: ['', [Validators.required]],
     estado: ['', [Validators.required]],
     codigoPostal: ['', [Validators.required]],
-    referencias: ['']
+    referencias: [''],
   });
 
   // Puntos: saldo del cliente, pesos por punto y cuántos se aplican como descuento (máximo: sin pasarse del subtotal).
@@ -71,7 +71,10 @@ export class CarritoCheckoutPage {
   tasaCanje = signal(1);
   puntosUsados = signal(0);
   maxPuntos = computed(() =>
-    Math.max(0, Math.min(this.saldoPuntos(), Math.floor(this.carrito().subtotal / this.tasaCanje())))
+    Math.max(
+      0,
+      Math.min(this.saldoPuntos(), Math.floor(this.carrito().subtotal / this.tasaCanje())),
+    ),
   );
   descuentoPuntos = computed(() => this.puntosUsados() * this.tasaCanje());
 
@@ -85,7 +88,7 @@ export class CarritoCheckoutPage {
         this.saldoPuntos.set(p.saldo);
         this.tasaCanje.set(p.pesosPorPuntoCanjeado || 1);
       },
-      error: () => undefined
+      error: () => undefined,
     });
     this.carritoService.cargar();
     this.pedidosService.listarDirecciones().subscribe((data) => {
@@ -152,8 +155,9 @@ export class CarritoCheckoutPage {
     this.pedidosService
       .iniciarCheckout({
         tipoEntrega: this.tipoEntrega(),
-        direccionId: this.tipoEntrega() === 'envio_a_domicilio' ? this.direccionSeleccionadaId()! : undefined,
-        puntosUsados: this.puntosUsados() > 0 ? this.puntosUsados() : undefined
+        direccionId:
+          this.tipoEntrega() === 'envio_a_domicilio' ? this.direccionSeleccionadaId()! : undefined,
+        puntosUsados: this.puntosUsados() > 0 ? this.puntosUsados() : undefined,
       })
       .subscribe({
         next: (resultado) => {
@@ -166,13 +170,13 @@ export class CarritoCheckoutPage {
           // vivo: IntegrationError, el div del paso 3 todavía no existía).
           // afterNextRender sí espera al siguiente ciclo de render real.
           afterNextRender(() => this.montarStripeElements(resultado.clientSecret), {
-            injector: this.injector
+            injector: this.injector,
           });
         },
         error: (err) => {
           this.procesandoCheckout.set(false);
           this.errorCheckout.set(err?.error?.message ?? 'No se pudo iniciar el pago.');
-        }
+        },
       });
   }
 
@@ -199,9 +203,9 @@ export class CarritoCheckoutPage {
           colorBackground: '#ffffff',
           colorText: '#3a3128',
           fontFamily: 'inherit',
-          borderRadius: '8px'
-        }
-      }
+          borderRadius: '8px',
+        },
+      },
     });
 
     const paymentElement = this.elements.create('payment');
@@ -216,7 +220,7 @@ export class CarritoCheckoutPage {
 
     const { error, paymentIntent } = await this.stripe.confirmPayment({
       elements: this.elements,
-      redirect: 'if_required'
+      redirect: 'if_required',
     });
 
     if (error) {
@@ -233,7 +237,7 @@ export class CarritoCheckoutPage {
       };
       this.pedidosService.confirmarPago(paymentIntent.id).subscribe({
         next: irAConfirmacion,
-        error: irAConfirmacion
+        error: irAConfirmacion,
       });
       return;
     }

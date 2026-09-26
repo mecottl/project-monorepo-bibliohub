@@ -27,12 +27,21 @@
         <p class="libro-detalle__precio">{{ libro.precioVenta | currency }}</p>
         <dl class="libro-detalle__meta">
           @if (libro.editorial?.nombre) {
-            <div><dt>Editorial</dt><dd>{{ libro.editorial?.nombre }}</dd></div>
+            <div>
+              <dt>Editorial</dt>
+              <dd>{{ libro.editorial?.nombre }}</dd>
+            </div>
           }
           @if (libro.categoria?.nombre) {
-            <div><dt>Categoría</dt><dd>{{ libro.categoria?.nombre }}</dd></div>
+            <div>
+              <dt>Categoría</dt>
+              <dd>{{ libro.categoria?.nombre }}</dd>
+            </div>
           }
-          <div><dt>ISBN</dt><dd>{{ libro.isbn }}</dd></div>
+          <div>
+            <dt>ISBN</dt>
+            <dd>{{ libro.isbn }}</dd>
+          </div>
         </dl>
         @if (libro.sinopsis) {
           <div class="libro-detalle__sinopsis">
@@ -40,8 +49,15 @@
             <p>{{ libro.sinopsis }}</p>
           </div>
         }
-        <button type="button" class="btn-outline libro-detalle__deseo" [attr.aria-pressed]="deseos.esDeseado(libro.id)" (click)="deseos.toggle(libro.id)">
-          {{ deseos.esDeseado(libro.id) ? '♥ En tu lista de deseos' : '♡ Guardar en lista de deseos' }}
+        <button
+          type="button"
+          class="btn-outline libro-detalle__deseo"
+          [attr.aria-pressed]="deseos.esDeseado(libro.id)"
+          (click)="deseos.toggle(libro.id)"
+        >
+          {{
+            deseos.esDeseado(libro.id) ? '♥ En tu lista de deseos' : '♡ Guardar en lista de deseos'
+          }}
         </button>
         <button type="button" class="btn-primary" (click)="agregarAlCarrito()">
           {{ agregado() ? 'Agregado ✓' : 'Agregar al carrito' }}

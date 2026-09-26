@@ -8,7 +8,7 @@ import { EmpleadosService } from '@domain/empleados/empleados.service';
   imports: [ReactiveFormsModule],
   templateUrl: './configuracion.page.html',
   styleUrl: '../../../../shared/styles/ajustes-panel.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfiguracionPage {
   private readonly fb = inject(FormBuilder);
@@ -24,12 +24,15 @@ export class ConfiguracionPage {
   guardandoPassword = signal(false);
 
   perfilForm = this.fb.nonNullable.group({
-    nombre: [this.auth.currentUser()?.nombre ?? '', [Validators.required, Validators.maxLength(120)]]
+    nombre: [
+      this.auth.currentUser()?.nombre ?? '',
+      [Validators.required, Validators.maxLength(120)],
+    ],
   });
 
   passwordForm = this.fb.nonNullable.group({
     passwordActual: ['', [Validators.required]],
-    passwordNueva: ['', [Validators.required, Validators.minLength(8)]]
+    passwordNueva: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   cerrandoTodas = signal(false);
@@ -56,7 +59,7 @@ export class ConfiguracionPage {
       error: (err) => {
         this.guardandoPerfil.set(false);
         this.perfilError.set(err?.error?.message ?? 'No se pudo guardar.');
-      }
+      },
     });
   }
 
@@ -76,7 +79,7 @@ export class ConfiguracionPage {
       error: (err) => {
         this.guardandoPassword.set(false);
         this.passwordError.set(err?.error?.message ?? 'No se pudo actualizar la contraseña.');
-      }
+      },
     });
   }
 }

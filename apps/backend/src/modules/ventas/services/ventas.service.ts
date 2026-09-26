@@ -1,10 +1,6 @@
 import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
 import { CONFIG } from '@modules/configuracion/config-claves';
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository, DataSource, SelectQueryBuilder } from 'typeorm';
 import { Venta } from '../entities/venta.entity';
@@ -32,9 +28,7 @@ export class VentasService {
   // reimplementarla en TypeORM, para no duplicar reglas de negocio ya probadas.
   async crear(dto: CreateVentaDto, empleadoId: string): Promise<VentaSegura> {
     if ((dto.puntosUsados ?? 0) > 0 && !dto.clienteTelefono) {
-      throw new BadRequestException(
-        'No se pueden usar puntos sin especificar un cliente.',
-      );
+      throw new BadRequestException('No se pueden usar puntos sin especificar un cliente.');
     }
 
     // Cliente "solo teléfono": si el teléfono no existe todavía, se crea aquí mismo.
@@ -42,9 +36,7 @@ export class VentasService {
     // no duplicar la lógica de "buscar o crear por teléfono".
     let clienteId: string | null = null;
     if (dto.clienteTelefono) {
-      const cliente = await this.clientesService.buscarOCrearPorTelefono(
-        dto.clienteTelefono,
-      );
+      const cliente = await this.clientesService.buscarOCrearPorTelefono(dto.clienteTelefono);
       clienteId = cliente.id;
     }
 
@@ -60,9 +52,7 @@ export class VentasService {
         throw new NotFoundException(`Libro con id ${item.libroId} no encontrado`);
       }
       if (!libro.activo) {
-        throw new BadRequestException(
-          `El libro "${libro.titulo}" no está activo para venta`,
-        );
+        throw new BadRequestException(`El libro "${libro.titulo}" no está activo para venta`);
       }
       return {
         libro_id: item.libroId,
@@ -79,13 +69,7 @@ export class VentasService {
     try {
       const resultado = await this.dataSource.query(
         'SELECT confirmar_venta_pos($1, $2, $3, $4, $5::jsonb) AS id',
-        [
-          clienteId,
-          empleadoId,
-          dto.medioPago,
-          dto.puntosUsados ?? 0,
-          JSON.stringify(itemsSql),
-        ],
+        [clienteId, empleadoId, dto.medioPago, dto.puntosUsados ?? 0, JSON.stringify(itemsSql)],
       );
       ventaId = resultado[0].id;
     } catch (error) {
@@ -111,20 +95,14 @@ export class VentasService {
     const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 1);
     const subtotal = items.reduce((acc, i) => acc + i.cantidad * Number(i.precio_unitario), 0);
     if (puntosUsados * tasaCanje > subtotal) {
-      throw new BadRequestException('Se están usando más puntos de los necesarios para esta venta.');
+      throw new BadRequestException(
+        'Se están usando más puntos de los necesarios para esta venta.',
+      );
     }
   }
 
   async findAll(query: QueryVentaDto): Promise<PaginatedVentas> {
-    const {
-      clienteId,
-      empleadoId,
-      estado,
-      fechaDesde,
-      fechaHasta,
-      page = 1,
-      limit = 10,
-    } = query;
+    const { clienteId, empleadoId, estado, fechaDesde, fechaHasta, page = 1, limit = 10 } = query;
 
     const qb: SelectQueryBuilder<Venta> = this.ventaRepository
       .createQueryBuilder('venta')

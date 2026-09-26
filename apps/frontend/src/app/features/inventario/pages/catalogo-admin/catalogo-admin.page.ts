@@ -13,7 +13,7 @@ type Tab = 'autores' | 'editoriales' | 'categorias';
   imports: [ReactiveFormsModule, DataTableComponent, ConfirmModalComponent],
   templateUrl: './catalogo-admin.page.html',
   styleUrl: './catalogo-admin.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogoAdminPage {
   private readonly catalogoService = inject(CatalogoService);
@@ -31,33 +31,33 @@ export class CatalogoAdminPage {
   autorForm = this.fb.nonNullable.group({
     nombre: ['', [Validators.required]],
     nacionalidad: [''],
-    biografia: ['']
+    biografia: [''],
   });
 
   editorialForm = this.fb.nonNullable.group({
     nombre: ['', [Validators.required]],
     pais: [''],
-    sitioWeb: ['']
+    sitioWeb: [''],
   });
 
   categoriaForm = this.fb.nonNullable.group({
     nombre: ['', [Validators.required]],
-    descripcion: ['']
+    descripcion: [''],
   });
 
   columnasAutores: DataTableColumn<Autor>[] = [
     { key: 'nombre', label: 'Nombre' },
-    { key: 'nacionalidad', label: 'Nacionalidad' }
+    { key: 'nacionalidad', label: 'Nacionalidad' },
   ];
 
   columnasEditoriales: DataTableColumn<Editorial>[] = [
     { key: 'nombre', label: 'Nombre' },
-    { key: 'pais', label: 'País' }
+    { key: 'pais', label: 'País' },
   ];
 
   columnasCategorias: DataTableColumn<Categoria>[] = [
     { key: 'nombre', label: 'Nombre' },
-    { key: 'descripcion', label: 'Descripción' }
+    { key: 'descripcion', label: 'Descripción' },
   ];
 
   constructor() {
@@ -77,7 +77,7 @@ export class CatalogoAdminPage {
         this.categorias.set(data);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 
@@ -88,14 +88,14 @@ export class CatalogoAdminPage {
       .crearAutor({
         nombre: valores.nombre,
         nacionalidad: valores.nacionalidad || undefined,
-        biografia: valores.biografia || undefined
+        biografia: valores.biografia || undefined,
       })
       .subscribe({
         next: (autor) => {
           this.autores.update((actuales) => [...actuales, autor]);
           this.autorForm.reset({ nombre: '', nacionalidad: '', biografia: '' });
         },
-        error: () => this.errorMensaje.set('No se pudo crear el autor.')
+        error: () => this.errorMensaje.set('No se pudo crear el autor.'),
       });
   }
 
@@ -106,14 +106,14 @@ export class CatalogoAdminPage {
       .crearEditorial({
         nombre: valores.nombre,
         pais: valores.pais || undefined,
-        sitioWeb: valores.sitioWeb || undefined
+        sitioWeb: valores.sitioWeb || undefined,
       })
       .subscribe({
         next: (editorial) => {
           this.editoriales.update((actuales) => [...actuales, editorial]);
           this.editorialForm.reset({ nombre: '', pais: '', sitioWeb: '' });
         },
-        error: () => this.errorMensaje.set('No se pudo crear la editorial.')
+        error: () => this.errorMensaje.set('No se pudo crear la editorial.'),
       });
   }
 
@@ -123,14 +123,14 @@ export class CatalogoAdminPage {
     this.catalogoService
       .crearCategoria({
         nombre: valores.nombre,
-        descripcion: valores.descripcion || undefined
+        descripcion: valores.descripcion || undefined,
       })
       .subscribe({
         next: (categoria) => {
           this.categorias.update((actuales) => [...actuales, categoria]);
           this.categoriaForm.reset({ nombre: '', descripcion: '' });
         },
-        error: () => this.errorMensaje.set('No se pudo crear la categoría.')
+        error: () => this.errorMensaje.set('No se pudo crear la categoría.'),
       });
   }
 

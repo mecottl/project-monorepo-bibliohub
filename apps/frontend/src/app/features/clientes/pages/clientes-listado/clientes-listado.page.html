@@ -23,9 +23,5 @@
     />
   </app-data-table>
 
-  <app-pagination
-    [page]="page()"
-    [totalPages]="totalPages()"
-    (pageChange)="onPageChange($event)"
-  />
+  <app-pagination [page]="page()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)" />
 </section>

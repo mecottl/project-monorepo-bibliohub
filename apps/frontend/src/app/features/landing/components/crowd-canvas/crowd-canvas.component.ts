@@ -7,7 +7,7 @@ import {
   afterNextRender,
   inject,
   input,
-  viewChild
+  viewChild,
 } from '@angular/core';
 import { gsap } from 'gsap';
 
@@ -53,7 +53,7 @@ interface Stage {
       width: 100%;
       height: var(--alto-crowd, 90%);
     }
-  `
+  `,
 })
 export class CrowdCanvasComponent {
   src = input.required<string>();
@@ -76,10 +76,13 @@ export class CrowdCanvasComponent {
     const injector = inject(Injector);
     const destroyRef = inject(DestroyRef);
 
-    afterNextRender(() => {
-      const detener = this.iniciar();
-      destroyRef.onDestroy(detener);
-    }, { injector });
+    afterNextRender(
+      () => {
+        const detener = this.iniciar();
+        destroyRef.onDestroy(detener);
+      },
+      { injector },
+    );
   }
 
   private iniciar(): () => void {
@@ -137,8 +140,13 @@ export class CrowdCanvasComponent {
       tl.to(peep, { duration: xDuration, x: endX, ease: 'none' }, 0);
       tl.to(
         peep,
-        { duration: yDuration, repeat: Math.round(xDuration / yDuration), yoyo: true, y: startY - 10 },
-        0
+        {
+          duration: yDuration,
+          repeat: Math.round(xDuration / yDuration),
+          yoyo: true,
+          y: startY - 10,
+        },
+        0,
       );
       return tl;
     };
@@ -176,14 +184,19 @@ export class CrowdCanvasComponent {
       for (let i = 0; i < total; i++) {
         allPeeps.push({
           image: img,
-          rect: [(i % columnas) * rectWidth, ((i / columnas) | 0) * rectHeight, rectWidth, rectHeight],
+          rect: [
+            (i % columnas) * rectWidth,
+            ((i / columnas) | 0) * rectHeight,
+            rectWidth,
+            rectHeight,
+          ],
           width: rectWidth * escala,
           height: rectHeight * escala,
           x: 0,
           y: 0,
           anchorY: 0,
           scaleX: 1,
-          walk: null
+          walk: null,
         });
       }
 
@@ -203,7 +216,17 @@ export class CrowdCanvasComponent {
         ctx.save();
         ctx.translate(peep.x, peep.y);
         ctx.scale(peep.scaleX, 1);
-        ctx.drawImage(peep.image, peep.rect[0], peep.rect[1], peep.rect[2], peep.rect[3], 0, 0, peep.width, peep.height);
+        ctx.drawImage(
+          peep.image,
+          peep.rect[0],
+          peep.rect[1],
+          peep.rect[2],
+          peep.rect[3],
+          0,
+          0,
+          peep.width,
+          peep.height,
+        );
         ctx.restore();
       }
 

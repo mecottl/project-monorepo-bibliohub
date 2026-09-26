@@ -26,7 +26,9 @@
   text-transform: uppercase;
   color: var(--color-gris-claro);
   margin-bottom: 52px;
-  transition: color 0.2s ease, gap 0.2s ease;
+  transition:
+    color 0.2s ease,
+    gap 0.2s ease;
 }
 
 .login-page__back svg {
@@ -183,7 +185,9 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: background 0.2s ease, gap 0.2s ease;
+  transition:
+    background 0.2s ease,
+    gap 0.2s ease;
 }
 
 .login-page__submit svg {

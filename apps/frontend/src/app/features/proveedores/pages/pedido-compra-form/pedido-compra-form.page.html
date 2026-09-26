@@ -75,7 +75,11 @@
               </td>
               <td>${{ (linea.cantidadSolicitada * linea.precioCosto).toFixed(2) }}</td>
               <td>
-                <button type="button" class="pedido-compra-form__quitar" (click)="quitarLinea(linea.libro.id)">
+                <button
+                  type="button"
+                  class="pedido-compra-form__quitar"
+                  (click)="quitarLinea(linea.libro.id)"
+                >
                   Quitar
                 </button>
               </td>

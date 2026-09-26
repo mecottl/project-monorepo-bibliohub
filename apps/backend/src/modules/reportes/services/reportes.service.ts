@@ -108,7 +108,9 @@ export class ReportesService {
     if (busqueda?.trim()) {
       params.push(`%${busqueda.trim()}%`);
       const n = `$${params.length}`;
-      condiciones.push(`(cliente_nombre ILIKE ${n} OR cliente_telefono ILIKE ${n} OR id::text ILIKE ${n})`);
+      condiciones.push(
+        `(cliente_nombre ILIKE ${n} OR cliente_telefono ILIKE ${n} OR id::text ILIKE ${n})`,
+      );
     }
     const where = condiciones.length ? `WHERE ${condiciones.join(' AND ')}` : '';
 

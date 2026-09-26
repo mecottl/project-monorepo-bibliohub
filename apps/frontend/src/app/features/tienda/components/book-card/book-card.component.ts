@@ -11,7 +11,7 @@ import { Libro } from '@domain/catalogo/catalogo.model';
   imports: [CurrencyPipe, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './book-card.component.html',
-  styleUrl: './book-card.component.css'
+  styleUrl: './book-card.component.css',
 })
 export class BookCardComponent {
   private readonly auth = inject(AuthService);
@@ -27,7 +27,7 @@ export class BookCardComponent {
     (this.libro().libroAutores ?? [])
       .map((relacion) => relacion.autor?.nombre)
       .filter((nombre): nombre is string => !!nombre)
-      .join(', ')
+      .join(', '),
   );
 
   agregarAlCarrito(): void {

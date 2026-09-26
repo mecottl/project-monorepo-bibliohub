@@ -10,7 +10,7 @@ import { EstadoPedidoCompra, PedidoCompra } from '../../models/pedido-compra.mod
   imports: [RouterLink, DatePipe, ConfirmModalComponent],
   templateUrl: './pedido-compra-detalle.page.html',
   styleUrl: './pedido-compra-detalle.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PedidoCompraDetallePage {
   private readonly route = inject(ActivatedRoute);
@@ -27,7 +27,7 @@ export class PedidoCompraDetallePage {
     enviado: 'Enviado',
     recibido_parcial: 'Recibido parcial',
     recibido: 'Recibido',
-    cancelado: 'Cancelado'
+    cancelado: 'Cancelado',
   };
 
   constructor() {
@@ -41,11 +41,11 @@ export class PedidoCompraDetallePage {
       next: (pedido) => {
         this.pedido.set(pedido);
         this.cantidadesRecibidas.set(
-          Object.fromEntries((pedido.detalles ?? []).map((d) => [d.id, d.cantidadRecibida]))
+          Object.fromEntries((pedido.detalles ?? []).map((d) => [d.id, d.cantidadRecibida])),
         );
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
   }
 
@@ -64,7 +64,7 @@ export class PedidoCompraDetallePage {
 
     const items = (pedido.detalles ?? []).map((d) => ({
       detalleId: d.id,
-      cantidadRecibida: this.cantidadesRecibidas()[d.id] ?? d.cantidadRecibida
+      cantidadRecibida: this.cantidadesRecibidas()[d.id] ?? d.cantidadRecibida,
     }));
 
     this.errorMensaje.set(null);
@@ -72,10 +72,11 @@ export class PedidoCompraDetallePage {
       next: (actualizado) => {
         this.pedido.set(actualizado);
         this.cantidadesRecibidas.set(
-          Object.fromEntries((actualizado.detalles ?? []).map((d) => [d.id, d.cantidadRecibida]))
+          Object.fromEntries((actualizado.detalles ?? []).map((d) => [d.id, d.cantidadRecibida])),
         );
       },
-      error: (err) => this.errorMensaje.set(err?.error?.message ?? 'No se pudo registrar la recepción.')
+      error: (err) =>
+        this.errorMensaje.set(err?.error?.message ?? 'No se pudo registrar la recepción.'),
     });
   }
 
@@ -95,7 +96,7 @@ export class PedidoCompraDetallePage {
       error: (err) => {
         this.mostrarConfirmCancelar.set(false);
         this.errorMensaje.set(err?.error?.message ?? 'No se pudo cancelar el pedido.');
-      }
+      },
     });
   }
 

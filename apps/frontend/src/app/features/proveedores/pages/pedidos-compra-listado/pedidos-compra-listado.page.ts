@@ -11,7 +11,7 @@ import { EstadoPedidoCompra, PedidoCompra } from '../../models/pedido-compra.mod
   imports: [RouterLink, DataTableComponent, EmptyStateComponent],
   templateUrl: './pedidos-compra-listado.page.html',
   styleUrl: './pedidos-compra-listado.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PedidosCompraListadoPage {
   private readonly proveedoresService = inject(ProveedoresService);
@@ -25,31 +25,31 @@ export class PedidosCompraListadoPage {
     enviado: 'Enviado',
     recibido_parcial: 'Recibido parcial',
     recibido: 'Recibido',
-    cancelado: 'Cancelado'
+    cancelado: 'Cancelado',
   };
 
   columnas: DataTableColumn<PedidoCompra>[] = [
     {
       key: 'proveedor',
       label: 'Proveedor',
-      formatter: (value) => (value as PedidoCompra['proveedor'])?.nombre ?? '—'
+      formatter: (value) => (value as PedidoCompra['proveedor'])?.nombre ?? '—',
     },
     {
       key: 'fecha',
       label: 'Fecha',
-      formatter: (value) => new Date(value as string).toLocaleDateString('es-MX')
+      formatter: (value) => new Date(value as string).toLocaleDateString('es-MX'),
     },
     {
       key: 'estado',
       label: 'Estado',
-      formatter: (value) => this.etiquetasEstado[value as EstadoPedidoCompra] ?? String(value)
+      formatter: (value) => this.etiquetasEstado[value as EstadoPedidoCompra] ?? String(value),
     },
     {
       key: 'total',
       label: 'Total',
       align: 'right',
-      formatter: (value) => `$${Number(value).toFixed(2)}`
-    }
+      formatter: (value) => `$${Number(value).toFixed(2)}`,
+    },
   ];
 
   constructor() {
@@ -63,7 +63,7 @@ export class PedidosCompraListadoPage {
         this.pedidos.set(res.data);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 

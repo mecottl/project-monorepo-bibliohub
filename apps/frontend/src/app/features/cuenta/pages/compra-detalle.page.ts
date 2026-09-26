@@ -35,7 +35,10 @@ import { claseEstado, etiquetaEstado, numeroOrden } from '@domain/pedidos/pedido
               @for (detalle of pedido.detalles; track detalle.id) {
                 <div class="detalle__item">
                   @if (detalle.libro?.imagenUrl) {
-                    <img [src]="detalle.libro!.imagenUrl" [alt]="'Portada de ' + detalle.libro!.titulo" />
+                    <img
+                      [src]="detalle.libro!.imagenUrl"
+                      [alt]="'Portada de ' + detalle.libro!.titulo"
+                    />
                   } @else {
                     <div class="detalle__item-sin"></div>
                   }
@@ -58,34 +61,59 @@ import { claseEstado, etiquetaEstado, numeroOrden } from '@domain/pedidos/pedido
                 </div>
               }
               @if (pedido.costoEnvio > 0) {
-                <div class="detalle__linea"><span>Envío</span><span>{{ pedido.costoEnvio | currency }}</span></div>
+                <div class="detalle__linea">
+                  <span>Envío</span><span>{{ pedido.costoEnvio | currency }}</span>
+                </div>
               }
               @if (pedido.descuentoPuntos > 0) {
-                <div class="detalle__linea"><span>Descuento por puntos</span><span>−{{ pedido.descuentoPuntos | currency }}</span></div>
+                <div class="detalle__linea">
+                  <span>Descuento por puntos</span
+                  ><span>−{{ pedido.descuentoPuntos | currency }}</span>
+                </div>
               }
-              <div class="detalle__total"><span>Total</span><span>{{ pedido.total | currency }}</span></div>
+              <div class="detalle__total">
+                <span>Total</span><span>{{ pedido.total | currency }}</span>
+              </div>
             </div>
 
             <div class="detalle__panel">
-              <h3>{{ pedido.origen === 'tienda' ? 'Detalles de la compra' : 'Detalles de envío' }}</h3>
+              <h3>
+                {{ pedido.origen === 'tienda' ? 'Detalles de la compra' : 'Detalles de envío' }}
+              </h3>
               @if (pedido.tipoEntrega === 'envio_a_domicilio' && pedido.direccion; as d) {
-                <div class="detalle__linea"><span>{{ d.calle }}</span></div>
-                <div class="detalle__linea"><span>{{ d.colonia }} {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}</span></div>
+                <div class="detalle__linea">
+                  <span>{{ d.calle }}</span>
+                </div>
+                <div class="detalle__linea">
+                  <span>{{ d.colonia }} {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}</span>
+                </div>
                 @if (d.referencias) {
-                  <div class="detalle__linea"><span>{{ d.referencias }}</span></div>
+                  <div class="detalle__linea">
+                    <span>{{ d.referencias }}</span>
+                  </div>
                 }
               } @else {
                 <div class="detalle__linea">
-                  <span>{{ pedido.origen === 'tienda' ? 'Comprado en tienda' : 'Recoger en tienda' }}</span>
+                  <span>{{
+                    pedido.origen === 'tienda' ? 'Comprado en tienda' : 'Recoger en tienda'
+                  }}</span>
                 </div>
               }
               @if (pedido.medioPago) {
-                <div class="detalle__linea"><span>Método de pago</span><span>{{ pedido.medioPago === 'efectivo' ? 'Efectivo' : 'Tarjeta' }}</span></div>
+                <div class="detalle__linea">
+                  <span>Método de pago</span
+                  ><span>{{ pedido.medioPago === 'efectivo' ? 'Efectivo' : 'Tarjeta' }}</span>
+                </div>
               } @else {
-                <div class="detalle__linea"><span>Pago</span><span>{{ pedido.estadoPago === 'pagado' ? 'Pagado' : pedido.estadoPago }}</span></div>
+                <div class="detalle__linea">
+                  <span>Pago</span
+                  ><span>{{ pedido.estadoPago === 'pagado' ? 'Pagado' : pedido.estadoPago }}</span>
+                </div>
               }
               @if (pedido.puntosGanados > 0) {
-                <div class="detalle__linea"><span>Puntos ganados</span><span>+{{ pedido.puntosGanados }}</span></div>
+                <div class="detalle__linea">
+                  <span>Puntos ganados</span><span>+{{ pedido.puntosGanados }}</span>
+                </div>
               }
             </div>
           </aside>
@@ -94,7 +122,7 @@ import { claseEstado, etiquetaEstado, numeroOrden } from '@domain/pedidos/pedido
         <p class="cuenta-error">No encontramos este pedido.</p>
       }
     </section>
-  `
+  `,
 })
 export class CompraDetallePage {
   private readonly pedidosService = inject(PedidosService);
@@ -106,18 +134,22 @@ export class CompraDetallePage {
   readonly etiqueta = etiquetaEstado;
   readonly clase = (pedido: PedidoLinea) => claseEstado(pedido.estado);
   readonly orden = numeroOrden;
-  readonly total = (pedido: PedidoLinea) => (pedido.detalles ?? []).reduce((acc, d) => acc + d.cantidad, 0);
+  readonly total = (pedido: PedidoLinea) =>
+    (pedido.detalles ?? []).reduce((acc, d) => acc + d.cantidad, 0);
 
   constructor() {
     const ruta = inject(ActivatedRoute).snapshot;
     const id = ruta.paramMap.get('id')!;
-    const fuente = ruta.data['origen'] === 'tienda' ? this.cuenta.compraTienda(id) : this.pedidosService.obtenerPedido(id);
+    const fuente =
+      ruta.data['origen'] === 'tienda'
+        ? this.cuenta.compraTienda(id)
+        : this.pedidosService.obtenerPedido(id);
     fuente.subscribe({
       next: (pedido) => {
         this.pedido.set(pedido);
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
   }
 }

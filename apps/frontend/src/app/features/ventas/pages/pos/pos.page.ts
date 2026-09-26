@@ -20,7 +20,7 @@ type MedioPago = 'efectivo' | 'tarjeta';
   imports: [SearchInputComponent],
   templateUrl: './pos.page.html',
   styleUrl: './pos.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PosPage {
   private readonly catalogoService = inject(CatalogoService);
@@ -60,14 +60,19 @@ export class PosPage {
     const id = ++this.consultaId;
     this.clientesService.consultarPorTelefono(valor).subscribe({
       // Se ignora la respuesta si el teléfono ya cambió mientras tanto.
-      next: (info) => { if (id === this.consultaId) this.clienteInfo.set(info); },
-      error: () => undefined
+      next: (info) => {
+        if (id === this.consultaId) this.clienteInfo.set(info);
+      },
+      error: () => undefined,
     });
   }
 
   tasaCanje = computed(() => this.clienteInfo()?.tasaCanje || 1);
   maxPuntos = computed(() =>
-    Math.max(0, Math.min(this.clienteInfo()?.puntosSaldo ?? 0, Math.floor(this.total() / this.tasaCanje())))
+    Math.max(
+      0,
+      Math.min(this.clienteInfo()?.puntosSaldo ?? 0, Math.floor(this.total() / this.tasaCanje())),
+    ),
   );
   descuento = computed(() => this.puntosUsados() * this.tasaCanje());
   totalAPagar = computed(() => Math.max(this.total() - this.descuento(), 0));
@@ -77,14 +82,11 @@ export class PosPage {
   }
 
   total = computed(() =>
-    this.carrito().reduce(
-      (acc, item) => acc + Number(item.libro.precioVenta) * item.cantidad,
-      0
-    )
+    this.carrito().reduce((acc, item) => acc + Number(item.libro.precioVenta) * item.cantidad, 0),
   );
 
   puedeCobrar = computed(
-    () => this.carrito().length > 0 && this.medioPago() === 'efectivo' && !this.cobrando()
+    () => this.carrito().length > 0 && this.medioPago() === 'efectivo' && !this.cobrando(),
   );
 
   buscar(termino: string): void {
@@ -95,7 +97,7 @@ export class PosPage {
     }
     this.catalogoService.buscarLibros({ titulo: termino, limit: 8 }).subscribe({
       next: (res) => this.resultados.set(res.data),
-      error: () => this.resultados.set([])
+      error: () => this.resultados.set([]),
     });
   }
 
@@ -110,8 +112,8 @@ export class PosPage {
     if (existente) {
       this.carrito.set(
         actual.map((item) =>
-          item.libro.id === libro.id ? { ...item, cantidad: item.cantidad + 1 } : item
-        )
+          item.libro.id === libro.id ? { ...item, cantidad: item.cantidad + 1 } : item,
+        ),
       );
     } else {
       this.carrito.set([...actual, { libro, cantidad: 1 }]);
@@ -140,7 +142,7 @@ export class PosPage {
       this.carrito.set(actual.filter((i) => i.libro.id !== libroId));
     } else {
       this.carrito.set(
-        actual.map((i) => (i.libro.id === libroId ? { ...i, cantidad: nuevaCantidad } : i))
+        actual.map((i) => (i.libro.id === libroId ? { ...i, cantidad: nuevaCantidad } : i)),
       );
     }
   }
@@ -177,8 +179,8 @@ export class PosPage {
         puntosUsados: this.puntosUsados() > 0 ? this.puntosUsados() : undefined,
         items: this.carrito().map((item) => ({
           libroId: item.libro.id,
-          cantidad: item.cantidad
-        }))
+          cantidad: item.cantidad,
+        })),
       })
       .subscribe({
         next: (venta) => {
@@ -197,9 +199,9 @@ export class PosPage {
           this.errorMensaje.set(
             err.status === 400
               ? (err.error?.message ?? 'No se pudo completar la venta.')
-              : 'No se pudo completar la venta. Intenta de nuevo.'
+              : 'No se pudo completar la venta. Intenta de nuevo.',
           );
-        }
+        },
       });
   }
 

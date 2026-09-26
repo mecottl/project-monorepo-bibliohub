@@ -23,7 +23,7 @@ function haceDiasISO(dias: number): string {
   imports: [FormsModule, DataTableComponent, StatCardComponent, ReportesTabsComponent],
   templateUrl: './reportes.page.html',
   styleUrl: './reportes.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportesPage {
   private readonly reportesService = inject(ReportesService);
@@ -36,9 +36,11 @@ export class ReportesPage {
   fechaDesde = signal(haceDiasISO(30));
   fechaHasta = signal(hoyISO());
 
-  totalVentasPeriodo = computed(() => this.ventasPorDia().reduce((acc, v) => acc + v.totalVentas, 0));
+  totalVentasPeriodo = computed(() =>
+    this.ventasPorDia().reduce((acc, v) => acc + v.totalVentas, 0),
+  );
   montoTotalPeriodo = computed(() =>
-    this.ventasPorDia().reduce((acc, v) => acc + Number(v.montoTotal), 0)
+    this.ventasPorDia().reduce((acc, v) => acc + Number(v.montoTotal), 0),
   );
 
   columnasRendimiento: DataTableColumn<RendimientoEmpleado>[] = [
@@ -49,8 +51,8 @@ export class ReportesPage {
       key: 'montoTotal',
       label: 'Monto total',
       align: 'right',
-      formatter: (value) => (value ? `$${Number(value).toFixed(2)}` : '—')
-    }
+      formatter: (value) => (value ? `$${Number(value).toFixed(2)}` : '—'),
+    },
   ];
 
   columnasMasVendidos: DataTableColumn<LibroMasVendido>[] = [
@@ -60,8 +62,8 @@ export class ReportesPage {
       key: 'ingresosGenerados',
       label: 'Ingresos',
       align: 'right',
-      formatter: (value) => `$${Number(value).toFixed(2)}`
-    }
+      formatter: (value) => `$${Number(value).toFixed(2)}`,
+    },
   ];
 
   columnasVentasPorDia: DataTableColumn<VentasPorDia>[] = [
@@ -71,8 +73,8 @@ export class ReportesPage {
       key: 'montoTotal',
       label: 'Monto',
       align: 'right',
-      formatter: (value) => `$${Number(value).toFixed(2)}`
-    }
+      formatter: (value) => `$${Number(value).toFixed(2)}`,
+    },
   ];
 
   constructor() {
@@ -92,7 +94,7 @@ export class ReportesPage {
         this.ventasPorDia.set(data);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 
@@ -107,7 +109,11 @@ export class ReportesPage {
   }
 
   exportarVentasPorDia(): void {
-    exportarExcel(`ventas-por-dia_${this.fechaDesde()}_${this.fechaHasta()}`, this.columnasVentasPorDia, this.ventasPorDia());
+    exportarExcel(
+      `ventas-por-dia_${this.fechaDesde()}_${this.fechaHasta()}`,
+      this.columnasVentasPorDia,
+      this.ventasPorDia(),
+    );
   }
 
   exportarRendimiento(): void {

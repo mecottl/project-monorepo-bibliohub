@@ -30,7 +30,13 @@ export class Cliente {
   })
   passwordHash!: string | null;
 
-  @Column({ name: 'stripe_customer_id', type: 'varchar', length: 255, unique: true, nullable: true })
+  @Column({
+    name: 'stripe_customer_id',
+    type: 'varchar',
+    length: 255,
+    unique: true,
+    nullable: true,
+  })
   stripeCustomerId!: string | null;
 
   @Column({ name: 'cuenta_activa', type: 'boolean', default: false })

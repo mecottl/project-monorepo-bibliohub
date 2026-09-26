@@ -45,7 +45,7 @@ export class ListaDeseosService {
         if (quitar) nuevos.delete(libroId);
         else nuevos.add(libroId);
         return nuevos;
-      })
+      }),
     );
   }
 }

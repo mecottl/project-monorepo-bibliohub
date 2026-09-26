@@ -77,7 +77,9 @@ export class ConfiguracionService {
         break;
       case 'boolean':
         if (!['true', 'false'].includes(valor)) {
-          throw new BadRequestException(`El valor debe ser "true" o "false" (recibido: "${valor}")`);
+          throw new BadRequestException(
+            `El valor debe ser "true" o "false" (recibido: "${valor}")`,
+          );
         }
         break;
       case 'text':

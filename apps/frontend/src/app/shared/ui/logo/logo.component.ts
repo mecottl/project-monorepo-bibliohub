@@ -4,6 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-logo',
   template: `<img class="logo-img" src="/logo.png" alt="BiblioHub" />`,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './logo.component.css'
+  styleUrl: './logo.component.css',
 })
 export class LogoComponent {}

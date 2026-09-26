@@ -2,10 +2,22 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PedidosService } from '@domain/pedidos/pedidos.service';
 import { EstadoPedidoLinea, PedidoLinea } from '@domain/pedidos/pedido.model';
-import { ETIQUETAS_ESTADO, claseEstado, esActivo, numeroOrden, pasosRastreo } from '@domain/pedidos/pedido-estado';
+import {
+  ETIQUETAS_ESTADO,
+  claseEstado,
+  esActivo,
+  numeroOrden,
+  pasosRastreo,
+} from '@domain/pedidos/pedido-estado';
 
 const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
-  'activos', 'recibido', 'en_preparacion', 'listo', 'enviado', 'entregado', 'cancelado'
+  'activos',
+  'recibido',
+  'en_preparacion',
+  'listo',
+  'enviado',
+  'entregado',
+  'cancelado',
 ];
 
 @Component({
@@ -32,7 +44,9 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
         }
       </div>
 
-      @if (error()) { <p class="cuenta-error">{{ error() }}</p> }
+      @if (error()) {
+        <p class="cuenta-error">{{ error() }}</p>
+      }
 
       @if (cargando()) {
         <p class="cuenta-hint">Cargando...</p>
@@ -46,11 +60,16 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
             </div>
             <p class="cuenta-hint">
               {{ p.cliente?.nombre || 'Sin nombre' }} · {{ p.cliente?.telefono }} ·
-              {{ p.tipoEntrega === 'envio_a_domicilio' ? 'Envío a domicilio' : 'Recoger en tienda' }} ·
+              {{
+                p.tipoEntrega === 'envio_a_domicilio' ? 'Envío a domicilio' : 'Recoger en tienda'
+              }}
+              ·
               <strong>{{ p.total | currency }}</strong>
             </p>
             @if (p.tipoEntrega === 'envio_a_domicilio' && p.direccion; as d) {
-              <p class="cuenta-hint">{{ d.calle }}, {{ d.colonia }} {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}</p>
+              <p class="cuenta-hint">
+                {{ d.calle }}, {{ d.colonia }} {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}
+              </p>
             }
             <ul class="pedido-items">
               @for (d of p.detalles; track d.id) {
@@ -60,11 +79,21 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
             @if (activo(p)) {
               <div class="cuenta-acciones">
                 @if (siguiente(p); as sig) {
-                  <button type="button" class="btn-primary" [disabled]="guardando() === p.id" (click)="cambiar(p, sig)">
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    [disabled]="guardando() === p.id"
+                    (click)="cambiar(p, sig)"
+                  >
                     Marcar como {{ etiquetas[sig].toLowerCase() }}
                   </button>
                 }
-                <button type="button" class="cuenta-link-btn" [disabled]="guardando() === p.id" (click)="cancelar(p)">
+                <button
+                  type="button"
+                  class="cuenta-link-btn"
+                  [disabled]="guardando() === p.id"
+                  (click)="cancelar(p)"
+                >
                   Cancelar pedido
                 </button>
               </div>
@@ -77,10 +106,19 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
     </section>
   `,
   styles: `
-    .btn-outline.is-active { background: var(--color-cafe-medio); color: white; }
-    .pedido-items { margin: 0; padding-left: 18px; font-size: 14px; }
-    .cuenta-acciones { flex-wrap: wrap; }
-  `
+    .btn-outline.is-active {
+      background: var(--color-cafe-medio);
+      color: white;
+    }
+    .pedido-items {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+    .cuenta-acciones {
+      flex-wrap: wrap;
+    }
+  `,
 })
 export class PedidosLineaPage {
   private readonly pedidosService = inject(PedidosService);
@@ -98,7 +136,9 @@ export class PedidosLineaPage {
   error = signal<string | null>(null);
 
   visibles = computed(() =>
-    this.pedidos().filter((p) => (this.filtro() === 'activos' ? esActivo(p) : p.estado === this.filtro()))
+    this.pedidos().filter((p) =>
+      this.filtro() === 'activos' ? esActivo(p) : p.estado === this.filtro(),
+    ),
   );
 
   constructor() {
@@ -110,7 +150,7 @@ export class PedidosLineaPage {
       error: () => {
         this.error.set('No se pudieron cargar los pedidos.');
         this.cargando.set(false);
-      }
+      },
     });
   }
 
@@ -135,15 +175,17 @@ export class PedidosLineaPage {
         const reembolsado = estado === 'cancelado' && p.estadoPago === 'pagado';
         this.pedidos.update((lista) =>
           lista.map((x) =>
-            x.id === p.id ? { ...x, estado, estadoPago: reembolsado ? 'reembolsado' : x.estadoPago } : x
-          )
+            x.id === p.id
+              ? { ...x, estado, estadoPago: reembolsado ? 'reembolsado' : x.estadoPago }
+              : x,
+          ),
         );
         this.guardando.set(null);
       },
       error: (err) => {
         this.error.set(err?.error?.message ?? 'No se pudo cambiar el estado.');
         this.guardando.set(null);
-      }
+      },
     });
   }
 }

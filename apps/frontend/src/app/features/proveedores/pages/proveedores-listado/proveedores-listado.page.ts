@@ -10,10 +10,16 @@ import { Proveedor } from '../../models/proveedor.model';
 
 @Component({
   selector: 'app-proveedores-listado',
-  imports: [RouterLink, ReactiveFormsModule, DataTableComponent, ConfirmModalComponent, EmptyStateComponent],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+    DataTableComponent,
+    ConfirmModalComponent,
+    EmptyStateComponent,
+  ],
   templateUrl: './proveedores-listado.page.html',
   styleUrl: './proveedores-listado.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProveedoresListadoPage {
   private readonly proveedoresService = inject(ProveedoresService);
@@ -31,14 +37,14 @@ export class ProveedoresListadoPage {
     contactoNombre: [''],
     email: [''],
     telefono: [''],
-    condicionesComerciales: ['']
+    condicionesComerciales: [''],
   });
 
   columnas: DataTableColumn<Proveedor>[] = [
     { key: 'nombre', label: 'Nombre' },
     { key: 'contactoNombre', label: 'Contacto' },
     { key: 'email', label: 'Email' },
-    { key: 'telefono', label: 'Teléfono' }
+    { key: 'telefono', label: 'Teléfono' },
   ];
 
   constructor() {
@@ -52,13 +58,19 @@ export class ProveedoresListadoPage {
         this.proveedores.set(data);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => this.loading.set(false),
     });
   }
 
   abrirCrear(): void {
     this.editando.set(null);
-    this.form.reset({ nombre: '', contactoNombre: '', email: '', telefono: '', condicionesComerciales: '' });
+    this.form.reset({
+      nombre: '',
+      contactoNombre: '',
+      email: '',
+      telefono: '',
+      condicionesComerciales: '',
+    });
     this.mostrarForm.set(true);
   }
 
@@ -69,7 +81,7 @@ export class ProveedoresListadoPage {
       contactoNombre: proveedor.contactoNombre ?? '',
       email: proveedor.email ?? '',
       telefono: proveedor.telefono ?? '',
-      condicionesComerciales: proveedor.condicionesComerciales ?? ''
+      condicionesComerciales: proveedor.condicionesComerciales ?? '',
     });
     this.mostrarForm.set(true);
   }
@@ -88,7 +100,7 @@ export class ProveedoresListadoPage {
       contactoNombre: valores.contactoNombre || undefined,
       email: valores.email || undefined,
       telefono: valores.telefono || undefined,
-      condicionesComerciales: valores.condicionesComerciales || undefined
+      condicionesComerciales: valores.condicionesComerciales || undefined,
     };
 
     const edicion = this.editando();
@@ -100,14 +112,14 @@ export class ProveedoresListadoPage {
       next: (proveedor) => {
         if (edicion) {
           this.proveedores.update((actuales) =>
-            actuales.map((p) => (p.id === proveedor.id ? proveedor : p))
+            actuales.map((p) => (p.id === proveedor.id ? proveedor : p)),
           );
         } else {
           this.proveedores.update((actuales) => [...actuales, proveedor]);
         }
         this.cerrarForm();
       },
-      error: () => this.errorMensaje.set('No se pudo guardar el proveedor.')
+      error: () => this.errorMensaje.set('No se pudo guardar el proveedor.'),
     });
   }
 

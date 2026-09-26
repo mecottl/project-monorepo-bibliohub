@@ -17,15 +17,35 @@ import { DireccionEntrega } from '@domain/pedidos/pedido.model';
           <div class="cuenta-fila">
             <span>
               <strong>{{ d.alias }}</strong>
-              @if (d.esPrincipal) { <span class="cuenta-insignia">Principal</span> }<br />
-              <small>{{ d.calle }}{{ d.colonia ? ', ' + d.colonia : '' }}, {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}</small>
+              @if (d.esPrincipal) {
+                <span class="cuenta-insignia">Principal</span>
+              }
+              <br />
+              <small
+                >{{ d.calle }}{{ d.colonia ? ', ' + d.colonia : '' }}, {{ d.ciudad }},
+                {{ d.estado }} {{ d.codigoPostal }}</small
+              >
             </span>
             <span class="cuenta-acciones">
               @if (!d.esPrincipal) {
-                <button type="button" class="cuenta-link-btn cuenta-link-btn--editar" (click)="hacerPrincipal(d)">Usar como principal</button>
+                <button
+                  type="button"
+                  class="cuenta-link-btn cuenta-link-btn--editar"
+                  (click)="hacerPrincipal(d)"
+                >
+                  Usar como principal
+                </button>
               }
-              <button type="button" class="cuenta-link-btn cuenta-link-btn--editar" (click)="editar(d)">Editar</button>
-              <button type="button" class="cuenta-link-btn" (click)="eliminar(d.id)">Eliminar</button>
+              <button
+                type="button"
+                class="cuenta-link-btn cuenta-link-btn--editar"
+                (click)="editar(d)"
+              >
+                Editar
+              </button>
+              <button type="button" class="cuenta-link-btn" (click)="eliminar(d.id)">
+                Eliminar
+              </button>
             </span>
           </div>
         } @empty {
@@ -48,15 +68,25 @@ import { DireccionEntrega } from '@domain/pedidos/pedido.model';
           <input id="colonia" type="text" formControlName="colonia" />
         </div>
         <div class="cuenta-form-row">
-          <div class="field"><label for="ciudad">Ciudad</label><input id="ciudad" type="text" formControlName="ciudad" /></div>
-          <div class="field"><label for="estado">Estado</label><input id="estado" type="text" formControlName="estado" /></div>
-          <div class="field"><label for="cp">C.P.</label><input id="cp" type="text" formControlName="codigoPostal" /></div>
+          <div class="field">
+            <label for="ciudad">Ciudad</label
+            ><input id="ciudad" type="text" formControlName="ciudad" />
+          </div>
+          <div class="field">
+            <label for="estado">Estado</label
+            ><input id="estado" type="text" formControlName="estado" />
+          </div>
+          <div class="field">
+            <label for="cp">C.P.</label><input id="cp" type="text" formControlName="codigoPostal" />
+          </div>
         </div>
         <div class="field">
           <label for="referencias">Referencias (opcional)</label>
           <input id="referencias" type="text" formControlName="referencias" />
         </div>
-        @if (error()) { <p class="cuenta-error">{{ error() }}</p> }
+        @if (error()) {
+          <p class="cuenta-error">{{ error() }}</p>
+        }
         <div class="cuenta-acciones">
           <button type="submit" class="btn-primary" [disabled]="form.invalid">
             {{ editandoId() ? 'Guardar cambios' : 'Guardar dirección' }}
@@ -67,7 +97,7 @@ import { DireccionEntrega } from '@domain/pedidos/pedido.model';
         </div>
       </form>
     </section>
-  `
+  `,
 })
 export class DireccionesPage {
   private readonly pedidos = inject(PedidosService);
@@ -84,7 +114,7 @@ export class DireccionesPage {
     ciudad: ['', Validators.required],
     estado: ['', Validators.required],
     codigoPostal: ['', Validators.required],
-    referencias: ['']
+    referencias: [''],
   });
 
   constructor() {
@@ -100,7 +130,7 @@ export class DireccionesPage {
       ciudad: d.ciudad,
       estado: d.estado,
       codigoPostal: d.codigoPostal,
-      referencias: d.referencias ?? ''
+      referencias: d.referencias ?? '',
     });
   }
 
@@ -121,7 +151,7 @@ export class DireccionesPage {
           this.cancelarEdicion();
           this.recargar();
         },
-        error: () => this.error.set('No se pudo actualizar la dirección.')
+        error: () => this.error.set('No se pudo actualizar la dirección.'),
       });
       return;
     }
@@ -131,14 +161,14 @@ export class DireccionesPage {
         this.form.reset({ alias: 'Casa' });
         this.recargar();
       },
-      error: () => this.error.set('No se pudo guardar la dirección.')
+      error: () => this.error.set('No se pudo guardar la dirección.'),
     });
   }
 
   hacerPrincipal(d: DireccionEntrega): void {
     this.pedidos.actualizarDireccion(d.id, { esPrincipal: true }).subscribe({
       next: () => this.recargar(),
-      error: () => this.error.set('No se pudo cambiar la dirección principal.')
+      error: () => this.error.set('No se pudo cambiar la dirección principal.'),
     });
   }
 
@@ -147,11 +177,9 @@ export class DireccionesPage {
   }
 
   eliminar(id: string): void {
-    this.pedidos.eliminarDireccion(id).subscribe(() =>
-      {
-        if (this.editandoId() === id) this.cancelarEdicion();
-        this.recargar();
-      }
-    );
+    this.pedidos.eliminarDireccion(id).subscribe(() => {
+      if (this.editandoId() === id) this.cancelarEdicion();
+      this.recargar();
+    });
   }
 }

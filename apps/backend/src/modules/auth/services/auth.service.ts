@@ -10,10 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
 import { Empleado } from '@modules/empleados/entities/empleado.entity';
-import {
-  LogAcceso,
-  EventoAcceso,
-} from '../entities/log-acceso.entity';
+import { LogAcceso, EventoAcceso } from '../entities/log-acceso.entity';
 import { LoginDto } from '../dto/login.dto';
 import { RegistroClienteDto } from '../dto/registro-cliente.dto';
 import { JwtPayload } from '@common/auth/jwt-payload.interface';
@@ -48,21 +45,12 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(
-    dto: LoginDto,
-    ip?: string,
-    userAgent?: string,
-  ): Promise<LoginResult> {
+  async login(dto: LoginDto, ip?: string, userAgent?: string): Promise<LoginResult> {
     const esTelefono = TELEFONO_REGEX.test(dto.identificador.trim());
 
     return esTelefono
       ? this.loginCliente(dto.identificador.trim(), dto.password, ip, userAgent)
-      : this.loginEmpleado(
-          dto.identificador.trim(),
-          dto.password,
-          ip,
-          userAgent,
-        );
+      : this.loginEmpleado(dto.identificador.trim(), dto.password, ip, userAgent);
   }
 
   private async loginCliente(
@@ -122,10 +110,7 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
-    const passwordValido = await bcrypt.compare(
-      password,
-      empleado.passwordHash,
-    );
+    const passwordValido = await bcrypt.compare(password, empleado.passwordHash);
     if (!passwordValido) {
       await this.registrarLogFallido(null, ip, userAgent, empleado.id);
       throw new UnauthorizedException('Credenciales inválidas');
@@ -167,9 +152,7 @@ export class AuthService {
       if (dto.nombre) cliente.nombre = dto.nombre;
     } else {
       if (!dto.nombre) {
-        throw new BadRequestException(
-          'El nombre es requerido para clientes nuevos',
-        );
+        throw new BadRequestException('El nombre es requerido para clientes nuevos');
       }
       cliente = this.clienteRepo.create({
         telefono: dto.telefono,

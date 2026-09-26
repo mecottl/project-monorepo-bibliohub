@@ -8,7 +8,9 @@
     class="sidebar__brand"
     [attr.aria-label]="
       auth.isAdmin()
-        ? (mostrarAdminChrome() ? 'Ver la tienda como cliente' : 'Volver al panel de administración')
+        ? mostrarAdminChrome()
+          ? 'Ver la tienda como cliente'
+          : 'Volver al panel de administración'
         : 'Ir al inicio'
     "
     (click)="brandClick.emit()"
@@ -68,12 +70,24 @@
         @for (enlace of enlacesCuenta; track enlace.ruta) {
           <a [routerLink]="enlace.ruta" routerLinkActive="is-active" class="sidebar__nav-item">
             @switch (enlace.icono) {
-              @case ('usuario') { <svg-usuario class="sidebar__nav-icon" /> }
-              @case ('configuracion') { <svg-configuracion class="sidebar__nav-icon" /> }
-              @case ('inicio') { <svg-inicio class="sidebar__nav-icon" /> }
-              @case ('ventas') { <svg-ventas class="sidebar__nav-icon" /> }
-              @case ('pedidos') { <svg-mis-pedidos class="sidebar__nav-icon" /> }
-              @default { <svg-reportes class="sidebar__nav-icon" /> }
+              @case ('usuario') {
+                <svg-usuario class="sidebar__nav-icon" />
+              }
+              @case ('configuracion') {
+                <svg-configuracion class="sidebar__nav-icon" />
+              }
+              @case ('inicio') {
+                <svg-inicio class="sidebar__nav-icon" />
+              }
+              @case ('ventas') {
+                <svg-ventas class="sidebar__nav-icon" />
+              }
+              @case ('pedidos') {
+                <svg-mis-pedidos class="sidebar__nav-icon" />
+              }
+              @default {
+                <svg-reportes class="sidebar__nav-icon" />
+              }
             }
             {{ enlace.texto }}
           </a>

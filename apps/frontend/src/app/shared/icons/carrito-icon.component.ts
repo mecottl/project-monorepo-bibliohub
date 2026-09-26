@@ -17,6 +17,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <circle cx="10" cy="21" r="1.4" fill="currentColor" />
       <circle cx="18" cy="21" r="1.4" fill="currentColor" />
     </svg>
-  `
+  `,
 })
 export class CarritoIconComponent {}

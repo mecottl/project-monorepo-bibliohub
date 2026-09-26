@@ -16,8 +16,8 @@ describe('CarritoService', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: AuthService, useValue: { isCliente: () => esCliente } }
-      ]
+        { provide: AuthService, useValue: { isCliente: () => esCliente } },
+      ],
     });
     servicio = TestBed.inject(CarritoService);
     http = TestBed.inject(HttpTestingController);
@@ -45,11 +45,15 @@ describe('CarritoService', () => {
     expect(servicio.carrito().subtotal).toBe(300);
 
     servicio.actualizarItem('l1', 1).subscribe();
-    http.expectOne((r) => r.method === 'PATCH' && r.url.endsWith('/carrito/items/l1')).flush({ ...carrito, subtotal: 100 });
+    http
+      .expectOne((r) => r.method === 'PATCH' && r.url.endsWith('/carrito/items/l1'))
+      .flush({ ...carrito, subtotal: 100 });
     expect(servicio.carrito().subtotal).toBe(100);
 
     servicio.quitarItem('l1').subscribe();
-    http.expectOne((r) => r.method === 'DELETE' && r.url.endsWith('/carrito/items/l1')).flush({ ...carrito, items: [], subtotal: 0 });
+    http
+      .expectOne((r) => r.method === 'DELETE' && r.url.endsWith('/carrito/items/l1'))
+      .flush({ ...carrito, items: [], subtotal: 0 });
     expect(servicio.carrito().subtotal).toBe(0);
   });
 

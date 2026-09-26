@@ -53,7 +53,7 @@ export class CuentaService {
   cambiarPassword(passwordActual: string, passwordNueva: string): Observable<{ message: string }> {
     return this.http.patch<{ message: string }>(`${this.baseUrl}/password`, {
       passwordActual,
-      passwordNueva
+      passwordNueva,
     });
   }
 

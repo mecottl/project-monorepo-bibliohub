@@ -7,6 +7,6 @@ import { AuthSlideshowComponent } from '@layouts/auth-layout/auth-slideshow/auth
   imports: [RouterOutlet, AuthSlideshowComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth-layout.component.html',
-  styleUrl: './auth-layout.component.css'
+  styleUrl: './auth-layout.component.css',
 })
 export class AuthLayoutComponent {}

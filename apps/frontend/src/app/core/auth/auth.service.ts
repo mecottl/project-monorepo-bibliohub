@@ -38,16 +38,23 @@ export class AuthService {
   }
 
   recuperarPassword(identificador: string) {
-    return this.http.post<{ message: string }>(`${this.API}/auth/recuperar-password`, { identificador });
+    return this.http.post<{ message: string }>(`${this.API}/auth/recuperar-password`, {
+      identificador,
+    });
   }
 
   resetPassword(token: string, password: string) {
-    return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, { token, password });
+    return this.http.post<{ message: string }>(`${this.API}/auth/reset-password`, {
+      token,
+      password,
+    });
   }
 
   // Cierra la sesión en todos los dispositivos (también esta) y vuelve al login.
   cerrarSesionEnTodos() {
-    return this.http.post<{ cerradas: number }>(`${this.API}/auth/logout-all`, {}).pipe(tap(() => this.clearSession()));
+    return this.http
+      .post<{ cerradas: number }>(`${this.API}/auth/logout-all`, {})
+      .pipe(tap(() => this.clearSession()));
   }
 
   logout(): void {

@@ -47,7 +47,11 @@ export class CarritoService {
       await this.itemRepository.update(existente.id, { cantidad: cantidadFinal });
     } else {
       await this.itemRepository.save(
-        this.itemRepository.create({ carritoId: carrito.id, libroId: dto.libroId, cantidad: cantidadFinal }),
+        this.itemRepository.create({
+          carritoId: carrito.id,
+          libroId: dto.libroId,
+          cantidad: cantidadFinal,
+        }),
       );
     }
 
@@ -125,7 +129,9 @@ export class CarritoService {
         titulo: item.libro.titulo,
         precioVenta: item.libro.precioVenta,
         stockActual: item.libro.stockActual,
-        imagenUrl: item.libro.imagenKey ? `${baseUrl}/uploads/portadas/${item.libro.imagenKey}` : null,
+        imagenUrl: item.libro.imagenKey
+          ? `${baseUrl}/uploads/portadas/${item.libro.imagenKey}`
+          : null,
       },
       subtotal: item.cantidad * Number(item.libro.precioVenta),
     }));

@@ -22,8 +22,12 @@
   </app-data-table>
 
   <ng-template #acciones let-proveedor>
-    <button type="button" class="proveedores-listado__accion" (click)="abrirEditar(proveedor)">Editar</button>
-    <button type="button" class="proveedores-listado__accion" (click)="pedirEliminar(proveedor)">Desactivar</button>
+    <button type="button" class="proveedores-listado__accion" (click)="abrirEditar(proveedor)">
+      Editar
+    </button>
+    <button type="button" class="proveedores-listado__accion" (click)="pedirEliminar(proveedor)">
+      Desactivar
+    </button>
   </ng-template>
 
   @if (mostrarForm()) {
@@ -58,7 +62,11 @@
         </div>
         <div class="field">
           <label for="condicionesComerciales">Condiciones comerciales</label>
-          <textarea id="condicionesComerciales" formControlName="condicionesComerciales" rows="3"></textarea>
+          <textarea
+            id="condicionesComerciales"
+            formControlName="condicionesComerciales"
+            rows="3"
+          ></textarea>
         </div>
 
         <div class="proveedores-listado__modal-actions">
@@ -72,7 +80,11 @@
   <app-confirm-modal
     [open]="aEliminar() !== null"
     title="Desactivar proveedor"
-    [message]="'¿Desactivar &quot;' + (aEliminar()?.nombre ?? '') + '&quot;? No podrás crear nuevos pedidos de compra con él.'"
+    [message]="
+      '¿Desactivar &quot;' +
+      (aEliminar()?.nombre ?? '') +
+      '&quot;? No podrás crear nuevos pedidos de compra con él.'
+    "
     confirmLabel="Desactivar"
     (confirmed)="confirmarEliminar()"
     (cancelled)="cancelarEliminar()"

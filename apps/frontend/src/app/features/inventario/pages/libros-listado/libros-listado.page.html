@@ -3,7 +3,9 @@
     <h1 class="font-display">Inventario — Libros</h1>
     @if (!auth.isCajero()) {
       <div class="libros-listado__header-actions">
-        <a routerLink="/inventario/catalogo" class="btn-outline">Autores / editoriales / categorías</a>
+        <a routerLink="/inventario/catalogo" class="btn-outline"
+          >Autores / editoriales / categorías</a
+        >
         <button type="button" class="btn-primary" (click)="irACrear()">+ Nuevo libro</button>
       </div>
     }
@@ -26,7 +28,9 @@
       Solo stock bajo
     </button>
     @if (soloStockBajo()) {
-      <span class="libros-listado__conteo">{{ total() }} {{ total() === 1 ? 'libro' : 'libros' }} por reabastecer</span>
+      <span class="libros-listado__conteo"
+        >{{ total() }} {{ total() === 1 ? 'libro' : 'libros' }} por reabastecer</span
+      >
     }
   </div>
 
@@ -56,11 +60,7 @@
     </button>
   </ng-template>
 
-  <app-pagination
-    [page]="page()"
-    [totalPages]="totalPages()"
-    (pageChange)="onPageChange($event)"
-  />
+  <app-pagination [page]="page()" [totalPages]="totalPages()" (pageChange)="onPageChange($event)" />
 
   <app-confirm-modal
     [open]="libroAEliminar() !== null"

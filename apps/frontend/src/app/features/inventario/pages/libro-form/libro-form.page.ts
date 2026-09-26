@@ -13,7 +13,7 @@ const TAMANO_MAXIMO = 2 * 1024 * 1024;
   imports: [ReactiveFormsModule],
   templateUrl: './libro-form.page.html',
   styleUrl: './libro-form.page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LibroFormPage {
   private readonly fb = inject(FormBuilder);
@@ -39,7 +39,7 @@ export class LibroFormPage {
     stockActual: [0, [Validators.required, Validators.min(0)]],
     stockMinimo: [5, [Validators.required, Validators.min(0)]],
     editorialId: ['', Validators.required],
-    categoriaId: ['', Validators.required]
+    categoriaId: ['', Validators.required],
   });
 
   get esEdicion(): boolean {
@@ -63,7 +63,7 @@ export class LibroFormPage {
           stockActual: libro.stockActual,
           stockMinimo: libro.stockMinimo,
           editorialId: libro.editorialId,
-          categoriaId: libro.categoriaId
+          categoriaId: libro.categoriaId,
         });
         this.form.controls.isbn.disable();
         this.form.controls.stockActual.disable();
@@ -112,7 +112,7 @@ export class LibroFormPage {
     const valores = {
       ...this.form.getRawValue(),
       precioVenta: Number(this.form.controls.precioVenta.value),
-      precioCosto: Number(this.form.controls.precioCosto.value)
+      precioCosto: Number(this.form.controls.precioCosto.value),
     };
 
     // En edición isbn no es editable (UpdateLibroDto lo prohíbe) y el stock solo
@@ -128,9 +128,9 @@ export class LibroFormPage {
       error: (err: HttpErrorResponse) => {
         this.guardando.set(false);
         this.errorMensaje.set(
-          err.status === 409 ? 'Ya existe un libro con ese ISBN.' : 'No se pudo guardar el libro.'
+          err.status === 409 ? 'Ya existe un libro con ese ISBN.' : 'No se pudo guardar el libro.',
         );
-      }
+      },
     });
   }
 
@@ -150,9 +150,9 @@ export class LibroFormPage {
       error: () => {
         this.guardando.set(false);
         this.errorMensaje.set(
-          'El libro se guardó, pero no se pudo subir la portada. Puedes intentarlo de nuevo desde "Editar".'
+          'El libro se guardó, pero no se pudo subir la portada. Puedes intentarlo de nuevo desde "Editar".',
         );
-      }
+      },
     });
   }
 }

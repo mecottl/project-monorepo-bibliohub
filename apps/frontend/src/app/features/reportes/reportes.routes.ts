@@ -10,12 +10,13 @@ export const REPORTES_ROUTES: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/reportes/reportes.page').then((m) => m.ReportesPage)
+        loadComponent: () => import('./pages/reportes/reportes.page').then((m) => m.ReportesPage),
       },
       {
         path: 'historial',
-        loadComponent: () => import('./pages/historial/historial.page').then((m) => m.HistorialVentasPage)
-      }
-    ]
-  }
+        loadComponent: () =>
+          import('./pages/historial/historial.page').then((m) => m.HistorialVentasPage),
+      },
+    ],
+  },
 ];

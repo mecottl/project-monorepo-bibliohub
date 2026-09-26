@@ -8,16 +8,18 @@ export const CLIENTES_ROUTES: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: ['admin', 'cajero'] },
     children: [
-    {
-      path: '',
-      loadComponent: () =>
-        import('./pages/clientes-listado/clientes-listado.page').then(m => m.ClientesListadoPage)
-    },
-    {
-      path: ':id',
-      loadComponent: () =>
-        import('./pages/cliente-detalle/cliente-detalle.page').then(m => m.ClienteDetallePage)
-    }
-    ]
-  }
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/clientes-listado/clientes-listado.page').then(
+            (m) => m.ClientesListadoPage,
+          ),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./pages/cliente-detalle/cliente-detalle.page').then((m) => m.ClienteDetallePage),
+      },
+    ],
+  },
 ];

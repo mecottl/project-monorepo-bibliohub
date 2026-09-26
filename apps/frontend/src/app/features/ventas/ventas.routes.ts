@@ -8,10 +8,10 @@ export const VENTAS_ROUTES: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: ['admin', 'cajero'] },
     children: [
-    {
-      path: '',
-      loadComponent: () => import('./pages/pos/pos.page').then((m) => m.PosPage)
-    }
-    ]
-  }
+      {
+        path: '',
+        loadComponent: () => import('./pages/pos/pos.page').then((m) => m.PosPage),
+      },
+    ],
+  },
 ];

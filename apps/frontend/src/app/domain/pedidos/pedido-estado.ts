@@ -6,7 +6,7 @@ export const ETIQUETAS_ESTADO: Record<EstadoPedidoLinea, string> = {
   listo: 'Listo',
   enviado: 'Enviado',
   entregado: 'Entregado',
-  cancelado: 'Cancelado'
+  cancelado: 'Cancelado',
 };
 
 // Amarillo = en curso, verde = entregado, rojo = cancelado (como en el diseño).

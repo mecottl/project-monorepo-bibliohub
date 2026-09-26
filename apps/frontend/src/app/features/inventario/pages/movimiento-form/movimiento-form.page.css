@@ -216,7 +216,9 @@
   background: white;
   font-family: var(--font-ui);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .mov__tipo:hover {
@@ -240,13 +242,28 @@
   color: var(--color-gris-claro);
 }
 
-.mov__tipo--entrada .mov__tipo-simbolo { color: #1f7a3d; }
-.mov__tipo--salida .mov__tipo-simbolo { color: #b3261e; }
-.mov__tipo--ajuste .mov__tipo-simbolo { color: var(--color-cafe-medio); }
+.mov__tipo--entrada .mov__tipo-simbolo {
+  color: #1f7a3d;
+}
+.mov__tipo--salida .mov__tipo-simbolo {
+  color: #b3261e;
+}
+.mov__tipo--ajuste .mov__tipo-simbolo {
+  color: var(--color-cafe-medio);
+}
 
-.mov__tipo--entrada.is-activo { border-color: #1f7a3d; background: #e9f5ee; }
-.mov__tipo--salida.is-activo { border-color: #b3261e; background: #fbe7e5; }
-.mov__tipo--ajuste.is-activo { border-color: var(--color-cafe-medio); background: var(--color-crema); }
+.mov__tipo--entrada.is-activo {
+  border-color: #1f7a3d;
+  background: #e9f5ee;
+}
+.mov__tipo--salida.is-activo {
+  border-color: #b3261e;
+  background: #fbe7e5;
+}
+.mov__tipo--ajuste.is-activo {
+  border-color: var(--color-cafe-medio);
+  background: var(--color-crema);
+}
 
 /* Cantidad */
 .mov__stepper {
@@ -339,8 +356,14 @@
   color: var(--color-negro-suave);
 }
 
-.mov__delta--pos { color: #1f7a3d; font-weight: 600; }
-.mov__delta--neg { color: #b3261e; font-weight: 600; }
+.mov__delta--pos {
+  color: #1f7a3d;
+  font-weight: 600;
+}
+.mov__delta--neg {
+  color: #b3261e;
+  font-weight: 600;
+}
 
 .mov__alerta {
   flex-basis: 100%;
@@ -472,9 +495,18 @@
   text-transform: capitalize;
 }
 
-.mov__badge--entrada { background: #e9f5ee; color: #1f7a3d; }
-.mov__badge--salida { background: #fbe7e5; color: #b3261e; }
-.mov__badge--ajuste { background: var(--color-crema); color: var(--color-cafe-oscuro); }
+.mov__badge--entrada {
+  background: #e9f5ee;
+  color: #1f7a3d;
+}
+.mov__badge--salida {
+  background: #fbe7e5;
+  color: #b3261e;
+}
+.mov__badge--ajuste {
+  background: var(--color-crema);
+  color: var(--color-cafe-oscuro);
+}
 
 @media (max-width: 560px) {
   .mov__fila {

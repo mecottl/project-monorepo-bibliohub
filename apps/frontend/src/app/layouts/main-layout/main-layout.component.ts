@@ -17,7 +17,7 @@ const RUTAS_ADMIN = [
   '/proveedores',
   '/reportes',
   '/configuracion',
-  '/empleados'
+  '/empleados',
 ];
 
 @Component({
@@ -25,7 +25,7 @@ const RUTAS_ADMIN = [
   imports: [RouterOutlet, SidebarComponent, TopbarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.css'
+  styleUrl: './main-layout.component.css',
 })
 export class MainLayoutComponent {
   auth = inject(AuthService);
@@ -34,13 +34,17 @@ export class MainLayoutComponent {
 
   private urlActual = signal(this.router.url);
 
-  private enRutaAdmin = computed(() => RUTAS_ADMIN.some((ruta) => this.urlActual().startsWith(ruta)));
+  private enRutaAdmin = computed(() =>
+    RUTAS_ADMIN.some((ruta) => this.urlActual().startsWith(ruta)),
+  );
 
   mostrarAdminChrome = computed(
-    () => (this.auth.isAdmin() || this.auth.isCajero()) && this.enRutaAdmin()
+    () => (this.auth.isAdmin() || this.auth.isCajero()) && this.enRutaAdmin(),
   );
   vistaCliente = computed(() => this.auth.isAdmin() && !this.enRutaAdmin());
-  mostrarBusqueda = computed(() => RUTAS_BUSQUEDA.some((ruta) => this.urlActual().startsWith(ruta)));
+  mostrarBusqueda = computed(() =>
+    RUTAS_BUSQUEDA.some((ruta) => this.urlActual().startsWith(ruta)),
+  );
 
   enCuenta = computed(() => this.urlActual().startsWith('/cuenta'));
 

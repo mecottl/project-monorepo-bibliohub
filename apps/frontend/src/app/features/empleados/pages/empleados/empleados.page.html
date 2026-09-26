@@ -8,7 +8,11 @@
       <p class="configuracion__error">{{ nuevoEmpleadoError() }}</p>
     }
 
-    <form class="configuracion__form configuracion__form--empleado" [formGroup]="nuevoEmpleadoForm" (ngSubmit)="crearEmpleado()">
+    <form
+      class="configuracion__form configuracion__form--empleado"
+      [formGroup]="nuevoEmpleadoForm"
+      (ngSubmit)="crearEmpleado()"
+    >
       <div class="field">
         <label for="nombre">Nombre</label>
         <input id="nombre" type="text" formControlName="nombre" />
@@ -28,7 +32,11 @@
           <option value="admin">Administrador</option>
         </select>
       </div>
-      <button type="submit" class="btn-primary" [disabled]="nuevoEmpleadoForm.invalid || creandoEmpleado()">
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="nuevoEmpleadoForm.invalid || creandoEmpleado()"
+      >
         {{ creandoEmpleado() ? 'Creando…' : '+ Agregar' }}
       </button>
     </form>

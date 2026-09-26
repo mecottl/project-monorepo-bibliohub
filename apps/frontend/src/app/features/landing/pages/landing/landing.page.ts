@@ -13,21 +13,31 @@ const HOJA_PERSONAJES = '/hoja-personajes.webp';
   template: `
     <main class="landing" [class.is-saliendo]="saliendo()">
       <div class="landing__mundo">
-      <section class="landing__hero">
-        <div class="landing__marca">
-          <app-logo />
-          <span class="font-display">BiblioHub</span>
-        </div>
-        <h1 class="font-display">Tu próxima historia empieza aquí</h1>
-        <a href="/inicio" class="btn-primary" (click)="entrar($event)">Comencemos nuestra aventura</a>
-      </section>
+        <section class="landing__hero">
+          <div class="landing__marca">
+            <app-logo />
+            <span class="font-display">BiblioHub</span>
+          </div>
+          <h1 class="font-display">Tu próxima historia empieza aquí</h1>
+          <a href="/inicio" class="btn-primary" (click)="entrar($event)"
+            >Comencemos nuestra aventura</a
+          >
+        </section>
 
-      <app-crowd-canvas [src]="hoja" [columnas]="8" [filas]="8" [personas]="57" [lentitud]="2.2" [altoPct]="62" [escala]="0.92" [profundidad]="70" [bajada]="35" />
+        <app-crowd-canvas
+          [src]="hoja"
+          [columnas]="8"
+          [filas]="8"
+          [personas]="57"
+          [lentitud]="2.2"
+          [altoPct]="62"
+          [escala]="0.92"
+          [profundidad]="70"
+          [bajada]="35"
+        />
       </div>
 
-      <footer class="landing__pie">
-        Skiper UI
-      </footer>
+      <footer class="landing__pie">Skiper UI</footer>
     </main>
   `,
   styles: `
@@ -48,7 +58,9 @@ const HOJA_PERSONAJES = '/hoja-personajes.webp';
       color: inherit;
       text-decoration: none;
     }
-    .landing__marca app-logo { --logo-size: 52px; }
+    .landing__marca app-logo {
+      --logo-size: 52px;
+    }
     .landing__hero {
       position: relative;
       z-index: 2;
@@ -65,18 +77,33 @@ const HOJA_PERSONAJES = '/hoja-personajes.webp';
       font-size: clamp(36px, 7vw, 76px);
       line-height: 1.05;
     }
-    .landing__hero .btn-primary { width: auto; text-decoration: none; font-size: 16px; padding: 14px 28px; }
+    .landing__hero .btn-primary {
+      width: auto;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 14px 28px;
+    }
     /* Al pulsar el botón la cámara entra por dentro del logo (efecto Glyph Portal): el "mundo" se escala desde
        el mayor parche sólido del logo hasta que solo se ve su tinta y de ahí se pasa directo al catálogo. */
-    .landing__mundo { position: relative; min-height: inherit; transform-origin: var(--zx, 50%) var(--zy, 30%); }
+    .landing__mundo {
+      position: relative;
+      min-height: inherit;
+      transform-origin: var(--zx, 50%) var(--zy, 30%);
+    }
     .is-saliendo .landing__mundo {
       /* El parche viaja al centro de la pantalla mientras crece: así cubre toda la vista. */
       transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(var(--zs, 1));
       transition: transform 1.05s cubic-bezier(0.62, 0, 0.9, 0.45);
     }
-    .is-saliendo .landing__hero h1, .is-saliendo .landing__hero .btn-primary { opacity: 0; transition: opacity 0.3s ease; }
+    .is-saliendo .landing__hero h1,
+    .is-saliendo .landing__hero .btn-primary {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
     @media (prefers-reduced-motion: reduce) {
-      .landing__mundo { transition: none !important; }
+      .landing__mundo {
+        transition: none !important;
+      }
     }
     .landing__pie {
       position: absolute;
@@ -88,7 +115,7 @@ const HOJA_PERSONAJES = '/hoja-personajes.webp';
       color: var(--color-negro-suave);
       opacity: 0.3;
     }
-  `
+  `,
 })
 export class LandingPage {
   private readonly router = inject(Router);
@@ -100,7 +127,9 @@ export class LandingPage {
     evento.preventDefault();
     if (this.saliendo()) return;
     const landing = (evento.currentTarget as HTMLElement).closest<HTMLElement>('.landing')!;
-    const destino = matchMedia('(prefers-reduced-motion: reduce)').matches ? null : this.puntoDeEntrada(landing);
+    const destino = matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? null
+      : this.puntoDeEntrada(landing);
     if (!destino) {
       this.router.navigate(['/inicio']);
       return;
@@ -120,7 +149,9 @@ export class LandingPage {
       await this.router.navigate(['/inicio']);
       await new Promise((resolver) => setTimeout(resolver, 60));
     };
-    const transicion = (document as Document & { startViewTransition?: (cb: () => Promise<void>) => unknown }).startViewTransition;
+    const transicion = (
+      document as Document & { startViewTransition?: (cb: () => Promise<void>) => unknown }
+    ).startViewTransition;
     if (transicion) transicion.call(document, navegar);
     else navegar();
   }
@@ -146,7 +177,9 @@ export class LandingPage {
 
     // Mayor cuadrado de tinta en tiempo lineal (programación dinámica).
     const filas = new Uint16Array(ancho + 1);
-    let lado = 0, bx = 0, by = 0;
+    let lado = 0,
+      bx = 0,
+      by = 0;
     for (let y = 0; y < alto; y++) {
       let diagonal = 0;
       for (let x = 0; x < ancho; x++) {
@@ -155,7 +188,11 @@ export class LandingPage {
         const arriba = filas[x + 1];
         filas[x + 1] = tinta ? Math.min(arriba, filas[x], diagonal) + 1 : 0;
         diagonal = arriba;
-        if (filas[x + 1] > lado) { lado = filas[x + 1]; bx = x; by = y; }
+        if (filas[x + 1] > lado) {
+          lado = filas[x + 1];
+          bx = x;
+          by = y;
+        }
       }
     }
     if (lado < 3) return null;
@@ -167,7 +204,7 @@ export class LandingPage {
     return {
       x: caja.left - base.left + (bx + 1 - lado / 2) * px,
       y: caja.top - base.top + (by + 1 - lado / 2) * px,
-      escala: Math.hypot(innerWidth, innerHeight) / 2 / (radio * 0.9)
+      escala: Math.hypot(innerWidth, innerHeight) / 2 / (radio * 0.9),
     };
   }
 }

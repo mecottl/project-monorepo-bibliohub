@@ -1,9 +1,24 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CatalogoService } from '@domain/catalogo/catalogo.service';
 import { CatalogoBusquedaService } from '@domain/catalogo/catalogo-busqueda.service';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
-import { FiltrosCatalogoComponent, FiltrosCatalogo, SIN_FILTROS, filtrosAApi, filtrosAUrl, filtrosDeUrl } from '../../components/filtros-catalogo/filtros-catalogo.component';
+import {
+  FiltrosCatalogoComponent,
+  FiltrosCatalogo,
+  SIN_FILTROS,
+  filtrosAApi,
+  filtrosAUrl,
+  filtrosDeUrl,
+} from '../../components/filtros-catalogo/filtros-catalogo.component';
 import { PaginationComponent } from '@shared/ui/pagination/pagination.component';
 import { Categoria, Libro } from '@domain/catalogo/catalogo.model';
 
@@ -24,7 +39,7 @@ function slugificar(texto: string): string {
   imports: [BookCardComponent, PaginationComponent, RouterLink, FiltrosCatalogoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './libros.page.html',
-  styleUrl: './libros.page.css'
+  styleUrl: './libros.page.css',
 })
 export class LibrosPage {
   private readonly catalogo = inject(CatalogoService);
@@ -81,7 +96,7 @@ export class LibrosPage {
       relativeTo: this.route,
       queryParams: filtrosAUrl(filtros),
       queryParamsHandling: 'merge',
-      replaceUrl: true
+      replaceUrl: true,
     });
   }
 
@@ -109,7 +124,9 @@ export class LibrosPage {
     const siguienteIntento = intentoActual + 1;
 
     if (siguienteIntento < EXTENSIONES_COVER.length) {
-      this.coversIntento.update((actuales) => new Map(actuales).set(categoria.id, siguienteIntento));
+      this.coversIntento.update((actuales) =>
+        new Map(actuales).set(categoria.id, siguienteIntento),
+      );
       return;
     }
 
@@ -129,7 +146,7 @@ export class LibrosPage {
         categoriaId: this.categoriaId() ?? undefined,
         ...filtrosAApi(this.filtros()),
         page: this.page(),
-        limit: LIMIT
+        limit: LIMIT,
       })
       .subscribe({
         next: (res) => {
@@ -137,7 +154,7 @@ export class LibrosPage {
           this.total.set(res.total);
           this.loading.set(false);
         },
-        error: () => this.loading.set(false)
+        error: () => this.loading.set(false),
       });
   }
 }

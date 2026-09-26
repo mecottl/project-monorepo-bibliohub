@@ -10,6 +10,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <path d="M5 10v10h14V10" />
       <path d="M9 20v-6h6v6" />
     </svg>
-  `
+  `,
 })
 export class InicioIconComponent {}

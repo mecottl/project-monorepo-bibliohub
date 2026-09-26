@@ -6,7 +6,7 @@ import {
   ChangePasswordPayload,
   CreateEmpleadoPayload,
   Empleado,
-  UpdateEmpleadoPayload
+  UpdateEmpleadoPayload,
 } from '@domain/empleados/empleado.model';
 
 @Injectable({ providedIn: 'root' })

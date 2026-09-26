@@ -9,11 +9,7 @@ import {
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
 import { Empleado } from '@modules/empleados/entities/empleado.entity';
 
-export type EventoAcceso =
-  | 'login_ok'
-  | 'login_fallido'
-  | 'logout'
-  | 'cambio_password';
+export type EventoAcceso = 'login_ok' | 'login_fallido' | 'logout' | 'cambio_password';
 
 @Entity('log_acceso')
 export class LogAcceso {

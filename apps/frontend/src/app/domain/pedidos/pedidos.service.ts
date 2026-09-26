@@ -8,7 +8,7 @@ import {
   DireccionEntrega,
   EstadoPedidoLinea,
   IniciarCheckoutResult,
-  PedidoLinea
+  PedidoLinea,
 } from '@domain/pedidos/pedido.model';
 
 @Injectable({ providedIn: 'root' })
@@ -34,11 +34,14 @@ export class PedidosService {
 
   confirmarPago(paymentIntentId: string): Observable<{ pedidoId: string | null }> {
     return this.http.post<{ pedidoId: string | null }>(`${this.baseUrl}/pedidos/confirmar-pago`, {
-      paymentIntentId
+      paymentIntentId,
     });
   }
 
-  actualizarDireccion(id: string, cambios: Partial<CreateDireccionPayload>): Observable<DireccionEntrega> {
+  actualizarDireccion(
+    id: string,
+    cambios: Partial<CreateDireccionPayload>,
+  ): Observable<DireccionEntrega> {
     return this.http.patch<DireccionEntrega>(`${this.baseUrl}/direcciones/${id}`, cambios);
   }
 
@@ -48,14 +51,17 @@ export class PedidosService {
 
   listarPedidosAdmin(estado?: EstadoPedidoLinea): Observable<PedidoLinea[]> {
     return this.http.get<PedidoLinea[]>(`${this.baseUrl}/admin/pedidos`, {
-      params: estado ? { estado } : {}
+      params: estado ? { estado } : {},
     });
   }
 
-  cambiarEstado(id: string, estado: EstadoPedidoLinea): Observable<{ id: string; estado: EstadoPedidoLinea }> {
+  cambiarEstado(
+    id: string,
+    estado: EstadoPedidoLinea,
+  ): Observable<{ id: string; estado: EstadoPedidoLinea }> {
     return this.http.patch<{ id: string; estado: EstadoPedidoLinea }>(
       `${this.baseUrl}/admin/pedidos/${id}/estado`,
-      { estado }
+      { estado },
     );
   }
 

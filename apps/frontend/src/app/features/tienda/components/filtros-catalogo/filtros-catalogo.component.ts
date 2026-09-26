@@ -10,13 +10,18 @@ export interface FiltrosCatalogo {
   disponibles: boolean;
 }
 
-export const SIN_FILTROS: FiltrosCatalogo = { orden: null, precioMin: null, precioMax: null, disponibles: false };
+export const SIN_FILTROS: FiltrosCatalogo = {
+  orden: null,
+  precioMin: null,
+  precioMax: null,
+  disponibles: false,
+};
 
 const ORDENES: { valor: OrdenCatalogo; texto: string }[] = [
   { valor: 'novedades', texto: 'Novedades' },
   { valor: 'precio_asc', texto: 'Precio: menor a mayor' },
   { valor: 'precio_desc', texto: 'Precio: mayor a menor' },
-  { valor: 'titulo', texto: 'Título (A–Z)' }
+  { valor: 'titulo', texto: 'Título (A–Z)' },
 ];
 
 const numero = (v: string | null): number | null => {
@@ -31,7 +36,7 @@ export function filtrosDeUrl(params: { get(clave: string): string | null }): Fil
     orden: ORDENES.some((o) => o.valor === orden) ? (orden as OrdenCatalogo) : null,
     precioMin: numero(params.get('precioMin')),
     precioMax: numero(params.get('precioMax')),
-    disponibles: params.get('disponibles') === '1'
+    disponibles: params.get('disponibles') === '1',
   };
 }
 
@@ -42,23 +47,27 @@ export function filtrosAUrl(f: FiltrosCatalogo): Params {
     precioMin: f.precioMin,
     precioMax: f.precioMax,
     disponibles: f.disponibles ? 1 : null,
-    page: null
+    page: null,
   };
 }
 
 /** Parámetros del endpoint del catálogo. */
 export function filtrosAApi(f: FiltrosCatalogo) {
   const orden =
-    f.orden === 'precio_asc' ? { orden: 'precioVenta', direccion: 'ASC' }
-    : f.orden === 'precio_desc' ? { orden: 'precioVenta', direccion: 'DESC' }
-    : f.orden === 'titulo' ? { orden: 'titulo', direccion: 'ASC' }
-    : f.orden === 'novedades' ? { orden: 'createdAt', direccion: 'DESC' }
-    : {};
+    f.orden === 'precio_asc'
+      ? { orden: 'precioVenta', direccion: 'ASC' }
+      : f.orden === 'precio_desc'
+        ? { orden: 'precioVenta', direccion: 'DESC' }
+        : f.orden === 'titulo'
+          ? { orden: 'titulo', direccion: 'ASC' }
+          : f.orden === 'novedades'
+            ? { orden: 'createdAt', direccion: 'DESC' }
+            : {};
   return {
     ...orden,
     precioMin: f.precioMin ?? undefined,
     precioMax: f.precioMax ?? undefined,
-    disponibles: f.disponibles || undefined
+    disponibles: f.disponibles || undefined,
   };
 }
 
@@ -80,25 +89,45 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       <div class="filtros__campo filtros__precio">
         <span>Precio</span>
         <div>
-          <input type="number" min="0" placeholder="Mín." aria-label="Precio mínimo"
-            [value]="valor().precioMin ?? ''" (change)="cambiar({ precioMin: leerNumero($event) })" />
+          <input
+            type="number"
+            min="0"
+            placeholder="Mín."
+            aria-label="Precio mínimo"
+            [value]="valor().precioMin ?? ''"
+            (change)="cambiar({ precioMin: leerNumero($event) })"
+          />
           <span aria-hidden="true">–</span>
-          <input type="number" min="0" placeholder="Máx." aria-label="Precio máximo"
-            [value]="valor().precioMax ?? ''" (change)="cambiar({ precioMax: leerNumero($event) })" />
+          <input
+            type="number"
+            min="0"
+            placeholder="Máx."
+            aria-label="Precio máximo"
+            [value]="valor().precioMax ?? ''"
+            (change)="cambiar({ precioMax: leerNumero($event) })"
+          />
         </div>
       </div>
 
       <label class="filtros__check">
-        <input type="checkbox" [checked]="valor().disponibles" (change)="cambiar({ disponibles: leerCheck($event) })" />
+        <input
+          type="checkbox"
+          [checked]="valor().disponibles"
+          (change)="cambiar({ disponibles: leerCheck($event) })"
+        />
         Solo disponibles
       </label>
 
       @if (hayFiltros()) {
-        <button type="button" class="filtros__limpiar" (click)="limpiar.emit()">Limpiar filtros</button>
+        <button type="button" class="filtros__limpiar" (click)="limpiar.emit()">
+          Limpiar filtros
+        </button>
       }
 
       @if (total() !== null) {
-        <span class="filtros__total" aria-live="polite">{{ total() }} {{ total() === 1 ? 'resultado' : 'resultados' }}</span>
+        <span class="filtros__total" aria-live="polite"
+          >{{ total() }} {{ total() === 1 ? 'resultado' : 'resultados' }}</span
+        >
       }
     </div>
   `,
@@ -115,8 +144,15 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       font-family: var(--font-ui);
       font-size: 13px;
     }
-    .filtros__campo { display: flex; flex-direction: column; gap: 4px; color: var(--color-gris-oscuro); font-weight: 600; }
-    .filtros select, .filtros input[type='number'] {
+    .filtros__campo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      color: var(--color-gris-oscuro);
+      font-weight: 600;
+    }
+    .filtros select,
+    .filtros input[type='number'] {
       padding: 8px 10px;
       border: 1.5px solid var(--color-beige);
       border-radius: var(--border-radius-sm);
@@ -125,10 +161,28 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       color: var(--color-negro-suave);
       background: white;
     }
-    .filtros select:focus, .filtros input:focus-visible { outline: 2px solid var(--color-cafe-medio); outline-offset: 1px; }
-    .filtros__precio > div { display: flex; align-items: center; gap: 6px; }
-    .filtros__precio input { width: 84px; }
-    .filtros__check { display: inline-flex; align-items: center; gap: 8px; padding-bottom: 8px; font-weight: 600; color: var(--color-negro-suave); cursor: pointer; }
+    .filtros select:focus,
+    .filtros input:focus-visible {
+      outline: 2px solid var(--color-cafe-medio);
+      outline-offset: 1px;
+    }
+    .filtros__precio > div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filtros__precio input {
+      width: 84px;
+    }
+    .filtros__check {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+      font-weight: 600;
+      color: var(--color-negro-suave);
+      cursor: pointer;
+    }
     .filtros__limpiar {
       padding: 8px 12px;
       border: none;
@@ -139,11 +193,18 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       cursor: pointer;
       text-decoration: underline;
     }
-    .filtros__total { margin-left: auto; padding-bottom: 8px; color: var(--color-gris-oscuro); }
-    @media (max-width: 560px) {
-      .filtros__total { margin-left: 0; flex-basis: 100%; }
+    .filtros__total {
+      margin-left: auto;
+      padding-bottom: 8px;
+      color: var(--color-gris-oscuro);
     }
-  `
+    @media (max-width: 560px) {
+      .filtros__total {
+        margin-left: 0;
+        flex-basis: 100%;
+      }
+    }
+  `,
 })
 export class FiltrosCatalogoComponent {
   valor = input.required<FiltrosCatalogo>();

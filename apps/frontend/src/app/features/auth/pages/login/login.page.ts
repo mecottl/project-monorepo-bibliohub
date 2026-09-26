@@ -9,7 +9,7 @@ import { AuthService } from '@core/auth/auth.service';
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.page.html',
-  styleUrl: '../../../../shared/styles/auth-shared.css'
+  styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class LoginPage {
   private fb = inject(FormBuilder);
@@ -40,7 +40,7 @@ export class LoginPage {
       error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'Credenciales incorrectas');
         this.loading.set(false);
-      }
+      },
     });
   }
 }

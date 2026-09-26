@@ -6,7 +6,7 @@ import {
   CreateMovimientoPayload,
   MovimientoInventario,
   MovimientosQuery,
-  PaginatedMovimientos
+  PaginatedMovimientos,
 } from '../models/movimiento.model';
 
 @Injectable({ providedIn: 'root' })

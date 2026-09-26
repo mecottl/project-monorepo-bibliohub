@@ -21,7 +21,9 @@ import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '@domain/pedi
       @if (cargando()) {
         <p class="cuenta-hint">Cargando...</p>
       } @else if (pedidos().length === 0) {
-        <p class="cuenta-hint">Todavía no tienes compras. <a routerLink="/inicio">Explorar libros</a></p>
+        <p class="cuenta-hint">
+          Todavía no tienes compras. <a routerLink="/inicio">Explorar libros</a>
+        </p>
       } @else {
         @for (pedido of pedidos(); track pedido.id) {
           <article class="compra">
@@ -33,7 +35,10 @@ import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '@domain/pedi
               <div class="compra__portadas">
                 @for (detalle of primeros(pedido); track detalle.id) {
                   @if (detalle.libro?.imagenUrl) {
-                    <img [src]="detalle.libro!.imagenUrl" [alt]="'Portada de ' + detalle.libro!.titulo" />
+                    <img
+                      [src]="detalle.libro!.imagenUrl"
+                      [alt]="'Portada de ' + detalle.libro!.titulo"
+                    />
                   } @else {
                     <span>{{ detalle.libro?.titulo }}</span>
                   }
@@ -52,7 +57,7 @@ import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '@domain/pedi
         }
       }
     </section>
-  `
+  `,
 })
 export class ComprasPage {
   private readonly pedidosService = inject(PedidosService);
@@ -72,7 +77,7 @@ export class ComprasPage {
   constructor() {
     forkJoin({
       online: this.pedidosService.listarPedidos(),
-      tienda: this.cuenta.comprasTienda().pipe(catchError(() => of([] as PedidoLinea[])))
+      tienda: this.cuenta.comprasTienda().pipe(catchError(() => of([] as PedidoLinea[]))),
     }).subscribe({
       next: ({ online, tienda }) => {
         const todos = [...online.map((p) => ({ ...p, origen: 'online' as const })), ...tienda];
@@ -80,7 +85,7 @@ export class ComprasPage {
         this.pedidos.set(todos);
         this.cargando.set(false);
       },
-      error: () => this.cargando.set(false)
+      error: () => this.cargando.set(false),
     });
   }
 }

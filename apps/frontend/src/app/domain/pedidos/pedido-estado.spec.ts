@@ -24,7 +24,9 @@ describe('pedido-estado', () => {
   });
 
   it('etiqueta las compras de tienda distinto a los pedidos en línea', () => {
-    expect(etiquetaEstado(pedido({ origen: 'tienda', estado: 'entregado' }))).toBe('Compra en tienda');
+    expect(etiquetaEstado(pedido({ origen: 'tienda', estado: 'entregado' }))).toBe(
+      'Compra en tienda',
+    );
     expect(etiquetaEstado(pedido({ origen: 'tienda', estado: 'cancelado' }))).toBe('Cancelada');
     expect(etiquetaEstado(pedido({ estado: 'en_preparacion' }))).toBe('En preparación');
   });

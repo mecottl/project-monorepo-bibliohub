@@ -98,7 +98,9 @@
   align-items: center;
   padding: 8px;
   border-radius: 999px;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .topbar__icon-btn:hover {

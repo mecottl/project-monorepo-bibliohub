@@ -8,7 +8,9 @@ export class QueryPedidoCompraDto {
   @IsUUID()
   proveedorId?: string;
 
-  @ApiPropertyOptional({ enum: ['pendiente', 'enviado', 'recibido_parcial', 'recibido', 'cancelado'] })
+  @ApiPropertyOptional({
+    enum: ['pendiente', 'enviado', 'recibido_parcial', 'recibido', 'cancelado'],
+  })
   @IsOptional()
   @IsString()
   estado?: string;

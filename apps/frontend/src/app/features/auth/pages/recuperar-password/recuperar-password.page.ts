@@ -9,7 +9,7 @@ import { AuthService } from '@core/auth/auth.service';
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './recuperar-password.page.html',
-  styleUrl: '../../../../shared/styles/auth-shared.css'
+  styleUrl: '../../../../shared/styles/auth-shared.css',
 })
 export class RecuperarPasswordPage {
   private fb = inject(FormBuilder);
@@ -20,7 +20,7 @@ export class RecuperarPasswordPage {
   mensaje = signal<string | null>(null);
 
   form = this.fb.nonNullable.group({
-    identificador: ['', [Validators.required]]
+    identificador: ['', [Validators.required]],
   });
 
   submit(): void {
@@ -36,7 +36,7 @@ export class RecuperarPasswordPage {
       error: (err: HttpErrorResponse) => {
         this.error.set(err.error?.message ?? 'No se pudo enviar la solicitud.');
         this.loading.set(false);
-      }
+      },
     });
   }
 }

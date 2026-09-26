@@ -4,17 +4,25 @@
     class="book-card__deseo"
     [class.is-active]="deseos.esDeseado(libro().id)"
     [attr.aria-pressed]="deseos.esDeseado(libro().id)"
-    [attr.aria-label]="deseos.esDeseado(libro().id) ? 'Quitar de la lista de deseos' : 'Agregar a la lista de deseos'"
+    [attr.aria-label]="
+      deseos.esDeseado(libro().id) ? 'Quitar de la lista de deseos' : 'Agregar a la lista de deseos'
+    "
     (click)="deseos.toggle(libro().id)"
   >
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 20.5s-7.5-4.6-7.5-10A4.5 4.5 0 0 1 12 7.6a4.5 4.5 0 0 1 7.5 2.9c0 5.4-7.5 10-7.5 10z" />
+      <path
+        d="M12 20.5s-7.5-4.6-7.5-10A4.5 4.5 0 0 1 12 7.6a4.5 4.5 0 0 1 7.5 2.9c0 5.4-7.5 10-7.5 10z"
+      />
     </svg>
   </button>
   <a class="book-card__link" [routerLink]="['/libro', libro().id]">
     <div class="book-card__cover">
       @if (libro().imagenUrl) {
-        <img class="book-card__cover-img" [src]="libro().imagenUrl" [alt]="'Portada de ' + libro().titulo" />
+        <img
+          class="book-card__cover-img"
+          [src]="libro().imagenUrl"
+          [alt]="'Portada de ' + libro().titulo"
+        />
       } @else {
         <span class="book-card__cover-title" aria-hidden="true">{{ libro().titulo }}</span>
       }

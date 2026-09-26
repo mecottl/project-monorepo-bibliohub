@@ -11,7 +11,9 @@ export class StripeService {
     if (!this.cliente) {
       const apiKey = process.env.STRIPE_SECRET_KEY;
       if (!apiKey) {
-        throw new BadRequestException('Stripe no está configurado todavía (falta STRIPE_SECRET_KEY)');
+        throw new BadRequestException(
+          'Stripe no está configurado todavía (falta STRIPE_SECRET_KEY)',
+        );
       }
       this.cliente = new Stripe(apiKey);
     }

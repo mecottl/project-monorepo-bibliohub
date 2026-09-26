@@ -8,7 +8,7 @@ import {
   ClientesQuery,
   ConsultaTelefono,
   PaginatedClientes,
-  UpdateClientePayload
+  UpdateClientePayload,
 } from '@domain/clientes/cliente.model';
 
 @Injectable({ providedIn: 'root' })

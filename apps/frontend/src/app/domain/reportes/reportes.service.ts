@@ -21,7 +21,8 @@ export class ReportesService {
   historialVentas(query: HistorialQuery): Observable<HistorialVentas> {
     let params = new HttpParams();
     for (const [clave, valor] of Object.entries(query)) {
-      if (valor !== undefined && valor !== null && valor !== '') params = params.set(clave, String(valor));
+      if (valor !== undefined && valor !== null && valor !== '')
+        params = params.set(clave, String(valor));
     }
     return this.http.get<HistorialVentas>(`${this.baseUrl}/historial-ventas`, { params });
   }
