@@ -13,14 +13,23 @@ necesite (no todos los módulos tienen las 5):
   usando `class-validator` y `@ApiProperty`/`@ApiPropertyOptional` de Swagger
 - `interfaces/` — tipos TypeScript propios del módulo (respuestas paginadas, tipos
   derivados de entidades)
-- `decorators/`, `guards/`, `strategies/` — solo en `auth/`, no dupliques ahí si otro
-  módulo necesita algo similar; extiende lo existente
-- `storage/` — patrón de abstracción de infraestructura (ver `catalogo/storage/`,
+- `strategies/` — solo en `auth/`; decoradores y guards viven en `common/auth/`
+- `infra/` — patrón de abstracción de infraestructura (ver `infra/storage/`,
   interfaz + implementación intercambiable vía variable de entorno). Sigue este mismo
   patrón para cualquier otra pieza de infraestructura externa (email, colas, etc.)
 
-Las entidades TypeORM viven centralizadas en `src/database/entities/`, no dentro de cada
-módulo.
+Las entidades TypeORM viven en `entities/` de su módulo dueño (p. ej. `Libro` en
+`catalogo/entities/`); se registran en `src/config/typeorm.config.ts`. Otro módulo que las necesite
+las importa por alias, sin duplicarlas.
+
+## Capas y alias de importación
+
+- `@common/*` (`src/common/`): transversal sin dominio. `common/auth/` tiene `@Roles`, `@CurrentUser`,
+  `@Public`, `JwtAuthGuard`, `RolesGuard` y `JwtPayload`.
+- `@infra/*` (`src/infra/`): proveedores externos con interfaz + implementación (`email/`, `storage/`).
+- `@config/*`, `@modules/*`. Dentro de un mismo módulo se usan rutas relativas cortas.
+- Red de seguridad: `pnpm test:e2e` (arranque, mapa de rutas/roles con snapshot, humo HTTP). Si
+  cambias rutas o roles a propósito, actualiza el snapshot con `pnpm test:e2e -u`.
 
 ## Roles y permisos
 

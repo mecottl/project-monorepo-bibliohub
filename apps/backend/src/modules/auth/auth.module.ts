@@ -3,19 +3,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { SesionesLimpiezaService } from './sesiones-limpieza.service';
-import { RecuperacionService } from './recuperacion.service';
-import { RecuperacionPassword } from '../../database/entities/recuperacion-password.entity';
-import { EMAIL_SERVICE, EmailService } from './email/email.interface';
-import { ConsoleEmailService } from './email/console-email.service';
-import { SmtpEmailService } from './email/smtp-email.service';
+import { AuthService } from './services/auth.service';
+import { AuthController } from './controllers/auth.controller';
+import { SesionesLimpiezaService } from './services/sesiones-limpieza.service';
+import { RecuperacionService } from './services/recuperacion.service';
+import { RecuperacionPassword } from './entities/recuperacion-password.entity';
+import { EMAIL_SERVICE, EmailService } from '@infra/email/email.interface';
+import { ConsoleEmailService } from '@infra/email/console-email.service';
+import { SmtpEmailService } from '@infra/email/smtp-email.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { Cliente } from '../../database/entities/cliente.entity';
-import { Empleado } from '../../database/entities/empleado.entity';
-import { LogAcceso } from '../../database/entities/log-acceso.entity';
-import { Sesion } from '../../database/entities/sesion.entity';
+import { Cliente } from '@modules/clientes/entities/cliente.entity';
+import { Empleado } from '@modules/empleados/entities/empleado.entity';
+import { LogAcceso } from './entities/log-acceso.entity';
+import { Sesion } from './entities/sesion.entity';
 
 @Module({
   imports: [

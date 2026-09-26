@@ -1,6 +1,6 @@
-import { Venta } from '../../../database/entities/venta.entity';
-import { Cliente } from '../../../database/entities/cliente.entity';
-import { Empleado } from '../../../database/entities/empleado.entity';
+import { Venta } from '../entities/venta.entity';
+import { Cliente } from '@modules/clientes/entities/cliente.entity';
+import { Empleado } from '@modules/empleados/entities/empleado.entity';
 
 // venta.cliente y venta.empleado vienen de un leftJoinAndSelect con la
 // entidad completa (incluye passwordHash) — este tipo es lo que el

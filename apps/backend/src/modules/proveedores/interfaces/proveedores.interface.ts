@@ -1,6 +1,6 @@
-import { Proveedor } from '../../../database/entities/proveedor.entity';
-import { PedidoCompra } from '../../../database/entities/pedido-compra.entity';
-import { Empleado } from '../../../database/entities/empleado.entity';
+import { Proveedor } from '../entities/proveedor.entity';
+import { PedidoCompra } from '../entities/pedido-compra.entity';
+import { Empleado } from '@modules/empleados/entities/empleado.entity';
 
 export interface Paginado<T> {
   data: T[];

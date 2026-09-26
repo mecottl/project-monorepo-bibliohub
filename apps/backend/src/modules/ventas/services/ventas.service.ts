@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository, DataSource, SelectQueryBuilder } from 'typeorm';
-import { Venta } from '../../../database/entities/venta.entity';
-import { Libro } from '../../../database/entities/libro.entity';
-import { ClientesService } from '../../clientes/services/clientes.service';
+import { Venta } from '../entities/venta.entity';
+import { Libro } from '@modules/catalogo/entities/libro.entity';
+import { ClientesService } from '@modules/clientes/services/clientes.service';
 import { CreateVentaDto } from '../dto/create-venta.dto';
 import { QueryVentaDto } from '../dto/query-venta.dto';
 import { PaginatedVentas, VentaSegura } from '../interfaces/ventas.interface';

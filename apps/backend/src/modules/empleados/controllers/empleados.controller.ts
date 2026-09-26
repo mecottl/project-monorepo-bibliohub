@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Patch, Param, Body, Req } from '@nestjs/common';
 import type { Request } from 'express';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
-import { hashDeToken } from '../../../common/sesiones';
+import { Roles } from '@common/auth/roles.decorator';
+import { CurrentUser } from '@common/auth/current-user.decorator';
+import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
+import { hashDeToken } from '@common/sesiones';
 import { EmpleadosService } from '../services/empleados.service';
 import { CreateEmpleadoDto } from '../dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from '../dto/update-empleado.dto';

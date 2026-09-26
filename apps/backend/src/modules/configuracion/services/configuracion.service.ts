@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Configuracion } from '../../../database/entities/configuracion.entity';
+import { Configuracion } from '../entities/configuracion.entity';
 
 @Injectable()
 export class ConfiguracionService {

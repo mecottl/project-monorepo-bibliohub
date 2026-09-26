@@ -6,24 +6,24 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
-import { Libro } from '../../../database/entities/libro.entity';
+import { Libro } from '../entities/libro.entity';
 import { QueryLibroDto } from '../dto/query-libro.dto';
 import { LibroConImagen, PaginatedLibros } from '../interfaces/catalogo.interface';
 import { CreateLibroDto } from '../dto/create-libro.dto';
-import { LibroAutor } from '../../../database/entities/libro-autor.entity';
+import { LibroAutor } from '../entities/libro-autor.entity';
 import { UpdateLibroDto } from '../dto/update-libro.dto';
-import { Categoria } from '../../../database/entities/categoria.entity';
-import { Editorial } from '../../../database/entities/editorial.entity';
-import { Autor } from '../../../database/entities/autor.entity';
+import { Categoria } from '../entities/categoria.entity';
+import { Editorial } from '../entities/editorial.entity';
+import { Autor } from '../entities/autor.entity';
 import { CreateAutorDto } from '../dto/create-autor.dto';
 import { UpdateAutorDto } from '../dto/update-autor.dto';
 import { CreateEditorialDto } from '../dto/create-editorial.dto';
 import { UpdateEditorialDto } from '../dto/update-editorial.dto';
 import { CreateCategoriaDto } from '../dto/create-categoria.dto';
 import { UpdateCategoriaDto } from '../dto/update-categoria.dto';
-import { STORAGE_SERVICE } from '../storage/storage.interface';
-import type { StorageService } from '../storage/storage.interface';
-import { asignarDefinidos } from '../../../common/asignar-definidos';
+import { STORAGE_SERVICE } from '@infra/storage/storage.interface';
+import type { StorageService } from '@infra/storage/storage.interface';
+import { asignarDefinidos } from '@common/asignar-definidos';
 
 @Injectable()
 export class CatalogoService {

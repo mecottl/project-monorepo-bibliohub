@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import type { Request } from 'express';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
-import { hashDeToken } from '../../../common/sesiones';
+import { Roles } from '@common/auth/roles.decorator';
+import { CurrentUser } from '@common/auth/current-user.decorator';
+import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
+import { hashDeToken } from '@common/sesiones';
 import { CuentaService } from '../services/cuenta.service';
 import { CambiarPasswordClienteDto, UpdatePerfilDto } from '../dto/cuenta.dto';
 

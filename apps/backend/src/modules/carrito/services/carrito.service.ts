@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Carrito } from '../../../database/entities/carrito.entity';
-import { ItemCarrito } from '../../../database/entities/item-carrito.entity';
-import { Libro } from '../../../database/entities/libro.entity';
+import { Carrito } from '../entities/carrito.entity';
+import { ItemCarrito } from '../entities/item-carrito.entity';
+import { Libro } from '@modules/catalogo/entities/libro.entity';
 import { AgregarItemCarritoDto } from '../dto/agregar-item-carrito.dto';
 import { CarritoConItems } from '../interfaces/carrito.interface';
 

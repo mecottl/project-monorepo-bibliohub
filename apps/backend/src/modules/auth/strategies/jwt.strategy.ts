@@ -5,11 +5,11 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
-import { Sesion } from '../../../database/entities/sesion.entity';
+import { Sesion } from '../entities/sesion.entity';
 import type {
   JwtPayload,
   AuthenticatedUser,
-} from '../interfaces/jwt-payload.interface';
+} from '@common/auth/jwt-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

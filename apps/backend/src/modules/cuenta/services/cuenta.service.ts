@@ -8,13 +8,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import Stripe from 'stripe';
-import { Cliente } from '../../../database/entities/cliente.entity';
-import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
-import { Sesion } from '../../../database/entities/sesion.entity';
-import { cerrarOtrasSesiones } from '../../../common/sesiones';
-import { Venta } from '../../../database/entities/venta.entity';
-import { Configuracion } from '../../../database/entities/configuracion.entity';
-import { asignarDefinidos } from '../../../common/asignar-definidos';
+import { Cliente } from '@modules/clientes/entities/cliente.entity';
+import { TransaccionPuntos } from '@modules/clientes/entities/transaccion-puntos.entity';
+import { Sesion } from '@modules/auth/entities/sesion.entity';
+import { cerrarOtrasSesiones } from '@common/sesiones';
+import { Venta } from '@modules/ventas/entities/venta.entity';
+import { Configuracion } from '@modules/configuracion/entities/configuracion.entity';
+import { asignarDefinidos } from '@common/asignar-definidos';
 import { CambiarPasswordClienteDto, UpdatePerfilDto } from '../dto/cuenta.dto';
 
 export interface Perfil {

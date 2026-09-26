@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Libro } from '../../database/entities/libro.entity';
-import { Autor } from '../../database/entities/autor.entity';
-import { Editorial } from '../../database/entities/editorial.entity';
-import { Categoria } from '../../database/entities/categoria.entity';
+import { Libro } from './entities/libro.entity';
+import { Autor } from './entities/autor.entity';
+import { Editorial } from './entities/editorial.entity';
+import { Categoria } from './entities/categoria.entity';
 import { CatalogoController } from './controllers/catalogo.controller';
 import { CatalogoService } from './services/catalogo.service';
-import { STORAGE_SERVICE, StorageService } from './storage/storage.interface';
-import { LocalStorageService } from './storage/local-storage.service';
+import { STORAGE_SERVICE, StorageService } from '@infra/storage/storage.interface';
+import { LocalStorageService } from '@infra/storage/local-storage.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Libro, Autor, Editorial, Categoria])],

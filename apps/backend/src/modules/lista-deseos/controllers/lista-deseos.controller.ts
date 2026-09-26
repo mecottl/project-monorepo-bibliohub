@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Delete, Param, ParseUUIDPipe, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import type { Request } from 'express';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
+import { Roles } from '@common/auth/roles.decorator';
+import { CurrentUser } from '@common/auth/current-user.decorator';
+import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
 import { ListaDeseosService } from '../services/lista-deseos.service';
 
 @ApiTags('lista-deseos')

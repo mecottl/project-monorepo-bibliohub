@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Param, Body, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
+import { Roles } from '@common/auth/roles.decorator';
+import { CurrentUser } from '@common/auth/current-user.decorator';
+import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
 import { VentasService } from '../services/ventas.service';
 import { CreateVentaDto } from '../dto/create-venta.dto';
 import { QueryVentaDto } from '../dto/query-venta.dto';

@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import type { Request } from 'express';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import type { AuthenticatedUser } from '../../auth/interfaces/jwt-payload.interface';
+import { Roles } from '@common/auth/roles.decorator';
+import { CurrentUser } from '@common/auth/current-user.decorator';
+import type { AuthenticatedUser } from '@common/auth/jwt-payload.interface';
 import { CarritoService } from '../services/carrito.service';
 import { AgregarItemCarritoDto } from '../dto/agregar-item-carrito.dto';
 import { ActualizarItemCarritoDto } from '../dto/actualizar-item-carrito.dto';

@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import { Repository } from 'typeorm';
-import { Sesion } from '../database/entities/sesion.entity';
+import { Sesion } from '@modules/auth/entities/sesion.entity';
 
 export function hashDeToken(authorization?: string): string {
   const token = authorization?.replace('Bearer ', '') ?? '';

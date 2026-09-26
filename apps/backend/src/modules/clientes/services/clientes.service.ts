@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder, DataSource } from 'typeorm';
-import { Cliente } from '../../../database/entities/cliente.entity';
-import { TransaccionPuntos } from '../../../database/entities/transaccion-puntos.entity';
+import { Cliente } from '../entities/cliente.entity';
+import { TransaccionPuntos } from '../entities/transaccion-puntos.entity';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';
 import { CreateClienteDto } from '../dto/create-cliente.dto';

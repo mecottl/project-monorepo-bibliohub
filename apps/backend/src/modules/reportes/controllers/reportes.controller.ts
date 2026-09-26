@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Roles } from '@common/auth/roles.decorator';
 import { ReportesService } from '../services/reportes.service';
 import { QueryHistorialVentasDto } from '../dto/query-historial-ventas.dto';
 import { QueryReporteVentasDto } from '../dto/query-reporte-ventas.dto';

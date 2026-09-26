@@ -2,16 +2,16 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import Stripe from 'stripe';
-import { DireccionEntrega } from '../../../database/entities/direccion-entrega.entity';
-import { Carrito } from '../../../database/entities/carrito.entity';
-import { ItemCarrito } from '../../../database/entities/item-carrito.entity';
-import { Cliente } from '../../../database/entities/cliente.entity';
-import { PedidoLinea } from '../../../database/entities/pedido-linea.entity';
-import type { EstadoPedidoLinea } from '../../../database/entities/pedido-linea.entity';
-import { Configuracion } from '../../../database/entities/configuracion.entity';
+import { DireccionEntrega } from '../entities/direccion-entrega.entity';
+import { Carrito } from '@modules/carrito/entities/carrito.entity';
+import { ItemCarrito } from '@modules/carrito/entities/item-carrito.entity';
+import { Cliente } from '@modules/clientes/entities/cliente.entity';
+import { PedidoLinea } from '../entities/pedido-linea.entity';
+import type { EstadoPedidoLinea } from '../entities/pedido-linea.entity';
+import { Configuracion } from '@modules/configuracion/entities/configuracion.entity';
 import { CreateDireccionDto } from '../dto/create-direccion.dto';
 import { UpdateDireccionDto } from '../dto/update-direccion.dto';
-import { asignarDefinidos } from '../../../common/asignar-definidos';
+import { asignarDefinidos } from '@common/asignar-definidos';
 import { CheckoutDto } from '../dto/checkout.dto';
 import { IniciarCheckoutResult, TotalesCheckout } from '../interfaces/pedidos.interface';
 

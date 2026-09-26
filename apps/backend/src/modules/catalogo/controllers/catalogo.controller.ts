@@ -18,10 +18,10 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiConsumes } from '@nestjs/swagger';
 import type { Request } from 'express';
-import { Public } from '../../auth/decorators/public.decorator';
+import { Public } from '@common/auth/public.decorator';
 import { CatalogoService } from '../services/catalogo.service';
 import { QueryLibroDto } from '../dto/query-libro.dto';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Roles } from '@common/auth/roles.decorator';
 import { CreateLibroDto } from '../dto/create-libro.dto';
 import { UpdateLibroDto } from '../dto/update-libro.dto';
 import { CreateAutorDto } from '../dto/create-autor.dto';

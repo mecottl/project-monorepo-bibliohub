@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository, DataSource, SelectQueryBuilder } from 'typeorm';
-import { Proveedor } from '../../../database/entities/proveedor.entity';
-import { PedidoCompra } from '../../../database/entities/pedido-compra.entity';
-import { DetallePedidoCompra } from '../../../database/entities/detalle-pedido-compra.entity';
-import { Libro } from '../../../database/entities/libro.entity';
-import { asignarDefinidos } from '../../../common/asignar-definidos';
+import { Proveedor } from '../entities/proveedor.entity';
+import { PedidoCompra } from '../entities/pedido-compra.entity';
+import { DetallePedidoCompra } from '../entities/detalle-pedido-compra.entity';
+import { Libro } from '@modules/catalogo/entities/libro.entity';
+import { asignarDefinidos } from '@common/asignar-definidos';
 import { CreateProveedorDto } from '../dto/create-proveedor.dto';
 import { UpdateProveedorDto } from '../dto/update-proveedor.dto';
 import { CreatePedidoCompraDto } from '../dto/create-pedido-compra.dto';

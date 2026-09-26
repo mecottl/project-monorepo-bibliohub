@@ -1,6 +1,6 @@
 import { Controller, Get, Patch, Post, Param, Body, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Roles } from '@common/auth/roles.decorator';
 import { ClientesService } from '../services/clientes.service';
 import { QueryClienteDto } from '../dto/query-cliente.dto';
 import { UpdateClienteDto } from '../dto/update-cliente.dto';

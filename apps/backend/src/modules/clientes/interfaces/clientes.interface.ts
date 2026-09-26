@@ -1,4 +1,4 @@
-import { Cliente } from '../../../database/entities/cliente.entity';
+import { Cliente } from '../entities/cliente.entity';
 
 export type ClienteSinPassword = Omit<Cliente, 'passwordHash'>;
 

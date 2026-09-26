@@ -1,6 +1,6 @@
 import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../auth/decorators/roles.decorator';
+import { Roles } from '@common/auth/roles.decorator';
 import { ConfiguracionService } from '../services/configuracion.service';
 import { UpdateConfiguracionDto } from '../dto/update-configuracion.dto';
 

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Sesion } from '../../database/entities/sesion.entity';
-import { Empleado } from '../../database/entities/empleado.entity';
+import { Sesion } from '@modules/auth/entities/sesion.entity';
+import { Empleado } from './entities/empleado.entity';
 import { EmpleadosController } from './controllers/empleados.controller';
 import { EmpleadosService } from './services/empleados.service';
 
