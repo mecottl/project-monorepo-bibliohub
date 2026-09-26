@@ -42,6 +42,10 @@ export class PedidosService {
     return this.http.patch<DireccionEntrega>(`${this.baseUrl}/direcciones/${id}`, cambios);
   }
 
+  obtenerPedidoAdmin(id: string): Observable<PedidoLinea> {
+    return this.http.get<PedidoLinea>(`${this.baseUrl}/admin/pedidos/${id}`);
+  }
+
   listarPedidosAdmin(estado?: EstadoPedidoLinea): Observable<PedidoLinea[]> {
     return this.http.get<PedidoLinea[]>(`${this.baseUrl}/admin/pedidos`, {
       params: estado ? { estado } : {}

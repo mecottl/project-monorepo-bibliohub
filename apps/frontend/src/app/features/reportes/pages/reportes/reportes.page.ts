@@ -4,6 +4,7 @@ import { DataTableColumn } from '../../../../shared/data-table/data-table.model'
 import { DataTableComponent } from '../../../../shared/data-table/data-table.component';
 import { StatCardComponent } from '../../../../shared/stat-card/stat-card.component';
 import { exportarExcel } from '../../../../shared/excel/excel-export';
+import { ReportesTabsComponent } from '../../reportes-tabs.component';
 import { ReportesService } from '../../services/reportes.service';
 import { LibroMasVendido, RendimientoEmpleado, VentasPorDia } from '../../models/reporte.model';
 
@@ -19,7 +20,7 @@ function haceDiasISO(dias: number): string {
 
 @Component({
   selector: 'app-reportes',
-  imports: [FormsModule, DataTableComponent, StatCardComponent],
+  imports: [FormsModule, DataTableComponent, StatCardComponent, ReportesTabsComponent],
   templateUrl: './reportes.page.html',
   styleUrl: './reportes.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush

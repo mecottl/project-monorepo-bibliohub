@@ -317,6 +317,21 @@ export class PedidosService {
     }));
   }
 
+  async obtenerPedidoAdmin(id: string, baseUrl: string) {
+    const pedido = await this.pedidoRepository.findOne({
+      where: { id },
+      relations: ['cliente', 'direccion', 'detalles', 'detalles.libro'],
+    });
+    if (!pedido) {
+      throw new NotFoundException('Pedido no encontrado');
+    }
+    const { cliente, ...resto } = pedido;
+    return {
+      ...this.mapPedido(resto as PedidoLinea, baseUrl),
+      cliente: { id: cliente.id, nombre: cliente.nombre, telefono: cliente.telefono },
+    };
+  }
+
   async cambiarEstado(id: string, nuevo: EstadoPedidoLinea) {
     const pedido = await this.pedidoRepository.findOne({ where: { id } });
     if (!pedido) {

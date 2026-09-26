@@ -76,6 +76,13 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'reportes/historial',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['admin'] },
+        loadComponent: () =>
+          import('./features/reportes/pages/historial/historial.page').then(m => m.HistorialVentasPage)
+      },
+      {
         path: 'reportes',
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },

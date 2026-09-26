@@ -84,6 +84,12 @@ export class PedidosController {
   }
 
   @Roles('admin', 'cajero')
+  @Get('admin/pedidos/:id')
+  obtenerPedidoAdmin(@Param('id') id: string, @Req() req: Request) {
+    return this.pedidosService.obtenerPedidoAdmin(id, this.baseUrl(req));
+  }
+
+  @Roles('admin', 'cajero')
   @Patch('admin/pedidos/:id/estado')
   cambiarEstado(@Param('id') id: string, @Body() dto: CambiarEstadoPedidoDto) {
     return this.pedidosService.cambiarEstado(id, dto.estado);

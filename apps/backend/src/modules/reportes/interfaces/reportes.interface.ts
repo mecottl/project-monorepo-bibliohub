@@ -17,6 +17,33 @@ export interface LibroMasVendido {
   apareceEnVentas: number;
 }
 
+export interface VentaHistorial {
+  id: string;
+  canal: 'tienda' | 'en_linea';
+  fecha: string;
+  clienteNombre: string | null;
+  clienteTelefono: string | null;
+  empleado: string | null;
+  medioPago: string;
+  unidades: number;
+  subtotal: number;
+  descuento: number;
+  total: number;
+  puntosGanados: number;
+  puntosUsados: number;
+  estado: string;
+  estadoGrupo: 'completada' | 'en_proceso' | 'cancelada';
+}
+
+export interface HistorialVentas {
+  data: VentaHistorial[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  resumen: { ventas: number; monto: number; canceladas: number; ticketPromedio: number };
+}
+
 export interface VentasPorDia {
   fecha: string;
   totalVentas: number;

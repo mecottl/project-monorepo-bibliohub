@@ -1,0 +1,132 @@
+<section class="hist">
+  <h1 class="font-display">Reportes</h1>
+  <app-reportes-tabs />
+
+  <div class="hist__filtros">
+    <label>Desde
+      <input type="date" [ngModel]="desde()" (ngModelChange)="filtrar(() => desde.set($event))" />
+    </label>
+    <label>Hasta
+      <input type="date" [ngModel]="hasta()" (ngModelChange)="filtrar(() => hasta.set($event))" />
+    </label>
+    <label>Canal
+      <select [ngModel]="canal()" (ngModelChange)="filtrar(() => canal.set($event))">
+        <option value="">Todos</option>
+        <option value="tienda">Tienda</option>
+        <option value="en_linea">En línea</option>
+      </select>
+    </label>
+    <label>Estado
+      <select [ngModel]="estado()" (ngModelChange)="filtrar(() => estado.set($event))">
+        <option value="">Todos</option>
+        <option value="completada">Completadas</option>
+        <option value="en_proceso">En proceso</option>
+        <option value="cancelada">Canceladas</option>
+      </select>
+    </label>
+    <label class="hist__buscar">Buscar
+      <input type="search" placeholder="Cliente, teléfono o folio" [ngModel]="busqueda()" (ngModelChange)="filtrar(() => busqueda.set($event), true)" />
+    </label>
+    <div class="hist__acciones">
+      <button type="button" class="btn-outline" (click)="limpiar()">Limpiar</button>
+      <button type="button" class="btn-outline" (click)="exportar()">Descargar Excel</button>
+    </div>
+  </div>
+
+  @if (resultado(); as r) {
+    <div class="hist__stats">
+      <app-stat-card label="Ventas" [value]="r.resumen.ventas" />
+      <app-stat-card label="Monto vendido" [value]="(r.resumen.monto | currency) ?? ''" />
+      <app-stat-card label="Ticket promedio" [value]="(r.resumen.ticketPromedio | currency) ?? ''" />
+      <app-stat-card label="Canceladas" [value]="r.resumen.canceladas" />
+    </div>
+  }
+
+  @if (error()) { <p class="hist__error" role="alert">{{ error() }}</p> }
+
+  <app-data-table
+    [columns]="columnas"
+    [data]="resultado()?.data ?? []"
+    [loading]="cargando()"
+    trackByKey="id"
+    [sortLocal]="false"
+    (sortChange)="onOrden($event)"
+    (rowClick)="abrir($event)"
+  >
+    <p emptyState class="hist__vacio">No hay ventas con estos filtros.</p>
+  </app-data-table>
+
+  <app-pagination [page]="page()" [totalPages]="resultado()?.totalPages ?? 1" (pageChange)="onPagina($event)" />
+</section>
+
+@if (seleccionada(); as venta) {
+  <div class="hist__fondo" (click)="cerrar()" aria-hidden="true"></div>
+  <aside class="hist__detalle" role="dialog" aria-modal="true" aria-label="Detalle de la venta">
+    <header class="hist__detalle-cab">
+      <div>
+        <h2 class="font-display">Venta {{ venta.id.slice(0, 8).toUpperCase() }}</h2>
+        <span class="hist__insignia hist__insignia--{{ venta.estadoGrupo }}">{{ etiquetaEstado(venta.estadoGrupo) }}</span>
+        <span class="hist__canal">{{ venta.canal === 'tienda' ? 'Tienda' : 'En línea' }}</span>
+      </div>
+      <button type="button" class="hist__cerrar" aria-label="Cerrar detalle" (click)="cerrar()">×</button>
+    </header>
+
+    <dl class="hist__meta">
+      <div><dt>Fecha</dt><dd>{{ venta.fecha | date: 'dd/MM/yyyy HH:mm' }}</dd></div>
+      <div><dt>Cliente</dt><dd>{{ venta.clienteNombre || venta.clienteTelefono || 'Mostrador' }}{{ venta.clienteNombre && venta.clienteTelefono ? ' · ' + venta.clienteTelefono : '' }}</dd></div>
+      @if (venta.empleado) { <div><dt>Atendió</dt><dd>{{ venta.empleado }}</dd></div> }
+      <div><dt>Pago</dt><dd>{{ venta.medioPago === 'efectivo' ? 'Efectivo' : 'Tarjeta' }}</dd></div>
+    </dl>
+
+    @if (cargandoDetalle()) {
+      <p class="hist__vacio">Cargando…</p>
+    } @else if (detalle(); as d) {
+      <table class="hist__items">
+        <thead><tr><th>Libro</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Subtotal</th></tr></thead>
+        <tbody>
+          @for (item of d.detalles; track item.id) {
+            <tr>
+              <td>{{ item.libro?.titulo ?? 'Libro' }}</td>
+              <td class="num">{{ item.cantidad }}</td>
+              <td class="num">{{ item.precioUnitario | currency }}</td>
+              <td class="num">{{ item.subtotalLinea | currency }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+    <dl class="hist__totales">
+      <div><dt>Subtotal</dt><dd>{{ venta.subtotal | currency }}</dd></div>
+      @if (venta.descuento > 0) {
+        <div><dt>Descuento por puntos ({{ venta.puntosUsados }})</dt><dd>−{{ venta.descuento | currency }}</dd></div>
+      }
+      <div class="hist__total"><dt>Total</dt><dd>{{ venta.total | currency }}</dd></div>
+      @if (venta.puntosGanados > 0) {
+        <div><dt>Puntos ganados</dt><dd>+{{ venta.puntosGanados }}</dd></div>
+      }
+    </dl>
+
+    @if (mensajeDetalle()) { <p class="hist__mensaje" role="status">{{ mensajeDetalle() }}</p> }
+
+    <footer class="hist__detalle-pie">
+      @if (venta.canal === 'en_linea') {
+        <a routerLink="/pedidos-en-linea" class="btn-outline">Gestionar pedido</a>
+      }
+      @if (puedeCancelar()) {
+        <button type="button" class="btn-outline hist__peligro" (click)="confirmandoCancelar.set(true)">Cancelar venta</button>
+      }
+      <button type="button" class="btn-primary" (click)="cerrar()">Cerrar</button>
+    </footer>
+  </aside>
+}
+
+<app-confirm-modal
+  [open]="confirmandoCancelar()"
+  title="Cancelar venta"
+  message="Se repondrá el stock y se revertirán los puntos de esta venta. Esta acción no se puede deshacer."
+  confirmLabel="Cancelar venta"
+  cancelLabel="Volver"
+  (confirmed)="confirmarCancelacion()"
+  (cancelled)="confirmandoCancelar.set(false)"
+/>
