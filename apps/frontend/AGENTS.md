@@ -72,3 +72,8 @@ relativos al componente.
 - `*.page.ts` (clase `XPage`): componentes enrutados. `*.component.ts`: el resto.
 - Plantilla inline hasta ~30 líneas; a partir de ahí `templateUrl` relativo al `.ts`.
 - Estilos compartidos entre componentes/features en `shared/styles/`; en cada feature solo lo específico.
+
+## Rutas y límites entre capas
+
+- Cada feature expone su `<f>.routes.ts` con sus guards y `data.roles`; `app.routes.ts` solo compone con `loadChildren`.
+- `pnpm --filter frontend lint` (ESLint `no-restricted-imports`) prohíbe imports entre features y de `core/shared/domain` hacia `features/layouts`.

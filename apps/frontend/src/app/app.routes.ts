@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from '@layouts/auth-layout/auth-layout.component';
-import { authGuard } from '@core/auth/auth.guard';
-import { roleGuard } from '@core/auth/role.guard';
 import { landingGuard } from '@core/auth/landing.guard';
 
 export const routes: Routes = [
@@ -25,143 +23,52 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
-        loadComponent: () =>
-          import('@features/dashboard/pages/dashboard/dashboard.page').then(
-            m => m.DashboardPage
-          )
+        loadChildren: () => import('@features/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES)
       },
       {
         path: 'inventario',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin', 'cajero'] },
-        loadChildren: () =>
-          import('@features/inventario/inventario.routes').then(
-            m => m.INVENTARIO_ROUTES
-          )
+        loadChildren: () => import('@features/inventario/inventario.routes').then((m) => m.INVENTARIO_ROUTES)
       },
       {
         path: 'ventas',
-        canActivate: [authGuard, roleGuard],
-        loadChildren: () =>
-          import('@features/ventas/ventas.routes').then(
-            m => m.VENTAS_ROUTES
-          ),
-        data: { roles: ['admin', 'cajero'] }
+        loadChildren: () => import('@features/ventas/ventas.routes').then((m) => m.VENTAS_ROUTES)
       },
       {
         path: 'pedidos-en-linea',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin', 'cajero'] },
-        loadComponent: () =>
-          import('@features/pedidos-linea/pages/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
+        loadChildren: () => import('@features/pedidos-linea/pedidos-linea.routes').then((m) => m.PEDIDOS_LINEA_ROUTES)
       },
       {
         path: 'clientes',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin', 'cajero'] },
-        loadChildren: () =>
-          import('@features/clientes/clientes.routes').then(
-            m => m.CLIENTES_ROUTES
-          )
+        loadChildren: () => import('@features/clientes/clientes.routes').then((m) => m.CLIENTES_ROUTES)
       },
       {
         path: 'proveedores',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
-        loadChildren: () =>
-          import('@features/proveedores/proveedores.routes').then(
-            m => m.PROVEEDORES_ROUTES
-          )
-      },
-      {
-        path: 'reportes/historial',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
-        loadComponent: () =>
-          import('@features/reportes/pages/historial/historial.page').then(m => m.HistorialVentasPage)
+        loadChildren: () => import('@features/proveedores/proveedores.routes').then((m) => m.PROVEEDORES_ROUTES)
       },
       {
         path: 'reportes',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
-        loadComponent: () =>
-          import('@features/reportes/pages/reportes/reportes.page').then(
-            m => m.ReportesPage
-          )
+        loadChildren: () => import('@features/reportes/reportes.routes').then((m) => m.REPORTES_ROUTES)
       },
       {
         path: 'configuracion',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin', 'cajero'] },
-        loadComponent: () =>
-          import('@features/configuracion/pages/configuracion/configuracion.page').then(
-            m => m.ConfiguracionPage
-          )
+        loadChildren: () => import('@features/configuracion/configuracion.routes').then((m) => m.CONFIGURACION_ROUTES)
       },
       {
         path: 'empleados',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['admin'] },
-        loadComponent: () =>
-          import('@features/empleados/pages/empleados/empleados.page').then(m => m.EmpleadosPage)
+        loadChildren: () => import('@features/empleados/empleados.routes').then((m) => m.EMPLEADOS_ROUTES)
       },
       {
-        path: 'categorias',
-        loadComponent: () =>
-          import('@features/tienda/pages/libros/libros.page').then(
-            m => m.LibrosPage
-          )
+        path: 'cuenta',
+        loadChildren: () => import('@features/cuenta/cuenta.routes').then((m) => m.CUENTA_ROUTES)
       },
       {
-        path: 'inicio',
-        loadComponent: () =>
-          import('@features/tienda/pages/home/home.page').then(
-            m => m.HomePage
-          )
-      },
-      {
-        path: 'libro/:id',
-        loadComponent: () =>
-          import('@features/tienda/pages/libro-detalle/libro-detalle.page').then(
-            m => m.LibroDetallePage
-          )
-      },
-      {
-        path: 'lista-deseos',
-        canActivate: [authGuard],
-        loadComponent: () =>
-          import('@features/tienda/pages/lista-deseos/lista-deseos.page').then(
-            m => m.ListaDeseosPage
-          )
+        path: '',
+        loadChildren: () => import('@features/tienda/tienda.routes').then((m) => m.TIENDA_ROUTES)
       },
       {
         path: 'mis-pedidos',
         pathMatch: 'full',
         redirectTo: 'cuenta/compras'
-      },
-      {
-        path: 'cuenta',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['cliente'] },
-        loadChildren: () => import('@features/cuenta/cuenta.routes').then(m => m.CUENTA_ROUTES)
-      },
-      {
-        path: 'carrito',
-        canActivate: [authGuard],
-        loadComponent: () =>
-          import('@features/tienda/pages/carrito-checkout/carrito-checkout.page').then(
-            m => m.CarritoCheckoutPage
-          )
-      },
-      {
-        path: 'carrito/confirmacion',
-        canActivate: [authGuard],
-        loadComponent: () =>
-          import('@features/tienda/pages/pedido-confirmado/pedido-confirmado.page').then(
-            m => m.PedidoConfirmadoPage
-          )
       }
     ]
   },
