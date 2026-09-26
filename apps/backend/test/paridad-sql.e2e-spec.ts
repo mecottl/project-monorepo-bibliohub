@@ -17,6 +17,17 @@ describe('Reglas de dinero y puntos (SQL)', () => {
   const sufijo = () => `${Date.now()}${Math.floor(Math.random() * 1e6)}`;
   const q = async (sql: string, params: unknown[] = []): Promise<any[]> => qr.query(sql, params);
 
+  // Un error dentro de la transacción la aborta: se aísla con un SAVEPOINT para seguir usándola.
+  const rechaza = async (sql: string, params: unknown[] = []): Promise<any[]> => {
+    await qr.query('SAVEPOINT intento');
+    try {
+      return await qr.query(sql, params);
+    } catch (error) {
+      await qr.query('ROLLBACK TO SAVEPOINT intento');
+      throw error;
+    }
+  };
+
   const config = (clave: string, valor: string) =>
     q('UPDATE configuracion SET valor = $2 WHERE clave = $1', [clave, valor]);
 
@@ -168,6 +179,21 @@ describe('Reglas de dinero y puntos (SQL)', () => {
       expect(await q('SELECT 1 FROM item_carrito WHERE carrito_id = $1', [carritoId])).toHaveLength(0);
     });
 
+    it('rechaza puntos por encima del saldo o del valor del pedido', async () => {
+      await agregar(libroA, 1); // subtotal 100, saldo 50 puntos, tasa 2
+      await expect(
+        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [clienteId, 'recoger_en_tienda']),
+      ).rejects.toThrow(/no tiene suficientes puntos/);
+      await q(
+        `INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, concepto)
+         VALUES ($1, 'ganado', 100, 'online', 'extra')`,
+        [clienteId],
+      );
+      await expect(
+        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [clienteId, 'recoger_en_tienda']),
+      ).rejects.toThrow(/más puntos de los necesarios/); // 51 x 2 = 102 > 100
+    });
+
     it('con stock insuficiente falla', async () => {
       await agregar(libroA, 11);
       await expect(
@@ -200,6 +226,25 @@ describe('Reglas de dinero y puntos (SQL)', () => {
       expect((await q('SELECT stock_actual FROM libro WHERE id = $1', [libroA]))[0].stock_actual).toBe(10);
       expect((await q('SELECT estado FROM venta WHERE id = $1', [id]))[0].estado).toBe('cancelada');
       await expect(q('SELECT cancelar_venta($1)', [id])).rejects.toThrow(/ya está cancelada/);
+    });
+
+    it('rechaza puntos por encima del saldo, del valor de la venta o negativos', async () => {
+      const usar = (puntos: number) =>
+        rechaza('SELECT confirmar_venta_pos($1, $2, $3, $4, $5::jsonb)', [
+          clienteId,
+          empleadoId,
+          'efectivo',
+          puntos,
+          items(1),
+        ]);
+      await expect(usar(51)).rejects.toThrow(/no tiene suficientes puntos/);
+      await q(
+        `INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, concepto)
+         VALUES ($1, 'ganado', 100, 'online', 'extra')`,
+        [clienteId],
+      );
+      await expect(usar(51)).rejects.toThrow(/más puntos de los necesarios/); // 102 > 100
+      await expect(usar(-1)).rejects.toThrow(/negativos/);
     });
 
     it('sin cliente no hay descuento ni puntos', async () => {

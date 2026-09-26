@@ -158,6 +158,7 @@ DECLARE
     v_carrito_id     UUID;
     v_item           RECORD;
     v_t              RECORD;
+    v_saldo          INT;
 BEGIN
     SELECT id INTO v_carrito_id FROM carrito WHERE cliente_id = p_cliente_id;
     IF v_carrito_id IS NULL THEN
@@ -178,6 +179,20 @@ BEGIN
     END LOOP;
 
     SELECT * INTO v_t FROM calcular_totales_pedido(p_cliente_id, p_tipo_entrega, p_puntos_usados);
+
+    -- Validar los puntos: no pueden exceder el saldo ni el valor del pedido (#71).
+    IF p_puntos_usados < 0 THEN
+        RAISE EXCEPTION 'Los puntos a usar no pueden ser negativos';
+    END IF;
+    IF p_puntos_usados > 0 THEN
+        SELECT puntos_saldo INTO v_saldo FROM cliente WHERE id = p_cliente_id FOR UPDATE;
+        IF v_saldo IS NULL OR p_puntos_usados > v_saldo THEN
+            RAISE EXCEPTION 'El cliente no tiene suficientes puntos (tiene %, intentas usar %)', COALESCE(v_saldo, 0), p_puntos_usados;
+        END IF;
+        IF v_t.descuento_puntos > v_t.subtotal THEN
+            RAISE EXCEPTION 'Se están usando más puntos de los necesarios para este pedido';
+        END IF;
+    END IF;
 
     INSERT INTO pedido_linea (cliente_id, direccion_id, tipo_entrega, subtotal,
                               descuento_puntos, costo_envio, total, puntos_usados, puntos_ganados)
@@ -251,6 +266,7 @@ DECLARE
 
     v_stock           INT;
 
+    v_saldo           INT;
 BEGIN
     v_tasa_canje := COALESCE((SELECT valor::NUMERIC FROM configuracion WHERE clave = 'tasa_puntos_canje'), 1);
 
@@ -293,6 +309,23 @@ BEGIN
     END LOOP;
 
 
+
+    -- Validar los puntos: no pueden exceder el saldo ni el valor de la venta (#71).
+    IF p_puntos_usados < 0 THEN
+        RAISE EXCEPTION 'Los puntos a usar no pueden ser negativos';
+    END IF;
+    IF p_puntos_usados > 0 AND p_cliente_id IS NOT NULL THEN
+        SELECT puntos_saldo INTO v_saldo FROM cliente WHERE id = p_cliente_id FOR UPDATE;
+        IF v_saldo IS NULL THEN
+            RAISE EXCEPTION 'El cliente % no existe', p_cliente_id;
+        END IF;
+        IF p_puntos_usados > v_saldo THEN
+            RAISE EXCEPTION 'El cliente no tiene suficientes puntos (tiene %, intentas usar %)', v_saldo, p_puntos_usados;
+        END IF;
+        IF p_puntos_usados * v_tasa_canje > v_subtotal THEN
+            RAISE EXCEPTION 'Se están usando más puntos de los necesarios para esta venta';
+        END IF;
+    END IF;
 
     -- Paso 2: descuento y totales
 
