@@ -16,10 +16,10 @@ export function requestLogger(req: Request, res: Response, next: NextFunction): 
   res.on('finish', () => {
     const ms = Number((process.hrtime.bigint() - inicio) / 1_000_000n);
     const ruta = req.originalUrl.split('?')[0];
-    contextoPeticion.run({ requestId }, () =>
+    contextoPeticion.run({ requestId, ip: req.ip }, () =>
       logger.log(`${req.method} ${ruta} ${res.statusCode} ${ms}ms`),
     );
   });
 
-  contextoPeticion.run({ requestId }, next);
+  contextoPeticion.run({ requestId, ip: req.ip }, next);
 }

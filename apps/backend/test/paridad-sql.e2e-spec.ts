@@ -36,7 +36,11 @@ describe('Reglas de dinero y puntos (SQL)', () => {
     );
 
   const totales = async (tipo: string, puntos: number) => {
-    const [t] = await q('SELECT * FROM calcular_totales_pedido($1, $2, $3)', [clienteId, tipo, puntos]);
+    const [t] = await q('SELECT * FROM calcular_totales_pedido($1, $2, $3)', [
+      clienteId,
+      tipo,
+      puntos,
+    ]);
     return {
       subtotal: Number(t.subtotal),
       descuento: Number(t.descuento_puntos),
@@ -84,7 +88,9 @@ describe('Reglas de dinero y puntos (SQL)', () => {
        VALUES ('Test', 'cajero', $1, 'x') RETURNING id`,
       [`t${s}`.slice(0, 40)],
     );
-    [{ id: carritoId }] = await q('INSERT INTO carrito (cliente_id) VALUES ($1) RETURNING id', [clienteId]);
+    [{ id: carritoId }] = await q('INSERT INTO carrito (cliente_id) VALUES ($1) RETURNING id', [
+      clienteId,
+    ]);
     // Saldo inicial de 50 puntos (el trigger sincroniza cliente.puntos_saldo).
     await q(
       `INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, concepto)
@@ -135,7 +141,10 @@ describe('Reglas de dinero y puntos (SQL)', () => {
       expect(pago.envio).toBe(50);
       expect(pago.total).toBe(450);
       await agregar(libroB, 0 + 1); // 433.33
-      await q('UPDATE item_carrito SET cantidad = 5 WHERE carrito_id = $1 AND libro_id = $2', [carritoId, libroA]);
+      await q('UPDATE item_carrito SET cantidad = 5 WHERE carrito_id = $1 AND libro_id = $2', [
+        carritoId,
+        libroA,
+      ]);
       const gratis = await totales('envio_a_domicilio', 0); // 500 + 33.33
       expect(gratis.envio).toBe(0);
       expect(gratis.total).toBe(533.33);
@@ -180,13 +189,18 @@ describe('Reglas de dinero y puntos (SQL)', () => {
       expect(libro.stock_actual).toBe(7);
       const [cliente] = await q('SELECT puntos_saldo FROM cliente WHERE id = $1', [clienteId]);
       expect(cliente.puntos_saldo).toBe(50 - 20 + previa.ganados);
-      expect(await q('SELECT 1 FROM item_carrito WHERE carrito_id = $1', [carritoId])).toHaveLength(0);
+      expect(await q('SELECT 1 FROM item_carrito WHERE carrito_id = $1', [carritoId])).toHaveLength(
+        0,
+      );
     });
 
     it('rechaza puntos por encima del saldo o del valor del pedido', async () => {
       await agregar(libroA, 1); // subtotal 100, saldo 50 puntos, tasa 2
       await expect(
-        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [clienteId, 'recoger_en_tienda']),
+        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [
+          clienteId,
+          'recoger_en_tienda',
+        ]),
       ).rejects.toThrow(/no tiene suficientes puntos/);
       await q(
         `INSERT INTO transaccion_puntos (cliente_id, tipo, puntos, canal, concepto)
@@ -194,7 +208,10 @@ describe('Reglas de dinero y puntos (SQL)', () => {
         [clienteId],
       );
       await expect(
-        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [clienteId, 'recoger_en_tienda']),
+        rechaza('SELECT confirmar_pedido_linea($1, NULL, $2, 51)', [
+          clienteId,
+          'recoger_en_tienda',
+        ]),
       ).rejects.toThrow(/más puntos de los necesarios/); // 51 x 2 = 102 > 100
     });
 
@@ -207,7 +224,8 @@ describe('Reglas de dinero y puntos (SQL)', () => {
   });
 
   describe('confirmar_venta_pos y cancelar_venta', () => {
-    const items = (cantidad: number) => JSON.stringify([{ libro_id: libroA, cantidad, precio_unitario: 100 }]);
+    const items = (cantidad: number) =>
+      JSON.stringify([{ libro_id: libroA, cantidad, precio_unitario: 100 }]);
 
     it('aplica el descuento por puntos, registra ganados/canjeados y cancelar_venta lo revierte', async () => {
       const [{ id }] = await q('SELECT confirmar_venta_pos($1, $2, $3, $4, $5::jsonb) AS id', [
@@ -222,12 +240,20 @@ describe('Reglas de dinero y puntos (SQL)', () => {
       expect(Number(venta.descuento_puntos)).toBe(40);
       expect(Number(venta.total)).toBe(260);
       expect(venta.puntos_ganados).toBe(26);
-      expect((await q('SELECT puntos_saldo FROM cliente WHERE id = $1', [clienteId]))[0].puntos_saldo).toBe(56);
-      expect((await q('SELECT stock_actual FROM libro WHERE id = $1', [libroA]))[0].stock_actual).toBe(7);
+      expect(
+        (await q('SELECT puntos_saldo FROM cliente WHERE id = $1', [clienteId]))[0].puntos_saldo,
+      ).toBe(56);
+      expect(
+        (await q('SELECT stock_actual FROM libro WHERE id = $1', [libroA]))[0].stock_actual,
+      ).toBe(7);
 
       await q('SELECT cancelar_venta($1)', [id]);
-      expect((await q('SELECT puntos_saldo FROM cliente WHERE id = $1', [clienteId]))[0].puntos_saldo).toBe(50);
-      expect((await q('SELECT stock_actual FROM libro WHERE id = $1', [libroA]))[0].stock_actual).toBe(10);
+      expect(
+        (await q('SELECT puntos_saldo FROM cliente WHERE id = $1', [clienteId]))[0].puntos_saldo,
+      ).toBe(50);
+      expect(
+        (await q('SELECT stock_actual FROM libro WHERE id = $1', [libroA]))[0].stock_actual,
+      ).toBe(10);
       expect((await q('SELECT estado FROM venta WHERE id = $1', [id]))[0].estado).toBe('cancelada');
       await expect(q('SELECT cancelar_venta($1)', [id])).rejects.toThrow(/ya está cancelada/);
     });

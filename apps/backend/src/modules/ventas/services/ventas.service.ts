@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
 import { CONFIG } from '@modules/configuracion/config-claves';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
@@ -20,6 +21,7 @@ export class VentasService {
     private readonly dataSource: DataSource,
     private readonly clientesService: ClientesService,
     private readonly configuracion: ConfiguracionService,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   // La lógica transaccional (validar stock, calcular subtotal/descuento/total,
@@ -180,7 +182,7 @@ export class VentasService {
   // esta venta y recalcula puntos_saldo desde transaccion_puntos — mismo
   // motivo que crear(): reutilizar la función SQL en vez de reimplementarla.
   async cancelar(id: string): Promise<{ message: string }> {
-    await this.findOne(id);
+    const venta = await this.findOne(id);
 
     try {
       await this.dataSource.query('SELECT cancelar_venta($1)', [id]);
@@ -188,6 +190,13 @@ export class VentasService {
       throw new BadRequestException(this.mensajeDesdePostgres(error));
     }
 
+    await this.bitacora.registrar({
+      accion: 'cancelar_venta',
+      entidad: 'venta',
+      entidadId: id,
+      antes: { estado: venta.estado, total: Number(venta.total) },
+      despues: { estado: 'cancelada' },
+    });
     return { message: 'Venta cancelada correctamente.' };
   }
 

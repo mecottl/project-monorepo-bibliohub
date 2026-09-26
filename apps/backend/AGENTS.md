@@ -104,3 +104,7 @@ Archivos SQL en `apps/backend/migrations/` (`AAAA-MM-DD_nombre.sql`), con tabla 
 - Base nueva: cargar `db/bibliohub_estructura.sql` y correr `migrar:baseline` (marca las existentes como aplicadas).
 - Tras migrar, regenerar el volcado: `pnpm --filter backend db:dump` (necesita `pg_dump` en el PATH o `PG_DUMP=ruta`).
 - Las migraciones deben ser reproducibles; las funciones se definen con `CREATE OR REPLACE`.
+
+## Bitácora (auditoría)
+
+`BitacoraService.registrar({ accion, entidad, entidadId, antes, despues })` guarda quién (empleado del JWT, tomado del contexto de la petición vía `ActorInterceptor`) hizo qué, con IP. Úsalo al añadir acciones sensibles (dinero, puntos, stock, precios, empleados, configuración, cancelaciones). Si registrar falla no rompe la operación. La API solo expone lectura (`GET /bitacora`, admin). Acciones ya cubiertas: ajuste de puntos, cambios de precio/stock mínimo/activo de libros, bajas de libro, movimientos de inventario, cancelación de ventas y pedidos, alta y cambios de empleados, cambios de configuración.

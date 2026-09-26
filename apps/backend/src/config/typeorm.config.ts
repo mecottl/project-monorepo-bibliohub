@@ -1,3 +1,4 @@
+import { Bitacora } from '../modules/bitacora/entities/bitacora.entity';
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
@@ -35,6 +36,7 @@ export default registerAs(
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'bibliohubv1',
     entities: [
+      Bitacora,
       Cliente,
       Empleado,
       Sesion,

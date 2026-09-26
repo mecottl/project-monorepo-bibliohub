@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,6 +13,7 @@ export class ConfiguracionService {
   constructor(
     @InjectRepository(Configuracion)
     private readonly configuracionRepository: Repository<Configuracion>,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   async findAll(): Promise<Configuracion[]> {
@@ -52,10 +54,20 @@ export class ConfiguracionService {
 
     this.validarValor(valor, configuracion.tipoDato);
 
+    const valorAnterior = configuracion.valor;
     configuracion.valor = valor;
     configuracion.updatedAt = new Date();
     const guardado = await this.configuracionRepository.save(configuracion);
     this.cache.delete(clave);
+    if (valorAnterior !== valor) {
+      await this.bitacora.registrar({
+        accion: 'cambio_configuracion',
+        entidad: 'configuracion',
+        entidadId: clave,
+        antes: { valor: valorAnterior },
+        despues: { valor },
+      });
+    }
     return guardado;
   }
 

@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { StripeService } from '@infra/stripe/stripe.service';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,6 +14,7 @@ export class PedidosService {
     private readonly pedidoRepository: Repository<PedidoLinea>,
     private readonly stripe: StripeService,
     private readonly dataSource: DataSource,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   // --- Historial ---
@@ -77,6 +79,17 @@ export class PedidosService {
 
     if (nuevo === 'cancelado') {
       await this.cancelarPedido(pedido);
+      await this.bitacora.registrar({
+        accion: 'cancelar_pedido',
+        entidad: 'pedido_linea',
+        entidadId: id,
+        antes: {
+          estado: pedido.estado,
+          estadoPago: pedido.estadoPago,
+          total: Number(pedido.total),
+        },
+        despues: { estado: 'cancelado' },
+      });
       return { id, estado: nuevo };
     }
 

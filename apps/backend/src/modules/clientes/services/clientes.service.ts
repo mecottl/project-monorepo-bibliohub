@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
 import { CONFIG } from '@modules/configuracion/config-claves';
 import {
@@ -25,6 +26,7 @@ export class ClientesService {
     private readonly puntosRepository: Repository<TransaccionPuntos>,
     private readonly dataSource: DataSource,
     private readonly configuracion: ConfiguracionService,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   async findAll(query: QueryClienteDto): Promise<PaginatedClientes> {
@@ -146,39 +148,59 @@ export class ClientesService {
   }
 
   async ajustarPuntos(id: string, dto: AjustePuntosClienteDto): Promise<ClienteSinPassword> {
-    return this.dataSource.transaction(async (manager) => {
-      const cliente = await manager.findOne(Cliente, { where: { id } });
+    const { respuesta, saldoAntes, saldoNuevo } = await this.dataSource.transaction(
+      async (manager) => {
+        const cliente = await manager.findOne(Cliente, { where: { id } });
 
-      if (!cliente) {
-        throw new NotFoundException(`Cliente con id ${id} no encontrado`);
-      }
+        if (!cliente) {
+          throw new NotFoundException(`Cliente con id ${id} no encontrado`);
+        }
 
-      const delta = dto.tipo === 'ganado' ? dto.puntos : -dto.puntos;
-      const saldoNuevo = cliente.puntosSaldo + delta;
+        const delta = dto.tipo === 'ganado' ? dto.puntos : -dto.puntos;
+        const saldoNuevo = cliente.puntosSaldo + delta;
 
-      if (saldoNuevo < 0) {
-        throw new BadRequestException(
-          `El ajuste dejaría el saldo en ${saldoNuevo}. Saldo actual: ${cliente.puntosSaldo}, ajuste solicitado: ${delta}.`,
-        );
-      }
+        if (saldoNuevo < 0) {
+          throw new BadRequestException(
+            `El ajuste dejaría el saldo en ${saldoNuevo}. Saldo actual: ${cliente.puntosSaldo}, ajuste solicitado: ${delta}.`,
+          );
+        }
 
-      await manager.update(Cliente, id, {
+        await manager.update(Cliente, id, {
+          puntosSaldo: saldoNuevo,
+          updatedAt: new Date(),
+        });
+
+        const transaccion = manager.create(TransaccionPuntos, {
+          clienteId: id,
+          tipo: dto.tipo,
+          puntos: dto.puntos,
+          // Ajuste hecho a mano desde el panel de administración (web).
+          canal: 'online',
+          concepto: dto.concepto ?? 'Ajuste manual (admin)',
+        });
+        await manager.save(TransaccionPuntos, transaccion);
+
+        return {
+          respuesta: this.mapCliente({ ...cliente, puntosSaldo: saldoNuevo }),
+          saldoAntes: cliente.puntosSaldo,
+          saldoNuevo,
+        };
+      },
+    );
+
+    await this.bitacora.registrar({
+      accion: 'ajuste_puntos',
+      entidad: 'cliente',
+      entidadId: id,
+      antes: { puntosSaldo: saldoAntes },
+      despues: {
         puntosSaldo: saldoNuevo,
-        updatedAt: new Date(),
-      });
-
-      const transaccion = manager.create(TransaccionPuntos, {
-        clienteId: id,
         tipo: dto.tipo,
         puntos: dto.puntos,
-        // Ajuste hecho a mano desde el panel de administración (web).
-        canal: 'online',
-        concepto: dto.concepto ?? 'Ajuste manual (admin)',
-      });
-      await manager.save(TransaccionPuntos, transaccion);
-
-      return this.mapCliente({ ...cliente, puntosSaldo: saldoNuevo });
+        concepto: dto.concepto ?? null,
+      },
     });
+    return respuesta;
   }
 
   private async buscarClienteSimple(id: string): Promise<Cliente> {

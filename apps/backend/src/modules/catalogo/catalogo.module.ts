@@ -1,3 +1,4 @@
+import { BitacoraModule } from '@modules/bitacora/bitacora.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Libro } from './entities/libro.entity';
@@ -12,7 +13,7 @@ import { STORAGE_SERVICE, StorageService } from '@infra/storage/storage.interfac
 import { LocalStorageService } from '@infra/storage/local-storage.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Libro, Autor, Editorial, Categoria])],
+  imports: [BitacoraModule, TypeOrmModule.forFeature([Libro, Autor, Editorial, Categoria])],
   controllers: [CatalogoController],
   providers: [
     LibrosService,

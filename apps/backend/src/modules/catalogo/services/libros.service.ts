@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { Injectable, Inject, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
@@ -26,6 +27,7 @@ export class LibrosService {
     @InjectRepository(Libro)
     private readonly libroRepository: Repository<Libro>,
     private readonly dataSource: DataSource,
+    private readonly bitacora: BitacoraService,
     @Inject(STORAGE_SERVICE)
     private readonly storageService: StorageService,
   ) {}
@@ -182,12 +184,32 @@ export class LibrosService {
   }
 
   async update(id: string, dto: UpdateLibroDto, baseUrl: string): Promise<LibroConImagen> {
-    await this.buscarLibroSimple(id);
+    const previo = await this.buscarLibroSimple(id);
 
     await this.libroRepository.update(id, {
       ...dto,
       updatedAt: new Date(),
     });
+
+    // Solo se audita lo sensible (precios, stock mínimo, activo), y solo lo que cambió.
+    const antes: Record<string, unknown> = {};
+    const despues: Record<string, unknown> = {};
+    for (const campo of ['precioVenta', 'precioCosto', 'stockMinimo', 'activo'] as const) {
+      const nuevo = dto[campo];
+      if (nuevo !== undefined && String(nuevo) !== String(previo[campo])) {
+        antes[campo] = previo[campo];
+        despues[campo] = nuevo;
+      }
+    }
+    if (Object.keys(despues).length) {
+      await this.bitacora.registrar({
+        accion: 'cambio_libro',
+        entidad: 'libro',
+        entidadId: id,
+        antes: { titulo: previo.titulo, ...antes },
+        despues,
+      });
+    }
 
     return this.findOne(id, baseUrl);
   }
@@ -201,6 +223,13 @@ export class LibrosService {
       libro.activo = false;
       libro.updatedAt = new Date();
       await this.libroRepository.save(libro);
+      await this.bitacora.registrar({
+        accion: 'baja_libro',
+        entidad: 'libro',
+        entidadId: id,
+        antes: { titulo: libro.titulo, activo: true },
+        despues: { activo: false },
+      });
       return {
         message:
           'Libro tiene registros asociados (ventas, movimientos de inventario, pedidos o carritos): se marcó como inactivo (baja lógica), no se eliminó físicamente.',
@@ -208,6 +237,12 @@ export class LibrosService {
     }
 
     await this.libroRepository.remove(libro);
+    await this.bitacora.registrar({
+      accion: 'eliminar_libro',
+      entidad: 'libro',
+      entidadId: id,
+      antes: { titulo: libro.titulo, isbn: libro.isbn },
+    });
     return { message: 'Libro eliminado físicamente (sin registros asociados).' };
   }
 

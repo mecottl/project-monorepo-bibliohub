@@ -1,3 +1,4 @@
+import { BitacoraModule } from '@modules/bitacora/bitacora.module';
 import { ConfiguracionModule } from '@modules/configuracion/configuracion.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,6 +11,7 @@ import { ClientesModule } from '@modules/clientes/clientes.module';
 
 @Module({
   imports: [
+    BitacoraModule,
     ConfiguracionModule,
     TypeOrmModule.forFeature([Venta, DetalleVenta, Libro]),
     ClientesModule,

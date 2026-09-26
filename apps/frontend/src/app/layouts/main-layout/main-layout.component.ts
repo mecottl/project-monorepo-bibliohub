@@ -18,6 +18,7 @@ const RUTAS_ADMIN = [
   '/reportes',
   '/configuracion',
   '/empleados',
+  '/bitacora',
 ];
 
 @Component({

@@ -635,6 +635,24 @@ COMMENT ON TABLE public.autor IS 'Catálogo de autores';
 
 
 --
+-- Name: bitacora; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.bitacora (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    empleado_id uuid,
+    empleado_nombre character varying(120),
+    accion character varying(60) NOT NULL,
+    entidad character varying(40) NOT NULL,
+    entidad_id character varying(80),
+    antes jsonb,
+    despues jsonb,
+    ip character varying(45),
+    fecha timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: carrito; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1333,6 +1351,14 @@ ALTER TABLE ONLY public.autor
 
 
 --
+-- Name: bitacora bitacora_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bitacora
+    ADD CONSTRAINT bitacora_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: carrito carrito_cliente_id_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1633,6 +1659,27 @@ ALTER TABLE ONLY public.venta
 --
 
 CREATE INDEX idx_autor_nombre ON public.autor USING btree (nombre);
+
+
+--
+-- Name: idx_bitacora_accion; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_bitacora_accion ON public.bitacora USING btree (accion);
+
+
+--
+-- Name: idx_bitacora_empleado; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_bitacora_empleado ON public.bitacora USING btree (empleado_id);
+
+
+--
+-- Name: idx_bitacora_fecha; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_bitacora_fecha ON public.bitacora USING btree (fecha DESC);
 
 
 --
@@ -1976,6 +2023,14 @@ CREATE TRIGGER trg_recepcion_compra AFTER UPDATE OF cantidad_recibida ON public.
 --
 
 CREATE TRIGGER trg_transaccion_puntos_sync AFTER INSERT OR DELETE ON public.transaccion_puntos FOR EACH ROW EXECUTE FUNCTION public.sync_puntos_saldo();
+
+
+--
+-- Name: bitacora bitacora_empleado_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.bitacora
+    ADD CONSTRAINT bitacora_empleado_id_fkey FOREIGN KEY (empleado_id) REFERENCES public.empleado(id) ON DELETE SET NULL;
 
 
 --

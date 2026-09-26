@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import typeormConfig from '@config/typeorm.config';
 import { AuthModule } from '@modules/auth/auth.module';
@@ -19,6 +19,8 @@ import { ConfiguracionModule } from '@modules/configuracion/configuracion.module
 import { EmpleadosModule } from '@modules/empleados/empleados.module';
 import { CarritoModule } from '@modules/carrito/carrito.module';
 import { PedidosModule } from '@modules/pedidos/pedidos.module';
+import { BitacoraModule } from '@modules/bitacora/bitacora.module';
+import { ActorInterceptor } from '@common/logging/actor.interceptor';
 import { CuentaModule } from '@modules/cuenta/cuenta.module';
 import { HealthModule } from '@modules/health/health.module';
 import { TelemetriaModule } from '@modules/telemetria/telemetria.module';
@@ -51,6 +53,7 @@ import { ListaDeseosModule } from '@modules/lista-deseos/lista-deseos.module';
     PedidosModule,
     ListaDeseosModule,
     CuentaModule,
+    BitacoraModule,
     HealthModule,
     TelemetriaModule,
   ],
@@ -60,6 +63,7 @@ import { ListaDeseosModule } from '@modules/lista-deseos/lista-deseos.module';
     { provide: APP_GUARD, useClass: ThrottlerGuard },
     { provide: APP_GUARD, useClass: JwtAuthGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
+    { provide: APP_INTERCEPTOR, useClass: ActorInterceptor },
   ],
 })
 export class AppModule {}

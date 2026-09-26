@@ -1,0 +1,86 @@
+<section class="bit">
+  <h1 class="font-display">Bitácora</h1>
+  <p class="bit__nota">
+    Registro de solo lectura de las acciones sensibles: ajustes de puntos, precios, inventario,
+    cancelaciones, empleados y configuración.
+  </p>
+
+  <div class="bit__filtros">
+    <label
+      >Desde
+      <input type="date" [ngModel]="desde()" (ngModelChange)="filtrar(() => desde.set($event))" />
+    </label>
+    <label
+      >Hasta
+      <input type="date" [ngModel]="hasta()" (ngModelChange)="filtrar(() => hasta.set($event))" />
+    </label>
+    <label
+      >Acción
+      <select [ngModel]="accion()" (ngModelChange)="filtrar(() => accion.set($event))">
+        <option value="">Todas</option>
+        @for (a of acciones(); track a) {
+          <option [value]="a">{{ etiqueta(a) }}</option>
+        }
+      </select>
+    </label>
+    <div class="bit__acciones">
+      <button type="button" class="btn-outline" (click)="exportar()">Descargar Excel</button>
+    </div>
+  </div>
+
+  @if (error()) {
+    <p class="bit__error" role="alert">{{ error() }}</p>
+  }
+
+  <app-data-table
+    [columns]="columnas"
+    [data]="resultado()?.data ?? []"
+    [loading]="cargando()"
+    trackByKey="id"
+    [sortLocal]="false"
+    (rowClick)="seleccionada.set($event)"
+  >
+    <p emptyState class="bit__vacio">No hay registros con estos filtros.</p>
+  </app-data-table>
+
+  <app-pagination
+    [page]="page()"
+    [totalPages]="resultado()?.totalPages ?? 1"
+    (pageChange)="onPagina($event)"
+  />
+
+  @if (seleccionada(); as e) {
+    <section class="bit__detalle" aria-label="Detalle del registro">
+      <header>
+        <h2 class="font-display">{{ etiqueta(e.accion) }}</h2>
+        <button type="button" class="btn-outline" (click)="seleccionada.set(null)">Cerrar</button>
+      </header>
+      <p class="bit__meta">
+        {{ e.fecha | date: 'dd/MM/yyyy HH:mm:ss' }} · {{ e.empleadoNombre || 'Sistema' }} ·
+        {{ e.entidad }} {{ e.entidadId }} · IP {{ e.ip || '—' }}
+      </p>
+      <div class="bit__cambio">
+        <div>
+          <h3>Antes</h3>
+          @for (par of pares(e.antes); track par[0]) {
+            <p>
+              <span>{{ par[0] }}</span> {{ par[1] === null ? '—' : par[1] }}
+            </p>
+          } @empty {
+            <p class="bit__vacio">—</p>
+          }
+        </div>
+        <div>
+          <h3>Después</h3>
+          @for (par of pares(e.despues); track par[0]) {
+            <p>
+              <span>{{ par[0] }}</span> {{ par[1] === null ? '—' : par[1] }}
+            </p>
+          } @empty {
+            <p class="bit__vacio">—</p>
+          }
+        </div>
+      </div>
+    </section>
+  }
+</section>

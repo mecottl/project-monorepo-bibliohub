@@ -11,7 +11,10 @@ function crear(filas: Record<string, { valor: string; tipoDato: string }>) {
       return x;
     }),
   };
-  return { repo, servicio: new ConfiguracionService(repo as never) };
+  return {
+    repo,
+    servicio: new ConfiguracionService(repo as never, { registrar: jest.fn() } as never),
+  };
 }
 
 describe('ConfiguracionService', () => {

@@ -14,6 +14,8 @@
   --color-error: #e53935; /* error / stock crítico */
   --color-warning: #ffc107; /* advertencia / stock bajo */
   --color-success: #4caf50; /* éxito / disponible */
+  --color-superficie: #ffffff; /* tarjetas, modales, campos */
+  --color-error-texto: #b3261e; /* texto de error con contraste AA */
 
   /* ─── Tipografía ───────────────────────────────────────────────── */
   --font-display: 'Playfair Display', Georgia, serif;

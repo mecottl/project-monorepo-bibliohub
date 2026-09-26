@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, SelectQueryBuilder } from 'typeorm';
@@ -15,6 +16,7 @@ export class InventarioService {
     @InjectRepository(MovimientoInventario)
     private readonly movimientoRepository: Repository<MovimientoInventario>,
     private readonly dataSource: DataSource,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   async registrarMovimiento(
@@ -23,7 +25,7 @@ export class InventarioService {
   ): Promise<MovimientoInventario> {
     this.validarSignoPorTipo(dto.tipo, dto.cantidad);
 
-    return this.dataSource.transaction(async (manager) => {
+    const movimiento = await this.dataSource.transaction(async (manager) => {
       const libro = await manager.findOne(Libro, {
         where: { id: dto.libroId },
       });
@@ -55,6 +57,20 @@ export class InventarioService {
 
       return manager.save(movimiento);
     });
+
+    await this.bitacora.registrar({
+      accion: 'movimiento_inventario',
+      entidad: 'libro',
+      entidadId: dto.libroId,
+      antes: { stock: movimiento.stockAnterior },
+      despues: {
+        stock: movimiento.stockNuevo,
+        tipo: dto.tipo,
+        cantidad: dto.cantidad,
+        motivo: dto.motivo ?? null,
+      },
+    });
+    return movimiento;
   }
 
   async findAll(query: QueryMovimientoDto): Promise<PaginatedMovimientos> {

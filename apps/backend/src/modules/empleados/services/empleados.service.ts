@@ -1,3 +1,4 @@
+import { BitacoraService } from '@modules/bitacora/services/bitacora.service';
 import {
   Injectable,
   NotFoundException,
@@ -24,6 +25,7 @@ export class EmpleadosService {
     private readonly empleadoRepository: Repository<Empleado>,
     @InjectRepository(Sesion)
     private readonly sesionRepo: Repository<Sesion>,
+    private readonly bitacora: BitacoraService,
   ) {}
 
   async findAll(): Promise<EmpleadoSeguro[]> {
@@ -46,13 +48,37 @@ export class EmpleadosService {
     });
 
     const guardado = await this.empleadoRepository.save(empleado);
+    await this.bitacora.registrar({
+      accion: 'alta_empleado',
+      entidad: 'empleado',
+      entidadId: guardado.id,
+      despues: { nombre: guardado.nombre, usuario: guardado.usuario, rol: guardado.rol },
+    });
     return this.mapEmpleado(guardado);
   }
 
   async update(id: string, dto: UpdateEmpleadoDto): Promise<EmpleadoSeguro> {
     const empleado = await this.buscar(id);
+    const previo = { nombre: empleado.nombre, rol: empleado.rol, activo: empleado.activo };
     asignarDefinidos(empleado, dto);
     const guardado = await this.empleadoRepository.save(empleado);
+    const antes: Record<string, unknown> = {};
+    const despues: Record<string, unknown> = {};
+    for (const campo of ['nombre', 'rol', 'activo'] as const) {
+      if (guardado[campo] !== previo[campo]) {
+        antes[campo] = previo[campo];
+        despues[campo] = guardado[campo];
+      }
+    }
+    if (Object.keys(despues).length) {
+      await this.bitacora.registrar({
+        accion: 'cambio_empleado',
+        entidad: 'empleado',
+        entidadId: id,
+        antes: { usuario: guardado.usuario, ...antes },
+        despues,
+      });
+    }
     return this.mapEmpleado(guardado);
   }
 

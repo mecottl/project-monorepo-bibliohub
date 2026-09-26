@@ -64,6 +64,11 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'bitacora',
+        loadChildren: () =>
+          import('@features/bitacora/bitacora.routes').then((m) => m.BITACORA_ROUTES),
+      },
+      {
         path: 'empleados',
         loadChildren: () =>
           import('@features/empleados/empleados.routes').then((m) => m.EMPLEADOS_ROUTES),

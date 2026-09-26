@@ -1,3 +1,4 @@
+import { BitacoraModule } from '@modules/bitacora/bitacora.module';
 import { StripeModule } from '@infra/stripe/stripe.module';
 import { ConfiguracionModule } from '@modules/configuracion/configuracion.module';
 import { Module } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { CheckoutService } from './services/checkout.service';
 
 @Module({
   imports: [
+    BitacoraModule,
     ConfiguracionModule,
     StripeModule,
     TypeOrmModule.forFeature([DireccionEntrega, Carrito, ItemCarrito, Cliente, PedidoLinea]),
