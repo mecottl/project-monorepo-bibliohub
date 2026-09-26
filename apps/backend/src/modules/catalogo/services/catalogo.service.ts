@@ -59,6 +59,9 @@ export class CatalogoService {
       categoriaId,
       editorialId,
       stockBajo,
+      disponibles,
+      precioMin,
+      precioMax,
       orden,
       direccion = 'ASC',
       page = 1,
@@ -95,6 +98,18 @@ export class CatalogoService {
 
     if (autor) {
       qb.andWhere('autorRelacion.nombre ILIKE :autor', { autor: `%${autor}%` });
+    }
+
+    if (disponibles) {
+      qb.andWhere('libro.stockActual > 0');
+    }
+
+    if (precioMin !== undefined) {
+      qb.andWhere('libro.precioVenta >= :precioMin', { precioMin });
+    }
+
+    if (precioMax !== undefined) {
+      qb.andWhere('libro.precioVenta <= :precioMax', { precioMax });
     }
 
     if (stockBajo) {

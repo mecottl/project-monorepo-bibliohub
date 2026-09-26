@@ -39,10 +39,28 @@ export class QueryLibroDto {
   @IsBoolean()
   stockBajo?: boolean;
 
-  @ApiPropertyOptional({ enum: ['titulo', 'isbn', 'stockActual', 'precioVenta'] })
+  @ApiPropertyOptional({ description: 'Solo libros con existencias' })
   @IsOptional()
-  @IsIn(['titulo', 'isbn', 'stockActual', 'precioVenta'])
-  orden?: 'titulo' | 'isbn' | 'stockActual' | 'precioVenta';
+  @Transform(({ value }) => value === true || value === 'true' || value === '1')
+  @IsBoolean()
+  disponibles?: boolean;
+
+  @ApiPropertyOptional({ description: 'Precio de venta mínimo' })
+  @IsOptional()
+  @Type(() => Number)
+  @Min(0)
+  precioMin?: number;
+
+  @ApiPropertyOptional({ description: 'Precio de venta máximo' })
+  @IsOptional()
+  @Type(() => Number)
+  @Min(0)
+  precioMax?: number;
+
+  @ApiPropertyOptional({ enum: ['titulo', 'isbn', 'stockActual', 'precioVenta', 'createdAt'] })
+  @IsOptional()
+  @IsIn(['titulo', 'isbn', 'stockActual', 'precioVenta', 'createdAt'])
+  orden?: 'titulo' | 'isbn' | 'stockActual' | 'precioVenta' | 'createdAt';
 
   @ApiPropertyOptional({ enum: ['ASC', 'DESC'], default: 'ASC' })
   @IsOptional()

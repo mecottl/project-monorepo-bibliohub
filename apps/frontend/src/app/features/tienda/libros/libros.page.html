@@ -34,6 +34,8 @@
       }
     </div>
 
+    <app-filtros-catalogo [valor]="filtros()" [total]="loading() ? null : total()" (cambio)="cambiarFiltros($event)" (limpiar)="limpiarFiltros()" />
+
     @if (loading()) {
       <p class="libros-page__status">Cargando libros...</p>
     } @else if (libros().length === 0) {

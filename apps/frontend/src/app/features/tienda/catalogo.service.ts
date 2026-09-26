@@ -12,6 +12,11 @@ export class CatalogoService {
   getLibros(filtros?: {
     titulo?: string;
     categoriaId?: string;
+    orden?: string;
+    direccion?: string;
+    precioMin?: number;
+    precioMax?: number;
+    disponibles?: boolean;
     page?: number;
     limit?: number;
   }): Observable<PaginatedLibros> {
@@ -21,6 +26,10 @@ export class CatalogoService {
     }
     if (filtros?.categoriaId) {
       params = params.set('categoriaId', filtros.categoriaId);
+    }
+    for (const clave of ['orden', 'direccion', 'precioMin', 'precioMax', 'disponibles'] as const) {
+      const valor = filtros?.[clave];
+      if (valor !== undefined && valor !== null) params = params.set(clave, String(valor));
     }
     if (filtros?.page) {
       params = params.set('page', filtros.page);

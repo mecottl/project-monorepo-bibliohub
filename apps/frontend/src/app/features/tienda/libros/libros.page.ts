@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CatalogoService } from '../catalogo.service';
 import { CatalogoBusquedaService } from '../catalogo-busqueda.service';
 import { BookCardComponent } from '../book-card/book-card.component';
+import { FiltrosCatalogoComponent, FiltrosCatalogo, SIN_FILTROS, filtrosAApi, filtrosAUrl, filtrosDeUrl } from '../filtros-catalogo/filtros-catalogo.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { Categoria, Libro } from '../tienda.model';
 
@@ -20,7 +21,7 @@ function slugificar(texto: string): string {
 
 @Component({
   selector: 'app-libros',
-  imports: [BookCardComponent, PaginationComponent, RouterLink],
+  imports: [BookCardComponent, PaginationComponent, RouterLink, FiltrosCatalogoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './libros.page.html',
   styleUrl: './libros.page.css'
@@ -28,12 +29,14 @@ function slugificar(texto: string): string {
 export class LibrosPage {
   private readonly catalogo = inject(CatalogoService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   busqueda = inject(CatalogoBusquedaService);
 
   libros = signal<Libro[]>([]);
   total = signal(0);
   page = signal(1);
   categoriaId = signal<string | null>(null);
+  filtros = signal<FiltrosCatalogo>(SIN_FILTROS);
   categorias = signal<Categoria[]>([]);
   loading = signal(true);
 
@@ -59,16 +62,31 @@ export class LibrosPage {
 
     this.route.queryParamMap.subscribe((params) => {
       this.categoriaId.set(params.get('categoriaId'));
+      this.filtros.set(filtrosDeUrl(params));
     });
 
     effect(() => {
       this.categoriaId();
       this.busqueda.termino();
+      this.filtros();
       untracked(() => {
         this.page.set(1);
         this.cargar();
       });
     });
+  }
+
+  cambiarFiltros(filtros: FiltrosCatalogo): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: filtrosAUrl(filtros),
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
+  }
+
+  limpiarFiltros(): void {
+    this.cambiarFiltros(SIN_FILTROS);
   }
 
   onPageChange(nuevaPagina: number): void {
@@ -109,6 +127,7 @@ export class LibrosPage {
       .getLibros({
         titulo: this.busqueda.termino() || undefined,
         categoriaId: this.categoriaId() ?? undefined,
+        ...filtrosAApi(this.filtros()),
         page: this.page(),
         limit: LIMIT
       })
