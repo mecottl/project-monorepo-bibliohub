@@ -41,3 +41,8 @@ Este repo se trabaja principalmente vía guías `.md` generadas en sesiones de p
 (Claude, chat) y ejecutadas aquí (Claude Code). Si encuentras un archivo `guia-*.md` o
 similar en la raíz o adjunto a la tarea, es la fuente de instrucciones para esa tarea
 específica — síguelo tal cual, no lo reinterpretes.
+
+## Datos de ejemplo (desarrollo)
+
+`apps/backend/seed/proveedores.sql` carga proveedores y órdenes de compra de ejemplo (idempotente; no
+modifica el stock). Ejecutar con `PGCLIENTENCODING=UTF8 psql ... -f apps/backend/seed/proveedores.sql`.
