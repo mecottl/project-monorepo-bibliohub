@@ -4132,3 +4132,1669 @@ DEBUG nx::native::watch::watcher: watching stopped origin=C:\Users\Gerar\Downloa
 [NX v23.2.1 Daemon Server] - 2026-09-26T05:39:26.082Z - [WATCHER]: Stopping the watcher for C:\Users\Gerar\Downloads\Proyectos\bibliohub (outputs)
 [NX v23.2.1 Daemon Server] - 2026-09-26T05:39:26.085Z - [LATEST-NX]: Cleaning up latest Nx installation from C:\Users\Gerar\AppData\Local\Temp\tmp-33628-iBLBteSCmq4y
 [NX v23.2.1 Daemon Server] - 2026-09-26T05:39:26.091Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:26.413Z - [Client] Starting new daemon server in background
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:26.439Z - [Client] Waiting for server (max: 6000 attempts, 10ms interval)
+DEBUG nx::native::watch::watcher: watching started origin=C:\Users\Gerar\Downloads\Proyectos\bibliohub
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.854Z - [WATCHER]: Subscribed to changes within: C:\Users\Gerar\Downloads\Proyectos\bibliohub (native)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.877Z - New daemon starting from: C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\daemon\server\server.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.878Z - New daemon __dirname: C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\daemon\server
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.878Z - New daemon nxVersion: 23.2.1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.882Z - New daemon getInstalledNxVersion(): 23.2.1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.889Z - Time taken for 'workspace context init' 0.776700000000119ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.899Z - [Server] Starting outdated check interval (20ms)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:27.905Z - Started listening on: \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\5a60dbe3a9172be2578a\d.sock
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:27.929Z - [Client] Server available
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:27.930Z - [Client] Daemon server started, pid=15072
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:27.932Z - [Messenger] Setting up socket listeners
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:27.933Z - [Messenger] listen() complete
+DEBUG nx::native::watch::watcher: watching started origin=C:\Users\Gerar\Downloads\Proyectos\bibliohub
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.192Z - [LATEST-NX]: Pulling latest Nx...
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.268Z - [AI-AGENTS]: Starting agent configuration status computation
+[isolated-plugin] spawned worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js" (pid: 18360, socket: \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-0-89fe0973.sock)
+[isolated-plugin] spawned worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json" (pid: 17716, socket: \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-1-edf8b34b.sock)
+[isolated-plugin] spawned worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json" (pid: 26140, socket: \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-2-75feb9f0.sock)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.406Z - Time taken for 'hash changed files from watcher' 0.040899999999965075ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.407Z - Time taken for 'loadSpecifiedNxPlugins' 214.02210000000014ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.416Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.417Z - Established a connection. Number of open connections: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:28.420Z - Closed a connection. Number of open connections: 1
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js" (pid: 18360) listening on \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-0-89fe0973.sock
+[isolated-plugin] connected to worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js" (pid: 18360)
+[1m[33mTime taken for 'plugin worker 18360 code loading' 815.71ms[39m[22m
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js" (pid: 18360) connected
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.278Z - Time taken for 'start-plugin-worker:C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js' 1004.6279999999997ms
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json" (pid: 17716) listening on \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-1-edf8b34b.sock
+[1m[33mTime taken for 'plugin worker 17716 code loading' 815.5646ms[39m[22m
+[isolated-plugin] connected to worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json" (pid: 17716)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.317Z - Time taken for 'start-plugin-worker:C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json' 997.2537999999997ms
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json" (pid: 17716) connected
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js" (pid: 18360) loaded successfully
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.350Z - Time taken for 'Load Nx Plugin: C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\js' 1163.1242999999997ms
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json" (pid: 17716) loaded successfully
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.356Z - Time taken for 'Load Nx Plugin: C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\package-json' 1167.0946000000001ms
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json" (pid: 26140) listening on \\.\pipe\nx\C:\Users\Gerar\AppData\Local\Temp\cc131f79\p15072-2-75feb9f0.sock
+[isolated-plugin] connected to worker for "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json" (pid: 26140)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.362Z - Time taken for 'start-plugin-worker:C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json' 1000.9690999999998ms
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json" (pid: 26140) connected
+[1m[33mTime taken for 'plugin worker 26140 code loading' 825.4334ms[39m[22m
+[plugin-worker] "C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json" (pid: 26140) loaded successfully
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.384Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.384Z - [REQUEST]: 
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.384Z - [REQUEST]: 
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.389Z - Time taken for 'loadDefaultNxPlugins' 1196.1544999999999ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.389Z - Time taken for 'Load Nx Plugin: C:\Users\Gerar\Downloads\Proyectos\bibliohub\node_modules\.pnpm\nx@23.2.1\node_modules\nx\dist\src\plugins\project-json\build-nodes\project-json' 1192.0690999999997ms
+[1m[33mTime taken for 'nx/core/project-json:createNodes' 0.4995000000000118ms[39m[22m
+[isolated-plugin] shutting down worker for "nx/core/project-json" after createNodes
+[1m[33mTime taken for 'nx/js/dependencies-and-lockfile:createNodes' 14.995900000000006ms[39m[22m
+[1m[33mTime taken for 'nx/core/package-json:createNodes' 36.563800000000015ms[39m[22m
+[isolated-plugin] shutting down worker for "nx/core/package-json" after createNodes
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.503Z - Time taken for 'build-project-configs' 63.0005000000001ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.503Z - Time taken for 'createNodes:merge' 19.293399999999565ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.503Z - Time taken for 'native-file-deps' 0.024499999999989086ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.503Z - Time taken for 'get-workspace-files' 2.7856000000001586ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.503Z - Time taken for 'read cache' 1.5086999999998625ms
+[1m[33mTime taken for 'build typescript dependencies' 0.24250000000006366ms[39m[22m
+[isolated-plugin] shutting down worker for "nx/js/dependencies-and-lockfile" after createDependencies
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.546Z - [SYNC]: collect registered sync generators
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.564Z - Wrote project graph cache to C:\Users\Gerar\Downloads\Proyectos\bibliohub\.nx\workspace-data\project-graph.json
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.565Z - Time taken for 'total execution time for createProjectGraph()' 57.05590000000029ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.565Z - Time taken for 'createDependencies' 37.1244999999999ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.566Z - Time taken for 'nx/js/dependencies-and-lockfile:createDependencies' 36.31219999999985ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.566Z - Time taken for 'createMetadata' 0.1311000000000604ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.566Z - Time taken for 'serialize graph' 5.711999999999989ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.566Z - Time taken for 'write cache' 17.004300000000057ms
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.774Z - [Messenger] Sending message type: REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.776Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.782Z - Received raw message of length 6989
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.782Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.784Z - [REQUEST]: Client Request for Project Graph Received
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=17.1868ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.803Z - Reusing in-memory cached project graph because no files changed.
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.804Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.804Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.804Z - [REQUEST]: Responding to the client. project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.808Z - Time taken for 'total for creating and serializing project graph' 19.132500000000164ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.809Z - Done responding to the client project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.810Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 20. Response time: 6.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.810Z - [Messenger] Received message, length: 549526
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.819Z - [Messenger] Sending message type: PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.820Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.822Z - Received raw message of length 1001
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.822Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.827Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.827Z - Responding to PRE_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.827Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.828Z - Time taken for 'preTasksExecution' 3.613499999999931ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.831Z - Done responding to the client handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:29.831Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 4. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:29.831Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.311Z - [Messenger] Sending message type: HASH_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.313Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.318Z - Received raw message of length 20827
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.319Z - Received json message of type HASH_TASKS
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=14.5981ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.334Z - Reusing in-memory cached project graph because no files changed.
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 7.1007ms - processed 2 tasks (setup: 6.453ms, parallel_planning: 631.1µs, pool: 10 unique instructions)
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Adding "11447477098452327754" (".prettierrc.json") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Adding "11239123541410728248" ("pnpm-lock.yaml") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Adding "12921313130432878041" (".gitignore") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Hash Value: "9951374351054095010"
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Adding "3667920321166862548" ("nx.json") to hash
+DEBUG nx::native::tasks::hashers::hash_workspace_files: Hashing workspace fileset: Hash Value: "15794673039158225025"
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 3.8336ms - processed 2 plans (setup: 338.6µs, hashing: 3.4903ms, assembly: 178.6µs)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.358Z - Serializing response for HASH_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.358Z - Responding to HASH_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.358Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.362Z - Done responding to the client handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.362Z - Handled json message HASH_TASKS. Handling time: 39. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.362Z - [Messenger] Received message, length: 1326
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.403Z - [Messenger] Sending message type: GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.404Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.432Z - Received raw message of length 206
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.432Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.439Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.439Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.439Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.440Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:30.440Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 7. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:30.440Z - [Messenger] Received message, length: 54
+Fetching nx...
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.957Z - [Messenger] Sending message type: RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.958Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.963Z - Received raw message of length 452
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.963Z - Received json message of type RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.966Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.966Z - Responding to RECORD_TASK_RUNS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.966Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.967Z - Done responding to the client handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.967Z - Handled json message RECORD_TASK_RUNS. Handling time: 3. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.967Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.969Z - [Messenger] Sending message type: GET_FLAKY_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.970Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.971Z - Received raw message of length 150
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.971Z - Received json message of type GET_FLAKY_TASKS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.972Z - Serializing response for GET_FLAKY_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.972Z - Responding to GET_FLAKY_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.972Z - [REQUEST]: Responding to the client. handleGetFlakyTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.972Z - Done responding to the client handleGetFlakyTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.972Z - Handled json message GET_FLAKY_TASKS. Handling time: 1. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.972Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.975Z - Established a connection. Number of open connections: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.975Z - [Messenger] Sending message type: GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.976Z - Closed a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.977Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.978Z - Received raw message of length 109
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.978Z - Received json message of type GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.978Z - Serializing response for GET_CONFIGURE_AI_AGENTS_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.978Z - Responding to GET_CONFIGURE_AI_AGENTS_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.979Z - [REQUEST]: Responding to the client. handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.982Z - Done responding to the client handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.983Z - Handled json message GET_CONFIGURE_AI_AGENTS_STATUS. Handling time: 0. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.983Z - [Messenger] Received message, length: 104
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.991Z - [Messenger] Sending message type: POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.992Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.994Z - Received raw message of length 3176
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.994Z - Received json message of type POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.995Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.996Z - Responding to POST_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.996Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.996Z - Time taken for 'postTasksExecution' 0.9668000000001484ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.996Z - Done responding to the client handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:38.996Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:38.996Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:39.016Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.765Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.769Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.770Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.770Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.771Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:41.770Z - [Messenger] Setting up socket listeners
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:41.774Z - [Messenger] listen() complete
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.942Z - [LATEST-NX]: Successfully pulled latest Nx to C:\Users\Gerar\AppData\Local\Temp\tmp-15072-a8emUSS0d9FN
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.944Z - [NX-CONSOLE]: Using local implementation (NX_USE_LOCAL=true or inner call)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.945Z - [AI-AGENTS]: Failed to compute agent configuration status from latest Nx. Error: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'
+DEBUG nx::native::ide::install: Detected editor: Unknown
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.945Z - [AI-AGENTS]: Agent configuration status computation completed: 0 fully configured, 0 outdated, 0 partially configured, 0 non-configured
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:41.946Z - [NX-CONSOLE]: Console status check completed, shouldPrompt: false
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.347Z - [Messenger] Sending message type: GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.349Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.355Z - Received raw message of length 6989
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.355Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.357Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.357Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.357Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.358Z - Done responding to the client handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.358Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.361Z - [Messenger] Received message, length: 22
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.746Z - [Messenger] Sending message type: REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.747Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.749Z - Received raw message of length 100
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.749Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.750Z - [REQUEST]: Client Request for Project Graph Received
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=19.8705ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.770Z - Reusing in-memory cached project graph because no files changed.
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.771Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.771Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.771Z - [REQUEST]: Responding to the client. project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.775Z - Time taken for 'total for creating and serializing project graph' 21.10489999999845ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.776Z - Done responding to the client project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.776Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 21. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.775Z - [Messenger] Received message, length: 549526
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.786Z - [Messenger] Sending message type: PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.788Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.791Z - Received raw message of length 997
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.791Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.792Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.792Z - Responding to PRE_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.792Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.792Z - Time taken for 'preTasksExecution' 0.8317000000024564ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.796Z - Done responding to the client handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:43.796Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:43.795Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.280Z - [Messenger] Sending message type: HASH_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.281Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.288Z - Received raw message of length 30600
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.289Z - Received json message of type HASH_TASKS
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=23.3764ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.313Z - Reusing in-memory cached project graph because no files changed.
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 4.092ms - processed 3 tasks (setup: 12.4µs, parallel_planning: 4.0754ms, pool: 1200 unique instructions)
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 10.5357ms - processed 3 plans (setup: 397.6µs, hashing: 10.1284ms, assembly: 6.2224ms)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.332Z - Serializing response for HASH_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.333Z - Responding to HASH_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.333Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.337Z - Done responding to the client handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.337Z - Handled json message HASH_TASKS. Handling time: 43. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.337Z - [Messenger] Received message, length: 79043
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.379Z - [Messenger] Sending message type: GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.380Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.407Z - Received raw message of length 231
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.407Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.407Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.408Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.408Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.411Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:44.411Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 0. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:44.411Z - [Messenger] Received message, length: 63
+DEBUG nx::native::watch::watcher: idle-window emitting events count=494
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/services/cuenta.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/services/cuenta.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/interfaces/clientes.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/create-venta.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/categorias.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/services/configuracion.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/create-venta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/detalle-venta.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/interfaces/carrito.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-payload.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-autor.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/services/clientes.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/services/inventario.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/entities/configuracion.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/recuperar-password.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/item-carrito.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/libros.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/checkout.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/recuperar-password.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/main.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/libros.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/query-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/checkout.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/interfaces/empleados.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/log-acceso.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/services/configuracion.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/auth.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/categorias.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/entities/empleado.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/registro-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/direcciones.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.decorator.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/auth.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/config/typeorm.config.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-libro.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/empleados.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/libros.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/services/empleados.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/editorial.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/current-user.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/ventas.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/carrito.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/email.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/controllers/reportes.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/configuracion.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/clientes.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/cliente.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/interfaces/reportes.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.guard.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/entities/lista-deseos.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/entities/empleado.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/change-password.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/recuperacion.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/direccion-entrega.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/current-user.decorator.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/item-carrito.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/services/ventas.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/interfaces/carrito.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/console-email.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/auth.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/services/proveedores.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/public.decorator.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/services/clientes.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/checkout.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/categoria.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/carrito.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/query-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/auth.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/recuperacion.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/services/inventario.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/controllers/reportes.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/email.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/query-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/controllers/ventas.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/configuracion.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/empleados.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/cliente.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/update-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/controllers/inventario.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/auth.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/interfaces/clientes.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/sesiones.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/asignar-definidos.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/interfaces/ventas.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-autor.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-auth.guard.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/services/proveedores.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/direcciones.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/dto/cuenta.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/catalogo.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/create-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/services/reportes.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/query-libro.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/services/ventas.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/entities/lista-deseos.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/entities/lista-deseos.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/query-venta.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/local-storage.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/controllers/inventario.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/sesion.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/config-claves.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/email.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/proveedor.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/interfaces/inventario.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/services/configuracion.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/inventario.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/strategies/jwt.strategy.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/editorial.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/controllers/inventario.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/controllers/reportes.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/configuracion.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/checkout.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-autor.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/sesiones.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/dto/cuenta.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-payload.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/venta.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/cuenta.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/carrito.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/services/proveedores.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/storage.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/dto/cuenta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/controllers/carrito.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/cuenta.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/strategies
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/create-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-historial-ventas.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/autor.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/storage.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/entities/configuracion.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-autor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/recuperacion.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/controllers/clientes.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/config
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/reportes.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/pedidos.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/change-password.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/query-libro.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/console-email.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/local-storage.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/categorias.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/services/reportes.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/query-venta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.guard.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-libro.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/public.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/clientes.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/public.decorator.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/smtp-email.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/autor.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/proveedor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/controllers/empleados.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/ventas.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/direcciones.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/services/carrito.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/update-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/change-password.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/main.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/pedidos.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/login.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/controllers/empleados.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/clientes.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/smtp-email.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/create-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/services/carrito.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/controllers/ventas.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/controllers/empleados.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/smtp-email.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/controllers/ventas.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/catalogo.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/interfaces/inventario.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/lista-deseos.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-autor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-historial-ventas.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/update-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/services/empleados.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/sesiones.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-auth.guard.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/interfaces/reportes.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-auth.guard.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/storage.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/interfaces/ventas.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/reportes.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/interfaces/inventario.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/pedidos.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/pedidos.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/services/reportes.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/cliente.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/detalle-venta.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/controllers/auth.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/controllers/carrito.controller.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/config-claves.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.guard.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/direccion-entrega.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/strategies/jwt.strategy.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/carrito.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/app.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/services/cuenta.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/config-claves.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-autor.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-historial-ventas.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/reportes.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/current-user.decorator.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/categoria.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/jwt-payload.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/interfaces/empleados.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/query-venta.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/ventas.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-libro.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/carrito.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/editorial.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/lista-deseos.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/interfaces/ventas.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/entities/configuracion.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/query-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/lista-deseos.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/venta.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/interfaces/carrito.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/carrito.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/recuperar-password.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/update-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/main.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/cuenta.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/dto/create-venta.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/sesion.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/proveedor.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/proveedores.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/interfaces/empleados.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/entities/item-carrito.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/services/carrito.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/sesion.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/services/inventario.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/dto/create-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/auth/roles.decorator.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/pedidos.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/entities/direccion-entrega.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/cuenta/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/libro.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/controllers/clientes.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/create-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/detalle-venta.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/registro-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/proveedores.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/proveedores.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/log-acceso.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/reportes/interfaces/reportes.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/storage/local-storage.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/categoria.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/email/console-email.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/controllers/auth.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/login.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/interfaces/clientes.interface.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/inventario.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/entities/venta.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/entities/empleado.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/registro-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/services
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/entities/autor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/asignar-definidos.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/empleados.module.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/pedidos.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/services/checkout.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/configuracion/dto
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/controllers/auth.controller.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/infra/stripe/stripe.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/dto/login.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/dto/checkout.dto.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/auth.module.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/services/empleados.service.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/common/asignar-definidos.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/interfaces
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/strategies/jwt.strategy.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/controllers/carrito.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/inventario/inventario.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/lista-deseos/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/controllers/clientes.controller.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/auth/entities/log-acceso.entity.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/catalogo.module.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/config/typeorm.config.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/config/typeorm.config.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/services/clientes.service.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/ventas/services/ventas.service.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.js
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/pedidos/controllers
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/create-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/empleados/entities
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/catalogo/dto/update-libro.dto.d.ts
+DEBUG nx::native::watch::watcher:   [delete] apps/backend/dist/modules/carrito
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:49.509Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: idle-window emitting events count=2
+DEBUG nx::native::watch::watcher:   [update] apps/mcp/dist/index.js
+DEBUG nx::native::watch::watcher:   [update] apps/mcp/dist/db.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.163Z - [WATCHER]: Processing file changes in outputs
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:50.184Z - [Messenger] Sending message type: RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:50.185Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.190Z - Received raw message of length 171
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.190Z - Received json message of type RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.199Z - Serializing response for RECORD_OUTPUTS_HASH_BATCH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.199Z - Responding to RECORD_OUTPUTS_HASH_BATCH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.199Z - [REQUEST]: Responding to the client. recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.199Z - Done responding to the client recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:50.199Z - Handled json message RECORD_OUTPUTS_HASH_BATCH. Handling time: 8. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:40:50.198Z - [Messenger] Received message, length: 2
+DEBUG nx::native::watch::watcher: idle-window emitting events count=1
+DEBUG nx::native::watch::watcher:   [update] apps/frontend/.angular/cache/21.2.17/frontend/.tsbuildinfo
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:56.011Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\empleados"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\auth"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\catalogo"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=28
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/log-acceso.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/entities/empleado.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/sesion.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro-autor.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/editorial.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/autor.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/autor.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/entities/cliente.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/categoria.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/editorial.entity.js
+DEBUG nx::native::watch::watcher:   [update] apps/backend/dist/modules/auth/entities/sesion.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/sesion.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/libro.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/log-acceso.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/categoria.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/entities/empleado.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/autor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/log-acceso.entity.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:58.705Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\inventario"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\ventas"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\proveedores"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\configuracion"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\carrito"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\lista-deseos"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\pedidos"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=37
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/entities/configuracion.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/entities/item-carrito.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/entities/editorial.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/entities/item-carrito.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/entities/lista-deseos.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/entities/lista-deseos.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/proveedor.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/entities/venta.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/entities/carrito.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/entities/configuracion.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/proveedor.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.d.ts
+DEBUG nx::native::watch::watcher:   [update] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/detalle-pedido-compra.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/entities/detalle-venta.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/entities/movimiento-inventario.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/direccion-entrega.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/entities/carrito.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/entities/venta.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/entities/carrito.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/detalle-pedido-linea.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/direccion-entrega.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/entities/detalle-venta.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/entities/recuperacion-password.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/entities/venta.entity.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/entities/transaccion-puntos.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/entities/pedido-compra.entity.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:59.209Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: idle-window emitting events count=3
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/entities/pedido-linea.entity.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:59.365Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\config"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\auth\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\common"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=11
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/registro-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/config/typeorm.config.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/jwt-payload.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/login.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/jwt-payload.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/registro-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/login.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/registro-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/login.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/config/typeorm.config.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/config/typeorm.config.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:40:59.865Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\auth\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\infra"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\auth\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\auth\\strategies"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=32
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/recuperar-password.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/recuperar-password.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/current-user.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/email.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/recuperacion.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/current-user.decorator.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/console-email.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/auth.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/public.decorator.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/auth.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/recuperacion.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/email.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/auth.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/strategies/jwt.strategy.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/recuperacion.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/console-email.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/public.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/public.decorator.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/smtp-email.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/smtp-email.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/smtp-email.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/controllers/auth.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/strategies/jwt.strategy.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/current-user.decorator.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/dto/recuperar-password.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/services/sesiones-limpieza.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/email/console-email.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/controllers/auth.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/controllers/auth.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/strategies/jwt.strategy.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:00.427Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\catalogo\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\catalogo\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\infra\\storage"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=27
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.decorator.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/auth.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.decorator.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/auth.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-libro.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.guard.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/jwt-auth.guard.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/query-libro.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/storage.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/storage.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/query-libro.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.guard.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/interfaces/catalogo.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-libro.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/jwt-auth.guard.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/jwt-auth.guard.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/storage.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.guard.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-libro.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/query-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/auth/roles.decorator.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-libro.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/auth/auth.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-libro.dto.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:00.832Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\catalogo\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\catalogo\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\inventario\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\inventario\\interfaces"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=48
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/categorias.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-autor.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/libros.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/libros.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/categorias.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/libros.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/asignar-definidos.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-autor.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/catalogo.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/local-storage.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/interfaces/inventario.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-autor.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-autor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/query-movimiento.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/local-storage.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/categorias.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-editorial.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/dto/create-movimiento-inventario.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/catalogo.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/interfaces/inventario.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-autor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/interfaces/inventario.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/controllers/catalogo.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-autor.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-editorial.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/storage/local-storage.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/update-categoria.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/services/autores-editoriales.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/asignar-definidos.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/dto/create-categoria.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/asignar-definidos.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/catalogo/catalogo.module.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:01.366Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\inventario\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\inventario\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\configuracion\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\configuracion\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\configuracion\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\clientes\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\clientes\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\clientes\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\clientes\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\ventas\\dto"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=51
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/interfaces/clientes.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/create-venta.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/services/configuracion.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/create-venta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/services/inventario.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/services/clientes.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/query-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/services/configuracion.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/configuracion.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/clientes.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/services/clientes.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/query-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/services/inventario.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/query-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/configuracion.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/update-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/controllers/inventario.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/interfaces/clientes.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/create-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/controllers/inventario.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/config-claves.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/services/configuracion.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/inventario.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/controllers/inventario.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/configuracion.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/controllers/clientes.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/clientes.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/update-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/clientes.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/update-cliente.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/config-claves.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/config-claves.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/dto/update-configuracion.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/create-venta.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/services/inventario.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/controllers/clientes.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/create-cliente.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/interfaces/clientes.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/inventario.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/configuracion/controllers/configuracion.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/inventario/inventario.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/controllers/clientes.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/services/clientes.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/create-cliente.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/clientes/dto/ajuste-puntos-cliente.dto.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:01.896Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\ventas\\interfaces"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=6
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/interfaces/ventas.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/query-venta.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/query-venta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/interfaces/ventas.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/dto/query-venta.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/interfaces/ventas.interface.js.map
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:02.079Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\ventas\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\ventas\\controllers"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=6
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/services/ventas.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/controllers/ventas.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/services/ventas.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/controllers/ventas.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/controllers/ventas.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/services/ventas.service.js.map
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:02.448Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\proveedores\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\proveedores\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\proveedores\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\proveedores\\controllers"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=27
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/ventas.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/services/proveedores.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/services/proveedores.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/query-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/services/proveedores.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-proveedor.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/controllers/proveedores.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/ventas.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/recibir-pedido-compra.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/ventas/ventas.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/create-pedido-compra.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/dto/update-proveedor.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/interfaces/proveedores.interface.js.map
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:03.013Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\reportes"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\reportes\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\reportes\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\reportes\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\empleados\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\empleados\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\empleados\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\empleados\\controllers"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=46
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/interfaces/empleados.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/empleados.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/services/empleados.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/controllers/reportes.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/interfaces/reportes.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/change-password.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/controllers/reportes.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/sesiones.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/services/reportes.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/controllers/reportes.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/sesiones.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/create-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/dto/query-historial-ventas.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/reportes.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/change-password.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/services/reportes.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/controllers/empleados.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/change-password.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/controllers/empleados.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/create-empleado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/controllers/empleados.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/services/empleados.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-perfil-empleado.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/common/sesiones.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/interfaces/reportes.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/reportes.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/services/reportes.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/dto/query-historial-ventas.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/reportes.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/interfaces/empleados.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/update-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/dto/query-reporte-ventas.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/proveedores.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/interfaces/empleados.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/dto/create-empleado.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/proveedores.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/proveedores/proveedores.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/reportes/interfaces/reportes.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/empleados.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/services/empleados.service.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:03.522Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\carrito\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\carrito\\interfaces"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\carrito\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\carrito\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\infra\\stripe"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\pedidos\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\pedidos\\dto"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\pedidos\\interfaces"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=43
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/interfaces/carrito.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/checkout.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/direcciones.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/carrito.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/interfaces/carrito.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/carrito.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/empleados/empleados.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/direcciones.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/checkout.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/controllers/carrito.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/pedidos.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/agregar-item-carrito.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/direcciones.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/services/carrito.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/services/carrito.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/pedidos.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/pedidos.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/controllers/carrito.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/update-direccion.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/carrito.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/interfaces/carrito.interface.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/services/carrito.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/create-direccion.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/interfaces/pedidos.interface.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/infra/stripe/stripe.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/checkout.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/controllers/carrito.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/carrito/dto/actualizar-item-carrito.dto.js.map
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:04.028Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\pedidos\\controllers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\cuenta"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\cuenta\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\cuenta\\controllers"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=20
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/services/cuenta.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/services/cuenta.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/checkout.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/checkout.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/controllers/pedidos.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/dto/cuenta.dto.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/dto/cuenta.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/pedidos.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/controllers/cuenta.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/services/cuenta.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/pedidos.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/dto/cambiar-estado.dto.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/pedidos.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/pedidos/services/checkout.service.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:04.566Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\lista-deseos\\services"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\backend\\dist\\modules\\lista-deseos\\controllers"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=15
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/cuenta.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/cuenta.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/controllers/lista-deseos.controller.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/lista-deseos.module.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/services/lista-deseos.service.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/app.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/lista-deseos.module.d.ts
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/lista-deseos/lista-deseos.module.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/modules/cuenta/cuenta.module.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:04.945Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: idle-window emitting events count=3
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/main.js
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/main.js.map
+DEBUG nx::native::watch::watcher:   [create] apps/backend/dist/main.d.ts
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.101Z - [WATCHER]: Processing file changes in outputs
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:05.710Z - [Messenger] Sending message type: RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:05.712Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.716Z - Received raw message of length 176
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.716Z - Received json message of type RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.791Z - Serializing response for RECORD_OUTPUTS_HASH_BATCH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.791Z - Responding to RECORD_OUTPUTS_HASH_BATCH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.791Z - [REQUEST]: Responding to the client. recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.796Z - Done responding to the client recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:05.796Z - Handled json message RECORD_OUTPUTS_HASH_BATCH. Handling time: 75. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:05.795Z - [Messenger] Received message, length: 2
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\frontend\\dist\\frontend\\browser\\login"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\frontend\\dist\\frontend\\browser\\covers"]
+DEBUG nx::native::watch::watcher: registering watches for new directories dirs=["C:\\Users\\Gerar\\Downloads\\Proyectos\\bibliohub\\apps\\frontend\\dist\\frontend\\browser\\covers\\categorias"]
+DEBUG nx::native::watch::watcher: idle-window emitting events count=133
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/3rdpartylicenses.txt
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-ZI4W5COU.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-RW7WMIUA.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/login
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-LTY4NW5D.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-VMR7ISCL.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-VJ4XNORZ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-XHEL65VA.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-2RV24FVR.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/hoja-personajes.webp
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-AIO7TAYF.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/romance.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-IOJO34V4.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-VVUMN2Z3.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-GKKKH6WZ.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-WU7V5WMP.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/narrativa.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-H53IDL3R.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/login/4.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DVIC3V6E.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-FB36LTF7.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/misterio.jpg
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-BDKOUZUS.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-ZWRIL2R6.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/login/2.png
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-7JIW23S3.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-PPXAQBEK.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-RDYWMRWA.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-IMD46TIP.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-5ZBEFNK3.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/poesia.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/logo_blanco.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-KNT3YVSD.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-2TGSJEFO.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-4E7LQGBR.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-BGX6ZWR4.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-NP2SZBCN.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/ensayo.jpg
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/main-ATQ2LBPG.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-F7GCFRNQ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-5PBTIIXZ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-YLLA6KAQ.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-VMWH6GNI.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-5M4BJMGC.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-LLN6535U.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-MZFETJ6G.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/main-JXBHMD6L.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-D266L5J7.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-HSCQVDT5.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/login/3.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DETODCQD.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DQOTHBVK.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-654MQKAV.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DZOVG5LL.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-Q4JCAW6D.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-MHDZUR2N.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-OM6VXERY.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-LMKZI7GY.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-52C47AJ6.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-2YGP3XDT.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DLA5YA7O.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-Q5BNDU42.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-OX3ENISM.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-JAKQ5GUV.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-N4Q5EDSC.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-BX5XTBGR.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-GHJ46NAN.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-E67ZEIQK.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-46SGFW3B.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/infantil.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/login/5.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/ciencia-ficcion.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-DKKQFFMO.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-MQ4T74IY.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-TRCJ5P4T.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-RMW4WZND.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-BURJ55YD.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-XQZG73TH.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/styles-LUZSPCQ3.css
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-3Y4U6HFP.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-LTJF2OCS.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-7CGTOI24.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/logo.svg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-CLZNMDPJ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/styles-OVORCZO6.css
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-JS2CFRKU.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-G2LDB3OK.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-O5YIURCE.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-4IAPGPQ5.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-5R3BHVVT.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-HRT3C23N.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-F4ALUWFR.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-LU3JBZGP.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-K63B4T2H.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-5XBWSSLQ.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-PBPYMAZA.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/prerendered-routes.json
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/covers/categorias
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-EKJMNP7O.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-VOSKJTWI.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-OIF25QV2.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-SMINUT4Z.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/terror.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-YONMEYGK.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/login/1.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/desktop.ini
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-GK7ML6VK.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-YS3VZRVK.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-H7EVLZTM.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-3GX2JEDA.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-DTZJYZS2.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-B6LHQFGV.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-ZQVYBKJZ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-HXFR264T.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-KYTJ536S.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-I4IZRWYL.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-I5FSV6AW.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-66QCS2ZV.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-EQLNVNKZ.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/logo_negro.png
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/index.html
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-JNIFKV5Q.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-AX6MVX5E.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-JQEUJQPB.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/covers/categorias/fantasia.jpg
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-MSPBSWZV.js
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/covers
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-RGNRFPTA.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-CZUMIRKP.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-RGJ2ZBCH.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/logo.png
+DEBUG nx::native::watch::watcher:   [delete] apps/frontend/dist/frontend/browser/chunk-HYYTVQAX.js
+DEBUG nx::native::watch::watcher:   [create] apps/frontend/dist/frontend/browser/chunk-J36E6DR3.js
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.222Z - [WATCHER]: Processing file changes in outputs
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:06.727Z - [Messenger] Sending message type: RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:06.729Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.731Z - Received raw message of length 178
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.732Z - Received json message of type RECORD_OUTPUTS_HASH_BATCH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.753Z - Serializing response for RECORD_OUTPUTS_HASH_BATCH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.753Z - Responding to RECORD_OUTPUTS_HASH_BATCH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.753Z - [REQUEST]: Responding to the client. recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.759Z - Done responding to the client recordOutputsHashBatch
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:06.759Z - Handled json message RECORD_OUTPUTS_HASH_BATCH. Handling time: 21. Response time: 6.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:06.758Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.015Z - [Messenger] Sending message type: RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.016Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.018Z - Received raw message of length 603
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.018Z - Received json message of type RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.020Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.020Z - Responding to RECORD_TASK_RUNS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.020Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.020Z - Done responding to the client handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.021Z - Handled json message RECORD_TASK_RUNS. Handling time: 2. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.020Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.022Z - [Messenger] Sending message type: GET_FLAKY_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.023Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.025Z - Received raw message of length 171
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.025Z - Received json message of type GET_FLAKY_TASKS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.025Z - Serializing response for GET_FLAKY_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.025Z - Responding to GET_FLAKY_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.026Z - [REQUEST]: Responding to the client. handleGetFlakyTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.026Z - Done responding to the client handleGetFlakyTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.026Z - Handled json message GET_FLAKY_TASKS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.025Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.029Z - Established a connection. Number of open connections: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.030Z - Closed a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.028Z - [Messenger] Sending message type: GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.030Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.033Z - Received raw message of length 109
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.033Z - Received json message of type GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - [AI-AGENTS]: Returning cached agent configuration status
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - Serializing response for GET_CONFIGURE_AI_AGENTS_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - Responding to GET_CONFIGURE_AI_AGENTS_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - [REQUEST]: Responding to the client. handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - Done responding to the client handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.034Z - Handled json message GET_CONFIGURE_AI_AGENTS_STATUS. Handling time: 0. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.034Z - [Messenger] Received message, length: 104
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.041Z - [Messenger] Sending message type: POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.044Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.047Z - Received raw message of length 87972
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.049Z - Received json message of type POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.050Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.050Z - Responding to POST_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.050Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.050Z - Time taken for 'postTasksExecution' 0.9225999999980559ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.054Z - Done responding to the client handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.054Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:07.053Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:07.071Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:09.576Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:09.579Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:09.582Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:09.583Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:09.583Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:09.582Z - [Messenger] Setting up socket listeners
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:09.585Z - [Messenger] listen() complete
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:10.987Z - [Messenger] Sending message type: GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:10.989Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.995Z - Received raw message of length 6989
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.995Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.997Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.997Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.997Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.997Z - Done responding to the client handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:10.997Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 0. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:10.998Z - [Messenger] Received message, length: 22
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.482Z - [Messenger] Sending message type: REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.483Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.485Z - Received raw message of length 100
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.485Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.485Z - [REQUEST]: Client Request for Project Graph Received
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=17.6544ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.504Z - Reusing in-memory cached project graph because no files changed.
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.505Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.505Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.505Z - [REQUEST]: Responding to the client. project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.510Z - Time taken for 'total for creating and serializing project graph' 19.21940000000177ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.511Z - Done responding to the client project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.511Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 20. Response time: 6.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.510Z - [Messenger] Received message, length: 549526
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.521Z - [Messenger] Sending message type: PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.522Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.525Z - Received raw message of length 999
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.526Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.527Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.527Z - Responding to PRE_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.527Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.527Z - Time taken for 'preTasksExecution' 1.0109000000011292ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.531Z - Done responding to the client handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:11.532Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:11.530Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.018Z - [Messenger] Sending message type: HASH_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.019Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.025Z - Received raw message of length 20768
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.026Z - Received json message of type HASH_TASKS
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=23.7645ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.051Z - Reusing in-memory cached project graph because no files changed.
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 1.6245ms - processed 2 tasks (setup: 11.3µs, parallel_planning: 1.6094ms, pool: 1200 unique instructions)
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 10.2419ms - processed 2 plans (setup: 356µs, hashing: 9.8807ms, assembly: 6.8354ms)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.068Z - Serializing response for HASH_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.069Z - Responding to HASH_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.069Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.073Z - Done responding to the client handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.073Z - Handled json message HASH_TASKS. Handling time: 42. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.072Z - [Messenger] Received message, length: 71548
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.151Z - [Messenger] Sending message type: GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.152Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.180Z - Received raw message of length 200
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.181Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.181Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.182Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.182Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.182Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:12.182Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:12.181Z - [Messenger] Received message, length: 50
+DEBUG nx::native::watch::watcher: idle-window emitting events count=1
+DEBUG nx::native::watch::watcher:   [update] apps/frontend/.angular/cache/21.2.17/frontend/.tsbuildinfo
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:21.773Z - [WATCHER]: Processing file changes in outputs
+DEBUG nx::native::watch::watcher: idle-window emitting events count=1
+DEBUG nx::native::watch::watcher:   [update] apps/frontend/.angular/cache/21.2.17/frontend/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.200Z - [WATCHER]: Processing file changes in outputs
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.364Z - [Messenger] Sending message type: RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.365Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.367Z - Received raw message of length 447
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.368Z - Received json message of type RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.370Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.370Z - Responding to RECORD_TASK_RUNS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.370Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.371Z - Done responding to the client handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.371Z - Handled json message RECORD_TASK_RUNS. Handling time: 2. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.371Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.374Z - Established a connection. Number of open connections: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.375Z - Closed a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.374Z - [Messenger] Sending message type: GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.375Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.379Z - Received raw message of length 109
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.379Z - Received json message of type GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.379Z - [AI-AGENTS]: Returning cached agent configuration status
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.379Z - Serializing response for GET_CONFIGURE_AI_AGENTS_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.380Z - Responding to GET_CONFIGURE_AI_AGENTS_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.380Z - [REQUEST]: Responding to the client. handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.380Z - Done responding to the client handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.380Z - Handled json message GET_CONFIGURE_AI_AGENTS_STATUS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.379Z - [Messenger] Received message, length: 104
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.384Z - [Messenger] Sending message type: POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.387Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.389Z - Received raw message of length 77415
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.391Z - Received json message of type POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.392Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.392Z - Responding to POST_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.392Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.392Z - Time taken for 'postTasksExecution' 0.8326000000015483ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.393Z - Done responding to the client handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.393Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:29.392Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:29.411Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:31.976Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:31.977Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:31.981Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:31.981Z - Closed a connection. Number of open connections: 0
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:31.982Z - Established a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:31.983Z - [Messenger] Setting up socket listeners
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:31.986Z - [Messenger] listen() complete
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.445Z - [Messenger] Sending message type: GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.447Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.450Z - Received raw message of length 6989
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.451Z - Received json message of type GET_NX_CONSOLE_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.452Z - Serializing response for GET_NX_CONSOLE_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.452Z - Responding to GET_NX_CONSOLE_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.453Z - [REQUEST]: Responding to the client. handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.453Z - Done responding to the client handleGetNxConsoleStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.453Z - Handled json message GET_NX_CONSOLE_STATUS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.455Z - [Messenger] Received message, length: 22
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.809Z - [Messenger] Sending message type: REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.810Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.812Z - Received raw message of length 100
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.812Z - Received json message of type REQUEST_PROJECT_GRAPH
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.812Z - [REQUEST]: Client Request for Project Graph Received
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=18.0424ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.831Z - Reusing in-memory cached project graph because no files changed.
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.832Z - Serializing response for REQUEST_PROJECT_GRAPH message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.833Z - Responding to REQUEST_PROJECT_GRAPH message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.833Z - [REQUEST]: Responding to the client. project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.837Z - Time taken for 'total for creating and serializing project graph' 19.29080000000249ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.837Z - Done responding to the client project-graph
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.837Z - Handled json message REQUEST_PROJECT_GRAPH. Handling time: 20. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.838Z - [Messenger] Received message, length: 549526
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.848Z - [Messenger] Sending message type: PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.849Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.851Z - Received raw message of length 997
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.851Z - Received json message of type PRE_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - Serializing response for PRE_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - Responding to PRE_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - [REQUEST]: Responding to the client. handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - Time taken for 'preTasksExecution' 0.877200000002631ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - Done responding to the client handleRunPreTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:33.852Z - Handled json message PRE_TASKS_EXECUTION. Handling time: 1. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:33.853Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.286Z - [Messenger] Sending message type: HASH_TASKS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.288Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.293Z - Received raw message of length 10813
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.293Z - Received json message of type HASH_TASKS
+DEBUG nx::native::watch::watcher: force-flush END count=0 replies=1 elapsed=22.6522ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.318Z - Reusing in-memory cached project graph because no files changed.
+DEBUG nx::native::tasks::hash_planner: get_plans_internal COMPLETED in 1.8313ms - processed 1 tasks (setup: 13µs, parallel_planning: 1.8128ms, pool: 1200 unique instructions)
+DEBUG nx::native::tasks::task_hasher: hash_plans COMPLETED in 5.4882ms - processed 1 plans (setup: 430.8µs, hashing: 5.0476ms, assembly: 2.1634ms)
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.328Z - Serializing response for HASH_TASKS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.329Z - Responding to HASH_TASKS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.329Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.333Z - Done responding to the client handleHashTasks
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.333Z - Handled json message HASH_TASKS. Handling time: 35. Response time: 5.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.333Z - [Messenger] Received message, length: 34824
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.370Z - [Messenger] Sending message type: GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.371Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.400Z - Received raw message of length 159
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.400Z - Received json message of type GET_ESTIMATED_TASK_TIMINGS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.401Z - Serializing response for GET_ESTIMATED_TASK_TIMINGS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.401Z - Responding to GET_ESTIMATED_TASK_TIMINGS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.401Z - [REQUEST]: Responding to the client. handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.401Z - Done responding to the client handleGetEstimatedTaskTimings
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:34.401Z - Handled json message GET_ESTIMATED_TASK_TIMINGS. Handling time: 1. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:34.402Z - [Messenger] Received message, length: 2
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.364Z - [Messenger] Sending message type: RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.365Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.368Z - Received raw message of length 278
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.368Z - Received json message of type RECORD_TASK_RUNS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.370Z - Serializing response for RECORD_TASK_RUNS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.370Z - Responding to RECORD_TASK_RUNS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.370Z - [REQUEST]: Responding to the client. handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.370Z - Done responding to the client handleRecordTaskRuns
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.370Z - Handled json message RECORD_TASK_RUNS. Handling time: 2. Response time: 0.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.371Z - [Messenger] Received message, length: 4
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.372Z - Established a connection. Number of open connections: 2
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.373Z - Closed a connection. Number of open connections: 1
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.373Z - [Messenger] Sending message type: GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.374Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - Received raw message of length 109
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - Received json message of type GET_CONFIGURE_AI_AGENTS_STATUS
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - [AI-AGENTS]: Returning cached agent configuration status
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - Serializing response for GET_CONFIGURE_AI_AGENTS_STATUS message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - Responding to GET_CONFIGURE_AI_AGENTS_STATUS message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - [REQUEST]: Responding to the client. handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.375Z - Done responding to the client handleGetConfigureAiAgentsStatus
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.376Z - Handled json message GET_CONFIGURE_AI_AGENTS_STATUS. Handling time: 0. Response time: 1.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.376Z - [Messenger] Received message, length: 104
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.381Z - [Messenger] Sending message type: POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.383Z - [Messenger] Message sent
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.383Z - Received raw message of length 36867
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.384Z - Received json message of type POST_TASKS_EXECUTION
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.385Z - Serializing response for POST_TASKS_EXECUTION message in json mode
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.386Z - Responding to POST_TASKS_EXECUTION message
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.386Z - [REQUEST]: Responding to the client. handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.386Z - Time taken for 'postTasksExecution' 1.145699999993667ms
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.389Z - Done responding to the client handleRunPostTasksExecution
+[NX v23.2.1 Daemon Server] - 2026-09-26T05:41:51.389Z - Handled json message POST_TASKS_EXECUTION. Handling time: 1. Response time: 4.
+[NX v23.2.1 Daemon Client] - 2026-09-26T05:41:51.390Z - [Messenger] Received message, length: 4

@@ -6,24 +6,12 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "LICENSE",
-        "hash": "14681822471163746323"
+        "file": ".editorconfig",
+        "hash": "6856756688197116217"
       },
       {
-        "file": ".prettierignore",
-        "hash": "6960301810572776834"
-      },
-      {
-        "file": "pnpm-lock.yaml",
-        "hash": "11239123541410728248"
-      },
-      {
-        "file": "package.json",
-        "hash": "17368831841841371766"
-      },
-      {
-        "file": "pnpm-workspace.yaml",
-        "hash": "996126336996974340"
+        "file": ".gitattributes",
+        "hash": "5542930518428044845"
       },
       {
         "file": ".github/workflows/ci.yml",
@@ -34,35 +22,75 @@
         "hash": "12921313130432878041"
       },
       {
-        "file": ".prettierrc.json",
-        "hash": "11447477098452327754"
+        "file": ".prettierignore",
+        "hash": "6960301810572776834"
       },
       {
-        "file": ".gitattributes",
-        "hash": "5542930518428044845"
+        "file": ".prettierrc.json",
+        "hash": "11447477098452327754"
       },
       {
         "file": "AGENTS.md",
         "hash": "7708186065039215157"
       },
       {
-        "file": "db/bibliohub_estructura.sql",
-        "hash": "8824450746706965679"
+        "file": "LICENSE",
+        "hash": "14681822471163746323"
       },
       {
         "file": "README.md",
         "hash": "18068123383851274289"
       },
       {
+        "file": "db/bibliohub_estructura.sql",
+        "hash": "8824450746706965679"
+      },
+      {
         "file": "nx.json",
         "hash": "3667920321166862548"
       },
       {
-        "file": ".editorconfig",
-        "hash": "6856756688197116217"
+        "file": "package.json",
+        "hash": "17368831841841371766"
+      },
+      {
+        "file": "pnpm-lock.yaml",
+        "hash": "11239123541410728248"
+      },
+      {
+        "file": "pnpm-workspace.yaml",
+        "hash": "996126336996974340"
       }
     ],
     "projectFileMap": {
+      "mcp": [
+        {
+          "file": "apps/mcp/package.json",
+          "hash": "561948553486543548",
+          "deps": [
+            "npm:@types/node@22.20.0",
+            "npm:@types/pg",
+            "npm:tsx",
+            "npm:typescript",
+            "npm:@modelcontextprotocol/sdk@1.29.0",
+            "npm:dotenv@16.6.1",
+            "npm:pg",
+            "npm:zod@3.25.76"
+          ]
+        },
+        {
+          "file": "apps/mcp/src/db.ts",
+          "hash": "5103118755420261569"
+        },
+        {
+          "file": "apps/mcp/src/index.ts",
+          "hash": "17212968168688637421"
+        },
+        {
+          "file": "apps/mcp/tsconfig.json",
+          "hash": "2853663899859515977"
+        }
+      ],
       "backend": [
         {
           "file": "apps/backend/.env.example",
@@ -791,34 +819,6 @@
         {
           "file": "apps/backend/tsconfig.json",
           "hash": "12374162940862576556"
-        }
-      ],
-      "mcp": [
-        {
-          "file": "apps/mcp/package.json",
-          "hash": "561948553486543548",
-          "deps": [
-            "npm:@types/node@22.20.0",
-            "npm:@types/pg",
-            "npm:tsx",
-            "npm:typescript",
-            "npm:@modelcontextprotocol/sdk@1.29.0",
-            "npm:dotenv@16.6.1",
-            "npm:pg",
-            "npm:zod@3.25.76"
-          ]
-        },
-        {
-          "file": "apps/mcp/src/db.ts",
-          "hash": "5103118755420261569"
-        },
-        {
-          "file": "apps/mcp/src/index.ts",
-          "hash": "17212968168688637421"
-        },
-        {
-          "file": "apps/mcp/tsconfig.json",
-          "hash": "2853663899859515977"
         }
       ],
       "frontend": [

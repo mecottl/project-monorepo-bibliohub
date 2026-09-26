@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: bibliohubv1
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: bibliohubv1
+      JWT_SECRET: ci-secret-solo-para-pruebas
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Formato
+        run: pnpm format:check
+      - name: Lint (incluye límites entre capas)
+        run: pnpm lint
+      - name: Build
+        run: pnpm build
+      - name: Pruebas unitarias
+        run: pnpm test
+      - name: Cargar esquema y línea base de migraciones
+        run: |
+          grep -Ev '^.(un)?restrict ' db/bibliohub_estructura.sql | psql -h localhost -U postgres -d bibliohubv1 -v ON_ERROR_STOP=1 -q
+          pnpm --filter backend migrar:baseline
+          pnpm --filter backend migrar
+      - name: Pruebas de integración y e2e (backend)
+        run: pnpm test:e2e
