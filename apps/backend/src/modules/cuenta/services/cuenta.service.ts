@@ -11,7 +11,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
-import { TransaccionPuntos } from '@modules/clientes/entities/transaccion-puntos.entity';
+import { ClientesService } from '@modules/clientes/services/clientes.service';
+import { VentasService } from '@modules/ventas/services/ventas.service';
 import { Sesion } from '@modules/auth/entities/sesion.entity';
 import { cerrarOtrasSesiones } from '@common/sesiones';
 import { Venta } from '@modules/ventas/entities/venta.entity';
@@ -39,33 +40,22 @@ export interface TarjetaGuardada {
 export class CuentaService {
   constructor(
     @InjectRepository(Cliente) private readonly clienteRepo: Repository<Cliente>,
-    @InjectRepository(TransaccionPuntos)
-    private readonly puntosRepo: Repository<TransaccionPuntos>,
     private readonly configuracion: ConfiguracionService,
     private readonly stripe: StripeService,
-    @InjectRepository(Venta) private readonly ventaRepo: Repository<Venta>,
+    private readonly clientes: ClientesService,
+    private readonly ventas: VentasService,
     @InjectRepository(Sesion) private readonly sesionRepo: Repository<Sesion>,
   ) {}
 
   // --- Compras en tienda (ventas POS ligadas al cliente) ---
 
   async listarComprasTienda(clienteId: string, baseUrl: string) {
-    const ventas = await this.ventaRepo.find({
-      where: { clienteId },
-      relations: ['detalles', 'detalles.libro'],
-      order: { fecha: 'DESC' },
-    });
+    const ventas = await this.ventas.listarPorCliente(clienteId);
     return ventas.map((venta) => this.mapVenta(venta, baseUrl));
   }
 
   async obtenerCompraTienda(clienteId: string, id: string, baseUrl: string) {
-    const venta = await this.ventaRepo.findOne({
-      where: { id, clienteId },
-      relations: ['detalles', 'detalles.libro'],
-    });
-    if (!venta) {
-      throw new NotFoundException('Compra no encontrada');
-    }
+    const venta = await this.ventas.obtenerDeCliente(clienteId, id);
     return this.mapVenta(venta, baseUrl);
   }
 
@@ -146,11 +136,7 @@ export class CuentaService {
   // AGENTS.md raíz). Se devuelven ambos para mostrar saldo + historial.
   async obtenerPuntos(clienteId: string) {
     const cliente = await this.buscar(clienteId);
-    const movimientos = await this.puntosRepo.find({
-      where: { clienteId },
-      order: { fecha: 'DESC' },
-      take: 50,
-    });
+    const movimientos = await this.clientes.movimientosPuntos(clienteId);
     const tasaAcumulacion = await this.configuracion.valorNumerico(CONFIG.tasaPuntosAcumulacion, 0);
     const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje, 0);
 

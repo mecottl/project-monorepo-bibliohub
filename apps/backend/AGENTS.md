@@ -88,3 +88,7 @@ acceso directo.
 ## Límites entre módulos
 
 ESLint (`no-restricted-imports`) impide importar `controllers/`, `dto/` o `interfaces/` de otro módulo, salir de la carpeta del módulo con `../../` y que `common/`/`infra/` dependan de servicios o controllers. Entre módulos solo se usan `entities/`, `services/` y el `*.module` por alias `@modules/...` (no se usan barrels `index.ts`: con entidades que se referencian entre sí provocan ciclos de carga).
+
+## Frontera cuenta / clientes
+
+`cuenta` es la fachada "mi cuenta" del cliente autenticado: opera sobre su propio `Cliente`/`Sesion`, y para historial de puntos y compras usa `ClientesService.movimientosPuntos` y `VentasService.listarPorCliente/obtenerDeCliente` en vez de repositorios ajenos. Los parámetros se leen con `ConfiguracionService` y Stripe con `StripeService`.

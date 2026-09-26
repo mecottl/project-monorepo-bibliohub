@@ -16,5 +16,6 @@ import { ClientesModule } from '@modules/clientes/clientes.module';
   ],
   controllers: [VentasController],
   providers: [VentasService],
+  exports: [VentasService],
 })
 export class VentasModule {}

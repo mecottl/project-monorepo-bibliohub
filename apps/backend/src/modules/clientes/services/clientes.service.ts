@@ -24,6 +24,8 @@ export class ClientesService {
   constructor(
     @InjectRepository(Cliente)
     private readonly clienteRepository: Repository<Cliente>,
+    @InjectRepository(TransaccionPuntos)
+    private readonly puntosRepository: Repository<TransaccionPuntos>,
     private readonly dataSource: DataSource,
     private readonly configuracion: ConfiguracionService,
   ) {}
@@ -114,6 +116,15 @@ export class ClientesService {
     return cliente
       ? { existe: true, id: cliente.id, nombre: cliente.nombre, telefono: cliente.telefono, puntosSaldo: cliente.puntosSaldo, tasaCanje }
       : { existe: false, telefono, puntosSaldo: 0, tasaCanje };
+  }
+
+  // Historial de puntos (fuente de verdad: transaccion_puntos), del más reciente al más antiguo.
+  async movimientosPuntos(clienteId: string, limite = 50): Promise<TransaccionPuntos[]> {
+    return this.puntosRepository.find({
+      where: { clienteId },
+      order: { fecha: 'DESC' },
+      take: limite,
+    });
   }
 
   async findOne(id: string): Promise<ClienteSinPassword> {

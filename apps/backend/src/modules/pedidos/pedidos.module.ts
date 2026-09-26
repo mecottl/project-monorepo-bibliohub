@@ -14,13 +14,7 @@ import { PedidosService } from './services/pedidos.service';
   imports: [
     ConfiguracionModule,
     StripeModule,
-    TypeOrmModule.forFeature([
-      DireccionEntrega,
-      Carrito,
-      ItemCarrito,
-      Cliente,
-      PedidoLinea,
-    ]),
+    TypeOrmModule.forFeature([DireccionEntrega, Carrito, ItemCarrito, Cliente, PedidoLinea]),
   ],
   controllers: [PedidosController],
   providers: [PedidosService],

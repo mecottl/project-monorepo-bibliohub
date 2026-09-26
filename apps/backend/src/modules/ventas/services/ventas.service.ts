@@ -165,6 +165,26 @@ export class VentasService {
     };
   }
 
+  // Compras en tienda de un cliente (con detalle y libro), para "Mi cuenta".
+  async listarPorCliente(clienteId: string): Promise<Venta[]> {
+    return this.ventaRepository.find({
+      where: { clienteId },
+      relations: ['detalles', 'detalles.libro'],
+      order: { fecha: 'DESC' },
+    });
+  }
+
+  async obtenerDeCliente(clienteId: string, id: string): Promise<Venta> {
+    const venta = await this.ventaRepository.findOne({
+      where: { id, clienteId },
+      relations: ['detalles', 'detalles.libro'],
+    });
+    if (!venta) {
+      throw new NotFoundException('Compra no encontrada');
+    }
+    return venta;
+  }
+
   async findOne(id: string): Promise<VentaSegura> {
     const venta = await this.ventaRepository.findOne({
       where: { id },
