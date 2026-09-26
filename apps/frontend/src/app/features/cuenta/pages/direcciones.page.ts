@@ -16,10 +16,14 @@ import { DireccionEntrega } from '../../tienda/carrito/models/carrito.model';
         @for (d of direcciones(); track d.id) {
           <div class="cuenta-fila">
             <span>
-              <strong>{{ d.alias }}</strong><br />
+              <strong>{{ d.alias }}</strong>
+              @if (d.esPrincipal) { <span class="cuenta-insignia">Principal</span> }<br />
               <small>{{ d.calle }}{{ d.colonia ? ', ' + d.colonia : '' }}, {{ d.ciudad }}, {{ d.estado }} {{ d.codigoPostal }}</small>
             </span>
             <span class="cuenta-acciones">
+              @if (!d.esPrincipal) {
+                <button type="button" class="cuenta-link-btn cuenta-link-btn--editar" (click)="hacerPrincipal(d)">Usar como principal</button>
+              }
               <button type="button" class="cuenta-link-btn cuenta-link-btn--editar" (click)="editar(d)">Editar</button>
               <button type="button" class="cuenta-link-btn" (click)="eliminar(d.id)">Eliminar</button>
             </span>
@@ -114,8 +118,8 @@ export class DireccionesPage {
     if (id) {
       this.pedidos.actualizarDireccion(id, valores).subscribe({
         next: (direccion) => {
-          this.direcciones.update((actuales) => actuales.map((d) => (d.id === id ? direccion : d)));
           this.cancelarEdicion();
+          this.recargar();
         },
         error: () => this.error.set('No se pudo actualizar la dirección.')
       });
@@ -124,18 +128,29 @@ export class DireccionesPage {
 
     this.pedidos.crearDireccion(valores).subscribe({
       next: (direccion) => {
-        this.direcciones.update((actuales) => [...actuales, direccion]);
         this.form.reset({ alias: 'Casa' });
+        this.recargar();
       },
       error: () => this.error.set('No se pudo guardar la dirección.')
     });
   }
 
+  hacerPrincipal(d: DireccionEntrega): void {
+    this.pedidos.actualizarDireccion(d.id, { esPrincipal: true }).subscribe({
+      next: () => this.recargar(),
+      error: () => this.error.set('No se pudo cambiar la dirección principal.')
+    });
+  }
+
+  private recargar(): void {
+    this.pedidos.listarDirecciones().subscribe((data) => this.direcciones.set(data));
+  }
+
   eliminar(id: string): void {
     this.pedidos.eliminarDireccion(id).subscribe(() =>
       {
-        this.direcciones.update((actuales) => actuales.filter((d) => d.id !== id));
         if (this.editandoId() === id) this.cancelarEdicion();
+        this.recargar();
       }
     );
   }

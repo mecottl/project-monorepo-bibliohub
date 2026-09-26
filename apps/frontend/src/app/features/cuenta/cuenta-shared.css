@@ -92,3 +92,15 @@
 .rastreo-pedido header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 
 #stripe-tarjeta-element { min-height: 160px; }
+
+.cuenta-insignia {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #e9f5ee;
+  color: #1f7a3d;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+}
