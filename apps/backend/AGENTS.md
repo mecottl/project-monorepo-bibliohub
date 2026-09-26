@@ -92,3 +92,7 @@ ESLint (`no-restricted-imports`) impide importar `controllers/`, `dto/` o `inter
 ## Frontera cuenta / clientes
 
 `cuenta` es la fachada "mi cuenta" del cliente autenticado: opera sobre su propio `Cliente`/`Sesion`, y para historial de puntos y compras usa `ClientesService.movimientosPuntos` y `VentasService.listarPorCliente/obtenerDeCliente` en vez de repositorios ajenos. Los parámetros se leen con `ConfiguracionService` y Stripe con `StripeService`.
+
+## Reglas de dinero y puntos
+
+El cálculo de totales de un pedido en línea vive solo en SQL: `calcular_totales_pedido()` (solo lectura) la usan la vista previa del checkout (`CheckoutService`) y `confirmar_pedido_linea()`. No lo repliques en TypeScript. `pnpm test:e2e` incluye `test/paridad-sql.e2e-spec.ts`, que prueba estas funciones, `confirmar_venta_pos()` y `cancelar_venta()` dentro de transacciones que se revierten (requiere la base del `.env`).

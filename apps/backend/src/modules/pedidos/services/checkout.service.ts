@@ -1,6 +1,4 @@
 import { StripeService } from '@infra/stripe/stripe.service';
-import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
-import { CONFIG } from '@modules/configuracion/config-claves';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -26,7 +24,6 @@ export class CheckoutService {
     @InjectRepository(PedidoLinea)
     private readonly pedidoRepository: Repository<PedidoLinea>,
     private readonly direcciones: DireccionesService,
-    private readonly configuracion: ConfiguracionService,
     private readonly stripe: StripeService,
     private readonly dataSource: DataSource,
   ) {}
@@ -72,13 +69,7 @@ export class CheckoutService {
     return { clientSecret: paymentIntent.client_secret, totales };
   }
 
-  // Réplica en TypeScript del cálculo que hace confirmar_pedido_linea() en SQL
-  // (ver db/bibliohub_estructura.sql) — necesaria porque el monto a cobrar en
-  // Stripe se define ANTES de llamar esa función (que solo se ejecuta tras
-  // el webhook de pago exitoso). Si el carrito o configuracion cambian entre
-  // el checkout y el webhook, el total cobrado y el total del pedido podrían
-  // divergir — riesgo aceptado dado el tiempo típico de un pago con tarjeta
-  // (segundos), no se implementó un mecanismo de reserva de precio.
+  // Valida el carrito (existencia, vacío, stock) con mensajes claros y delega el cálculo a SQL.
   private async calcularTotales(
     clienteId: string,
     tipoEntrega: 'recoger_en_tienda' | 'envio_a_domicilio',
@@ -104,33 +95,23 @@ export class CheckoutService {
       }
     }
 
-    const subtotal = items.reduce(
-      (acc, item) => acc + item.cantidad * Number(item.libro.precioVenta),
-      0,
+    // El cálculo vive en SQL (calcular_totales_pedido), la misma función que usa
+    // confirmar_pedido_linea(): la vista previa y el pedido final no pueden divergir.
+    const [fila] = await this.dataSource.query(
+      'SELECT * FROM calcular_totales_pedido($1, $2, $3)',
+      [clienteId, tipoEntrega, puntosUsados],
     );
-
-    const tasaAcumulacion = await this.configuracion.valorNumerico(CONFIG.tasaPuntosAcumulacion);
-    const envioDefault = await this.configuracion.valorNumerico(CONFIG.costoEnvioDefault);
-    const envioGratisDesde = await this.configuracion.valorNumerico(CONFIG.envioGratisDesde);
-
-    // Pesos de descuento por punto (configuracion.tasa_puntos_canje); misma tasa que usan las funciones SQL.
-    const tasaCanje = await this.configuracion.valorNumerico(CONFIG.tasaPuntosCanje);
-    const descuentoPuntos = puntosUsados > 0 ? puntosUsados * tasaCanje : 0;
-    if (descuentoPuntos > subtotal) {
+    const totales: TotalesCheckout = {
+      subtotal: Number(fila.subtotal),
+      descuentoPuntos: Number(fila.descuento_puntos),
+      costoEnvio: Number(fila.costo_envio),
+      total: Number(fila.total),
+      puntosGanados: Number(fila.puntos_ganados),
+    };
+    if (totales.descuentoPuntos > totales.subtotal) {
       throw new BadRequestException('Estás usando más puntos de los necesarios para este pedido');
     }
-    const costoEnvio =
-      tipoEntrega === 'envio_a_domicilio' ? (subtotal >= envioGratisDesde ? 0 : envioDefault) : 0;
-
-    const totalNeto = Math.max(subtotal - descuentoPuntos, 0);
-
-    return {
-      subtotal,
-      descuentoPuntos,
-      costoEnvio,
-      total: totalNeto + costoEnvio,
-      puntosGanados: Math.floor(totalNeto / tasaAcumulacion),
-    };
+    return totales;
   }
 
   async manejarWebhook(rawBody: Buffer, firma: string): Promise<void> {
