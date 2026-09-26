@@ -15,10 +15,10 @@ const TODOS_LIBROS_LIMIT = 12;
   selector: 'app-tienda-home',
   imports: [BookCardComponent, FiltrosCatalogoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './home.page.html',
+  styleUrl: './home.page.css'
 })
-export class HomeComponent {
+export class HomePage {
   private catalogo = inject(CatalogoService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);

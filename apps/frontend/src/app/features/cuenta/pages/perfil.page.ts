@@ -7,7 +7,7 @@ import { CuentaService } from '@domain/cuenta/cuenta.service';
   selector: 'app-cuenta-perfil',
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Mi perfil</h1>

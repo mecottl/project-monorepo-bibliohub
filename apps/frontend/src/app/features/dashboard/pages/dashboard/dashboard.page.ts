@@ -34,10 +34,10 @@ interface Periodo {
   selector: 'app-dashboard',
   imports: [RouterLink, StatCardComponent, DataTableComponent, ChartComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  templateUrl: './dashboard.page.html',
+  styleUrl: './dashboard.page.css'
 })
-export class DashboardComponent {
+export class DashboardPage {
   auth = inject(AuthService);
   private readonly reportesService = inject(ReportesService);
   private readonly catalogoService = inject(CatalogoService);

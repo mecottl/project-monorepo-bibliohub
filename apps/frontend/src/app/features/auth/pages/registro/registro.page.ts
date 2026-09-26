@@ -1,26 +1,28 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@core/auth/auth.service';
 
 @Component({
-  selector: 'app-recuperar-password',
+  selector: 'app-registro',
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './recuperar-password.component.html',
-  styleUrl: '../../auth-shared.css'
+  templateUrl: './registro.page.html',
+  styleUrl: '../../../../shared/styles/auth-shared.css'
 })
-export class RecuperarPasswordComponent {
+export class RegistroPage {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
+  private router = inject(Router);
 
   loading = signal(false);
   error = signal<string | null>(null);
-  mensaje = signal<string | null>(null);
 
-  form = this.fb.nonNullable.group({
-    identificador: ['', [Validators.required]]
+  form = this.fb.group({
+    nombre: ['', [Validators.required]],
+    telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+    password: ['', [Validators.required, Validators.minLength(4)]]
   });
 
   submit(): void {
@@ -28,13 +30,11 @@ export class RecuperarPasswordComponent {
     this.loading.set(true);
     this.error.set(null);
 
-    this.auth.recuperarPassword(this.form.getRawValue().identificador).subscribe({
-      next: (res) => {
-        this.mensaje.set(res.message);
-        this.loading.set(false);
-      },
+    const { nombre, telefono, password } = this.form.value;
+    this.auth.registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! }).subscribe({
+      next: () => this.router.navigate(['/inicio']),
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error?.message ?? 'No se pudo enviar la solicitud.');
+        this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
         this.loading.set(false);
       }
     });

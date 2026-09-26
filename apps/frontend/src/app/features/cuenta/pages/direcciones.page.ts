@@ -7,7 +7,7 @@ import { DireccionEntrega } from '@domain/pedidos/pedido.model';
   selector: 'app-cuenta-direcciones',
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Mis direcciones</h1>

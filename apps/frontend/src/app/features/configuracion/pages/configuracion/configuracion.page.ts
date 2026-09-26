@@ -7,7 +7,7 @@ import { EmpleadosService } from '@domain/empleados/empleados.service';
   selector: 'app-configuracion',
   imports: [ReactiveFormsModule],
   templateUrl: './configuracion.page.html',
-  styleUrl: './configuracion.page.css',
+  styleUrl: '../../../../shared/styles/ajustes-panel.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfiguracionPage {

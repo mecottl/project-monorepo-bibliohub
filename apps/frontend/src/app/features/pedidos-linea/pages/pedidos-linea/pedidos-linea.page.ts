@@ -12,7 +12,7 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
   selector: 'app-pedidos-linea',
   imports: [CurrencyPipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../../../cuenta/cuenta-shared.css',
+  styleUrl: '../../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Pedidos en línea</h1>

@@ -6,7 +6,7 @@ import { CuentaService, PuntosCuenta } from '@domain/cuenta/cuenta.service';
   selector: 'app-cuenta-puntos',
   imports: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Mis puntos</h1>

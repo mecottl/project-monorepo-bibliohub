@@ -9,7 +9,7 @@ import { Empleado } from '@domain/empleados/empleado.model';
   selector: 'app-empleados',
   imports: [ReactiveFormsModule, DataTableComponent],
   templateUrl: './empleados.page.html',
-  styleUrl: '../../../configuracion/pages/configuracion/configuracion.page.css',
+  styleUrl: '../../../../shared/styles/ajustes-panel.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmpleadosPage {

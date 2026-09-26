@@ -5,13 +5,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@core/auth/auth.service';
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './registro.component.html',
-  styleUrl: '../../auth-shared.css'
+  templateUrl: './login.page.html',
+  styleUrl: '../../../../shared/styles/auth-shared.css'
 })
-export class RegistroComponent {
+export class LoginPage {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -20,21 +20,25 @@ export class RegistroComponent {
   error = signal<string | null>(null);
 
   form = this.fb.group({
-    nombre: ['', [Validators.required]],
-    telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-    password: ['', [Validators.required, Validators.minLength(4)]]
+    identificador: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  submit(): void {
+  submit() {
     if (this.form.invalid) return;
     this.loading.set(true);
     this.error.set(null);
 
-    const { nombre, telefono, password } = this.form.value;
-    this.auth.registrarCliente({ nombre: nombre!, telefono: telefono!, password: password! }).subscribe({
-      next: () => this.router.navigate(['/inicio']),
+    const { identificador, password } = this.form.value;
+    this.auth.login(identificador!, password!).subscribe({
+      next: () => {
+        let destino = '/inicio';
+        if (this.auth.isAdmin()) destino = '/dashboard';
+        else if (this.auth.isCajero()) destino = '/ventas';
+        this.router.navigate([destino]);
+      },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.error?.message ?? 'No se pudo crear la cuenta');
+        this.error.set(err.error?.message ?? 'Credenciales incorrectas');
         this.loading.set(false);
       }
     });

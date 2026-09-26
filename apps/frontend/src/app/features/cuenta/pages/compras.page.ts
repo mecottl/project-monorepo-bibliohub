@@ -13,7 +13,7 @@ import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '@domain/pedi
   selector: 'app-cuenta-compras',
   imports: [CurrencyPipe, DatePipe, RouterLink, PedidoTrackerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Mis compras y rastreo</h1>

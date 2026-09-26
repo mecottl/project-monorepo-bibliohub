@@ -11,7 +11,7 @@ import { claseEstado, etiquetaEstado, numeroOrden } from '@domain/pedidos/pedido
   selector: 'app-cuenta-compra-detalle',
   imports: [CurrencyPipe, DatePipe, RouterLink, PedidoTrackerComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <a routerLink="/cuenta/compras" class="cuenta-hint">← Mis compras</a>

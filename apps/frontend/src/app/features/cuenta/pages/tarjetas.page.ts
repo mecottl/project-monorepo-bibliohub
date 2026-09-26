@@ -6,7 +6,7 @@ import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
 @Component({
   selector: 'app-cuenta-tarjetas',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: '../cuenta-shared.css',
+  styleUrl: '../../../shared/styles/cuenta-shared.css',
   template: `
     <section class="cuenta-page">
       <h1 class="font-display">Facturación y tarjetas</h1>

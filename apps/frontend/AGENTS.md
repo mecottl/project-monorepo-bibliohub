@@ -66,3 +66,9 @@ relativos al componente.
 - `core/`: transversal (auth, http, config). `shared/ui/`, `shared/utils/`: UI y utilidades sin dominio.
 - `domain/<área>/`: modelos y servicios usados por varias features (catálogo, pedidos, clientes, ventas, reportes, empleados, carrito, cuenta).
 - `layouts/`: contenedores de página. `features/<f>/{pages,components,...}`: una feature solo importa de `core`, `shared`, `domain` (nunca de otra feature).
+
+## Convenciones de nombres y plantillas
+
+- `*.page.ts` (clase `XPage`): componentes enrutados. `*.component.ts`: el resto.
+- Plantilla inline hasta ~30 líneas; a partir de ahí `templateUrl` relativo al `.ts`.
+- Estilos compartidos entre componentes/features en `shared/styles/`; en cada feature solo lo específico.

@@ -4,23 +4,23 @@ export const AUTH_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./pages/login/login.component').then(m => m.LoginComponent)
+      import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'registro',
     loadComponent: () =>
-      import('./pages/registro/registro.component').then(m => m.RegistroComponent)
+      import('./pages/registro/registro.page').then(m => m.RegistroPage)
   },
   {
     path: 'reset-password',
     loadComponent: () =>
-      import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+      import('./pages/reset-password/reset-password.page').then(m => m.ResetPasswordPage)
   },
   {
     path: 'recuperar-password',
     loadComponent: () =>
-      import('./pages/recuperar-password/recuperar-password.component').then(
-        m => m.RecuperarPasswordComponent
+      import('./pages/recuperar-password/recuperar-password.page').then(
+        m => m.RecuperarPasswordPage
       )
   }
 ];

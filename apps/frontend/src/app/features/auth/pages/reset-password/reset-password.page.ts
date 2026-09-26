@@ -8,10 +8,10 @@ import { AuthService } from '@core/auth/auth.service';
   selector: 'app-reset-password',
   imports: [ReactiveFormsModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './reset-password.component.html',
-  styleUrl: '../../auth-shared.css'
+  templateUrl: './reset-password.page.html',
+  styleUrl: '../../../../shared/styles/auth-shared.css'
 })
-export class ResetPasswordComponent {
+export class ResetPasswordPage {
   private fb = inject(FormBuilder);
   private auth = inject(AuthService);
 

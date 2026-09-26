@@ -28,8 +28,8 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('@features/dashboard/pages/dashboard/dashboard.component').then(
-            m => m.DashboardComponent
+          import('@features/dashboard/pages/dashboard/dashboard.page').then(
+            m => m.DashboardPage
           )
       },
       {
@@ -117,8 +117,8 @@ export const routes: Routes = [
       {
         path: 'inicio',
         loadComponent: () =>
-          import('@features/tienda/pages/home/home.component').then(
-            m => m.HomeComponent
+          import('@features/tienda/pages/home/home.page').then(
+            m => m.HomePage
           )
       },
       {
