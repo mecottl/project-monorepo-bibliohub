@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataTableColumn } from '@shared/data-table/data-table.model';
-import { DataTableComponent } from '@shared/data-table/data-table.component';
-import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
-import { EmptyStateComponent } from '@shared/empty-state/empty-state.component';
+import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
+import { DataTableComponent } from '@shared/ui/data-table/data-table.component';
+import { ConfirmModalComponent } from '@shared/ui/confirm-modal/confirm-modal.component';
+import { EmptyStateComponent } from '@shared/ui/empty-state/empty-state.component';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { Proveedor } from '../../models/proveedor.model';
 

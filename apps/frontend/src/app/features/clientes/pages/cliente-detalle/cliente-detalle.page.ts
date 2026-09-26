@@ -3,8 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '@core/auth/auth.service';
-import { ClientesService } from '../../services/clientes.service';
-import { Cliente } from '../../models/cliente.model';
+import { ClientesService } from '@domain/clientes/clientes.service';
+import { Cliente } from '@domain/clientes/cliente.model';
 
 @Component({
   selector: 'app-cliente-detalle',

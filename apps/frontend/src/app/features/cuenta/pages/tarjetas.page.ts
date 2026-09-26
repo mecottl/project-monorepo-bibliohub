@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Injector, afterNextRender, inject, signal } from '@angular/core';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from '@core/api.config';
-import { CuentaService, TarjetaGuardada } from '../cuenta.service';
+import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
 
 @Component({
   selector: 'app-cuenta-tarjetas',

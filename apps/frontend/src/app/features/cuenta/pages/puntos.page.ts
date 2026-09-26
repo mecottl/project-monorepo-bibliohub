@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { CuentaService, PuntosCuenta } from '../cuenta.service';
+import { CuentaService, PuntosCuenta } from '@domain/cuenta/cuenta.service';
 
 @Component({
   selector: 'app-cuenta-puntos',

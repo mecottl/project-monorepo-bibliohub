@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@core/auth/auth.service';
-import { EmpleadosService } from '../../services/empleados.service';
+import { EmpleadosService } from '@domain/empleados/empleados.service';
 
 @Component({
   selector: 'app-configuracion',

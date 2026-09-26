@@ -60,3 +60,9 @@ Los imports entre carpetas usan alias (definidos en `tsconfig.json`), no rutas r
 `@core/*`, `@shared/*`, `@domain/*`, `@layouts/*` y `@features/<feature>/*`. Dentro de la misma feature
 se permiten relativos cortos (`./` o `../`, máximo dos niveles). `templateUrl` y `styleUrl` siguen siendo
 relativos al componente.
+
+## Estructura de carpetas
+
+- `core/`: transversal (auth, http, config). `shared/ui/`, `shared/utils/`: UI y utilidades sin dominio.
+- `domain/<área>/`: modelos y servicios usados por varias features (catálogo, pedidos, clientes, ventas, reportes, empleados, carrito, cuenta).
+- `layouts/`: contenedores de página. `features/<f>/{pages,components,...}`: una feature solo importa de `core`, `shared`, `domain` (nunca de otra feature).

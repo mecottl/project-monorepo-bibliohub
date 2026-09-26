@@ -2,17 +2,17 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CambioOrden, DataTableComponent } from '@shared/data-table/data-table.component';
-import { DataTableColumn } from '@shared/data-table/data-table.model';
-import { StatCardComponent } from '@shared/stat-card/stat-card.component';
-import { PaginationComponent } from '@shared/pagination/pagination.component';
-import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
-import { exportarExcel } from '@shared/excel/excel-export';
-import { ReportesTabsComponent } from '../../reportes-tabs.component';
-import { ReportesService } from '../../services/reportes.service';
-import { VentasService } from '@features/ventas/services/ventas.service';
-import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
-import { HistorialVentas, VentaHistorial, DetalleHistorial } from '../../models/historial.model';
+import { CambioOrden, DataTableComponent } from '@shared/ui/data-table/data-table.component';
+import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
+import { StatCardComponent } from '@shared/ui/stat-card/stat-card.component';
+import { PaginationComponent } from '@shared/ui/pagination/pagination.component';
+import { ConfirmModalComponent } from '@shared/ui/confirm-modal/confirm-modal.component';
+import { exportarExcel } from '@shared/utils/excel/excel-export';
+import { ReportesTabsComponent } from '../../components/reportes-tabs/reportes-tabs.component';
+import { ReportesService } from '@domain/reportes/reportes.service';
+import { VentasService } from '@domain/ventas/ventas.service';
+import { PedidosService } from '@domain/pedidos/pedidos.service';
+import { HistorialVentas, VentaHistorial, DetalleHistorial } from '@domain/reportes/historial.model';
 
 const LIMITE = 15;
 

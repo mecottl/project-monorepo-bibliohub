@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
-import { LogoComponent } from '@shared/logo/logo.component';
+import { LogoComponent } from '@shared/ui/logo/logo.component';
 import { DashboardIconComponent } from '@shared/icons/dashboard-icon.component';
 import { InventarioIconComponent } from '@shared/icons/inventario-icon.component';
 import { VentasIconComponent } from '@shared/icons/ventas-icon.component';

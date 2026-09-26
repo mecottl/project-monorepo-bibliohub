@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '@core/auth/auth.service';
-import { CatalogoBusquedaService } from '@features/tienda/catalogo-busqueda.service';
+import { CatalogoBusquedaService } from '@domain/catalogo/catalogo-busqueda.service';
 import { SidebarComponent } from '@layouts/main-layout/sidebar/sidebar.component';
 import { TopbarComponent } from '@layouts/main-layout/topbar/topbar.component';
 

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SearchInputComponent } from '@shared/search-input/search-input.component';
+import { SearchInputComponent } from '@shared/ui/search-input/search-input.component';
 import { ProveedoresService } from '../../services/proveedores.service';
-import { CatalogoService } from '@features/inventario/services/catalogo.service';
+import { CatalogoService } from '@domain/catalogo/catalogo.service';
 import { Proveedor } from '../../models/proveedor.model';
-import { Libro } from '@features/inventario/models/libro.model';
+import { Libro } from '@domain/catalogo/catalogo.model';
 
 interface LineaPedido {
   libro: Libro;

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
-import { DireccionEntrega } from '@features/tienda/carrito/models/carrito.model';
+import { PedidosService } from '@domain/pedidos/pedidos.service';
+import { DireccionEntrega } from '@domain/pedidos/pedido.model';
 
 @Component({
   selector: 'app-cuenta-direcciones',

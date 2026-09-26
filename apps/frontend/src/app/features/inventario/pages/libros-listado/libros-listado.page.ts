@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
-import { DataTableColumn } from '@shared/data-table/data-table.model';
-import { CambioOrden, DataTableComponent } from '@shared/data-table/data-table.component';
-import { SearchInputComponent } from '@shared/search-input/search-input.component';
-import { PaginationComponent } from '@shared/pagination/pagination.component';
-import { EmptyStateComponent } from '@shared/empty-state/empty-state.component';
-import { ConfirmModalComponent } from '@shared/confirm-modal/confirm-modal.component';
-import { CatalogoService } from '../../services/catalogo.service';
-import { Libro, LibroAutor } from '../../models/libro.model';
+import { DataTableColumn } from '@shared/ui/data-table/data-table.model';
+import { CambioOrden, DataTableComponent } from '@shared/ui/data-table/data-table.component';
+import { SearchInputComponent } from '@shared/ui/search-input/search-input.component';
+import { PaginationComponent } from '@shared/ui/pagination/pagination.component';
+import { EmptyStateComponent } from '@shared/ui/empty-state/empty-state.component';
+import { ConfirmModalComponent } from '@shared/ui/confirm-modal/confirm-modal.component';
+import { CatalogoService } from '@domain/catalogo/catalogo.service';
+import { Libro, LibroAutor } from '@domain/catalogo/catalogo.model';
 
 @Component({
   selector: 'app-libros-listado',

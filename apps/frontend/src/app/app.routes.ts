@@ -9,7 +9,7 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     canActivate: [landingGuard],
-    loadComponent: () => import('@features/landing/landing.page').then(m => m.LandingPage)
+    loadComponent: () => import('@features/landing/pages/landing/landing.page').then(m => m.LandingPage)
   },
   {
     path: '',
@@ -28,7 +28,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('@features/dashboard/dashboard.component').then(
+          import('@features/dashboard/pages/dashboard/dashboard.component').then(
             m => m.DashboardComponent
           )
       },
@@ -55,7 +55,7 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin', 'cajero'] },
         loadComponent: () =>
-          import('@features/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
+          import('@features/pedidos-linea/pages/pedidos-linea/pedidos-linea.page').then(m => m.PedidosLineaPage)
       },
       {
         path: 'clientes',
@@ -105,26 +105,26 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard],
         data: { roles: ['admin'] },
         loadComponent: () =>
-          import('@features/configuracion/pages/empleados/empleados.page').then(m => m.EmpleadosPage)
+          import('@features/empleados/pages/empleados/empleados.page').then(m => m.EmpleadosPage)
       },
       {
         path: 'categorias',
         loadComponent: () =>
-          import('@features/tienda/libros/libros.page').then(
+          import('@features/tienda/pages/libros/libros.page').then(
             m => m.LibrosPage
           )
       },
       {
         path: 'inicio',
         loadComponent: () =>
-          import('@features/tienda/home/home.component').then(
+          import('@features/tienda/pages/home/home.component').then(
             m => m.HomeComponent
           )
       },
       {
         path: 'libro/:id',
         loadComponent: () =>
-          import('@features/tienda/libro-detalle/libro-detalle.page').then(
+          import('@features/tienda/pages/libro-detalle/libro-detalle.page').then(
             m => m.LibroDetallePage
           )
       },
@@ -132,7 +132,7 @@ export const routes: Routes = [
         path: 'lista-deseos',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('@features/tienda/lista-deseos/lista-deseos.page').then(
+          import('@features/tienda/pages/lista-deseos/lista-deseos.page').then(
             m => m.ListaDeseosPage
           )
       },
@@ -151,7 +151,7 @@ export const routes: Routes = [
         path: 'carrito',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('@features/tienda/carrito/pages/carrito-checkout/carrito-checkout.page').then(
+          import('@features/tienda/pages/carrito-checkout/carrito-checkout.page').then(
             m => m.CarritoCheckoutPage
           )
       },
@@ -159,7 +159,7 @@ export const routes: Routes = [
         path: 'carrito/confirmacion',
         canActivate: [authGuard],
         loadComponent: () =>
-          import('@features/tienda/carrito/pages/pedido-confirmado/pedido-confirmado.page').then(
+          import('@features/tienda/pages/pedido-confirmado/pedido-confirmado.page').then(
             m => m.PedidoConfirmadoPage
           )
       }

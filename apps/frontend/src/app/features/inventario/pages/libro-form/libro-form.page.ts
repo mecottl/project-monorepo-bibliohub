@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CatalogoService } from '../../services/catalogo.service';
-import { Categoria, Editorial } from '../../models/libro.model';
+import { CatalogoService } from '@domain/catalogo/catalogo.service';
+import { Categoria, Editorial } from '@domain/catalogo/catalogo.model';
 
 const TIPOS_VALIDOS = ['image/jpeg', 'image/png', 'image/webp'];
 const TAMANO_MAXIMO = 2 * 1024 * 1024;

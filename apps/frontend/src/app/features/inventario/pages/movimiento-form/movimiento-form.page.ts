@@ -6,8 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
 import { InventarioService } from '../../services/inventario.service';
-import { CatalogoService } from '../../services/catalogo.service';
-import { Libro } from '../../models/libro.model';
+import { CatalogoService } from '@domain/catalogo/catalogo.service';
+import { Libro } from '@domain/catalogo/catalogo.model';
 import { MovimientoInventario, TipoMovimiento } from '../../models/movimiento.model';
 
 function cantidadNoCero(control: { value: number | null }): Record<string, boolean> | null {

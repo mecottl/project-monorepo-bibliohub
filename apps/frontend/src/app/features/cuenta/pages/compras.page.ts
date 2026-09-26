@@ -3,11 +3,11 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CuentaService } from '../cuenta.service';
-import { PedidosService } from '@features/tienda/carrito/services/pedidos.service';
-import { PedidoLinea } from '@features/tienda/carrito/models/carrito.model';
-import { PedidoTrackerComponent } from '../pedido-tracker.component';
-import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '../pedido-estado';
+import { CuentaService } from '@domain/cuenta/cuenta.service';
+import { PedidosService } from '@domain/pedidos/pedidos.service';
+import { PedidoLinea } from '@domain/pedidos/pedido.model';
+import { PedidoTrackerComponent } from '../components/pedido-tracker/pedido-tracker.component';
+import { claseEstado, esActivo, etiquetaEstado, numeroOrden } from '@domain/pedidos/pedido-estado';
 
 @Component({
   selector: 'app-cuenta-compras',
