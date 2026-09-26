@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
 import { CrowdCanvasComponent } from '../../components/crowd-canvas/crowd-canvas.component';
 
-// Hoja de sprites (public/hoja-personajes.webp): 8 columnas x 8 filas de escritores y personajes, fondo transparente (fuentes en design/personajes).
-const HOJA_PERSONAJES = '/hoja-personajes.webp';
+// Hoja de sprites (public/personajes/hoja-personajes.webp): 8 columnas x 8 filas de escritores y personajes, fondo transparente (fuentes en la misma carpeta).
+const HOJA_PERSONAJES = '/personajes/hoja-personajes.webp';
 
 @Component({
   selector: 'app-landing',

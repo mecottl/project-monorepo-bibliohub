@@ -54,14 +54,14 @@ La API ya responde con `default-src 'none'` (salvo Swagger, `/api/docs`). Si añ
 
 ## Respaldos
 
-`ops/respaldo.sh` hace `pg_dump` en formato custom, lo verifica con `pg_restore --list` y borra los que superen `RETENCION_DIAS` (14 por defecto). `ops/probar-restauracion.sh` restaura el último en una base temporal y comprueba tablas y funciones SQL críticas. Ambos usan las variables estándar de libpq (`PGHOST`, `PGUSER`, `PGPASSWORD`, `PGDATABASE`) y `RESPALDO_DIR`. Prográmalos con cron o el planificador del hosting (respaldo diario, prueba semanal):
+Programa un `pg_dump` diario con cron o el planificador del hosting y conserva varias copias (por ejemplo 14 días):
 
 ```bash
-RESPALDO_DIR=/var/respaldos sh ops/respaldo.sh
-RESPALDO_DIR=/var/respaldos sh ops/probar-restauracion.sh
+pg_dump -h HOST -U USUARIO -Fc -f bibliohub-$(date +%Y%m%d).dump bibliohubv1
+pg_restore --list bibliohub-AAAAMMDD.dump > /dev/null   # verifica que el archivo se puede leer
 ```
 
-Para restaurar: `dropdb`/`createdb` y `pg_restore --no-owner -d bibliohubv1 ARCHIVO.dump` con el backend detenido.
+Restaurar (con el backend detenido): `dropdb`/`createdb` y `pg_restore --no-owner -d bibliohubv1 ARCHIVO.dump`. Prueba la restauración en una base temporal de vez en cuando; un respaldo que nunca se restauró no está probado.
 
 **Importante:** un respaldo en el mismo servidor no protege de perderlo. Copia los respaldos a otro sitio. Las portadas subidas viven en `apps/backend/uploads/` y también hay que respaldarlas.
 
