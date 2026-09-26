@@ -13,7 +13,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-morado);
+  color: var(--color-morado-texto);
   align-self: flex-start;
 }
 
@@ -26,7 +26,7 @@
 
 .cliente-detalle__card {
   padding: 24px;
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-card);
 }
@@ -64,7 +64,7 @@
 
 .cliente-detalle__puntos {
   font-weight: 700;
-  color: var(--color-morado);
+  color: var(--color-morado-texto);
 }
 
 .cliente-detalle__hint {
@@ -116,7 +116,7 @@
 }
 
 .cliente-detalle__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 13px;
   margin-bottom: 16px;
 }

@@ -2,7 +2,7 @@
   max-width: 480px;
   margin: 0 auto;
   padding: 24px;
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-card);
 }
@@ -100,7 +100,7 @@
 }
 
 .libro-form__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 13px;
   margin-bottom: 16px;
 }

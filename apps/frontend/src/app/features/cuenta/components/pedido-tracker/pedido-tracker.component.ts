@@ -67,11 +67,11 @@ import { ETIQUETAS_ESTADO, pasosRastreo } from '@domain/pedidos/pedido-estado';
     }
     .is-done .tracker__punto {
       background: var(--color-cafe-claro);
-      color: white;
+      color: var(--color-sobre-acento);
     }
     .is-current .tracker__punto {
       background: var(--color-cafe-medio);
-      color: white;
+      color: var(--color-sobre-acento);
     }
     .tracker__label {
       font-size: 12px;
@@ -83,7 +83,7 @@ import { ETIQUETAS_ESTADO, pasosRastreo } from '@domain/pedidos/pedido-estado';
       color: var(--color-cafe-oscuro);
     }
     .tracker__cancelado {
-      color: var(--color-error);
+      color: var(--color-error-texto);
       font-weight: 600;
       margin: 0;
     }

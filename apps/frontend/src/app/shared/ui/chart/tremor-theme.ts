@@ -1,20 +1,18 @@
 import { Chart } from 'chart.js/auto';
 import type { ScriptableContext } from 'chart.js';
+import { token } from '@core/theme/theme.service';
 
 // Tema de Chart.js inspirado en Tremor (tremor.so): líneas suaves sin puntos, cuadrícula tenue solo
 // horizontal, sin bordes de ejes, barras redondeadas y tooltip tipo tarjeta blanca.
 export const COLOR_PRIMARIO = '#9c6b43';
 export const COLOR_SECUNDARIO = '#c9a67a';
 
-const TINTA = '#6f665c';
-const CUADRICULA = '#efe8dd';
-const BORDE_TOOLTIP = '#e4d9c9';
-
-let aplicado = false;
-
+// Se llama en cada render: los colores salen de los tokens del tema vigente (claro u oscuro).
 export function aplicarTemaTremor(): void {
-  if (aplicado) return;
-  aplicado = true;
+  const TINTA = token('--color-gris-oscuro');
+  const CUADRICULA = token('--color-beige');
+  const SUPERFICIE = token('--color-superficie');
+  const TEXTO = token('--color-negro-suave');
 
   const fuente = getComputedStyle(document.body).getPropertyValue('--font-ui').trim();
   if (fuente) Chart.defaults.font.family = fuente;
@@ -34,10 +32,10 @@ export function aplicarTemaTremor(): void {
   Chart.defaults.interaction.intersect = false;
 
   const tooltip = Chart.defaults.plugins.tooltip;
-  tooltip.backgroundColor = '#ffffff';
-  tooltip.titleColor = '#2b2620';
-  tooltip.bodyColor = '#2b2620';
-  tooltip.borderColor = BORDE_TOOLTIP;
+  tooltip.backgroundColor = SUPERFICIE;
+  tooltip.titleColor = TEXTO;
+  tooltip.bodyColor = TEXTO;
+  tooltip.borderColor = CUADRICULA;
   tooltip.borderWidth = 1;
   tooltip.padding = 12;
   tooltip.cornerRadius = 10;

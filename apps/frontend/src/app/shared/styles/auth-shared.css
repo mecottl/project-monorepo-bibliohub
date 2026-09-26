@@ -48,11 +48,11 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-morado);
+  color: var(--color-morado-texto);
   margin-bottom: 10px;
 }
 
-.login-page__card h2 {
+.login-page__card h1 {
   font-family: var(--font-display);
   font-size: 38px;
   font-weight: 600;
@@ -72,8 +72,8 @@
   align-items: center;
   border-left: 2.5px solid var(--color-error);
   padding: 10px 14px;
-  background: color-mix(in srgb, var(--color-error) 8%, white);
-  color: var(--color-error);
+  background: color-mix(in srgb, var(--color-error) 8%, var(--color-superficie));
+  color: var(--color-error-texto);
   font-size: 13px;
   margin-bottom: 22px;
 }
@@ -177,7 +177,7 @@
   justify-content: center;
   gap: 10px;
   background: var(--color-negro-suave);
-  color: white;
+  color: var(--color-sobre-acento);
   border: none;
   padding: 15px 20px;
   font-family: var(--font-ui);
@@ -197,7 +197,7 @@
 }
 
 .login-page__submit:hover:not(:disabled) {
-  background: var(--color-cafe-oscuro);
+  background: var(--color-cafe-oscuro-fondo);
   gap: 14px;
 }
 

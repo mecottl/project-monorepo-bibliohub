@@ -9,6 +9,7 @@ import { MenuIconComponent } from '@shared/icons/menu-icon.component';
 import { CarritoIconComponent } from '@shared/icons/carrito-icon.component';
 import { KodamaAvatarComponent } from '@shared/ui/kodama-avatar/kodama-avatar.component';
 import { UsuarioIconComponent } from '@shared/icons/usuario-icon.component';
+import { ThemeToggleComponent } from '@shared/ui/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-topbar',
@@ -19,6 +20,7 @@ import { UsuarioIconComponent } from '@shared/icons/usuario-icon.component';
     CarritoIconComponent,
     UsuarioIconComponent,
     KodamaAvatarComponent,
+    ThemeToggleComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './topbar.component.html',

@@ -20,7 +20,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-morado);
+  color: var(--color-morado-texto);
 }
 
 .libros-page__status {

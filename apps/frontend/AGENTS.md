@@ -77,3 +77,9 @@ relativos al componente.
 
 - Cada feature expone su `<f>.routes.ts` con sus guards y `data.roles`; `app.routes.ts` solo compone con `loadChildren`.
 - Convención (sin linter; se revisa en el PR): una feature no importa de otra, y `core/shared/domain` no importan de `features/layouts`.
+
+## Tema (claro/oscuro) y accesibilidad
+
+- Los colores viven como tokens en `src/styles/variables.css`; el modo oscuro solo redefine esos tokens bajo `:root[data-theme='dark']`. En CSS no se usan colores fijos (`white`, hex) para superficies, texto ni estados: usa `var(--color-superficie)`, `--color-*-texto`, `--color-*-fondo`, `--color-acento-texto`, `--color-morado-texto`, etc. Texto de color sobre fondo claro/oscuro → variante `*-texto`; fondos con texto blanco → `--color-cafe-oscuro-fondo`, `--color-cafe-medio`, `--color-morado-dark`.
+- `ThemeService` (`core/theme`) decide el tema: elección manual guardada en `localStorage` (`tema`) o, si no hay, la preferencia del sistema; `iniciarTema()` corre en `main.ts` antes de arrancar. `app-theme-toggle` está en la barra superior. Librerías que no leen CSS (Chart.js, Stripe Elements) toman los colores con `token('--color-...')` y se vuelven a dibujar al cambiar el tema.
+- Auditoría AXE: se ejecutó axe-core (WCAG 2 A/AA, 2.1 A/AA y buenas prácticas) sobre las rutas de tienda, cuenta, auth y administración en claro y oscuro sin violaciones pendientes. Para repetirla, inyecta `https://cdn.jsdelivr.net/npm/axe-core` en la página del dev server y ejecuta `axe.run()` en cada ruta; hazlo al añadir pantallas nuevas. Reglas que se cumplen: un `h1` por página, landmarks (`main`, `aside`, `region` con nombre), contraste AA en ambos temas, `alt=""` en imágenes decorativas.

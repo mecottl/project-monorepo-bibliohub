@@ -22,7 +22,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-morado);
+  color: var(--color-morado-texto);
 }
 
 .tienda-home__heading {

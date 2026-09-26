@@ -1,6 +1,6 @@
 .book-card {
   position: relative;
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--border-radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -86,7 +86,7 @@
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.9);
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   display: flex;
   align-items: center;
   justify-content: center;

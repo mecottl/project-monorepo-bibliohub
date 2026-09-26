@@ -14,7 +14,7 @@
   align-items: flex-end;
   gap: 12px 16px;
   padding: 14px 16px;
-  background: white;
+  background: var(--color-superficie);
   border: 1px solid var(--color-beige);
   border-radius: var(--border-radius-md);
   font-family: var(--font-ui);
@@ -35,7 +35,7 @@
   font: inherit;
   font-weight: 400;
   color: var(--color-negro-suave);
-  background: white;
+  background: var(--color-superficie);
 }
 .hist__buscar {
   flex: 1;
@@ -57,7 +57,7 @@
 }
 .hist__error {
   margin: 0;
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
 }
 .hist__vacio {
@@ -86,7 +86,7 @@
   gap: 16px;
   padding: 24px;
   overflow-y: auto;
-  background: white;
+  background: var(--color-superficie);
   box-shadow: var(--shadow-modal);
   font-family: var(--font-ui);
 }
@@ -117,16 +117,16 @@
   margin-right: 8px;
 }
 .hist__insignia--completada {
-  background: #e9f5ee;
-  color: #1f7a3d;
+  background: var(--color-exito-fondo);
+  color: var(--color-exito-texto);
 }
 .hist__insignia--en_proceso {
-  background: #fdf1df;
-  color: #a05a00;
+  background: var(--color-aviso-fondo);
+  color: var(--color-aviso-texto);
 }
 .hist__insignia--cancelada {
-  background: #fbe7e5;
-  color: #b3261e;
+  background: var(--color-error-fondo);
+  color: var(--color-error-texto);
 }
 .hist__canal {
   font-size: 12px;
@@ -206,6 +206,6 @@
   text-decoration: none;
 }
 .hist__peligro {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   border-color: var(--color-error);
 }

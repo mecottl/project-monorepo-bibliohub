@@ -27,7 +27,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -47,7 +47,7 @@
   padding: 6px 14px;
   border: 1.5px solid var(--color-beige);
   border-radius: 999px;
-  background: white;
+  background: var(--color-superficie);
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 600;
@@ -60,9 +60,9 @@
 }
 
 .libros-listado__chip.is-activo {
-  border-color: #a05a00;
-  background: #fdf1df;
-  color: #a05a00;
+  border-color: var(--color-aviso-texto);
+  background: var(--color-aviso-fondo);
+  color: var(--color-aviso-texto);
 }
 
 .libros-listado__conteo {

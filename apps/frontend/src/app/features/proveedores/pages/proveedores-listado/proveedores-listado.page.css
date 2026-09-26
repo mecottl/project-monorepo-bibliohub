@@ -30,7 +30,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -50,7 +50,7 @@
 }
 
 .proveedores-listado__modal {
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--border-radius-lg);
   padding: 28px;
   max-width: 480px;
@@ -69,7 +69,7 @@
 }
 
 .proveedores-listado__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
   margin: 0;
 }

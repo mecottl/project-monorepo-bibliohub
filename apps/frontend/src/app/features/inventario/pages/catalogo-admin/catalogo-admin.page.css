@@ -5,7 +5,7 @@
 }
 
 .catalogo-admin__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
 }
 
@@ -60,7 +60,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   cursor: pointer;
 }
 

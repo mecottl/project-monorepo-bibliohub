@@ -138,7 +138,7 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       align-items: flex-end;
       gap: 14px 20px;
       padding: 14px 16px;
-      background: white;
+      background: var(--color-superficie);
       border: 1px solid var(--color-beige);
       border-radius: var(--border-radius-md);
       font-family: var(--font-ui);
@@ -159,7 +159,7 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       font: inherit;
       font-weight: 400;
       color: var(--color-negro-suave);
-      background: white;
+      background: var(--color-superficie);
     }
     .filtros select:focus,
     .filtros input:focus-visible {
@@ -187,7 +187,7 @@ export function filtrosAApi(f: FiltrosCatalogo) {
       padding: 8px 12px;
       border: none;
       background: none;
-      color: var(--color-cafe-medio);
+      color: var(--color-acento-texto);
       font: inherit;
       font-weight: 600;
       cursor: pointer;

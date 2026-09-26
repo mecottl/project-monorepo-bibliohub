@@ -9,7 +9,7 @@
 }
 
 .confirm-modal {
-  background: white;
+  background: var(--color-superficie);
   border-radius: var(--border-radius-lg);
   padding: 28px;
   max-width: 400px;

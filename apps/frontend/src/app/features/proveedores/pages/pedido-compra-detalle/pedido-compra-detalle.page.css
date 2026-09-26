@@ -18,7 +18,7 @@
 
 .pedido-compra-detalle__volver {
   font-size: 13px;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   text-decoration: none;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .pedido-compra-detalle__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
 }
 

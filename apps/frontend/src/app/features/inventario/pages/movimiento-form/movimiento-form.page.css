@@ -15,7 +15,7 @@
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   text-decoration: none;
 }
 
@@ -44,7 +44,7 @@
 .mov__libro,
 .mov__form,
 .mov__historial {
-  background: white;
+  background: var(--color-superficie);
   border: 1px solid var(--color-beige);
   border-radius: var(--border-radius-lg);
   box-shadow: 0 1px 2px rgba(60, 40, 20, 0.04);
@@ -138,13 +138,13 @@
   gap: 2px;
   padding: 14px;
   border-radius: var(--border-radius-md);
-  background: #e9f5ee;
-  color: #1f7a3d;
+  background: var(--color-exito-fondo);
+  color: var(--color-exito-texto);
 }
 
 .mov__stock.is-bajo {
-  background: #fdf1df;
-  color: #a05a00;
+  background: var(--color-aviso-fondo);
+  color: var(--color-aviso-texto);
 }
 
 .mov__stock-label {
@@ -213,7 +213,7 @@
   padding: 14px 8px;
   border: 1.5px solid var(--color-beige);
   border-radius: var(--border-radius-md);
-  background: white;
+  background: var(--color-superficie);
   font-family: var(--font-ui);
   cursor: pointer;
   transition:
@@ -243,22 +243,22 @@
 }
 
 .mov__tipo--entrada .mov__tipo-simbolo {
-  color: #1f7a3d;
+  color: var(--color-exito-texto);
 }
 .mov__tipo--salida .mov__tipo-simbolo {
-  color: #b3261e;
+  color: var(--color-error-texto);
 }
 .mov__tipo--ajuste .mov__tipo-simbolo {
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
 }
 
 .mov__tipo--entrada.is-activo {
-  border-color: #1f7a3d;
-  background: #e9f5ee;
+  border-color: var(--color-exito-texto);
+  background: var(--color-exito-fondo);
 }
 .mov__tipo--salida.is-activo {
-  border-color: #b3261e;
-  background: #fbe7e5;
+  border-color: var(--color-error-texto);
+  background: var(--color-error-fondo);
 }
 .mov__tipo--ajuste.is-activo {
   border-color: var(--color-cafe-medio);
@@ -310,7 +310,7 @@
 }
 
 .mov__stepper input:focus {
-  background: #fffaf3;
+  background: var(--color-superficie-suave);
 }
 
 .mov__ayuda {
@@ -337,11 +337,11 @@
 }
 
 .mov__resultado.is-aviso {
-  background: #fdf1df;
+  background: var(--color-aviso-fondo);
 }
 
 .mov__resultado.is-negativo {
-  background: #fbe7e5;
+  background: var(--color-error-fondo);
 }
 
 .mov__flujo {
@@ -357,11 +357,11 @@
 }
 
 .mov__delta--pos {
-  color: #1f7a3d;
+  color: var(--color-exito-texto);
   font-weight: 600;
 }
 .mov__delta--neg {
-  color: #b3261e;
+  color: var(--color-error-texto);
   font-weight: 600;
 }
 
@@ -369,11 +369,11 @@
   flex-basis: 100%;
   font-size: 12px;
   font-weight: 600;
-  color: #a05a00;
+  color: var(--color-aviso-texto);
 }
 
 .mov__resultado.is-negativo .mov__alerta {
-  color: #b3261e;
+  color: var(--color-error-texto);
 }
 
 /* Motivo */
@@ -402,7 +402,7 @@
   padding: 5px 12px;
   border: 1px solid var(--color-beige);
   border-radius: 999px;
-  background: white;
+  background: var(--color-superficie);
   font-family: var(--font-ui);
   font-size: 12px;
   color: var(--color-gris-oscuro);
@@ -416,7 +416,7 @@
 
 .mov__error {
   margin: 0;
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 13px;
 }
 
@@ -424,8 +424,8 @@
   margin: 0;
   padding: 10px 14px;
   border-radius: var(--border-radius-sm);
-  background: #e9f5ee;
-  color: #1f7a3d;
+  background: var(--color-exito-fondo);
+  color: var(--color-exito-texto);
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 600;
@@ -496,12 +496,12 @@
 }
 
 .mov__badge--entrada {
-  background: #e9f5ee;
-  color: #1f7a3d;
+  background: var(--color-exito-fondo);
+  color: var(--color-exito-texto);
 }
 .mov__badge--salida {
-  background: #fbe7e5;
-  color: #b3261e;
+  background: var(--color-error-fondo);
+  color: var(--color-error-texto);
 }
 .mov__badge--ajuste {
   background: var(--color-crema);

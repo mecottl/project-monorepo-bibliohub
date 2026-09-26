@@ -16,6 +16,7 @@ import { CarritoService } from '@domain/carrito/carrito.service';
 import { PedidosService } from '@domain/pedidos/pedidos.service';
 import { CuentaService } from '@domain/cuenta/cuenta.service';
 import { DireccionEntrega, TipoEntrega, TotalesCheckout } from '@domain/pedidos/pedido.model';
+import { token, esOscuro } from '@core/theme/theme.service';
 
 type Paso = 1 | 2 | 3;
 
@@ -197,11 +198,11 @@ export class CarritoCheckoutPage {
     this.elements = this.stripe.elements({
       clientSecret,
       appearance: {
-        theme: 'stripe',
+        theme: esOscuro() ? 'night' : 'stripe',
         variables: {
-          colorPrimary: '#9c6b43',
-          colorBackground: '#ffffff',
-          colorText: '#3a3128',
+          colorPrimary: token('--color-cafe-medio'),
+          colorBackground: token('--color-superficie'),
+          colorText: token('--color-negro-suave'),
           fontFamily: 'inherit',
           borderRadius: '8px',
         },

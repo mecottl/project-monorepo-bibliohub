@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 import { aplicarTemaTremor } from '@shared/ui/chart/tremor-theme';
+import { ThemeService } from '@core/theme/theme.service';
 
 @Component({
   selector: 'app-chart',
@@ -22,6 +23,8 @@ export class ChartComponent implements AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
+  private readonly tema = inject(ThemeService);
+
   config = input.required<ChartConfiguration>();
 
   private chart: Chart | null = null;
@@ -30,6 +33,7 @@ export class ChartComponent implements AfterViewInit {
   constructor() {
     effect(() => {
       const config = this.config();
+      this.tema.tema(); // re-dibuja al cambiar de tema
       if (this.vistaLista) {
         this.render(config);
       }

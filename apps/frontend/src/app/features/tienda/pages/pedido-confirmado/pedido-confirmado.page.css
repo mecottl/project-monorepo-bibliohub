@@ -13,7 +13,7 @@
   height: 72px;
   border-radius: 50%;
   background: var(--color-cafe-medio);
-  color: white;
+  color: var(--color-sobre-acento);
   display: flex;
   align-items: center;
   justify-content: center;

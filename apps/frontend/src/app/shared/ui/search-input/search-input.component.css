@@ -4,7 +4,7 @@
   align-items: center;
   width: 100%;
   max-width: var(--search-input-max-width, 320px);
-  background: var(--search-input-bg, white);
+  background: var(--search-input-bg, var(--color-superficie));
   border-radius: 999px;
   box-shadow: var(--search-input-shadow, var(--shadow-card));
 }

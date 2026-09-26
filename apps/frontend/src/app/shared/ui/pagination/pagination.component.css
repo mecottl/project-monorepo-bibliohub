@@ -10,7 +10,7 @@
   padding: 8px 16px;
   border: 1px solid var(--color-beige);
   border-radius: var(--border-radius-sm);
-  background: white;
+  background: var(--color-superficie);
   font-family: var(--font-ui);
   font-size: 13px;
   color: var(--color-negro-suave);

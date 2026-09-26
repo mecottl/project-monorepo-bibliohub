@@ -23,6 +23,7 @@
 
   @if (mostrarAdminChrome()) {
     <div class="topbar__actions">
+      <app-theme-toggle />
       @if (auth.currentUser(); as user) {
         <span class="topbar__user-chip">
           <span class="topbar__avatar" aria-hidden="true">
@@ -37,6 +38,7 @@
     </div>
   } @else {
     <div class="topbar__actions">
+      <app-theme-toggle />
       <a routerLink="/carrito" class="topbar__icon-btn topbar__cart-btn" aria-label="Carrito">
         <svg-carrito />
         @if (carritoService.carrito().totalItems > 0) {

@@ -15,7 +15,7 @@
     "
     (click)="brandClick.emit()"
   >
-    <app-logo />
+    <app-logo [decorativo]="true" [sobreOscuro]="tema.esOscuro()" />
     <span class="sidebar__brand-name font-display">BiblioHub</span>
   </button>
 

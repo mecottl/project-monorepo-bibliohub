@@ -6,7 +6,7 @@
 }
 
 .pedido-compra-form__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
 }
 
@@ -64,7 +64,7 @@
   width: 100%;
   text-align: left;
   padding: 10px 12px;
-  background: white;
+  background: var(--color-superficie);
   border: none;
   border-bottom: 1px solid var(--color-beige);
   cursor: pointer;
@@ -103,7 +103,7 @@
 .pedido-compra-form__quitar {
   background: none;
   border: none;
-  color: var(--color-error);
+  color: var(--color-error-texto);
   cursor: pointer;
   font-size: 13px;
 }

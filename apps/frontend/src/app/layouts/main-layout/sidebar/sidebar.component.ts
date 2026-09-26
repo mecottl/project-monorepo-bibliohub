@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/auth/auth.service';
+import { ThemeService } from '@core/theme/theme.service';
 import { LogoComponent } from '@shared/ui/logo/logo.component';
 import { DashboardIconComponent } from '@shared/icons/dashboard-icon.component';
 import { InventarioIconComponent } from '@shared/icons/inventario-icon.component';
@@ -46,6 +47,7 @@ import { LogoutIconComponent } from '@shared/icons/logout-icon.component';
 })
 export class SidebarComponent {
   auth = inject(AuthService);
+  tema = inject(ThemeService);
 
   mostrarAdminChrome = input.required<boolean>();
   readonly enlacesCuenta = [

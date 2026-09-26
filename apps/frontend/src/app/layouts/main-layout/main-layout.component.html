@@ -13,7 +13,7 @@
 
   <div class="main-layout__main">
     @if (auth.isAdmin() && vistaCliente()) {
-      <div class="main-layout__preview-banner">
+      <div class="main-layout__preview-banner" role="region" aria-label="Vista de cliente">
         Estás viendo la tienda como la ve un cliente.
         <button type="button" (click)="onLogoClick()">Volver al panel de administración</button>
       </div>

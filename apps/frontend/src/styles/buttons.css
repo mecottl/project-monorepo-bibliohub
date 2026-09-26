@@ -1,6 +1,6 @@
 .btn-primary {
   background: var(--color-cafe-medio);
-  color: white;
+  color: var(--color-sobre-acento);
   border: none;
   padding: 10px 20px;
   border-radius: var(--border-radius-sm);
@@ -17,7 +17,7 @@
 }
 
 .btn-primary:active {
-  background: var(--color-cafe-oscuro);
+  background: var(--color-cafe-oscuro-fondo);
 }
 
 .btn-primary:disabled {
@@ -28,7 +28,7 @@
 .btn-outline {
   background: transparent;
   border: 1.5px solid var(--color-cafe-medio);
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   padding: 9px 20px;
   border-radius: var(--border-radius-sm);
   font-family: var(--font-ui);
@@ -44,7 +44,7 @@
 
 .btn-danger {
   background: var(--color-error);
-  color: white;
+  color: var(--color-sobre-acento);
   border: none;
   padding: 10px 20px;
   border-radius: var(--border-radius-sm);

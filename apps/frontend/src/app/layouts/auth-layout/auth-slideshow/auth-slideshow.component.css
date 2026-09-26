@@ -116,7 +116,7 @@
 .slideshow__dot-fill {
   position: absolute;
   inset: 0;
-  background: white;
+  background: var(--color-superficie);
   transform-origin: left;
   animation-name: slideshow-fill;
   animation-timing-function: linear;

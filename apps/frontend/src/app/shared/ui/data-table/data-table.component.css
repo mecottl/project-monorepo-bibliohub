@@ -71,7 +71,7 @@
 }
 
 .cell-danger {
-  color: var(--color-error);
+  color: var(--color-error-texto);
 }
 
 .cell-danger::before {

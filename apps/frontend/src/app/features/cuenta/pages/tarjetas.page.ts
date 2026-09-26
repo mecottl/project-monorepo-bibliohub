@@ -9,6 +9,7 @@ import {
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import { STRIPE_PUBLISHABLE_KEY } from '@core/api.config';
 import { CuentaService, TarjetaGuardada } from '@domain/cuenta/cuenta.service';
+import { token, esOscuro } from '@core/theme/theme.service';
 
 @Component({
   selector: 'app-cuenta-tarjetas',
@@ -106,10 +107,10 @@ export class TarjetasPage {
     this.elements = this.stripe.elements({
       clientSecret,
       appearance: {
-        theme: 'stripe',
+        theme: esOscuro() ? 'night' : 'stripe',
         variables: {
-          colorPrimary: '#9c6b43',
-          colorText: '#3a3128',
+          colorPrimary: token('--color-cafe-medio'),
+          colorText: token('--color-negro-suave'),
           fontFamily: 'inherit',
           borderRadius: '8px',
         },

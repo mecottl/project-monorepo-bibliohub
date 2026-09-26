@@ -39,12 +39,12 @@
 
 .carrito-checkout__stepper li.is-active .carrito-checkout__step-numero {
   background: var(--color-cafe-medio);
-  color: white;
+  color: var(--color-sobre-acento);
 }
 
 .carrito-checkout__stepper li.is-done .carrito-checkout__step-numero {
   background: var(--color-cafe-claro);
-  color: white;
+  color: var(--color-sobre-acento);
 }
 
 .carrito-checkout__step-label {
@@ -143,7 +143,7 @@
   height: 28px;
   border-radius: 50%;
   border: 1px solid var(--color-beige);
-  background: white;
+  background: var(--color-superficie);
   cursor: pointer;
   font-size: 16px;
   line-height: 1;
@@ -206,7 +206,7 @@
   padding: 12px;
   border: 1px solid var(--color-beige);
   border-radius: var(--border-radius-sm);
-  background: white;
+  background: var(--color-superficie);
   cursor: pointer;
   font-family: var(--font-ui);
   font-weight: 600;
@@ -240,7 +240,7 @@
   align-self: flex-start;
   background: none;
   border: none;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   font-weight: 600;
   cursor: pointer;
   padding: 0;
@@ -293,7 +293,7 @@
 }
 
 .carrito-checkout__error {
-  color: var(--color-error);
+  color: var(--color-error-texto);
   font-size: 14px;
 }
 
@@ -333,7 +333,7 @@
   border: 1.5px solid var(--color-beige);
   border-radius: var(--border-radius-sm);
   overflow: hidden;
-  background: white;
+  background: var(--color-superficie);
 }
 .puntos-uso__stepper button {
   width: 34px;
@@ -361,11 +361,11 @@
   padding: 0;
   font: inherit;
   font-weight: 600;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   text-decoration: underline;
   cursor: pointer;
 }
 .puntos-uso__descuento {
   font-weight: 700;
-  color: #1f7a3d;
+  color: var(--color-exito-texto);
 }

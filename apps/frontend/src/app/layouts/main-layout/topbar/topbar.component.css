@@ -9,7 +9,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 0 32px;
-  background: white;
+  background: var(--color-superficie);
   border-bottom: 1px solid var(--color-beige);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
 }
@@ -63,7 +63,7 @@
   font-family: var(--font-ui);
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   cursor: pointer;
   padding: 6px 4px;
   transition: color 0.15s ease;
@@ -93,7 +93,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   display: flex;
   align-items: center;
   padding: 8px;
@@ -120,8 +120,8 @@
   height: 16px;
   padding: 0 4px;
   border-radius: 999px;
-  background: var(--color-cafe-oscuro);
-  color: white;
+  background: var(--color-cafe-oscuro-fondo);
+  color: var(--color-sobre-acento);
   font-size: 10px;
   font-weight: 700;
   display: flex;
@@ -169,7 +169,7 @@
   height: 32px;
   border-radius: 50%;
   overflow: hidden;
-  color: var(--color-cafe-medio);
+  color: var(--color-acento-texto);
   background: var(--color-crema);
   display: flex;
   align-items: center;

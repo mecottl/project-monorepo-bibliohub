@@ -108,7 +108,7 @@ const FILTROS: (EstadoPedidoLinea | 'activos')[] = [
   styles: `
     .btn-outline.is-active {
       background: var(--color-cafe-medio);
-      color: white;
+      color: var(--color-sobre-acento);
     }
     .pedido-items {
       margin: 0;
