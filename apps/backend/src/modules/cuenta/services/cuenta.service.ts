@@ -1,3 +1,4 @@
+import { StripeService } from '@infra/stripe/stripe.service';
 import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
 import { CONFIG } from '@modules/configuracion/config-claves';
 import {
@@ -9,7 +10,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import Stripe from 'stripe';
 import { Cliente } from '@modules/clientes/entities/cliente.entity';
 import { TransaccionPuntos } from '@modules/clientes/entities/transaccion-puntos.entity';
 import { Sesion } from '@modules/auth/entities/sesion.entity';
@@ -37,13 +37,12 @@ export interface TarjetaGuardada {
 
 @Injectable()
 export class CuentaService {
-  private stripeClient: Stripe | null = null;
-
   constructor(
     @InjectRepository(Cliente) private readonly clienteRepo: Repository<Cliente>,
     @InjectRepository(TransaccionPuntos)
     private readonly puntosRepo: Repository<TransaccionPuntos>,
     private readonly configuracion: ConfiguracionService,
+    private readonly stripe: StripeService,
     @InjectRepository(Venta) private readonly ventaRepo: Repository<Venta>,
     @InjectRepository(Sesion) private readonly sesionRepo: Repository<Sesion>,
   ) {}
@@ -174,7 +173,7 @@ export class CuentaService {
 
   async iniciarGuardadoTarjeta(clienteId: string): Promise<{ clientSecret: string }> {
     const customerId = await this.obtenerOCrearCustomer(clienteId);
-    const setupIntent = await this.stripe().setupIntents.create({
+    const setupIntent = await this.stripe.api.setupIntents.create({
       customer: customerId,
       payment_method_types: ['card'],
     });
@@ -188,7 +187,7 @@ export class CuentaService {
     const { stripeCustomerId } = await this.buscar(clienteId);
     if (!stripeCustomerId) return [];
 
-    const metodos = await this.stripe().paymentMethods.list({
+    const metodos = await this.stripe.api.paymentMethods.list({
       customer: stripeCustomerId,
       type: 'card',
     });
@@ -203,14 +202,14 @@ export class CuentaService {
 
   async eliminarTarjeta(clienteId: string, metodoId: string): Promise<{ message: string }> {
     const { stripeCustomerId } = await this.buscar(clienteId);
-    const metodo = await this.stripe().paymentMethods.retrieve(metodoId);
+    const metodo = await this.stripe.api.paymentMethods.retrieve(metodoId);
 
     // Solo se puede quitar una tarjeta que cuelgue del Customer de este cliente.
     if (!stripeCustomerId || metodo.customer !== stripeCustomerId) {
       throw new NotFoundException('Tarjeta no encontrada');
     }
 
-    await this.stripe().paymentMethods.detach(metodoId);
+    await this.stripe.api.paymentMethods.detach(metodoId);
     return { message: 'Tarjeta eliminada.' };
   }
 
@@ -218,7 +217,7 @@ export class CuentaService {
     const cliente = await this.buscar(clienteId);
     if (cliente.stripeCustomerId) return cliente.stripeCustomerId;
 
-    const customer = await this.stripe().customers.create({
+    const customer = await this.stripe.api.customers.create({
       name: cliente.nombre ?? undefined,
       email: cliente.email ?? undefined,
       phone: cliente.telefono,
@@ -245,16 +244,5 @@ export class CuentaService {
       puntosSaldo: cliente.puntosSaldo,
       fechaRegistro: cliente.fechaRegistro,
     };
-  }
-
-  private stripe(): Stripe {
-    if (!this.stripeClient) {
-      const apiKey = process.env.STRIPE_SECRET_KEY;
-      if (!apiKey) {
-        throw new BadRequestException('Stripe no está configurado todavía (falta STRIPE_SECRET_KEY)');
-      }
-      this.stripeClient = new Stripe(apiKey);
-    }
-    return this.stripeClient;
   }
 }

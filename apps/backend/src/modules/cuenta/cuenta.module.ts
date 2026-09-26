@@ -1,3 +1,4 @@
+import { StripeModule } from '@infra/stripe/stripe.module';
 import { ConfiguracionModule } from '@modules/configuracion/configuracion.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -10,7 +11,8 @@ import { CuentaService } from './services/cuenta.service';
 
 @Module({
   imports: [
-    ConfiguracionModule,TypeOrmModule.forFeature([Cliente, TransaccionPuntos, Venta, Sesion])],
+    ConfiguracionModule,
+    StripeModule,TypeOrmModule.forFeature([Cliente, TransaccionPuntos, Venta, Sesion])],
   controllers: [CuentaController],
   providers: [CuentaService],
 })

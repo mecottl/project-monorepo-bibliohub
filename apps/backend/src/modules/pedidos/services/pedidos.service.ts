@@ -1,3 +1,4 @@
+import { StripeService } from '@infra/stripe/stripe.service';
 import { ConfiguracionService } from '@modules/configuracion/services/configuracion.service';
 import { CONFIG } from '@modules/configuracion/config-claves';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
@@ -18,8 +19,6 @@ import { IniciarCheckoutResult, TotalesCheckout } from '../interfaces/pedidos.in
 
 @Injectable()
 export class PedidosService {
-  private stripeClient: Stripe | null = null;
-
   constructor(
     @InjectRepository(DireccionEntrega)
     private readonly direccionRepository: Repository<DireccionEntrega>,
@@ -32,6 +31,7 @@ export class PedidosService {
     @InjectRepository(PedidoLinea)
     private readonly pedidoRepository: Repository<PedidoLinea>,
     private readonly configuracion: ConfiguracionService,
+    private readonly stripe: StripeService,
     private readonly dataSource: DataSource,
   ) {}
 
@@ -126,7 +126,7 @@ export class PedidosService {
       throw new BadRequestException('El total del pedido debe ser mayor a cero');
     }
 
-    const paymentIntent = await this.stripe().paymentIntents.create({
+    const paymentIntent = await this.stripe.api.paymentIntents.create({
       amount: Math.round(totales.total * 100),
       currency: 'mxn',
       metadata: {
@@ -205,19 +205,7 @@ export class PedidosService {
   // --- Webhook de Stripe ---
 
   async manejarWebhook(rawBody: Buffer, firma: string): Promise<void> {
-    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-    if (!webhookSecret) {
-      throw new BadRequestException('STRIPE_WEBHOOK_SECRET no está configurado');
-    }
-
-    let evento: Stripe.Event;
-    try {
-      evento = this.stripe().webhooks.constructEvent(rawBody, firma, webhookSecret);
-    } catch (error) {
-      throw new BadRequestException(
-        `Firma de webhook inválida: ${error instanceof Error ? error.message : 'error desconocido'}`,
-      );
-    }
+    const evento = this.stripe.construirEvento(rawBody, firma);
 
     if (evento.type !== 'payment_intent.succeeded') {
       return;
@@ -229,7 +217,7 @@ export class PedidosService {
   // Alternativa al webhook (que requiere stripe listen / URL pública): el
   // frontend avisa al terminar el pago y se verifica directo con Stripe.
   async confirmarPago(clienteId: string, paymentIntentId: string): Promise<{ pedidoId: string | null }> {
-    const paymentIntent = await this.stripe().paymentIntents.retrieve(paymentIntentId);
+    const paymentIntent = await this.stripe.api.paymentIntents.retrieve(paymentIntentId);
     if (paymentIntent.metadata.clienteId !== clienteId) {
       throw new BadRequestException('El pago no corresponde a este cliente');
     }
@@ -356,7 +344,7 @@ export class PedidosService {
   private async cancelarPedido(pedido: PedidoLinea): Promise<void> {
     let estadoPago = pedido.estadoPago;
     if (pedido.stripePaymentIntentId && pedido.estadoPago === 'pagado') {
-      await this.stripe().refunds.create(
+      await this.stripe.api.refunds.create(
         { payment_intent: pedido.stripePaymentIntentId },
         { idempotencyKey: `reembolso-${pedido.id}` },
       );
@@ -392,18 +380,5 @@ export class PedidosService {
         };
       }),
     };
-  }
-
-  private stripe(): Stripe {
-    if (!this.stripeClient) {
-      const apiKey = process.env.STRIPE_SECRET_KEY;
-      if (!apiKey) {
-        throw new BadRequestException(
-          'Stripe no está configurado todavía (falta STRIPE_SECRET_KEY)',
-        );
-      }
-      this.stripeClient = new Stripe(apiKey);
-    }
-    return this.stripeClient;
   }
 }

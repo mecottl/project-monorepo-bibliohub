@@ -1,3 +1,4 @@
+import { StripeModule } from '@infra/stripe/stripe.module';
 import { ConfiguracionModule } from '@modules/configuracion/configuracion.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +13,7 @@ import { PedidosService } from './services/pedidos.service';
 @Module({
   imports: [
     ConfiguracionModule,
+    StripeModule,
     TypeOrmModule.forFeature([
       DireccionEntrega,
       Carrito,
