@@ -18,6 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "lint:check": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "migrar": "node --env-file=.env scripts/migrar.mjs",
+    "migrar:estado": "node --env-file=.env scripts/migrar.mjs estado",
+    "migrar:baseline": "node --env-file=.env scripts/migrar.mjs baseline",
+    "db:dump": "node --env-file=.env scripts/volcar-esquema.mjs",
     "rellenar-portadas": "node --env-file=.env scripts/rellenar-portadas.mjs"
   },
   "dependencies": {

@@ -96,3 +96,13 @@ ESLint (`no-restricted-imports`) impide importar `controllers/`, `dto/` o `inter
 ## Reglas de dinero y puntos
 
 El cálculo de totales de un pedido en línea vive solo en SQL: `calcular_totales_pedido()` (solo lectura) la usan la vista previa del checkout (`CheckoutService`) y `confirmar_pedido_linea()`. No lo repliques en TypeScript. `pnpm test:e2e` incluye `test/paridad-sql.e2e-spec.ts`, que prueba estas funciones, `confirmar_venta_pos()` y `cancelar_venta()` dentro de transacciones que se revierten (requiere la base del `.env`).
+
+## Migraciones de base de datos
+
+Archivos SQL en `apps/backend/migrations/` (`AAAA-MM-DD_nombre.sql`), con tabla de control `schema_migrations` (nombre + checksum).
+
+- `pnpm --filter backend migrar` aplica las pendientes en orden, cada una en su transacción; `migrar:estado` las lista.
+- Una migración ya aplicada no se edita (el script falla si cambia su checksum): agrega una nueva.
+- Base nueva: cargar `db/bibliohub_estructura.sql` y correr `migrar:baseline` (marca las existentes como aplicadas).
+- Tras migrar, regenerar el volcado: `pnpm --filter backend db:dump` (necesita `pg_dump` en el PATH o `PG_DUMP=ruta`).
+- Las migraciones deben ser reproducibles; las funciones se definen con `CREATE OR REPLACE`.

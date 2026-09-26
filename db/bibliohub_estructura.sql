@@ -1221,6 +1221,17 @@ CREATE VIEW public.rendimiento_empleados AS
 
 
 --
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.schema_migrations (
+    nombre text NOT NULL,
+    checksum text NOT NULL,
+    aplicada_en timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
 -- Name: sesion; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1575,6 +1586,14 @@ ALTER TABLE ONLY public.recuperacion_password
 
 ALTER TABLE ONLY public.recuperacion_password
     ADD CONSTRAINT recuperacion_password_token_hash_key UNIQUE (token_hash);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (nombre);
 
 
 --
