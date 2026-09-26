@@ -1,0 +1,11 @@
+node_modules
+dist
+.angular
+pnpm-lock.yaml
+*.sql
+apps/frontend/public
+apps/frontend/design
+apps/backend/uploads
+apps/backend/migrations
+apps/backend/seed
+db

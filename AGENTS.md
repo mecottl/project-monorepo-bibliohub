@@ -46,3 +46,8 @@ específica — síguelo tal cual, no lo reinterpretes.
 
 `apps/backend/seed/proveedores.sql` carga proveedores y órdenes de compra de ejemplo (idempotente; no
 modifica el stock). Ejecutar con `PGCLIENTENCODING=UTF8 psql ... -f apps/backend/seed/proveedores.sql`.
+
+## Formato y finales de línea
+
+El repo usa LF (`.gitattributes`), `.editorconfig` y una única configuración de Prettier en la raíz
+(`.prettierrc.json`). `pnpm format` formatea y `pnpm format:check` verifica (pendiente enlazarlo al CI, #17).
