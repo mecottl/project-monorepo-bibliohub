@@ -16,12 +16,10 @@ function crear(opciones: { existente?: { id: string } | null; eventoTipo?: strin
   };
   const dataSource = { query: jest.fn().mockResolvedValue([{ id: 'pedido-1' }]) };
   const stripe = {
-    construirEvento: jest
-      .fn()
-      .mockReturnValue({
-        type: opciones.eventoTipo ?? 'payment_intent.succeeded',
-        data: { object: intent },
-      }),
+    construirEvento: jest.fn().mockReturnValue({
+      type: opciones.eventoTipo ?? 'payment_intent.succeeded',
+      data: { object: intent },
+    }),
     api: { paymentIntents: { retrieve: jest.fn().mockResolvedValue(intent) } },
   };
   const servicio = new CheckoutService(

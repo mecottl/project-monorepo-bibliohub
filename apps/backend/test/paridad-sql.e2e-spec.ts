@@ -29,7 +29,11 @@ describe('Reglas de dinero y puntos (SQL)', () => {
   };
 
   const config = (clave: string, valor: string) =>
-    q('UPDATE configuracion SET valor = $2 WHERE clave = $1', [clave, valor]);
+    q(
+      `INSERT INTO configuracion (clave, valor, tipo_dato) VALUES ($1, $2, 'numeric')
+       ON CONFLICT (clave) DO UPDATE SET valor = EXCLUDED.valor`,
+      [clave, valor],
+    );
 
   const totales = async (tipo: string, puntos: number) => {
     const [t] = await q('SELECT * FROM calcular_totales_pedido($1, $2, $3)', [clienteId, tipo, puntos]);

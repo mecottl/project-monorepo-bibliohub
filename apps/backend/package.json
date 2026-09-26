@@ -23,7 +23,8 @@
     "migrar:estado": "node --env-file=.env scripts/migrar.mjs estado",
     "migrar:baseline": "node --env-file=.env scripts/migrar.mjs baseline",
     "db:dump": "node --env-file=.env scripts/volcar-esquema.mjs",
-    "rellenar-portadas": "node --env-file=.env scripts/rellenar-portadas.mjs"
+    "rellenar-portadas": "node --env-file=.env scripts/rellenar-portadas.mjs",
+    "test:ci": "jest"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

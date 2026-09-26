@@ -8,13 +8,20 @@
     "dev:back": "pnpm --filter backend start:dev",
     "dev": "pnpm -w run \"/^dev:.+/\"",
     "format": "prettier --write \"apps/*/src/**/*.{ts,html,css}\"",
-    "format:check": "prettier --check \"apps/*/src/**/*.{ts,html,css}\""
+    "format:check": "prettier --check \"apps/*/src/**/*.{ts,html,css}\"",
+    "build": "nx run-many -t build",
+    "lint": "nx run-many -t lint:check",
+    "test": "nx run-many -t test:ci",
+    "test:e2e": "nx run backend:test:e2e",
+    "graph": "nx graph",
+    "affected": "nx affected -t build lint:check test:ci"
   },
   "keywords": [],
   "author": "",
   "license": "AGPL-3.0-only",
   "packageManager": "pnpm@10.23.0",
   "devDependencies": {
+    "nx": "^23.2.1",
     "prettier": "^3.8.4"
   }
 }

@@ -51,3 +51,11 @@ modifica el stock). Ejecutar con `PGCLIENTENCODING=UTF8 psql ... -f apps/backend
 
 El repo usa LF (`.gitattributes`), `.editorconfig` y una única configuración de Prettier en la raíz
 (`.prettierrc.json`). `pnpm format` formatea y `pnpm format:check` verifica (pendiente enlazarlo al CI, #17).
+
+## Nx y CI
+
+El monorepo usa Nx sobre pnpm workspaces (`nx.json`; los proyectos y sus targets se infieren de los `package.json`). Caché local de `build`, `lint` y `test`.
+
+- `pnpm build`, `pnpm lint` (solo verifica, sin `--fix`), `pnpm test` (unitarias) y `pnpm test:e2e` (backend, requiere PostgreSQL) corren con `nx run-many`; `pnpm affected` ejecuta solo lo afectado; `pnpm graph` muestra el grafo.
+- No se usa `@nx/enforce-module-boundaries`: los límites entre capas ya se imponen con `no-restricted-imports` en cada app (más simple y sin dependencias extra). Tampoco hay `libs/` compartidas aún; se evaluará si aparecen tipos duplicados entre frontend y backend.
+- CI (`.github/workflows/ci.yml`, en cada PR y push a `main`): format:check, lint, build, pruebas unitarias, carga del esquema en un PostgreSQL de servicio, línea base de migraciones y `test:e2e`. Para reproducirlo localmente basta con esos mismos comandos.
