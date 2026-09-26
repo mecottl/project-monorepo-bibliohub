@@ -72,7 +72,7 @@ export class CreateLibroDto {
 
   @ApiPropertyOptional({
     example: 'La historia de la familia Buendía a lo largo de siete generaciones...',
-    maxLength: 2000
+    maxLength: 2000,
   })
   @IsOptional()
   @IsString()

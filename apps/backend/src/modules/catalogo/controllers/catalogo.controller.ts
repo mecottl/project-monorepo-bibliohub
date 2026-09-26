@@ -19,7 +19,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiConsumes } from '@nestjs/swagger';
 import type { Request } from 'express';
 import { Public } from '@common/auth/public.decorator';
-import { CatalogoService } from '../services/catalogo.service';
+import { LibrosService } from '../services/libros.service';
+import { AutoresEditorialesService } from '../services/autores-editoriales.service';
+import { CategoriasService } from '../services/categorias.service';
 import { QueryLibroDto } from '../dto/query-libro.dto';
 import { Roles } from '@common/auth/roles.decorator';
 import { CreateLibroDto } from '../dto/create-libro.dto';
@@ -36,40 +38,40 @@ const TAMANO_MAXIMO_PORTADA = 2 * 1024 * 1024; // 2MB
 @ApiTags('catalogo')
 @Controller('catalogo')
 export class CatalogoController {
-  constructor(private readonly catalogoService: CatalogoService) {}
+  constructor(
+    private readonly librosService: LibrosService,
+    private readonly autoresEditorialesService: AutoresEditorialesService,
+    private readonly categoriasService: CategoriasService,
+  ) {}
 
   @Public()
   @Get('libros')
   findAll(@Query() query: QueryLibroDto, @Req() req: Request) {
-    return this.catalogoService.findAll(query, this.baseUrl(req));
+    return this.librosService.findAll(query, this.baseUrl(req));
   }
 
   @Public()
   @Get('libros/:id')
   findOne(@Param('id') id: string, @Req() req: Request) {
-    return this.catalogoService.findOne(id, this.baseUrl(req));
+    return this.librosService.findOne(id, this.baseUrl(req));
   }
 
   @Roles('admin')
   @Post('libros')
   create(@Body() dto: CreateLibroDto, @Req() req: Request) {
-    return this.catalogoService.create(dto, this.baseUrl(req));
+    return this.librosService.create(dto, this.baseUrl(req));
   }
 
   @Roles('admin')
   @Patch('libros/:id')
-  update(
-    @Param('id') id: string,
-    @Body() dto: UpdateLibroDto,
-    @Req() req: Request,
-  ) {
-    return this.catalogoService.update(id, dto, this.baseUrl(req));
+  update(@Param('id') id: string, @Body() dto: UpdateLibroDto, @Req() req: Request) {
+    return this.librosService.update(id, dto, this.baseUrl(req));
   }
 
   @Roles('admin')
   @Delete('libros/:id')
   remove(@Param('id') id: string) {
-    return this.catalogoService.remove(id);
+    return this.librosService.remove(id);
   }
 
   @Roles('admin')
@@ -92,91 +94,91 @@ export class CatalogoController {
     archivo: Express.Multer.File,
     @Req() req: Request,
   ) {
-    return this.catalogoService.actualizarPortada(id, archivo, this.baseUrl(req));
+    return this.librosService.actualizarPortada(id, archivo, this.baseUrl(req));
   }
 
   @Roles('admin')
   @Delete('libros/:id/portada')
   eliminarPortada(@Param('id') id: string, @Req() req: Request) {
-    return this.catalogoService.eliminarPortada(id, this.baseUrl(req));
+    return this.librosService.eliminarPortada(id, this.baseUrl(req));
   }
 
   @Public()
   @Get('autores')
   findAllAutores() {
-    return this.catalogoService.findAllAutores();
+    return this.autoresEditorialesService.findAllAutores();
   }
 
   @Roles('admin')
   @Post('autores')
   createAutor(@Body() dto: CreateAutorDto) {
-    return this.catalogoService.createAutor(dto);
+    return this.autoresEditorialesService.createAutor(dto);
   }
 
   @Roles('admin')
   @Patch('autores/:id')
   updateAutor(@Param('id') id: string, @Body() dto: UpdateAutorDto) {
-    return this.catalogoService.updateAutor(id, dto);
+    return this.autoresEditorialesService.updateAutor(id, dto);
   }
 
   @Roles('admin')
   @Delete('autores/:id')
   removeAutor(@Param('id') id: string) {
-    return this.catalogoService.removeAutor(id);
+    return this.autoresEditorialesService.removeAutor(id);
   }
 
   @Public()
   @Get('editoriales')
   findAllEditoriales() {
-    return this.catalogoService.findAllEditoriales();
+    return this.autoresEditorialesService.findAllEditoriales();
   }
 
   @Roles('admin')
   @Post('editoriales')
   createEditorial(@Body() dto: CreateEditorialDto) {
-    return this.catalogoService.createEditorial(dto);
+    return this.autoresEditorialesService.createEditorial(dto);
   }
 
   @Roles('admin')
   @Patch('editoriales/:id')
   updateEditorial(@Param('id') id: string, @Body() dto: UpdateEditorialDto) {
-    return this.catalogoService.updateEditorial(id, dto);
+    return this.autoresEditorialesService.updateEditorial(id, dto);
   }
 
   @Roles('admin')
   @Delete('editoriales/:id')
   removeEditorial(@Param('id') id: string) {
-    return this.catalogoService.removeEditorial(id);
+    return this.autoresEditorialesService.removeEditorial(id);
   }
 
   @Public()
   @Get('categorias')
   findAllCategorias() {
-    return this.catalogoService.findAllCategorias();
+    return this.categoriasService.findAllCategorias();
   }
 
   @Roles('admin')
   @Post('categorias')
   createCategoria(@Body() dto: CreateCategoriaDto) {
-    return this.catalogoService.createCategoria(dto);
+    return this.categoriasService.createCategoria(dto);
   }
 
   @Roles('admin')
   @Patch('categorias/:id')
   updateCategoria(@Param('id') id: string, @Body() dto: UpdateCategoriaDto) {
-    return this.catalogoService.updateCategoria(id, dto);
+    return this.categoriasService.updateCategoria(id, dto);
   }
 
   @Roles('admin')
   @Delete('categorias/:id')
   removeCategoria(@Param('id') id: string) {
-    return this.catalogoService.removeCategoria(id);
+    return this.categoriasService.removeCategoria(id);
   }
 
   @Roles('admin', 'cajero')
   @Get('stock-bajo')
   findStockBajo() {
-    return this.catalogoService.findStockBajo();
+    return this.librosService.findStockBajo();
   }
 
   private baseUrl(req: Request): string {

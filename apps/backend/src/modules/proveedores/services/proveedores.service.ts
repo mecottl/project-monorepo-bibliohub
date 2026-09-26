@@ -12,7 +12,6 @@ import { CreatePedidoCompraDto } from '../dto/create-pedido-compra.dto';
 import { RecibirPedidoCompraDto } from '../dto/recibir-pedido-compra.dto';
 import { QueryPedidoCompraDto } from '../dto/query-pedido-compra.dto';
 import {
-  PaginatedProveedores,
   PaginatedPedidosCompra,
   PedidoCompraSeguro,
 } from '../interfaces/proveedores.interface';

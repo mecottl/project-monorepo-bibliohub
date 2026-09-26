@@ -5,7 +5,9 @@ import { Autor } from './entities/autor.entity';
 import { Editorial } from './entities/editorial.entity';
 import { Categoria } from './entities/categoria.entity';
 import { CatalogoController } from './controllers/catalogo.controller';
-import { CatalogoService } from './services/catalogo.service';
+import { LibrosService } from './services/libros.service';
+import { AutoresEditorialesService } from './services/autores-editoriales.service';
+import { CategoriasService } from './services/categorias.service';
 import { STORAGE_SERVICE, StorageService } from '@infra/storage/storage.interface';
 import { LocalStorageService } from '@infra/storage/local-storage.service';
 
@@ -13,7 +15,9 @@ import { LocalStorageService } from '@infra/storage/local-storage.service';
   imports: [TypeOrmModule.forFeature([Libro, Autor, Editorial, Categoria])],
   controllers: [CatalogoController],
   providers: [
-    CatalogoService,
+    LibrosService,
+    AutoresEditorialesService,
+    CategoriasService,
     {
       provide: STORAGE_SERVICE,
       useFactory: (): StorageService => {
